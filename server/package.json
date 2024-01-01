@@ -1,0 +1,25 @@
+{
+    "name": "copet",
+    "version": "1.0.0",
+    "description": "Copet API Server",
+    "main": "app.js",
+    "scripts": {
+        "start": "cross-env NODE_ENV=local nodemon --exec ts-node --files ./src/app.ts"
+    },
+    "dependencies": {
+        "cross-env": "^7.0.3",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3",
+        "yarn": "^1.22.21"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/woomae/copet.git"
+    },
+    "author": "woomae",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/woomae/copet/issues"
+    },
+    "homepage": "https://github.com/woomae/copet#readme"
+}
