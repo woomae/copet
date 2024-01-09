@@ -37,8 +37,5 @@ lerna-debug.log*
 #env
 .env.*
 .env
-package-lock.json
 logs
 pm2-config.json
-yarn-error.log
-yarn-lock

@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { V1Module } from './api/v1/v1.module';
-import { CONFIG_VALIDATOR } from './config/config.validator';
-import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './apis/users/users.module';
+import { ArticlesModule } from './apis/articles/articles.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeORMConfig } from './configs/typeorm.config';
+import { AuthModule } from './apis/auth/auth.module';
 
 @Module({
-  imports: [V1Module, ConfigModule.forRoot(CONFIG_VALIDATOR)],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    AuthModule,
+    ArticlesModule,
+    UsersModule,
+    TypeOrmModule.forRoot(typeORMConfig),
+  ],
 })
 export class AppModule {}
