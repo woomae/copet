@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer role="contentinfo">
+    <footer role="contentinfo" className="z-10 m-0 w-vw">
       <div className="m-0 flex flex-col items-center bg-gray-100">
         <div className="mt-3 flex space-x-4">내용</div>
         <div className="mt-3 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">

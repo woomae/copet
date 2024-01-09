@@ -1,12 +1,22 @@
-import { ReactNode } from "react";
+import React, { ReactNode, forwardRef } from "react";
 
 interface Props {
   children: ReactNode;
 }
-export default function SectionContainer({ children }: Props) {
+const SectionContainer = (
+  { children }: Props,
+  ref: React.ForwardedRef<HTMLElement>,
+) => {
   return (
-    <section className="bg-black flex mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0 h-[100vh]">
+    <section
+      className="flex flex-col items-center text-center h-screen w-vw 
+      mx-0 mb-3 max-w-screen-3xl p-0 
+      border-solid border-2"
+      ref={ref}
+    >
       {children}
     </section>
   );
-}
+};
+
+export default forwardRef(SectionContainer);
