@@ -9,6 +9,14 @@ export class UsersService {
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
   ) {}
+  async findAll(): Promise<Users[]> {
+    const users = await this.usersRepository.find();
+    if (users) {
+      return users;
+    } else {
+      throw new Error('No users found');
+    }
+  }
   async findOne(options: any): Promise<Users> {
     const found = await this.usersRepository.findOne(options);
     return found;

@@ -27,6 +27,18 @@ class EnvironmentVariables {
 
   @IsString()
   DB_DATABASE: string;
+
+  @IsString()
+  GOOGLE_CLIENT_ID: string;
+
+  @IsString()
+  GOOGLE_SECRET_ID: string;
+
+  @IsString()
+  GOOGLE_REDIRECT_URL: string;
+
+  @IsString()
+  ROOT_URL: string;
 }
 
 export function validate(config: Record<string, unknown>) {

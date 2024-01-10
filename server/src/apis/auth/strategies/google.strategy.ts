@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
-
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     super({
-      clientID: '클라이언트 ID', // CLIENT_ID
-      clientSecret: '클라이언트 보안 비밀번호', // CLIENT_SECRET
-      callbackURL: '리디렉트 URI', // redirect_uri
+      clientID: configService.get('GOOGLE_CLIENT_ID'), // CLIENT_ID
+      clientSecret: configService.get('GOOGLE_SECRET_ID'), // CLIENT_SECRET
+      callbackURL: configService.get('GOOGLE_REDIRECT_URL'), // redirect_uri
       passReqToCallback: true,
       scope: ['email', 'profile'], // 가져올 정보들
     });

@@ -10,4 +10,10 @@ export class UsersRepository extends Repository<Users> {
   async findOne(options: any) {
     return await this.findOneBy(options);
   }
+  async createUser(user: Users) {
+    return await this.save(user);
+  }
+  async findAll() {
+    return await this.find();
+  }
 }
