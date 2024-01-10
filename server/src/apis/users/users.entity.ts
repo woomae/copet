@@ -1,5 +1,6 @@
-import { BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity() // 이 부분이 추가되어야 함
 export class Users extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
@@ -10,4 +11,3 @@ export class Users extends BaseEntity {
   @Column()
   name: string;
 }
-//entity 수정 필요
