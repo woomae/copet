@@ -30,7 +30,7 @@ export class AuthService {
           expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 만료기간 5일
           domain: rooturl,
         })
-        .redirect(rooturl);
+        .redirect(redirectUrl);
     } else {
       error('Redirect URL is not defined');
     }
