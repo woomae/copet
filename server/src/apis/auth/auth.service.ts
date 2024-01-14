@@ -18,8 +18,8 @@ export class AuthService {
       user = await this.usersService.createUser(GoogleUser);
     }
     const usercookie = JSON.stringify({
-      email: GoogleUser.email,
-      name: GoogleUser.name,
+      email: user.email,
+      name: user.name,
     });
     const redirectUrl = this.configservice.get('GOOGLE_REDIRECT_URL');
     const rooturl = this.configservice.get('ROOT_URL');
