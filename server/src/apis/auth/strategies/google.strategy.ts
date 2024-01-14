@@ -27,9 +27,9 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         name: name.givenName,
         accessToken,
       };
-      done(null, user);
+      return done(null, user);
     } catch (error) {
-      done(error);
+      return done(error);
     }
   }
 }
