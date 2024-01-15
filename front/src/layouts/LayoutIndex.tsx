@@ -16,25 +16,21 @@ import Footer from "@/components/Footer";
 
 const LayoutIndex = () => {
   const layoutRefs = useRef<HTMLElement[]>([]);
-  const { setIsScrolling, currentLayout, setCurrentLayout } =
-    useScroll(layoutRefs);
-
-  const onClickScrollHandle = (i: number) => {
-    setCurrentLayout(i);
-  };
+  const { currentLayout, setCurrentLayout } = useScroll(layoutRefs);
 
   useEffect(() => {
     layoutRefs.current[0]?.scrollIntoView({ behavior: "smooth", block: "end" });
-    setIsScrolling(false);
   }, []);
 
   useEffect(() => {
     layoutRefs.current[currentLayout]?.scrollIntoView({ behavior: "smooth" });
+    console.log(currentLayout);
   }, [currentLayout]);
+
   return (
     <div>
       <SectionContainer ref={(e: HTMLElement) => (layoutRefs.current[0] = e)}>
-        <MainLayout onClick={() => onClickScrollHandle(1)} />
+        <MainLayout onClick={() => setCurrentLayout(1)} />
       </SectionContainer>
       <SectionContainer ref={(e: HTMLElement) => (layoutRefs.current[1] = e)}>
         <IntroductionLayout />
@@ -56,10 +52,10 @@ const LayoutIndex = () => {
       </section>
       <div className="fixed inset-y-0 right-6 md:right-16 w-16 flex flex-col">
         <div className="flex flex-col m-auto">
-          {Array.from({ length: 7 }, (_, i) => (
+          {Array.from({ length: layoutRefs.current.length }, (_, i) => (
             <ScrollButton
               key={i}
-              onClick={() => onClickScrollHandle(i)}
+              onClick={() => setCurrentLayout(i)}
               isSelected={currentLayout === i}
             />
           ))}
