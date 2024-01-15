@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
+import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { error } from 'console';
 
@@ -9,7 +10,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly configservice: ConfigService,
   ) {}
-  async handleGoogleLogin(GoogleUser: any, res: any): Promise<void> {
+  async handleGoogleLogin(GoogleUser: any, res: Response): Promise<void> {
     const { email } = GoogleUser;
     let user = await this.usersService.findUser({
       where: { email: email },
@@ -26,13 +27,11 @@ export class AuthService {
     if (redirectUrl) {
       res
         .cookie('user', usercookie, {
-          sameSite: 'lax',
           path: '/',
           expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 만료기간 5일
           domain: rooturl,
         })
         .redirect(redirectUrl);
-      console.log('redirectdone!');
     } else {
       error('Redirect URL is not defined');
     }
