@@ -19,17 +19,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
     done: VerifyCallback,
   ): Promise<any> {
-<<<<<<< HEAD
-    console.log(profile);
-    const { name, emails } = profile;
-    const user = {
-      email: emails[0].value,
-      firstName: name.givenName,
-      accessToken,
-    };
-    console.log(user);
-    done(null, user);
-=======
     try {
       const { name, emails } = profile;
       const user = {
@@ -37,10 +26,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         name: name.givenName,
         accessToken,
       };
-      return done(null, user);
+      console.log(user);
+      done(null, user);
     } catch (error) {
-      return done(error);
+      done(error);
     }
->>>>>>> 0e0250a9aa42ba152654e6ce4639e602c7313d26
   }
 }

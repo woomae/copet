@@ -11,7 +11,7 @@ export class AuthService {
   ) {}
   async handleGoogleLogin(GoogleUser: any, res: any): Promise<void> {
     const { email } = GoogleUser;
-    let user = await this.usersService.findOne({
+    let user = await this.usersService.findUser({
       where: { email: email },
     });
     if (!user) {
@@ -23,7 +23,6 @@ export class AuthService {
     });
     const redirectUrl = this.configservice.get('REDIRECT_URL');
     const rooturl = this.configservice.get('ROOT_URL');
-
     if (redirectUrl) {
       res
         .cookie('user', usercookie, {

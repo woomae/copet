@@ -1,6 +1,6 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -12,11 +12,10 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthCallback(@Req() req: Request, @Res() res: Response) {
-    const user = req.body.user;
+  async googleAuthCallback(@Req() req: any, @Res() res: Response) {
+    const user = req.user;
     if (user) {
-      return this.authService.handleGoogleLogin(user, res);
-      //this.authService.googleLogin(req);
+      this.authService.handleGoogleLogin(user, res);
     }
   }
 }
