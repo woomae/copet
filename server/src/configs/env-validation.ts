@@ -39,6 +39,9 @@ class EnvironmentVariables {
 
   @IsString()
   ROOT_URL: string;
+
+  @IsString()
+  REDIRECT_URL: string;
 }
 
 export function validate(config: Record<string, unknown>) {

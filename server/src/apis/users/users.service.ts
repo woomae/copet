@@ -17,8 +17,8 @@ export class UsersService {
       throw new Error('No users found');
     }
   }
-  async findOne(options: any): Promise<Users> {
-    const found = await this.usersRepository.findOne(options);
+  async findUser(options: any): Promise<Users> {
+    const found = await this.usersRepository.findUser(options);
     return found;
   }
   async createUser(user: Users): Promise<Users> {
