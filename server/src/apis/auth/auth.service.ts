@@ -26,10 +26,14 @@ export class AuthService {
     if (redirectUrl) {
       res
         .cookie('user', usercookie, {
+          sameSite: 'lax',
+          path: '/',
+          httpOnly: true,
           expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 만료기간 5일
           domain: rooturl,
         })
         .redirect(redirectUrl);
+      console.log('redirectdone!');
     } else {
       error('Redirect URL is not defined');
     }
