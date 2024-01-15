@@ -15,7 +15,7 @@ export class AuthController {
   async googleAuthCallback(@Req() req: Request, @Res() res: Response) {
     const user = req.body.user;
     if (user) {
-      this.authService.handleGoogleLogin(user, res);
+      return this.authService.handleGoogleLogin(user, res);
       //this.authService.googleLogin(req);
     }
   }
