@@ -23,7 +23,7 @@ const DownLoadLayout = () => {
           </div>
           <section>QR코드</section>
         </div>
-        <div className="basis-1/2 w-full m-0 p-0 flex flex-col-reverse items-center bg-gray-200">
+        <div className="basis-1/2 w-full m-0 p-0 flex flex-col-reverse items-center">
           <Image src={PhoneImage} alt="" width={516} />
         </div>
       </div>
