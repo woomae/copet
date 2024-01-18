@@ -32,13 +32,13 @@ export const useScroll = (layoutRefs: MutableRefObject<HTMLElement[]>) => {
     if (isScrolling === true) {
       setTimeout(() => {
         setIsScrolling(false);
-      }, 1500);
+      }, 1000);
     }
     if (isScrolling === false) {
       setTimeout(() => {
         setIsScrolling(false);
         window.addEventListener("wheel", handleScroll);
-      }, 1500);
+      }, 1000);
     }
     return () => {
       window.removeEventListener("wheel", handleScroll);
