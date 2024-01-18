@@ -5,7 +5,7 @@ interface Props {
 }
 const MainContainer = ({ children }: Props) => {
   return (
-    <div className="flex flex-col h-[95%] w-[90%] m-auto bg-gray-150">
+    <div className="flex flex-col h-full w-[80%] m-0 p-0 items-center justify-center">
       {children}
     </div>
   );
