@@ -9,7 +9,7 @@ interface Props {
 const MainLayout = ({ onClick }: Props) => {
   return (
     <MainContainer>
-      <div className="m-auto mt-40 text-center">
+      <div className="mt-40 text-center">
         <h1 className="text-5xl font-bold m-auto items-center">COPET</h1>
         <h2 className="m-auto text-3xl">
           홍보용 문구
@@ -18,7 +18,7 @@ const MainLayout = ({ onClick }: Props) => {
         </h2>
       </div>
       <button
-        className="w-64 px-4 py-4 m-auto bg-white text-black rounded-2xl shadow-sm"
+        className="w-64 p-4 pb-4 m-auto  bg-white text-black rounded-2xl shadow-lg"
         onClick={onClick}
       >
         지금 시작하기
