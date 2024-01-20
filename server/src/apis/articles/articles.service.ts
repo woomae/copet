@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ArticleRepository } from './article.repository';
-import { Article } from './article.entity';
+import { ArticleRepository } from './articles.repository';
+import { Articles } from './articles.entity';
 
 @Injectable()
 export class ArticlesService {
@@ -9,7 +9,7 @@ export class ArticlesService {
     @InjectRepository(ArticleRepository)
     private articleRepository: ArticleRepository,
   ) {}
-  async getArticleById(id: number): Promise<Article> {
+  async getArticleById(id: number): Promise<Articles> {
     const found = await this.articleRepository.getArticleById(id);
     if (!found) {
       throw new NotFoundException(`Article with ID "${id}" not found`);
