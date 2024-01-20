@@ -16,6 +16,10 @@ export class AuthController {
     const user = req.user;
     if (user) {
       this.authService.handleGoogleLogin(user, res);
+    } else {
+      const errorMessage =
+        req.query.error_description || '구글 로그인에 실패했습니다.';
+      res.status(400).json({ error: errorMessage });
     }
   }
 }
