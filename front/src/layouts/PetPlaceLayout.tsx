@@ -9,7 +9,7 @@ const PetPlaceLayout = () => {
   return (
     <MainContainer>
       <div className="m-auto m-0 w-full flex flex-col md:flex-row md:mx-auto">
-        <div className="my-auto mx-0 w-full text-left">
+        <div className="my-5 md:my-auto mx-0 w-full text-left">
           <h1 className="text-4xl my-5">펫플레이스</h1>
           <h2 className="text-l md:text-xl">
             로렘 입숨(lorem ipsum; 줄여서 립숨, lipsum)은 출판이나 그래픽 디자인
@@ -18,7 +18,13 @@ const PetPlaceLayout = () => {
           </h2>
         </div>
         <div className="mr-16 md:w-full flex flex-row-reverse">
-          <Image src={petPlacePhone} alt="" width={367.49} height={769.72} />
+          <Image
+            src={petPlacePhone}
+            alt=""
+            priority={true}
+            width={367.49}
+            height={769.72}
+          />
         </div>
       </div>
     </MainContainer>

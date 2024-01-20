@@ -9,9 +9,15 @@ const MapLayout = () => {
   return (
     <MainContainer>
       <div className="flex flex-col md:flex-row w-full items-center justify-center">
-        <div className="basis-1/2 mb-10">
-          <div className="rotate-[330deg]">
-            <Image src={MapImage} alt="" width={367.49} height={769.72} />
+        <div className="basis-1/2 md:mb-10 ">
+          <div className="rotate-[330deg] ">
+            <Image
+              src={MapImage}
+              alt=""
+              priority={true}
+              width={367.49}
+              height={769.72}
+            />
           </div>
         </div>
         <div className="basis-1/2 m-auto items-center justify-center text-right">
