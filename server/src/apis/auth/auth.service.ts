@@ -23,15 +23,16 @@ export class AuthService {
       name: user.name,
     });
     const redirectUrl = this.configservice.get('REDIRECT_URL');
-    // const rooturl = this.configservice.get('ROOT_URL');
+    const rooturl = this.configservice.get('ROOT_URL');
     if (redirectUrl) {
       res
         .cookie('user', usercookie, {
           path: '/',
           expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 만료기간 5일
-          // domain: rooturl, 도메인 설정시 cookie 전송 안됨...
+          domain: rooturl,
         })
         .redirect(redirectUrl);
+      console.log('Set cookie:', usercookie);
     } else {
       error('Redirect URL is not defined');
     }
