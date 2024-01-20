@@ -19,6 +19,7 @@ export class AuthService {
       user = await this.usersService.createUser(GoogleUser);
     }
     const usercookie = JSON.stringify({
+      user_id: user._id,
       email: user.email,
       name: user.name,
     });
@@ -32,7 +33,6 @@ export class AuthService {
           domain: rooturl,
         })
         .redirect(redirectUrl);
-      console.log('Set cookie:', usercookie);
     } else {
       error('Redirect URL is not defined');
     }
