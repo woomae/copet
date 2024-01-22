@@ -38,7 +38,31 @@ export class AuthService {
     }
   }
 
-  googleLogin(req: Request): any {
-    if (!req) return 'No user from google';
+  async handleKakaoLogin(kakaoUser: any, res: Response): Promise<void> {
+    const { email } = kakaoUser;
+    let user = await this.usersService.findUser({
+      where: { email: email },
+    });
+    if (!user) {
+      user = await this.usersService.createUser(kakaoUser);
+    }
+    const usercookie = JSON.stringify({
+      user_id: user._id,
+      email: user.email,
+      name: user.name,
+    });
+    const redirectUrl = this.configservice.get('REDIRECT_URL');
+    const rooturl = this.configservice.get('ROOT_URL');
+    if (redirectUrl) {
+      res
+        .cookie('user', usercookie, {
+          path: '/',
+          expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 만료기간 5일
+          domain: rooturl,
+        })
+        .redirect(redirectUrl);
+    } else {
+      error('Redirect URL is not defined');
+    }
   }
 }

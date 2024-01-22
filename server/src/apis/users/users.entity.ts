@@ -24,7 +24,7 @@ export class Users extends BaseEntity {
   @Column({ nullable: true })
   region: string;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
   @Column({ unique: true, nullable: true })
