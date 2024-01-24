@@ -24,4 +24,8 @@ export class UsersService {
   async createUser(user: Users): Promise<Users> {
     return await this.usersRepository.save(user);
   }
+  async initUser(id: number, updatedUser: Partial<Users>): Promise<Users> {
+    await this.usersRepository.update(id, updatedUser);
+    return this.usersRepository.findUser(id); //수정필요
+  }
 }

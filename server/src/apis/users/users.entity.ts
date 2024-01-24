@@ -15,6 +15,12 @@ export class Users extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
+  @Column({ nullable: true })
+  name: string;
+
+  @Column({ unique: true, nullable: true })
+  nickname: string;
+
   @Column({ unique: true })
   email: string;
 
@@ -23,12 +29,6 @@ export class Users extends BaseEntity {
 
   @Column({ nullable: true })
   region: string;
-
-  @Column({ nullable: true })
-  name: string;
-
-  @Column({ unique: true, nullable: true })
-  nickname: string;
 
   @Column({ nullable: true })
   petimg: string;
