@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Users } from './users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersRepository } from './users.repository';
@@ -17,15 +17,26 @@ export class UsersService {
       throw new Error('No users found');
     }
   }
-  async findUser(options: any): Promise<Users> {
-    const found = await this.usersRepository.findUser(options);
+  async findUserById(id: number): Promise<Users> {
+    const found = await this.usersRepository.findUser({ where: { _id: id } });
+    return found;
+  }
+  async findUserByEmail(email: number): Promise<Users> {
+    const found = await this.usersRepository.findUser({
+      where: { email: email },
+    });
+
     return found;
   }
   async createUser(user: Users): Promise<Users> {
     return await this.usersRepository.save(user);
   }
   async initUser(id: number, updatedUser: Partial<Users>): Promise<Users> {
-    await this.usersRepository.update(id, updatedUser);
-    return this.usersRepository.findUser(id); //수정필요
+    //객체의 모든 값이 null or undefined or 빈문자열이 아닌지 확인
+    if (Object.values(updatedUser).some((value) => !value))
+      throw new BadRequestException('Invalid input');
+    //update
+    await this.usersRepository.initUser({ _id: id }, updatedUser);
+    return await this.usersRepository.findUser({ where: { _id: id } });
   }
 }

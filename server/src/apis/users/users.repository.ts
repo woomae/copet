@@ -8,7 +8,7 @@ export class UsersRepository extends Repository<Users> {
     super(Users, dataSource.createEntityManager());
   }
   async findUser(options: any): Promise<Users> {
-    return await this.findOne(options); //수정필요
+    return await this.findOne(options);
   }
   async createUser(user: Users) {
     return await this.save(user);
@@ -16,7 +16,7 @@ export class UsersRepository extends Repository<Users> {
   async findAll(): Promise<Users[]> {
     return await this.find();
   }
-  async initUser(): Promise<Users> {
-    return await this.update(); //수정필요
+  async initUser(options: any, updatedUser: Partial<Users>): Promise<void> {
+    await this.update(options, updatedUser);
   }
 }
