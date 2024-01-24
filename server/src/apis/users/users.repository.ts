@@ -16,4 +16,7 @@ export class UsersRepository extends Repository<Users> {
   async findAll(): Promise<Users[]> {
     return await this.find();
   }
+  async initUser(options: any, updatedUser: Partial<Users>): Promise<void> {
+    await this.update(options, updatedUser);
+  }
 }

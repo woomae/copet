@@ -12,9 +12,7 @@ export class AuthService {
   ) {}
   async handleGoogleLogin(GoogleUser: any, res: Response): Promise<void> {
     const { email } = GoogleUser;
-    let user = await this.usersService.findUser({
-      where: { email: email },
-    });
+    let user = await this.usersService.findUserByEmail(email);
     if (!user) {
       user = await this.usersService.createUser(GoogleUser);
     }
@@ -40,9 +38,7 @@ export class AuthService {
 
   async handleKakaoLogin(kakaoUser: any, res: Response): Promise<void> {
     const { email } = kakaoUser;
-    let user = await this.usersService.findUser({
-      where: { email: email },
-    });
+    let user = await this.usersService.findUserByEmail(email);
     if (!user) {
       user = await this.usersService.createUser(kakaoUser);
     }

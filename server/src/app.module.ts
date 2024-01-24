@@ -8,6 +8,8 @@ import { ConfigModule } from '@nestjs/config';
 import { validate } from './configs/env-validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './common/sttp-exception.filter';
 
 @Module({
   imports: [
@@ -24,6 +26,9 @@ import { AppService } from './app.service';
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_FILTER, useClass: HttpExceptionFilter },
+  ],
 })
 export class AppModule {}
