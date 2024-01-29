@@ -19,4 +19,7 @@ export class UsersRepository extends Repository<Users> {
   async initUser(options: any, updatedUser: Partial<Users>): Promise<void> {
     await this.update(options, updatedUser);
   }
+  async createFriendRequest(friendRequestData: Partial<Users>): Promise<void> {
+    await this.save(friendRequestData);
+  }
 }
