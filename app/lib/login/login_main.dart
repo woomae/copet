@@ -13,14 +13,11 @@ class mainlogin extends StatelessWidget {
         bottom: false,
         child: Column(
           children: [
-            const SizedBox(height: 30.0),
+            const SizedBox(height: 70.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(width: 130.0),
                 _Title(),
-                const SizedBox(width: 60.0),
-                _textbutton4(),
               ],
             ),
             const SizedBox(height: 30.0),
@@ -88,7 +85,7 @@ class _SubTitle1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '지금 코펫을\n이용해보세요!!!!!!',
+      '지금 코펫을\n이용해보세요!',
       style: TextStyle(
         fontSize: 30,
         color: Colors.black,
@@ -195,84 +192,12 @@ class _authfacebook extends StatelessWidget {
   }
 }
 
-class _emaillogin extends StatelessWidget {
-  const _emaillogin({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      style: OutlinedButton.styleFrom(
-        primary: Colors.black,
-        padding: EdgeInsets.only(left: 50, right: 50),
-      ),
-      child: Text(
-        '이메일로 로그인',
-      ),
-    );
-  }
-}
 
-class _textbutton1 extends StatelessWidget {
-  const _textbutton1({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {},
-        style: TextButton.styleFrom(
-          primary: Colors.black,
-        ),
-        child: Text(
-          '회원가입',
-        ));
-  }
-}
 
-class _textbutton2 extends StatelessWidget {
-  const _textbutton2({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {},
-        style: TextButton.styleFrom(
-          primary: Colors.black,
-        ),
-        child: Text(
-          '문의하기',
-        ));
-  }
-}
 
-class _textbutton3 extends StatelessWidget {
-  const _textbutton3({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {},
-        style: TextButton.styleFrom(
-          primary: Colors.black,
-        ),
-        child: Text(
-          '비회원 예약조회',
-        ));
-  }
-}
 
-class _textbutton4 extends StatelessWidget {
-  const _textbutton4({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {},
-        style: TextButton.styleFrom(
-          primary: Colors.grey,
-        ),
-        child: Text(
-          '둘러보기',
-        ));
-  }
-}
