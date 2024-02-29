@@ -5,8 +5,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToOne,
-  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Articles } from '../articles/articles.entity';
 
@@ -36,9 +35,8 @@ export class Users extends BaseEntity {
   @Column({ nullable: true })
   petkeyword: string;
 
-  @OneToOne(() => Articles, (article) => article.owner)
-  @JoinColumn({ name: 'owner_id' })
-  article: Articles;
+  @OneToMany(() => Articles, (article) => article.owner)
+  articles: Articles[];
 
   @CreateDateColumn({
     type: 'timestamptz',

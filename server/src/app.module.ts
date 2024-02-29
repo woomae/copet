@@ -9,7 +9,7 @@ import { validate } from './configs/env-validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from './common/sttp-exception.filter';
+import { HttpExceptionFilter } from './common/http-exception.filter';
 
 @Module({
   imports: [
