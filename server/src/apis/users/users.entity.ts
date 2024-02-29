@@ -42,8 +42,8 @@ export class Users extends BaseEntity {
   @OneToMany(() => Articles, (article) => article.owner_id)
   owner_id: Articles[];
 
-  @OneToMany(() => Friends, (friend) => friend.from_user_id)
-  from_user_id: Friends[];
+  @OneToMany(() => Friends, (friend) => friend.friend_user_id)
+  friend_user_id: Friends[];
 
   @CreateDateColumn({
     type: 'timestamptz',

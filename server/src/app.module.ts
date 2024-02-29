@@ -10,6 +10,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './common/sttp-exception.filter';
+import { FriendsModule } from './apis/friends/friends.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { HttpExceptionFilter } from './common/sttp-exception.filter';
     AuthModule,
     ArticlesModule,
     UsersModule,
+    FriendsModule,
   ],
   controllers: [AppController],
   providers: [
