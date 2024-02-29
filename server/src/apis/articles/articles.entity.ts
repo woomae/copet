@@ -15,7 +15,7 @@ export class Articles extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
-  @Column()
+  @Column({ generated: 'increment' })
   article_id: string;
 
   @Column()
@@ -27,21 +27,20 @@ export class Articles extends BaseEntity {
   @Column()
   body: string;
 
-  @Column()
+  @Column({ nullable: true })
   img_name: string;
 
-  @Column()
+  @Column({ default: 0 })
   comment_count: number;
 
-  @Column()
+  @Column({ default: 0 })
   scrap_count: number;
 
-  @Column()
+  @Column({ default: 0 })
   complain_count: number;
 
-  @ManyToOne(() => Users, (user) => user._id)
-  @JoinColumn({ name: 'owner_id' })
-  owner_id: Users;
+  @ManyToOne(() => Users, (user) => user.articles)
+  owner: Users;
 
   @CreateDateColumn({
     type: 'timestamptz',
