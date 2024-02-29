@@ -5,6 +5,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  JoinColumn,
   ManyToOne,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
@@ -16,9 +17,6 @@ export class Articles extends BaseEntity {
 
   @Column({ generated: 'increment' })
   article_id: string;
-
-  @Column()
-  owner_id: string;
 
   @Column()
   author: string;
