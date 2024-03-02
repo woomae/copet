@@ -22,7 +22,12 @@ export class ArticlesService {
   async getAllArticles(page: number, size: number): Promise<any> {
     return await this.articleRepository.getAllArticles(page, size);
   }
-  async createArticle(bodyData: CreateArticleDto): Promise<any> {
+  async createArticle(
+    bodyData: CreateArticleDto,
+    files: Express.Multer.File[],
+  ): Promise<any> {
+    const imagePaths = files.map((file) => file.path); // 업로드된 파일들의 경로를 배열로 가져옵니다.
+    const imgName = imagePaths.join(',');
     const userData = await this.usersService.findUserById(bodyData.owner_id);
     if (!userData) {
       throw new BadRequestException(
@@ -32,6 +37,7 @@ export class ArticlesService {
     const newBodyData: CreateArticleDto = {
       ...bodyData,
       author: userData?.nickname,
+      img_name: imgName,
     };
     return await this.articleRepository.createArticle(newBodyData);
   }

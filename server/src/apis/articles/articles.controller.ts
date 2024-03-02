@@ -1,7 +1,18 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 
 @Controller('articles')
 export class ArticlesController {
@@ -20,8 +31,23 @@ export class ArticlesController {
     return new StandardResponseDto(200, 'api.common.success', result);
   }
   @Post('create')
-  async createArticle(@Body() bodyData: CreateArticleDto): Promise<any> {
-    const result = await this.articlesService.createArticle(bodyData);
+  @UseInterceptors(
+    //사진저장 미들웨어
+    FilesInterceptor('img_name', 3, {
+      storage: diskStorage({
+        destination: './uploads', // 파일 저장 경로를 지정합니다.
+        filename: (req, file, callback) => {
+          const filename = `${Date.now()}-${file.originalname}`;
+          callback(null, filename);
+        },
+      }),
+    }),
+  )
+  async createArticle(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body() bodyData: CreateArticleDto,
+  ): Promise<any> {
+    const result = await this.articlesService.createArticle(bodyData, files);
     return new StandardResponseDto(201, 'api.common.created', result);
   }
 }
