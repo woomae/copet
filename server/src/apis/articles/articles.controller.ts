@@ -1,24 +1,27 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
-import { Articles } from './articles.entity';
+import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
 
 @Controller('articles')
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
-  @Get('/:id')
-  getArticleById(@Param('id') id: number): Promise<Articles> {
-    return this.articlesService.getArticleById(id);
+  @Get(':id')
+  async getArticleById(@Param('id') id: number): Promise<StandardResponseDto> {
+    const result = await this.articlesService.getArticleById(id);
+    return new StandardResponseDto(200, 'api.common.success', result);
   }
   @Get('')
-  getAllArticles(
-    @Param('page') page: number = 1,
-    @Param('size') size: number = 10,
-  ): Promise<Articles[]> {
-    return this.articlesService.getAllArticles(page, size);
+  async getAllArticles(
+    @Query('page') page: number = 1,
+    @Query('size') size: number = 10,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.getAllArticles(page, size);
+    return new StandardResponseDto(200, 'api.common.success', result);
   }
   @Post('create')
   async createArticle(@Body() bodyData: CreateArticleDto): Promise<any> {
-    return await this.articlesService.createArticle(bodyData);
+    const result = await this.articlesService.createArticle(bodyData);
+    return new StandardResponseDto(201, 'api.common.created', result);
   }
 }

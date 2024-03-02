@@ -28,7 +28,6 @@ export class FriendsRepository extends Repository<Friends> {
         friendUserId: friendRequestData.friend_user_id,
       })
       .getOne();
-    console.log(result);
     if (result) {
       return true;
     } else {

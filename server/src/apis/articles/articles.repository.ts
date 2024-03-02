@@ -22,6 +22,7 @@ export class ArticleRepository extends Repository<Articles> {
     };
     return commentsData;
   }
+
   async createArticle(bodyData: any) {
     return await this.save(bodyData);
   }
