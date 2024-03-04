@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet/login/login_type.dart';
+import 'package:pet/main/main_home.dart';
 
 class loginend extends StatelessWidget {
   const loginend({super.key});
@@ -11,6 +12,7 @@ class loginend extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         //titleSpacing: 0,
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
@@ -79,7 +81,7 @@ class Nextbutton extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const logintype()),
+          MaterialPageRoute(builder: (context) => const mainhome()),
         );
       },
       style: ElevatedButton.styleFrom(

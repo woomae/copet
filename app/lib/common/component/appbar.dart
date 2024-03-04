@@ -10,6 +10,7 @@ class Appbar extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         //titleSpacing: 0,
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
