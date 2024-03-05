@@ -26,6 +26,9 @@ export class Articles extends BaseEntity {
   @Column()
   body: string;
 
+  @Column()
+  category: string;
+
   @Column({ nullable: true })
   img_name: string;
 
