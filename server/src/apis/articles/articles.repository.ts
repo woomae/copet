@@ -23,7 +23,10 @@ export class ArticleRepository extends Repository<Articles> {
     return commentsData;
   }
 
-  async createArticle(bodyData: any) {
+  async createArticle(bodyData: any): Promise<void> {
     return await this.save(bodyData);
+  }
+  async updateArticle(id: number, bodyData: any): Promise<void> {
+    await this.update({ _id: id }, bodyData);
   }
 }
