@@ -31,8 +31,8 @@ export class ArticlesController {
   }
   @Post('create')
   @UseInterceptors(
-    FilesInterceptor('img_name', 3, {
-      limits: { fileSize: 5 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 5MB),
+    FilesInterceptor('img_name', 5, {
+      limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
     }),
   )
   async createArticle(

@@ -6,14 +6,27 @@ import { CreateArticleDto } from 'src/dto/create-article.dto';
 import { UsersService } from '../users/users.service';
 import { categoryChecker } from 'src/lib/category-checker';
 import * as fs from 'fs/promises';
-import { ImageSaver } from 'src/lib/image-saver';
+import * as AWS from 'aws-sdk';
+import { ConfigService } from '@nestjs/config';
+import * as uuid from 'uuid';
+const configService = new ConfigService();
 @Injectable()
 export class ArticlesService {
+  private readonly awsS3: AWS.S3;
+  public readonly S3_BUCKET_NAME: string;
+
   constructor(
     @InjectRepository(ArticleRepository)
     private articleRepository: ArticleRepository,
     private usersService: UsersService,
-  ) {}
+  ) {
+    this.awsS3 = new AWS.S3({
+      accessKeyId: configService.get('AWS_ACCESS_KEY_ID'),
+      secretAccessKey: configService.get('AWS_SECRET_ACCESS_KEY'),
+      region: 'ap-northeast-2',
+    });
+    this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME');
+  }
   async getArticleById(id: number): Promise<Articles> {
     const found = await this.articleRepository.getArticleById(id);
     if (!found) {
@@ -28,7 +41,6 @@ export class ArticlesService {
     bodyData: CreateArticleDto,
     files: Express.Multer.File[],
   ): Promise<any> {
-    const imagesaver = new ImageSaver(); // ImageSaver 클래스를 인스턴스화합니다.
     const userData = await this.usersService.findUserById(bodyData.owner_id);
     if (!userData) {
       throw new BadRequestException(
@@ -47,13 +59,39 @@ export class ArticlesService {
       };
       return await this.articleRepository.createArticle(newBodyData);
     } else {
-      await imagesaver.saveFilesToDisk(files); // 파일 저장
-      const imgName = imagesaver.getImagePaths(files); // 파일 경로 가져오기
+      const img_arr = [];
+      for (const file of files) {
+        try {
+          //사진데이터 존재시 처리
+          const key = `${Date.now()}_${uuid.v4()}`.replace(/ /g, '');
+
+          await this.awsS3
+            .putObject({
+              Bucket: this.S3_BUCKET_NAME,
+              Key: key,
+              Body: file.buffer,
+              ACL: 'public-read',
+              ContentType: file.mimetype,
+            })
+            .promise();
+
+          img_arr.push(
+            `https://${configService.get(
+              'AWS_S3_BUCKET_NAME',
+            )}.s3.amazonaws.com/${key}`,
+          );
+        } catch (error) {
+          throw new BadRequestException(`File upload failed : ${error}`);
+        }
+      }
+      const img_paths = img_arr.map((img) => img);
+      const img_path = img_paths.join(',');
       const newBodyData: CreateArticleDto = {
         ...bodyData,
         author: userData?.nickname,
-        img_name: imgName,
+        img_name: img_path,
       };
+
       return await this.articleRepository.createArticle(newBodyData);
     }
   }
