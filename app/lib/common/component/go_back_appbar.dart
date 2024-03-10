@@ -6,17 +6,24 @@ PreferredSizeWidget goBackAppBar(){
     //titleSpacing: 0,
     backgroundColor: Colors.white,
     elevation: 0,
-    leading : IconButton( //onpressd가 null일때 자동으로 회색으로 변경됨
-      color: Colors.black,
-      icon: GO_BACK_ICON,
-      iconSize: 20,
-      onPressed: (){
-
-      },
-    ),
+    leading : Back(),
     shape: const Border(
         bottom: BorderSide(color: Colors.grey ,width: 0.5)
     ),
     centerTitle: false,
   );
+}
+
+class Back extends StatelessWidget {
+  const Back({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.pop(context);
+      },
+      child: GO_BACK_ICON,
+    );
+  }
 }

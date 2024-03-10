@@ -8,6 +8,7 @@ import 'package:pet/login/login_end.dart';
 import 'package:pet/common/component/appbar.dart';
 import 'package:pet/pages/community/community_main.dart';
 import 'package:pet/pages/community/posting.dart';
+import 'package:pet/pages/profile/profile_main.dart';
 import 'package:pet/pages/profile/setting/setting_home.dart';
 
 void main() {
@@ -26,9 +27,14 @@ class _App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: const TextTheme(
-          bodySmall : TextStyle(fontSize: 12.0),
-          bodyMedium : TextStyle(fontSize: 15.0),
-          bodyLarge: TextStyle(fontSize: 20.0)
+          bodySmall : TextStyle(fontSize: 8.0),
+          bodyMedium : TextStyle(fontSize: 12.0),
+          bodyLarge: TextStyle(fontSize: 15.0)
+        ),
+        iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith((states) => Colors.transparent)
+          )
         ),
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
@@ -36,7 +42,7 @@ class _App extends StatelessWidget {
           )
         )
       ),
-      home: Community(),
+      home: ProfileMain(),
     );
   }
 }
