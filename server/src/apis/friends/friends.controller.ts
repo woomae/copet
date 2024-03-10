@@ -13,12 +13,15 @@ export class FriendsController {
   ): Promise<StandardResponseDto> {
     const result =
       await this.friendsService.sendFriendRequest(friendRequestData);
+    if (!result) {
+      return new StandardResponseDto(200, 'api.common.ok', result);
+    }
     return new StandardResponseDto(201, 'api.common.created', result);
   }
 
   @Get(':id')
   async getFriends(@Param('id') id: number): Promise<StandardResponseDto> {
     const result = await this.friendsService.getFriends(id);
-    return new StandardResponseDto(200, 'api.common.success', result);
+    return new StandardResponseDto(200, 'api.common.ok', result);
   }
 }

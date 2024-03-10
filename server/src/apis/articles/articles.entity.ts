@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 
@@ -41,8 +42,9 @@ export class Articles extends BaseEntity {
   @Column({ default: 0 })
   complain_count: number;
 
-  @ManyToOne(() => Users, (user) => user.articles)
-  owner_id: Users;
+  @ManyToOne(() => Users, (user) => user._id)
+  @JoinColumn({ name: 'owner_id' })
+  owner_id: number;
 
   @CreateDateColumn({
     type: 'timestamptz',

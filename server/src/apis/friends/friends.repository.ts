@@ -34,4 +34,16 @@ export class FriendsRepository extends Repository<Friends> {
       return false;
     }
   }
+  async deleteFriendRequest(friendRequestData: Partial<Friends>): Promise<any> {
+    const result = await this.createQueryBuilder('friends')
+      .leftJoinAndSelect('friends.friend_user_id', 'user')
+      .where('friends.from_user_id = :fromUserId', {
+        fromUserId: friendRequestData.from_user_id,
+      })
+      .andWhere('user._id = :friendUserId', {
+        friendUserId: friendRequestData.friend_user_id,
+      })
+      .getOne();
+    return await this.delete({ _id: result._id });
+  }
 }

@@ -14,8 +14,10 @@ export class FriendsService {
   ): Promise<Friends> {
     if (!friendRequestData.friend_user_id || !friendRequestData.from_user_id)
       throw new BadRequestException('Invalid input friendsdata');
-    if (await this.friendsRepository.friendChecker(friendRequestData))
-      throw new BadRequestException('data already exists');
+    if (await this.friendsRepository.friendChecker(friendRequestData)) {
+      await this.friendsRepository.deleteFriendRequest(friendRequestData);
+      return null;
+    }
     //save
     return await this.friendsRepository.createFriendRequest(friendRequestData);
   }

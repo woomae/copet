@@ -21,9 +21,9 @@ export class ArticlesService {
     this.awsS3 = new AWS.S3({
       accessKeyId: configService.get('AWS_ACCESS_KEY_ID'),
       secretAccessKey: configService.get('AWS_SECRET_ACCESS_KEY'),
-      region: 'ap-northeast-2',
+      region: configService.get('AWS_S3_REGION'),
     });
-    this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME');
+    this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME') + '/articles';
   }
   async getArticleById(id: number): Promise<Articles> {
     const found = await this.articleRepository.getArticleById(id);
@@ -32,23 +32,32 @@ export class ArticlesService {
     }
     return found;
   }
-  async getAllArticles(page: number, size: number): Promise<any> {
+  async getAllArticles(
+    page: number,
+    size: number,
+    category: string,
+  ): Promise<any> {
+    //카테고리 체크
+    if (category) {
+      return await this.articleRepository.getAllArticlesByCategory(
+        page,
+        size,
+        category,
+      );
+    }
     return await this.articleRepository.getAllArticles(page, size);
   }
   async createArticle(
     bodyData: CreateArticleDto,
     files: Express.Multer.File[],
   ): Promise<any> {
+    //게시글을 작성한 유저 조회 후 없을 시 에러처리
     const userData = await this.usersService.findUserById(bodyData.owner_id);
     if (!userData) {
       throw new BadRequestException(
         `User with ID "${bodyData.owner_id}" not found`,
       );
     }
-    const catList = ['일상', '도움', 'Q&A', '정보&후기'];
-    if (!catList.includes(bodyData.category)) {
-      throw new BadRequestException('category not found');
-    } // 카테고리 체크
     categoryChecker(bodyData.category); // 카테고리 체크
     if (!files) {
       //사진데이터 미존재시 처리
@@ -77,7 +86,9 @@ export class ArticlesService {
           img_arr.push(
             `https://${configService.get(
               'AWS_S3_BUCKET_NAME',
-            )}.s3.amazonaws.com/${key}`,
+            )}.s3.${configService.get(
+              'AWS_S3_REGION',
+            )}.amazonaws.com/articles/${key}`,
           );
         } catch (error) {
           throw new BadRequestException(`File upload failed : ${error}`);
@@ -93,5 +104,121 @@ export class ArticlesService {
 
       return await this.articleRepository.createArticle(newBodyData);
     }
+  }
+  async updateArticle(
+    article_id: number,
+    bodyData: CreateArticleDto,
+    files: Express.Multer.File[],
+  ): Promise<void> {
+    //기존 게시글 조회 후 없을 시 에러처리
+    const found = await this.articleRepository.getArticleById(article_id);
+    if (!found) {
+      throw new BadRequestException(
+        `Article with ID "${article_id}" not found`,
+      );
+    }
+    //게시글을 작성한 유저 조회 후 없을 시 에러처리
+    const userData = await this.usersService.findUserById(bodyData.owner_id);
+    if (!userData) {
+      throw new BadRequestException(
+        `User with ID "${bodyData.owner_id}" not found`,
+      );
+    }
+    //기존게시글 오너가 바디데이터의 오너가 아닐 시 에러처리
+    if (
+      !(await this.articleRepository.ownerChecker(
+        article_id,
+        bodyData.owner_id,
+      ))
+    ) {
+      throw new BadRequestException(`Article is not owned by user `);
+    }
+    categoryChecker(bodyData.category); // 카테고리 체크
+    //기존 사진들 삭제
+    if (found.img_name) {
+      const img_arr = found.img_name.split(',');
+      for (const img of img_arr) {
+        const subindex = img.indexOf('.com/') + 5;
+        await this.awsS3
+          .deleteObject({
+            Bucket: configService.get('AWS_S3_BUCKET_NAME'),
+            Key: img.substring(subindex), //키 값은 버킷부터의 경로로 작성
+          })
+          .promise();
+      }
+    }
+    if (!files) {
+      //사진데이터 미존재시 처리
+      const newBodyData: CreateArticleDto = {
+        ...bodyData,
+        author: userData?.nickname,
+      };
+      return await this.articleRepository.updateArticle(
+        article_id,
+        newBodyData,
+      );
+    } else {
+      const img_arr = [];
+      for (const file of files) {
+        try {
+          const key = `${Date.now()}`;
+
+          await this.awsS3
+            .putObject({
+              Bucket: this.S3_BUCKET_NAME,
+              Key: key,
+              Body: file.buffer,
+              ACL: 'public-read',
+              ContentType: file.mimetype,
+            })
+            .promise();
+
+          img_arr.push(
+            `https://${configService.get(
+              'AWS_S3_BUCKET_NAME',
+            )}.s3.${configService.get(
+              'AWS_S3_REGION',
+            )}.amazonaws.com/articles/${key}`,
+          );
+        } catch (error) {
+          throw new BadRequestException(`File upload failed : ${error}`);
+        }
+      }
+      const img_paths = img_arr.map((img) => img);
+      const img_path = img_paths.join(',');
+      const newBodyData: CreateArticleDto = {
+        ...bodyData,
+        author: userData?.nickname,
+        img_name: img_path,
+      };
+
+      return await this.articleRepository.updateArticle(
+        article_id,
+        newBodyData,
+      );
+    }
+  }
+  async deleteArticle(article_id: number): Promise<void> {
+    //기존 게시글 조회 후 없을 시 에러처리
+    const found = await this.articleRepository.getArticleById(article_id);
+    if (!found) {
+      throw new BadRequestException(
+        `Article with ID "${article_id}" not found`,
+      );
+    }
+    //기존 사진들 삭제
+    if (found.img_name) {
+      const img_arr = found.img_name.split(',');
+      for (const img of img_arr) {
+        const subindex = img.indexOf('.com/') + 5;
+        await this.awsS3
+          .deleteObject({
+            Bucket: configService.get('AWS_S3_BUCKET_NAME'),
+            Key: img.substring(subindex), //키 값은 버킷부터의 경로로 작성
+          })
+          .promise();
+      }
+    }
+    await this.articleRepository.delete({ _id: article_id });
   }
 }

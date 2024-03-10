@@ -10,6 +10,19 @@ export class ArticleRepository extends Repository<Articles> {
   async getArticleById(id: number) {
     return await this.findOneBy({ _id: id });
   }
+  async getAllArticlesByCategory(page: number, size: number, category: string) {
+    const [comments, total] = await this.findAndCount({
+      where: { category: category },
+      take: size,
+      skip: (page - 1) * size,
+    });
+
+    const commentsData = {
+      total,
+      comments,
+    };
+    return commentsData;
+  }
   async getAllArticles(page: number, size: number) {
     const [comments, total] = await this.findAndCount({
       take: size,
@@ -28,5 +41,20 @@ export class ArticleRepository extends Repository<Articles> {
   }
   async updateArticle(id: number, bodyData: any): Promise<void> {
     await this.update({ _id: id }, bodyData);
+  }
+  async ownerChecker(article_id: number, owner_id: number): Promise<boolean> {
+    const result = await this.createQueryBuilder('articles')
+      .leftJoinAndSelect('articles.owner_id', 'user')
+      .where('articles._id = :article_id', { article_id: article_id })
+      .andWhere('user._id = :owner_id', { owner_id: owner_id })
+      .getOne();
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  async deleteArticle(id: number): Promise<void> {
+    await this.delete({ _id: id });
   }
 }

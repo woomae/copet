@@ -57,6 +57,9 @@ class EnvironmentVariables {
 
   @IsString()
   AWS_S3_BUCKET_NAME: string;
+
+  @IsString()
+  AWS_S3_REGION: string;
 }
 
 export function validate(config: Record<string, unknown>) {

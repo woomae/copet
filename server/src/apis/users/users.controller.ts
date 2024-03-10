@@ -11,7 +11,6 @@ import { Users } from './users.entity';
 import { UsersService } from './users.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
 
 @Controller('users')
 export class UsersController {
@@ -24,13 +23,7 @@ export class UsersController {
   @UseInterceptors(
     //사진저장 미들웨어
     FileInterceptor('petimg', {
-      storage: diskStorage({
-        destination: './uploads', // 파일 저장 경로를 지정합니다.
-        filename: (req, file, callback) => {
-          const filename = `${Date.now()}-${file.originalname}`;
-          callback(null, filename);
-        },
-      }),
+      limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB)
     }),
   )
   async initUser(
@@ -41,7 +34,7 @@ export class UsersController {
     const result = await this.usersService.initUser(id, updatedUser, file);
     if (!result)
       return new StandardResponseDto(400, 'bad request', 'can not init user');
-    return new StandardResponseDto(201, 'api.common.created', result);
+    return new StandardResponseDto(200, 'api.common.ok', result);
   }
   @Get(':id')
   async findUser(@Param('id') id: number): Promise<StandardResponseDto> {

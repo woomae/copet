@@ -2,13 +2,24 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Users } from './users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersRepository } from './users.repository';
-
+import { ConfigService } from '@nestjs/config';
+import * as AWS from 'aws-sdk';
+const configService = new ConfigService();
 @Injectable()
 export class UsersService {
+  private readonly awsS3: AWS.S3;
+  public readonly S3_BUCKET_NAME: string;
   constructor(
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
-  ) {}
+  ) {
+    this.awsS3 = new AWS.S3({
+      accessKeyId: configService.get('AWS_ACCESS_KEY_ID'),
+      secretAccessKey: configService.get('AWS_SECRET_ACCESS_KEY'),
+      region: configService.get('AWS_S3_REGION'),
+    });
+    this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME') + '/petimgs';
+  }
   async findAll(): Promise<Users[]> {
     const users = await this.usersRepository.find();
     if (users) {
@@ -37,7 +48,6 @@ export class UsersService {
     file: Express.Multer.File,
   ): Promise<Users> {
     // 파일 경로를 추출하여 업데이트할 유저 정보에 추가
-    const filePath = file.path; // 파일 경로 추출
     //객체의 모든 값이 null or undefined or 빈문자열이 아닌지 확인
     if (Object.values(updatedUser).some((value) => !value))
       throw new BadRequestException('Invalid input userdata');
@@ -45,12 +55,47 @@ export class UsersService {
     const existingUser = await this.usersRepository.findUser({
       where: { nickname: updatedUser.nickname },
     });
-    if (existingUser) {
+    // 검색된 사용자가 있고, 그 사용자의 id가 현재 사용자의 id와 다른 경우
+    if (existingUser && existingUser._id != id) {
       throw new BadRequestException('Nickname already exists');
     }
-    const newUpdateUser = { ...updatedUser, petimg: filePath };
-    //update
-    await this.usersRepository.initUser({ _id: id }, newUpdateUser);
+    //기존 사진파일 존재시 삭제
+    const existingImg = await this.usersRepository.findUser({
+      where: { _id: id },
+    });
+    if (existingImg.petimg) {
+      //s3에서 해당 사진 삭제
+      console.log(existingImg.petimg);
+      const subindex = existingImg.petimg.indexOf('.com/') + 5;
+      console.log(existingImg.petimg.substring(subindex));
+      await this.awsS3
+        .deleteObject({
+          Bucket: configService.get('AWS_S3_BUCKET_NAME'),
+          Key: existingImg.petimg.substring(subindex),
+        })
+        .promise();
+    }
+    if (!file) {
+      const newUpdateUser = { ...updatedUser };
+      await this.usersRepository.initUser({ _id: id }, newUpdateUser);
+    } else {
+      const key = `${Date.now()}`;
+
+      await this.awsS3
+        .putObject({
+          Bucket: this.S3_BUCKET_NAME,
+          Key: key,
+          Body: file.buffer,
+          ACL: 'public-read',
+          ContentType: file.mimetype,
+        })
+        .promise();
+      const filePath = `https://${configService.get(
+        'AWS_S3_BUCKET_NAME',
+      )}.s3.${configService.get('AWS_S3_REGION')}.amazonaws.com/petimgs/${key}`;
+      const newUpdateUser = { ...updatedUser, petimg: filePath };
+      await this.usersRepository.initUser({ _id: id }, newUpdateUser);
+    }
     return await this.usersRepository.findUser({ where: { _id: id } });
   }
 }

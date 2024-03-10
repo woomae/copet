@@ -54,5 +54,4 @@ export class Users extends BaseEntity {
     type: 'timestamptz',
   })
   updated_at: Date;
-  articles: any;
 }
