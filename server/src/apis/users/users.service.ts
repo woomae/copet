@@ -41,6 +41,13 @@ export class UsersService {
     //객체의 모든 값이 null or undefined or 빈문자열이 아닌지 확인
     if (Object.values(updatedUser).some((value) => !value))
       throw new BadRequestException('Invalid input userdata');
+    // 닉네임이 기존 사용자의 닉네임과 겹치는지 확인
+    const existingUser = await this.usersRepository.findUser({
+      where: { nickname: updatedUser.nickname },
+    });
+    if (existingUser) {
+      throw new BadRequestException('Nickname already exists');
+    }
     const newUpdateUser = { ...updatedUser, petimg: filePath };
     //update
     await this.usersRepository.initUser({ _id: id }, newUpdateUser);

@@ -15,7 +15,7 @@ export class Articles extends BaseEntity {
   _id: number;
 
   @Column({ generated: 'increment' })
-  article_id: string;
+  article_id: number;
 
   @Column()
   author: string;
