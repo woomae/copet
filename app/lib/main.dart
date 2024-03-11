@@ -11,6 +11,8 @@ import 'package:pet/common/component/tapbar.dart';
 import 'package:pet/main/logout.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:pet/common/component/splashscreen.dart';
+import 'package:pet/main/main_screen.dart';
+import 'package:pet/main/mainscrollview.dart';
 
 void main() {
   runApp(
@@ -25,7 +27,7 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: mainlogin(),
+      home: mainscreen(),
     );
   }
 }

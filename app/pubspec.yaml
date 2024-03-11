@@ -71,6 +71,7 @@ flutter:
     - asset/img/logo.png
     - asset/img/copet_logo.png
     - asset/img/checkimg.png
+    - asset/img/img_place.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -102,6 +103,11 @@ flutter:
         - asset: asset/font/Segoe UI Bold.ttf
         - asset: asset/font/Segoe UI Bold Italic.ttf
         - asset: asset/font/Segoe UI Italic.ttf
+
+    - family: SnowCrap
+      fonts:
+        - asset: asset/font/Yeongdeok Snow Crab.ttf
+          weight: 100
   # fonts:
   #   - family: Schyler
   #     fonts:
