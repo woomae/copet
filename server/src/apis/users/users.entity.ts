@@ -5,10 +5,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToOne,
-  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Articles } from '../articles/articles.entity';
+import { Friends } from '../friends/friends.entity';
 
 @Entity()
 export class Users extends BaseEntity {
@@ -36,9 +36,14 @@ export class Users extends BaseEntity {
   @Column({ nullable: true })
   petkeyword: string;
 
-  @OneToOne(() => Articles, (article) => article.owner)
-  @JoinColumn({ name: 'owner_id' })
-  article: Articles;
+  @Column({ nullable: true })
+  intro: string;
+
+  @OneToMany(() => Articles, (article) => article.owner_id)
+  owner_id: Articles[];
+
+  @OneToMany(() => Friends, (friend) => friend.friend_user_id)
+  friend_user_id: Friends[];
 
   @CreateDateColumn({
     type: 'timestamptz',

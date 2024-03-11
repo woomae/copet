@@ -34,7 +34,7 @@ export class UsersService {
   async initUser(id: number, updatedUser: Partial<Users>): Promise<Users> {
     //객체의 모든 값이 null or undefined or 빈문자열이 아닌지 확인
     if (Object.values(updatedUser).some((value) => !value))
-      throw new BadRequestException('Invalid input');
+      throw new BadRequestException('Invalid input userdata');
     //update
     await this.usersRepository.initUser({ _id: id }, updatedUser);
     return await this.usersRepository.findUser({ where: { _id: id } });

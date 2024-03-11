@@ -30,6 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: ^6.2.4
+  dio: ^5.4.0
+  http: ^1.1.0
+  webview_cookie_manager: ^2.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -68,6 +72,7 @@ flutter:
     - asset/img/logo.png
     - asset/img/copet_logo.png
     - asset/img/checkimg.png
+    - asset/img/img_place.png
 
 
   # To add assets to your application, add an assets section, like this:
@@ -100,6 +105,11 @@ flutter:
         - asset: asset/font/Segoe UI Bold.ttf
         - asset: asset/font/Segoe UI Bold Italic.ttf
         - asset: asset/font/Segoe UI Italic.ttf
+
+    - family: SnowCrap
+      fonts:
+        - asset: asset/font/Yeongdeok Snow Crab.ttf
+          weight: 100
   # fonts:
   #   - family: Schyler
   #     fonts:
