@@ -22,7 +22,7 @@ export class FriendsService {
     return await this.friendsRepository.createFriendRequest(friendRequestData);
   }
   async getFollowList(bodyData: Partial<Friends>): Promise<any> {
-    const userChecker = await this.friendsRepository.vaildUser(
+    const userChecker = await this.friendsRepository.validUser(
       bodyData.from_user_id,
     );
     if (!userChecker || userChecker.length === 0) {
@@ -38,7 +38,7 @@ export class FriendsService {
     return newfriendList;
   }
   async getFollowerList(bodyData: Partial<Friends>): Promise<any> {
-    const userChecker = await this.friendsRepository.vaildUser(
+    const userChecker = await this.friendsRepository.validUser(
       bodyData.from_user_id,
     );
     if (!userChecker || userChecker.length === 0) {
