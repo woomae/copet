@@ -7,8 +7,10 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
+import { Comments } from '../comments/comments.entity';
 
 @Entity()
 export class Articles extends BaseEntity {
@@ -45,6 +47,11 @@ export class Articles extends BaseEntity {
   @ManyToOne(() => Users, (user) => user._id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'owner_id' })
   owner_id: number;
+
+  @OneToMany(() => Comments, (comment) => comment.connected_article_id, {
+    onDelete: 'CASCADE',
+  })
+  connected_article_id: Comments[];
 
   @CreateDateColumn({
     type: 'timestamptz',
