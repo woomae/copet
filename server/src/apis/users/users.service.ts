@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UsersRepository } from './users.repository';
 import { ConfigService } from '@nestjs/config';
 import * as AWS from 'aws-sdk';
+import { Friends } from '../friends/friends.entity';
 const configService = new ConfigService();
 @Injectable()
 export class UsersService {
@@ -20,14 +21,6 @@ export class UsersService {
     });
     this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME') + '/petimgs';
   }
-  async findAll(): Promise<Users[]> {
-    const users = await this.usersRepository.find();
-    if (users) {
-      return users;
-    } else {
-      throw new Error('No users found');
-    }
-  }
   async findUserById(id: number): Promise<Users> {
     const found = await this.usersRepository.findUser({ where: { _id: id } });
     return found;
@@ -36,8 +29,17 @@ export class UsersService {
     const found = await this.usersRepository.findUser({
       where: { email: email },
     });
-
     return found;
+  }
+  async getFollowerInfo(followerList: Friends[]): Promise<Users[]> {
+    const result = [];
+    for (const follower of followerList) {
+      const user = await this.usersRepository.findUser({
+        where: { _id: follower.from_user_id },
+      });
+      result.push(user);
+    }
+    return result;
   }
   async createUser(user: Users): Promise<Users> {
     return await this.usersRepository.save(user);

@@ -18,11 +18,6 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 @Controller('articles')
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
-  @Get(':id')
-  async getArticleById(@Param('id') id: number): Promise<StandardResponseDto> {
-    const result = await this.articlesService.getArticleById(id);
-    return new StandardResponseDto(200, 'api.common.ok', result);
-  }
   @Get('')
   async getAllArticles(
     @Query('page') page: number = 1,
@@ -36,6 +31,21 @@ export class ArticlesController {
     );
     return new StandardResponseDto(200, 'api.common.ok', result);
   }
+  @Get('owner')
+  async getAllArticleByOwner(
+    @Query('owner_id') owner_id: number,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.getAllArticleByOwner(owner_id);
+    return new StandardResponseDto(200, 'api.common.ok', result);
+  }
+  @Get(':id')
+  async getArticleById(
+    @Param('id') article_id: number,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.getArticleById(article_id);
+    return new StandardResponseDto(200, 'api.common.ok', result);
+  }
+
   @Post('create')
   @UseInterceptors(
     FilesInterceptor('img_name', 5, {

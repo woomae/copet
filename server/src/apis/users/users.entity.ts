@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Articles } from '../articles/articles.entity';
 import { Friends } from '../friends/friends.entity';
+import { Stars } from '../stars/stars.entity';
 
 @Entity()
 export class Users extends BaseEntity {
@@ -25,7 +26,7 @@ export class Users extends BaseEntity {
   email: string;
 
   @Column({ nullable: true })
-  catagory: string;
+  pet_catagory: string;
 
   @Column({ nullable: true })
   region: string;
@@ -39,11 +40,20 @@ export class Users extends BaseEntity {
   @Column({ nullable: true })
   intro: string;
 
-  @OneToMany(() => Articles, (article) => article.owner_id)
+  @OneToMany(() => Articles, (article) => article.owner_id, {
+    onDelete: 'CASCADE',
+  })
   owner_id: Articles[];
 
-  @OneToMany(() => Friends, (friend) => friend.friend_user_id)
+  @OneToMany(() => Friends, (friend) => friend.friend_user_id, {
+    onDelete: 'CASCADE',
+  })
   friend_user_id: Friends[];
+
+  @OneToMany(() => Stars, (star) => star.clicked_user_id, {
+    onDelete: 'CASCADE',
+  })
+  clicked_user_id: Stars[];
 
   @CreateDateColumn({
     type: 'timestamptz',

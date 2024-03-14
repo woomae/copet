@@ -7,8 +7,8 @@ export class ArticleRepository extends Repository<Articles> {
   constructor(dataSource: DataSource) {
     super(Articles, dataSource.createEntityManager());
   }
-  async getArticleById(id: number) {
-    return await this.findOneBy({ _id: id });
+  async getArticleById(article_id: number) {
+    return await this.findOneBy({ article_id: article_id });
   }
   async getAllArticlesByCategory(page: number, size: number, category: string) {
     const [comments, total] = await this.findAndCount({
@@ -35,6 +35,12 @@ export class ArticleRepository extends Repository<Articles> {
     };
     return commentsData;
   }
+  async getAllArticleByOwner(owner_id: number) {
+    return await this.createQueryBuilder('articles')
+      .leftJoin('articles.owner_id', 'user')
+      .where('articles.owner_id = :owner_id', { owner_id: owner_id })
+      .getMany();
+  }
 
   async createArticle(bodyData: any): Promise<void> {
     return await this.save(bodyData);
@@ -56,5 +62,11 @@ export class ArticleRepository extends Repository<Articles> {
   }
   async deleteArticle(id: number): Promise<void> {
     await this.delete({ _id: id });
+  }
+  async increaseScrapCount(id: number): Promise<void> {
+    await this.increment({ _id: id }, 'scrap_count', 1);
+  }
+  async decreaseScrapCount(id: number): Promise<void> {
+    await this.decrement({ _id: id }, 'scrap_count', 1);
   }
 }

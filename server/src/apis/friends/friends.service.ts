@@ -21,9 +21,35 @@ export class FriendsService {
     //save
     return await this.friendsRepository.createFriendRequest(friendRequestData);
   }
-  async getFriends(id: number): Promise<any> {
-    const friendList = await this.friendsRepository.getFriendsList(id);
-    const result = friendList.map((item) => item.friend_user_id);
-    return result;
+  async getFollowList(bodyData: Partial<Friends>): Promise<any> {
+    const userChecker = await this.friendsRepository.vaildUser(
+      bodyData.from_user_id,
+    );
+    if (!userChecker || userChecker.length === 0) {
+      throw new BadRequestException(
+        `Invalid input from_user_id ${bodyData.from_user_id}`,
+      );
+    }
+    const friendList = await this.friendsRepository.getFollowList(
+      bodyData.from_user_id,
+    );
+    const newfriendList = friendList.map((friend) => friend.friend_user_id);
+
+    return newfriendList;
+  }
+  async getFollowerList(bodyData: Partial<Friends>): Promise<any> {
+    const userChecker = await this.friendsRepository.vaildUser(
+      bodyData.from_user_id,
+    );
+    if (!userChecker || userChecker.length === 0) {
+      throw new BadRequestException(
+        `Invalid input from_user_id ${bodyData.from_user_id}`,
+      );
+    }
+    const friendList = await this.friendsRepository.getFollowerList(
+      bodyData.from_user_id,
+    );
+    //follower들의 from_user_id만 리턴 추후 from_user_id로 유저정보를 가져와야함
+    return friendList;
   }
 }

@@ -42,7 +42,7 @@ export class Articles extends BaseEntity {
   @Column({ default: 0 })
   complain_count: number;
 
-  @ManyToOne(() => Users, (user) => user._id)
+  @ManyToOne(() => Users, (user) => user._id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'owner_id' })
   owner_id: number;
 

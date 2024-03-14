@@ -15,10 +15,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-  @Get('/')
-  async getAllUsers(): Promise<Users[]> {
-    return this.usersService.findAll(); //수정 필요 보안적으로 위험 및 필요없음(테스트용)
-  }
   @Patch(':id/init')
   @UseInterceptors(
     //사진저장 미들웨어

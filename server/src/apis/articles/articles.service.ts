@@ -25,10 +25,13 @@ export class ArticlesService {
     });
     this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME') + '/articles';
   }
-  async getArticleById(id: number): Promise<Articles> {
-    const found = await this.articleRepository.getArticleById(id);
+  async getArticleById(article_id: number): Promise<Articles> {
+    const found = await this.articleRepository.getArticleById(article_id);
     if (!found) {
-      throw new BadRequestException(`Article with ID "${id}" not found`);
+      console.log(found);
+      throw new BadRequestException(
+        `Article with ID "${article_id}" not found`,
+      );
     }
     return found;
   }
@@ -46,6 +49,16 @@ export class ArticlesService {
       );
     }
     return await this.articleRepository.getAllArticles(page, size);
+  }
+  async getAllArticleByOwner(owner_id: number): Promise<Articles[]> {
+    const articleData =
+      await this.articleRepository.getAllArticleByOwner(owner_id);
+    if (!articleData || articleData.length === 0) {
+      throw new BadRequestException(
+        `ArticleData with ID "${owner_id}" not found`,
+      );
+    }
+    return articleData;
   }
   async createArticle(
     bodyData: CreateArticleDto,
@@ -220,5 +233,11 @@ export class ArticlesService {
       }
     }
     await this.articleRepository.delete({ _id: article_id });
+  }
+  async increaseScrapCount(article_id: number): Promise<void> {
+    await this.articleRepository.increaseScrapCount(article_id);
+  }
+  async decreaseScrapCount(article_id: number): Promise<void> {
+    await this.articleRepository.decreaseScrapCount(article_id);
   }
 }
