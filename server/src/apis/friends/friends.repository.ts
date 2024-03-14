@@ -59,7 +59,7 @@ export class FriendsRepository extends Repository<Friends> {
       .getOne();
     return await this.delete({ _id: result._id });
   }
-  async vaildUser(from_user_id: number) {
+  async validUser(from_user_id: number) {
     return await this.findBy({ from_user_id: from_user_id });
   }
 }
