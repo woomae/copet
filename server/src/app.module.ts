@@ -12,6 +12,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './common/http-exception.filter';
 import { FriendsModule } from './apis/friends/friends.module';
 import { StarsModule } from './apis/stars/stars.module';
+import { CommentsModule } from './apis/comments/comments.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { StarsModule } from './apis/stars/stars.module';
     UsersModule,
     FriendsModule,
     StarsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [
