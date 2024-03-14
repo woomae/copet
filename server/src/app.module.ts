@@ -9,8 +9,9 @@ import { validate } from './configs/env-validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from './common/sttp-exception.filter';
+import { HttpExceptionFilter } from './common/http-exception.filter';
 import { FriendsModule } from './apis/friends/friends.module';
+import { StarsModule } from './apis/stars/stars.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { FriendsModule } from './apis/friends/friends.module';
     ArticlesModule,
     UsersModule,
     FriendsModule,
+    StarsModule,
   ],
   controllers: [AppController],
   providers: [

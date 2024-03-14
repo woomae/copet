@@ -5,8 +5,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  JoinColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 
@@ -16,7 +16,7 @@ export class Articles extends BaseEntity {
   _id: number;
 
   @Column({ generated: 'increment' })
-  article_id: string;
+  article_id: number;
 
   @Column()
   author: string;
@@ -26,6 +26,9 @@ export class Articles extends BaseEntity {
 
   @Column()
   body: string;
+
+  @Column()
+  category: string;
 
   @Column({ nullable: true })
   img_name: string;
@@ -39,8 +42,9 @@ export class Articles extends BaseEntity {
   @Column({ default: 0 })
   complain_count: number;
 
-  @ManyToOne(() => Users, (user) => user.articles)
-  owner: Users;
+  @ManyToOne(() => Users, (user) => user._id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'owner_id' })
+  owner_id: number;
 
   @CreateDateColumn({
     type: 'timestamptz',

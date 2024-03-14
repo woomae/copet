@@ -1,24 +1,89 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ArticlesService } from './articles.service';
-import { Articles } from './articles.entity';
+import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('articles')
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
-  @Get('/:id')
-  getArticleById(@Param('id') id: number): Promise<Articles> {
-    return this.articlesService.getArticleById(id);
-  }
   @Get('')
-  getAllArticles(
-    @Param('page') page: number = 1,
-    @Param('size') size: number = 10,
-  ): Promise<Articles[]> {
-    return this.articlesService.getAllArticles(page, size);
+  async getAllArticles(
+    @Query('page') page: number = 1,
+    @Query('size') size: number = 10,
+    @Query('category') category: string,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.getAllArticles(
+      page,
+      size,
+      category,
+    );
+    return new StandardResponseDto(200, 'api.common.ok', result);
   }
+  @Get('owner')
+  async getAllArticleByOwner(
+    @Query('owner_id') owner_id: number,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.getAllArticleByOwner(owner_id);
+    return new StandardResponseDto(200, 'api.common.ok', result);
+  }
+  @Get(':id')
+  async getArticleById(
+    @Param('id') article_id: number,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.getArticleById(article_id);
+    return new StandardResponseDto(200, 'api.common.ok', result);
+  }
+
   @Post('create')
-  async createArticle(@Body() bodyData: CreateArticleDto): Promise<any> {
-    return await this.articlesService.createArticle(bodyData);
+  @UseInterceptors(
+    FilesInterceptor('img_name', 5, {
+      limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
+    }),
+  )
+  async createArticle(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body() bodyData: CreateArticleDto,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.createArticle(bodyData, files);
+    return new StandardResponseDto(201, 'api.common.created', result);
+  }
+  @Put(':id/update')
+  @UseInterceptors(
+    //사진저장 미들웨어
+    FilesInterceptor('img_name', 5, {
+      limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
+    }),
+  )
+  async updateArticle(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body() bodyData: CreateArticleDto,
+    @Param('id') article_id: number,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.updateArticle(
+      article_id,
+      bodyData,
+      files,
+    );
+    return new StandardResponseDto(200, 'api.common.ok', result);
+  }
+
+  @Delete(':id/delete')
+  async deleteArticle(
+    @Param('id') article_id: number,
+  ): Promise<StandardResponseDto> {
+    const result = await this.articlesService.deleteArticle(article_id);
+    return new StandardResponseDto(200, 'api.common.ok', result);
   }
 }

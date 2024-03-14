@@ -12,11 +12,24 @@ export class FriendsRepository extends Repository<Friends> {
   ): Promise<Friends> {
     return await this.save(friendRequestData);
   }
-  async getFriendsList(id: number): Promise<Friends[]> {
-    return await this.find({
-      where: { from_user_id: id },
-      relations: ['friend_user_id'], // "friend_user_id"와 연관된 엔티티를 함께 로드
-    });
+  async getFollowList(from_user_id: number): Promise<Friends[]> {
+    const result = await this.createQueryBuilder('friends')
+      .leftJoinAndSelect('friends.friend_user_id', 'user')
+      .where('friends.from_user_id = :from_user_id', {
+        from_user_id: from_user_id,
+      })
+      .getMany();
+    return result;
+  }
+  async getFollowerList(from_user_id: number): Promise<Friends[]> {
+    //from_user_id가 friend_user_id인 from_user_id조회
+    const result = await this.createQueryBuilder('friends')
+      .leftJoin('friends.friend_user_id', 'user')
+      .where('friends.friend_user_id = :from_user_id', {
+        from_user_id: from_user_id,
+      })
+      .getMany();
+    return result;
   }
   async friendChecker(friendRequestData: Partial<Friends>): Promise<boolean> {
     const result = await this.createQueryBuilder('friends')
@@ -28,11 +41,25 @@ export class FriendsRepository extends Repository<Friends> {
         friendUserId: friendRequestData.friend_user_id,
       })
       .getOne();
-    console.log(result);
     if (result) {
       return true;
     } else {
       return false;
     }
+  }
+  async deleteFriendRequest(friendRequestData: Partial<Friends>): Promise<any> {
+    const result = await this.createQueryBuilder('friends')
+      .leftJoinAndSelect('friends.friend_user_id', 'user')
+      .where('friends.from_user_id = :fromUserId', {
+        fromUserId: friendRequestData.from_user_id,
+      })
+      .andWhere('user._id = :friendUserId', {
+        friendUserId: friendRequestData.friend_user_id,
+      })
+      .getOne();
+    return await this.delete({ _id: result._id });
+  }
+  async vaildUser(from_user_id: number) {
+    return await this.findBy({ from_user_id: from_user_id });
   }
 }
