@@ -14,6 +14,8 @@ import { ArticlesService } from './articles.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import ApiCodes from 'src/common/api.codes';
+import ApiMessages from 'src/common/api.messages';
 
 @Controller('articles')
 export class ArticlesController {
@@ -23,27 +25,56 @@ export class ArticlesController {
     @Query('page') page: number = 1,
     @Query('size') size: number = 10,
     @Query('category') category: string,
-  ): Promise<StandardResponseDto> {
-    const result = await this.articlesService.getAllArticles(
-      page,
-      size,
-      category,
-    );
-    return new StandardResponseDto(200, 'api.common.ok', result);
+  ): Promise<any> {
+    let result;
+    let response;
+    try {
+      result = await this.articlesService.getAllArticles(page, size, category);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
   @Get('owner')
   async getAllArticleByOwner(
     @Query('owner_id') owner_id: number,
   ): Promise<StandardResponseDto> {
-    const result = await this.articlesService.getAllArticleByOwner(owner_id);
-    return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      result = await this.articlesService.getAllArticleByOwner(owner_id);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
   @Get(':id')
   async getArticleById(
     @Param('id') article_id: number,
   ): Promise<StandardResponseDto> {
-    const result = await this.articlesService.getArticleById(article_id);
-    return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      result = await this.articlesService.getArticleById(article_id);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
 
   @Post('create')
@@ -55,9 +86,24 @@ export class ArticlesController {
   async createArticle(
     @UploadedFiles() files: Express.Multer.File[],
     @Body() bodyData: CreateArticleDto,
-  ): Promise<StandardResponseDto> {
-    const result = await this.articlesService.createArticle(bodyData, files);
-    return new StandardResponseDto(201, 'api.common.created', result);
+  ): Promise<any> {
+    let result;
+    let response;
+    try {
+      result = await this.articlesService.createArticle(bodyData, files);
+      response = new StandardResponseDto(
+        ApiCodes.CREATED,
+        ApiMessages.CREATED,
+        result,
+      );
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
   @Put(':id/update')
   @UseInterceptors(
@@ -71,19 +117,42 @@ export class ArticlesController {
     @Body() bodyData: CreateArticleDto,
     @Param('id') article_id: number,
   ): Promise<StandardResponseDto> {
-    const result = await this.articlesService.updateArticle(
-      article_id,
-      bodyData,
-      files,
-    );
-    return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      result = await this.articlesService.updateArticle(
+        article_id,
+        bodyData,
+        files,
+      );
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
 
   @Delete(':id/delete')
   async deleteArticle(
     @Param('id') article_id: number,
+    @Body('owner_id') owner_id: number,
   ): Promise<StandardResponseDto> {
-    const result = await this.articlesService.deleteArticle(article_id);
-    return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      result = await this.articlesService.deleteArticle(article_id, owner_id);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
 }

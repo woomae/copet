@@ -17,7 +17,6 @@ export class StarsService {
     const userChecker = await this.usersService.findUserById(
       bodyData.clicked_user_id,
     );
-    console.log(userChecker);
     if (!userChecker) {
       throw new BadRequestException('clicked_user_id is not exist');
     }
@@ -25,7 +24,8 @@ export class StarsService {
   }
   async likeRequest(bodyData: Partial<Stars>): Promise<Stars> {
     //없는 article_id인지 확인
-    await this.articlesService.getArticleById(bodyData.article_id);
+    if (await this.articlesService.getArticleById(bodyData.article_id))
+      throw new BadRequestException('article_id is not exist');
     //이미 좋아요인지 확인 후 좋아요를 누르거나 취소
     if (await this.starsRepository.likeChecker(bodyData)) {
       //article, scrap_count 감소

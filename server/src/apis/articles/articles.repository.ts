@@ -55,9 +55,9 @@ export class ArticleRepository extends Repository<Articles> {
       .andWhere('user._id = :owner_id', { owner_id: owner_id })
       .getOne();
     if (result) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
   async deleteArticle(id: number): Promise<void> {
@@ -68,5 +68,11 @@ export class ArticleRepository extends Repository<Articles> {
   }
   async decreaseScrapCount(id: number): Promise<void> {
     await this.decrement({ _id: id }, 'scrap_count', 1);
+  }
+  async increaseCommentCount(id: number): Promise<void> {
+    await this.increment({ _id: id }, 'comment_count', 1);
+  }
+  async decreaseCommentCount(id: number): Promise<void> {
+    await this.decrement({ _id: id }, 'comment_count', 1);
   }
 }

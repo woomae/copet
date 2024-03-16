@@ -2,6 +2,8 @@ import { Get, Controller, Post, Body } from '@nestjs/common';
 import { StarsService } from './stars.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { Stars } from './stars.entity';
+import ApiCodes from 'src/common/api.codes';
+import ApiMessages from 'src/common/api.messages';
 
 @Controller('stars')
 export class StarsController {
@@ -10,17 +12,36 @@ export class StarsController {
   async getAllStar(
     @Body() bodyData: Partial<Stars>,
   ): Promise<StandardResponseDto> {
-    const result = await this.starsService.getAllStar(bodyData);
-    return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      result = await this.starsService.getAllStar(bodyData);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
   @Post('like-request')
   async likeRequest(
     @Body() bodyData: Partial<Stars>,
   ): Promise<StandardResponseDto> {
-    const result = await this.starsService.likeRequest(bodyData);
-    if (!result) {
-      return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      result = await this.starsService.likeRequest(bodyData);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
     }
-    return new StandardResponseDto(201, 'api.common.created', result);
+    return response;
   }
 }

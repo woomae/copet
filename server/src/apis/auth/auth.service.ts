@@ -19,7 +19,7 @@ export class AuthService {
     const usercookie = JSON.stringify({
       user_id: user._id,
       email: user.email,
-      name: user.name,
+      name: user.nickname,
     });
     const redirectUrl = this.configservice.get('REDIRECT_URL');
     const rooturl = this.configservice.get('ROOT_URL');
@@ -38,6 +38,7 @@ export class AuthService {
 
   async handleKakaoLogin(kakaoUser: any, res: Response): Promise<void> {
     const { email } = kakaoUser;
+    kakaoUser.nickname = kakaoUser.name;
     let user = await this.usersService.findUserByEmail(email);
     if (!user) {
       user = await this.usersService.createUser(kakaoUser);
@@ -45,7 +46,7 @@ export class AuthService {
     const usercookie = JSON.stringify({
       user_id: user._id,
       email: user.email,
-      name: user.name,
+      name: user.nickname,
     });
     const redirectUrl = this.configservice.get('REDIRECT_URL');
     const rooturl = this.configservice.get('ROOT_URL');

@@ -25,15 +25,14 @@ export class ArticlesService {
     });
     this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME') + '/articles';
   }
-  async getArticleById(article_id: number): Promise<Articles> {
+  async getArticleById(article_id: number): Promise<boolean> {
     const found = await this.articleRepository.getArticleById(article_id);
     if (!found) {
-      console.log(found);
       throw new BadRequestException(
         `Article with ID "${article_id}" not found`,
       );
     }
-    return found;
+    return false;
   }
   async getAllArticles(
     page: number,
@@ -211,13 +210,17 @@ export class ArticlesService {
       );
     }
   }
-  async deleteArticle(article_id: number): Promise<void> {
+  async deleteArticle(article_id: number, owner_id: number): Promise<void> {
     //기존 게시글 조회 후 없을 시 에러처리
     const found = await this.articleRepository.getArticleById(article_id);
     if (!found) {
       throw new BadRequestException(
         `Article with ID "${article_id}" not found`,
       );
+    }
+    //유저아이디와 게시글의 오너아이디가 같은지 확인
+    if (await this.articleRepository.ownerChecker(article_id, owner_id)) {
+      throw new BadRequestException(`Article is not owned by user `);
     }
     //기존 사진들 삭제
     if (found.img_name) {
@@ -239,5 +242,11 @@ export class ArticlesService {
   }
   async decreaseScrapCount(article_id: number): Promise<void> {
     await this.articleRepository.decreaseScrapCount(article_id);
+  }
+  async increaseCommentCount(article_id: number): Promise<void> {
+    await this.articleRepository.increaseCommentCount(article_id);
+  }
+  async decreaseCommentCount(article_id: number): Promise<void> {
+    await this.articleRepository.decreaseCommentCount(article_id);
   }
 }

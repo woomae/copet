@@ -12,14 +12,40 @@ export class FriendsService {
   async sendFriendRequest(
     friendRequestData: Partial<Friends>,
   ): Promise<Friends> {
-    if (!friendRequestData.friend_user_id || !friendRequestData.from_user_id)
+    if (
+      !friendRequestData.friend_user_id ||
+      !friendRequestData.from_user_id ||
+      friendRequestData.friend_user_id === friendRequestData.from_user_id
+    )
       throw new BadRequestException('Invalid input friendsdata');
     if (await this.friendsRepository.friendChecker(friendRequestData)) {
-      await this.friendsRepository.deleteFriendRequest(friendRequestData);
-      return null;
+      throw new BadRequestException('Already friend');
+    }
+    const userChecker = await this.friendsRepository.validUser(
+      friendRequestData.friend_user_id,
+    );
+    if (!userChecker || userChecker.length === 0) {
+      throw new BadRequestException(
+        `Invalid input from_user_id ${friendRequestData.friend_user_id}`,
+      );
     }
     //save
     return await this.friendsRepository.createFriendRequest(friendRequestData);
+  }
+  async deleteFriendRequest(
+    friendRequestData: Partial<Friends>,
+  ): Promise<Friends> {
+    if (
+      !friendRequestData.friend_user_id ||
+      !friendRequestData.from_user_id ||
+      friendRequestData.friend_user_id === friendRequestData.from_user_id
+    )
+      throw new BadRequestException('Invalid input friendsdata');
+    if (!(await this.friendsRepository.friendChecker(friendRequestData))) {
+      throw new BadRequestException('Not friend');
+    }
+    //delete
+    return await this.friendsRepository.deleteFriendRequest(friendRequestData);
   }
   async getFollowList(bodyData: Partial<Friends>): Promise<any> {
     const userChecker = await this.friendsRepository.validUser(
