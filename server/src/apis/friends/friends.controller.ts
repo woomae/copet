@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { FriendsService } from './friends.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { Friends } from './friends.entity';
 import { UsersService } from '../users/users.service';
+import ApiCodes from 'src/common/api.codes';
+import ApiMessages from 'src/common/api.messages';
 
 @Controller('friends')
 export class FriendsController {
@@ -15,28 +17,79 @@ export class FriendsController {
   async sendFriendRequest(
     @Body() friendRequestData: Partial<Friends>,
   ): Promise<StandardResponseDto> {
-    const result =
-      await this.friendsService.sendFriendRequest(friendRequestData);
-    if (!result) {
-      return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      result = await this.friendsService.sendFriendRequest(friendRequestData);
+      response = new StandardResponseDto(
+        ApiCodes.CREATED,
+        ApiMessages.CREATED,
+        result,
+      );
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
     }
-    return new StandardResponseDto(201, 'api.common.created', result);
+    return response;
+  }
+  @Delete('friend-request')
+  async deleteFriendRequest(
+    @Body() friendRequestData: Partial<Friends>,
+  ): Promise<StandardResponseDto> {
+    let result;
+    let response;
+    try {
+      result = await this.friendsService.deleteFriendRequest(friendRequestData);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
 
   @Get('follow')
   async getFollowList(
     @Body() bodyData: Partial<Friends>,
   ): Promise<StandardResponseDto> {
-    const result = await this.friendsService.getFollowList(bodyData);
-    return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      result = await this.friendsService.getFollowList(bodyData);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
 
   @Get('follower')
   async getFollowerList(
     @Body() bodyData: Partial<Friends>,
   ): Promise<StandardResponseDto> {
-    const followerList = await this.friendsService.getFollowerList(bodyData);
-    const result = await this.usersService.getFollowerInfo(followerList);
-    return new StandardResponseDto(200, 'api.common.ok', result);
+    let result;
+    let response;
+    try {
+      const followerList = await this.friendsService.getFollowerList(bodyData);
+      result = await this.usersService.getFollowerInfo(followerList);
+      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+    } catch (error) {
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
+    }
+    return response;
   }
 }

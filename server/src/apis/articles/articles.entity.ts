@@ -17,7 +17,7 @@ export class Articles extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
-  @Column({ generated: 'increment' })
+  @Column({ generated: 'increment', unique: true })
   article_id: number;
 
   @Column()

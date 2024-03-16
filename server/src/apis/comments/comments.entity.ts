@@ -15,6 +15,12 @@ export class Comments extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
+  @Column({ generated: 'increment', unique: true })
+  comment_id: number;
+
+  @Column()
+  comment_owner_id: number;
+
   @ManyToOne(() => Articles, (article) => article.article_id, {
     onDelete: 'CASCADE',
   })

@@ -23,6 +23,7 @@ export class UsersService {
   }
   async findUserById(id: number): Promise<Users> {
     const found = await this.usersRepository.findUser({ where: { _id: id } });
+    if (!found) throw new BadRequestException('Invalid ID');
     return found;
   }
   async findUserByEmail(email: number): Promise<Users> {
@@ -49,27 +50,17 @@ export class UsersService {
     updatedUser: Partial<Users>,
     file: Express.Multer.File,
   ): Promise<Users> {
-    // 파일 경로를 추출하여 업데이트할 유저 정보에 추가
     //객체의 모든 값이 null or undefined or 빈문자열이 아닌지 확인
     if (Object.values(updatedUser).some((value) => !value))
       throw new BadRequestException('Invalid input userdata');
-    // 닉네임이 기존 사용자의 닉네임과 겹치는지 확인
-    const existingUser = await this.usersRepository.findUser({
-      where: { nickname: updatedUser.nickname },
-    });
-    // 검색된 사용자가 있고, 그 사용자의 id가 현재 사용자의 id와 다른 경우
-    if (existingUser && existingUser._id != id) {
-      throw new BadRequestException('Nickname already exists');
-    }
     //기존 사진파일 존재시 삭제
     const existingImg = await this.usersRepository.findUser({
       where: { _id: id },
     });
+    if (!existingImg) throw new BadRequestException('Invalid ID');
     if (existingImg.petimg) {
       //s3에서 해당 사진 삭제
-      console.log(existingImg.petimg);
       const subindex = existingImg.petimg.indexOf('.com/') + 5;
-      console.log(existingImg.petimg.substring(subindex));
       await this.awsS3
         .deleteObject({
           Bucket: configService.get('AWS_S3_BUCKET_NAME'),
@@ -82,7 +73,6 @@ export class UsersService {
       await this.usersRepository.initUser({ _id: id }, newUpdateUser);
     } else {
       const key = `${Date.now()}`;
-
       await this.awsS3
         .putObject({
           Bucket: this.S3_BUCKET_NAME,
