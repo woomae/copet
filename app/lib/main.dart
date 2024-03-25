@@ -19,7 +19,6 @@ void main() {
     _App(),
   );
 }
-
 class _App extends StatelessWidget {
   const _App({super.key});
 

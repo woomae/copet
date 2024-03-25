@@ -13,6 +13,7 @@ class mainscreen extends StatelessWidget {
             //titleSpacing: 0,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
+            pinned: true,
             elevation: 0,
             title: Text(
               'COPET',
@@ -23,6 +24,30 @@ class mainscreen extends StatelessWidget {
               ),
             ),
             centerTitle: false,
+            actions: [
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: Image.asset(
+                    'asset/img/alarm.png', // 원하는 이미지의 경로
+                    width: 20.0, // 이미지의 너비
+                    height: 21.54, // 이미지의 높이
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Image.asset(
+                    'asset/img/mail.png', // 원하는 이미지의 경로
+                    width: 25.0, // 이미지의 너비
+                    height: 18.75, // 이미지의 높이
+                  ),
+                ),
+              ),
+            ],
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -380,12 +405,12 @@ class mainscreen extends StatelessWidget {
                     width: double.infinity,
                     height: 100,
                     color: Color(0xFFE7E7E7),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          HorizontalList(),
-                        ],
-                      ),
+                    //child: Column(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    //children: [
+                    //HorizontalList(),
+                    //],
+                    //),
                   ),
                   const SizedBox(height: 53),
                   Padding(
@@ -491,9 +516,7 @@ class _HorizontalListState extends State<HorizontalList> {
                         : EdgeInsets.only(right: 3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: currentIndex == index
-                          ? Colors.grey
-                          : Colors.white,
+                      color: currentIndex == index ? Colors.grey : Colors.white,
                     ),
                   ),
                 ),
