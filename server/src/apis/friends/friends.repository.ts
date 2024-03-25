@@ -12,23 +12,23 @@ export class FriendsRepository extends Repository<Friends> {
   ): Promise<Friends> {
     return await this.save(friendRequestData);
   }
-  async getFollowList(from_user_id: number): Promise<Friends[]> {
+  async getFollowList(from_user_id: number): Promise<[Friends[], number]> {
     const result = await this.createQueryBuilder('friends')
       .leftJoinAndSelect('friends.friend_user_id', 'user')
       .where('friends.from_user_id = :from_user_id', {
         from_user_id: from_user_id,
       })
-      .getMany();
+      .getManyAndCount();
     return result;
   }
-  async getFollowerList(from_user_id: number): Promise<Friends[]> {
+  async getFollowerList(from_user_id: number): Promise<[Friends[], number]> {
     //from_user_id가 friend_user_id인 from_user_id조회
     const result = await this.createQueryBuilder('friends')
       .leftJoin('friends.friend_user_id', 'user')
       .where('friends.friend_user_id = :from_user_id', {
         from_user_id: from_user_id,
       })
-      .getMany();
+      .getManyAndCount();
     return result;
   }
   async friendChecker(friendRequestData: Partial<Friends>): Promise<boolean> {

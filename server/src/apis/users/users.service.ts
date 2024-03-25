@@ -32,15 +32,17 @@ export class UsersService {
     });
     return found;
   }
-  async getFollowerInfo(followerList: Friends[]): Promise<Users[]> {
+  async getFollowerInfo(
+    followerList: [number, Friends[]],
+  ): Promise<[number, Users[]]> {
     const result = [];
-    for (const follower of followerList) {
+    for (const follower of followerList[1]) {
       const user = await this.usersRepository.findUser({
         where: { _id: follower.from_user_id },
       });
       result.push(user);
     }
-    return result;
+    return [followerList[0], result];
   }
   async createUser(user: Users): Promise<Users> {
     return await this.usersRepository.save(user);

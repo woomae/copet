@@ -59,9 +59,9 @@ export class FriendsService {
     const friendList = await this.friendsRepository.getFollowList(
       bodyData.from_user_id,
     );
-    const newfriendList = friendList.map((friend) => friend.friend_user_id);
-
-    return newfriendList;
+    const newfriendList = friendList[0].map((friend) => friend.friend_user_id);
+    const friendListCount = { count: friendList[1] };
+    return [friendListCount, newfriendList];
   }
   async getFollowerList(bodyData: Partial<Friends>): Promise<any> {
     const userChecker = await this.friendsRepository.validUser(
@@ -75,7 +75,8 @@ export class FriendsService {
     const friendList = await this.friendsRepository.getFollowerList(
       bodyData.from_user_id,
     );
+    const friendListCount = { count: friendList[1] };
     //follower들의 from_user_id만 리턴 추후 from_user_id로 유저정보를 가져와야함
-    return friendList;
+    return [friendListCount, friendList[0]];
   }
 }
