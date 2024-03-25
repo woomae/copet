@@ -72,7 +72,7 @@ export class UsersService {
       const newUpdateUser = { ...updatedUser };
       await this.usersRepository.initUser({ _id: id }, newUpdateUser);
     } else {
-      const key = `${Date.now()}`;
+      const key = `user-${id}--${Date.now()}`;
       await this.awsS3
         .putObject({
           Bucket: this.S3_BUCKET_NAME,

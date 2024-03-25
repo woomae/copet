@@ -25,14 +25,14 @@ export class ArticlesService {
     });
     this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME') + '/articles';
   }
-  async getArticleById(article_id: number): Promise<boolean> {
+  async getArticleById(article_id: number): Promise<Articles> {
     const found = await this.articleRepository.getArticleById(article_id);
     if (!found) {
       throw new BadRequestException(
         `Article with ID "${article_id}" not found`,
       );
     }
-    return false;
+    return found;
   }
   async getAllArticles(
     page: number,
@@ -71,7 +71,7 @@ export class ArticlesService {
       );
     }
     categoryChecker(bodyData.category); // 카테고리 체크
-    if (!files) {
+    if (!files || Object.keys(files).length === 0) {
       //사진데이터 미존재시 처리
       const newBodyData: CreateArticleDto = {
         ...bodyData,
@@ -83,7 +83,7 @@ export class ArticlesService {
       for (const file of files) {
         try {
           //사진데이터 존재시 처리
-          const key = `${Date.now()}`;
+          const key = `user-${bodyData.owner_id}--${Date.now()}`;
 
           await this.awsS3
             .putObject({
@@ -121,7 +121,7 @@ export class ArticlesService {
     article_id: number,
     bodyData: CreateArticleDto,
     files: Express.Multer.File[],
-  ): Promise<void> {
+  ): Promise<Articles> {
     //기존 게시글 조회 후 없을 시 에러처리
     const found = await this.articleRepository.getArticleById(article_id);
     if (!found) {
@@ -159,7 +159,7 @@ export class ArticlesService {
           .promise();
       }
     }
-    if (!files) {
+    if (!files || Object.keys(files).length === 0) {
       //사진데이터 미존재시 처리
       const newBodyData: CreateArticleDto = {
         ...bodyData,
@@ -173,7 +173,7 @@ export class ArticlesService {
       const img_arr = [];
       for (const file of files) {
         try {
-          const key = `${Date.now()}`;
+          const key = `user-${bodyData.owner_id}--${Date.now()}`;
 
           await this.awsS3
             .putObject({
@@ -203,7 +203,6 @@ export class ArticlesService {
         author: userData?.nickname,
         img_name: img_path,
       };
-
       return await this.articleRepository.updateArticle(
         article_id,
         newBodyData,

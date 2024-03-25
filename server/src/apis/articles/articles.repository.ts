@@ -45,8 +45,9 @@ export class ArticleRepository extends Repository<Articles> {
   async createArticle(bodyData: any): Promise<void> {
     return await this.save(bodyData);
   }
-  async updateArticle(id: number, bodyData: any): Promise<void> {
-    await this.update({ _id: id }, bodyData);
+  async updateArticle(id: number, bodyData: any): Promise<Articles> {
+    await this.update({ article_id: id }, bodyData);
+    return await this.findOneBy({ article_id: id });
   }
   async ownerChecker(article_id: number, owner_id: number): Promise<boolean> {
     const result = await this.createQueryBuilder('articles')
