@@ -109,6 +109,7 @@ export class ArticlesController {
           error.response.message,
           error,
         );
+        console.log(error);
       } else {
         // 오류에 대한 기본 처리
         response = new StandardResponseDto(
