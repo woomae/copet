@@ -13,10 +13,7 @@ import {
 import { ArticlesService } from './articles.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
-import {
-  FileFieldsInterceptor,
-  FilesInterceptor,
-} from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import ApiCodes from 'src/common/api.codes';
 import ApiMessages from 'src/common/api.messages';
 
@@ -82,54 +79,41 @@ export class ArticlesController {
 
   @Post('create')
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'img_name', maxCount: 5 }], {
-      limits: { fileSize: 10 * 1024 * 1024 },
+    FilesInterceptor('img_name', 5, {
+      limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
     }),
   )
   async createArticle(
-    @UploadedFiles() files: { img_name: Express.Multer.File[] },
+    @UploadedFiles() files: Express.Multer.File[],
     @Body() bodyData: CreateArticleDto,
   ): Promise<any> {
     let result;
     let response;
     try {
-      result = await this.articlesService.createArticle(
-        bodyData,
-        files.img_name,
-      );
+      result = await this.articlesService.createArticle(bodyData, files);
       response = new StandardResponseDto(
         ApiCodes.CREATED,
         ApiMessages.CREATED,
         result,
       );
     } catch (error) {
-      if (error.response && error.response.statusCode) {
-        response = new StandardResponseDto(
-          error.response.statusCode,
-          error.response.message,
-          error,
-        );
-        console.log(error);
-      } else {
-        // 오류에 대한 기본 처리
-        response = new StandardResponseDto(
-          ApiCodes.INTERNAL_SERVER_ERROR,
-          ApiMessages.INTERNAL_SERVER_ERROR,
-          null,
-        );
-      }
+      response = new StandardResponseDto(
+        error.response.statusCode,
+        error.response.message,
+        null,
+      );
     }
     return response;
   }
   @Put(':id/update')
   @UseInterceptors(
     //사진저장 미들웨어
-    FileFieldsInterceptor([{ name: 'img_name', maxCount: 5 }], {
-      limits: { fileSize: 10 * 1024 * 1024 },
+    FilesInterceptor('img_name', 5, {
+      limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
     }),
   )
   async updateArticle(
-    @UploadedFiles() files: { img_name: Express.Multer.File[] },
+    @UploadedFiles() files: Express.Multer.File[],
     @Body() bodyData: CreateArticleDto,
     @Param('id') article_id: number,
   ): Promise<StandardResponseDto> {
@@ -139,7 +123,7 @@ export class ArticlesController {
       result = await this.articlesService.updateArticle(
         article_id,
         bodyData,
-        files.img_name,
+        files,
       );
       response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
     } catch (error) {
