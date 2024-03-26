@@ -103,11 +103,20 @@ export class ArticlesController {
         result,
       );
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      if (error.response && error.response.statusCode) {
+        response = new StandardResponseDto(
+          error.response.statusCode,
+          error.response.message,
+          null,
+        );
+      } else {
+        // 오류에 대한 기본 처리
+        response = new StandardResponseDto(
+          ApiCodes.INTERNAL_SERVER_ERROR,
+          ApiMessages.INTERNAL_SERVER_ERROR,
+          null,
+        );
+      }
     }
     return response;
   }
