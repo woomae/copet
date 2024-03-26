@@ -107,7 +107,7 @@ export class ArticlesController {
         response = new StandardResponseDto(
           error.response.statusCode,
           error.response.message,
-          null,
+          error,
         );
       } else {
         // 오류에 대한 기본 처리
