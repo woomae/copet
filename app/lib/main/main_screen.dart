@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main_place.dart';
+
 class mainscreen extends StatelessWidget {
   const mainscreen({super.key});
 
@@ -93,7 +95,13 @@ class mainscreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const mainplace()),
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               primary: Color(0xFFF2F2F2),
                               shape: RoundedRectangleBorder(
