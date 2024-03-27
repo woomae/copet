@@ -50,7 +50,7 @@ export class UsersService {
   async initUser(
     id: number,
     updatedUser: Partial<Users>,
-    file: Express.Multer.File,
+    file: Express.Multer.File | undefined,
   ): Promise<Users> {
     //객체의 모든 값이 null or undefined or 빈문자열이 아닌지 확인
     if (Object.values(updatedUser).some((value) => !value))
