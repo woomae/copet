@@ -14,8 +14,7 @@ import { ArticlesService } from './articles.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import ApiCodes from 'src/common/api.codes';
-import ApiMessages from 'src/common/api.messages';
+import ResponseFormat from 'src/common/response-format';
 
 @Controller('articles')
 export class ArticlesController {
@@ -30,13 +29,9 @@ export class ArticlesController {
     let response;
     try {
       result = await this.articlesService.getAllArticles(page, size, category);
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
@@ -48,13 +43,9 @@ export class ArticlesController {
     let response;
     try {
       result = await this.articlesService.getAllArticleByOwner(owner_id);
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
@@ -66,13 +57,9 @@ export class ArticlesController {
     let response;
     try {
       result = await this.articlesService.getArticleById(article_id);
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
@@ -91,17 +78,9 @@ export class ArticlesController {
     let response;
     try {
       result = await this.articlesService.createArticle(bodyData, files);
-      response = new StandardResponseDto(
-        ApiCodes.CREATED,
-        ApiMessages.CREATED,
-        result,
-      );
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
@@ -125,13 +104,9 @@ export class ArticlesController {
         bodyData,
         files,
       );
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
@@ -145,13 +120,9 @@ export class ArticlesController {
     let response;
     try {
       result = await this.articlesService.deleteArticle(article_id, owner_id);
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }

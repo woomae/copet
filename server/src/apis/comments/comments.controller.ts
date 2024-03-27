@@ -2,8 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateCommentDto } from 'src/dto/create-comment.dto';
-import ApiCodes from 'src/common/api.codes';
-import ApiMessages from 'src/common/api.messages';
+import ResponseFormat from 'src/common/response-format';
 
 @Controller('comments')
 export class CommentsController {
@@ -19,13 +18,9 @@ export class CommentsController {
         await this.commentsService.getAllCommentsByArticle(
           connected_article_id,
         );
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
@@ -37,13 +32,9 @@ export class CommentsController {
     let response;
     try {
       result = await this.commentsService.createComment(bodyData);
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
@@ -59,13 +50,9 @@ export class CommentsController {
         comment_id,
         bodyData.user_id,
       );
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
