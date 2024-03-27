@@ -39,6 +39,23 @@ export default class ResponseFormat {
   }
 
   public format(): any {
+    const error = this.error;
+    if (error && !this.isSuccess) {
+      const detail = error?.detail;
+      this.error.detail = {
+        ...detail,
+        ...{
+          location:
+            error?.__file__ &&
+            `${error?.__file__}:${error?.__line__} (${error?.__function__})`,
+          trace: error?.stack,
+          version: error?.version,
+          build: error?.build,
+          hostname: error?.hostname,
+          tid: error?.tid,
+        },
+      };
+    }
     if (this.isSuccess) {
       return new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, this._value);
     } else if (this.error.response) {
@@ -51,7 +68,7 @@ export default class ResponseFormat {
       return new StandardResponseDto(
         ApiCodes.INTERNAL_SERVER_ERROR,
         ApiMessages.INTERNAL_SERVER_ERROR,
-        this.error,
+        error?.detail,
       );
     }
   }
