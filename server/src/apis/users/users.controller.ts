@@ -10,12 +10,8 @@ import {
 import { Users } from './users.entity';
 import { UsersService } from './users.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
-import {
-  FileFieldsInterceptor,
-  FileInterceptor,
-} from '@nestjs/platform-express';
-import ApiCodes from 'src/common/api.codes';
-import ApiMessages from 'src/common/api.messages';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import ResponseFormat from 'src/common/response-format';
 
 @Controller('users')
 export class UsersController {
@@ -40,13 +36,9 @@ export class UsersController {
         updatedUser,
         files.petimg[0],
       );
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
@@ -56,13 +48,9 @@ export class UsersController {
     let response;
     try {
       result = await this.usersService.findUserById(id);
-      response = new StandardResponseDto(ApiCodes.OK, ApiMessages.OK, result);
+      response = ResponseFormat.ok(result).format();
     } catch (error) {
-      response = new StandardResponseDto(
-        error.response.statusCode,
-        error.response.message,
-        null,
-      );
+      response = ResponseFormat.fail(error).format();
     }
     return response;
   }
