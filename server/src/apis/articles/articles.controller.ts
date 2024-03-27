@@ -77,10 +77,15 @@ export class ArticlesController {
     let result;
     let response;
     try {
-      result = await this.articlesService.createArticle(
-        bodyData,
-        files?.img_name,
-      );
+      if (!files || !files.img_name || files.img_name.length === 0) {
+        // 파일이 업로드되지 않았을 때 처리
+        result = await this.articlesService.createArticle(bodyData, undefined);
+      } else {
+        result = await this.articlesService.createArticle(
+          bodyData,
+          files.img_name,
+        );
+      }
       response = ResponseFormat.ok(result).format();
     } catch (error) {
       response = ResponseFormat.fail(error).format();
