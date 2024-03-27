@@ -34,7 +34,7 @@ export class UsersController {
       result = await this.usersService.initUser(
         id,
         updatedUser,
-        files.petimg[0],
+        files?.petimg[0],
       );
       response = ResponseFormat.ok(result).format();
     } catch (error) {

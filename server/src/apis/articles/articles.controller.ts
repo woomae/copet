@@ -71,13 +71,16 @@ export class ArticlesController {
     }),
   )
   async createArticle(
-    @UploadedFiles() files: Express.Multer.File[],
+    @UploadedFiles() files: { img_name: Express.Multer.File[] },
     @Body() bodyData: CreateArticleDto,
   ): Promise<any> {
     let result;
     let response;
     try {
-      result = await this.articlesService.createArticle(bodyData, files);
+      result = await this.articlesService.createArticle(
+        bodyData,
+        files?.img_name,
+      );
       response = ResponseFormat.ok(result).format();
     } catch (error) {
       response = ResponseFormat.fail(error).format();
@@ -92,7 +95,7 @@ export class ArticlesController {
     }),
   )
   async updateArticle(
-    @UploadedFiles() files: Express.Multer.File[],
+    @UploadedFiles() files: { img_name: Express.Multer.File[] },
     @Body() bodyData: CreateArticleDto,
     @Param('id') article_id: number,
   ): Promise<StandardResponseDto> {
@@ -102,7 +105,7 @@ export class ArticlesController {
       result = await this.articlesService.updateArticle(
         article_id,
         bodyData,
-        files,
+        files?.img_name,
       );
       response = ResponseFormat.ok(result).format();
     } catch (error) {
