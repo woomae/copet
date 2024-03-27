@@ -61,7 +61,7 @@ export class ArticlesService {
   }
   async createArticle(
     bodyData: CreateArticleDto,
-    files: Express.Multer.File[],
+    files: Express.Multer.File[] | undefined,
   ): Promise<any> {
     //게시글을 작성한 유저 조회 후 없을 시 에러처리
     const userData = await this.usersService.findUserById(bodyData.owner_id);
@@ -120,7 +120,7 @@ export class ArticlesService {
   async updateArticle(
     article_id: number,
     bodyData: CreateArticleDto,
-    files: Express.Multer.File[],
+    files: Express.Multer.File[] | undefined,
   ): Promise<Articles> {
     //기존 게시글 조회 후 없을 시 에러처리
     const found = await this.articleRepository.getArticleById(article_id);
