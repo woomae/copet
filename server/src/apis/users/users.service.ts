@@ -70,7 +70,7 @@ export class UsersService {
         })
         .promise();
     }
-    if (!file) {
+    if (!file || Object.keys(file).length === 0) {
       const newUpdateUser = { ...updatedUser };
       await this.usersRepository.initUser({ _id: id }, newUpdateUser);
     } else {
