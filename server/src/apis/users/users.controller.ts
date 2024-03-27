@@ -31,11 +31,16 @@ export class UsersController {
     let result;
     let response;
     try {
-      result = await this.usersService.initUser(
-        id,
-        updatedUser,
-        files?.petimg[0],
-      );
+      if (!files || !files.petimg || files.petimg.length === 0) {
+        // 파일이 업로드되지 않았을 때 처리
+        result = await this.usersService.initUser(id, updatedUser, undefined);
+      } else {
+        result = await this.usersService.initUser(
+          id,
+          updatedUser,
+          files.petimg[0],
+        );
+      }
       response = ResponseFormat.ok(result).format();
     } catch (error) {
       response = ResponseFormat.fail(error).format();
