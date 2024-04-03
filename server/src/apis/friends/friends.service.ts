@@ -2,12 +2,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendsRepository } from './friends.repository';
 import { Friends } from './friends.entity';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class FriendsService {
   constructor(
     @InjectRepository(FriendsRepository)
     private friendsRepository: FriendsRepository,
+    private usersService: UsersService,
   ) {}
   async sendFriendRequest(
     friendRequestData: Partial<Friends>,
@@ -21,15 +23,8 @@ export class FriendsService {
     if (await this.friendsRepository.friendChecker(friendRequestData)) {
       throw new BadRequestException('Already friend');
     }
-    const userChecker = await this.friendsRepository.validUser(
-      friendRequestData.friend_user_id,
-    );
-    if (!userChecker || userChecker.length === 0) {
-      throw new BadRequestException(
-        `Invalid input from_user_id ${friendRequestData.friend_user_id}`,
-      );
-    }
-    //save
+    await this.usersService.findUserById(friendRequestData.friend_user_id);
+    await this.usersService.findUserById(friendRequestData.from_user_id);
     return await this.friendsRepository.createFriendRequest(friendRequestData);
   }
   async deleteFriendRequest(
@@ -48,14 +43,7 @@ export class FriendsService {
     return await this.friendsRepository.deleteFriendRequest(friendRequestData);
   }
   async getFollowList(bodyData: Partial<Friends>): Promise<any> {
-    const userChecker = await this.friendsRepository.validUser(
-      bodyData.from_user_id,
-    );
-    if (!userChecker || userChecker.length === 0) {
-      throw new BadRequestException(
-        `Invalid input from_user_id ${bodyData.from_user_id}`,
-      );
-    }
+    await this.usersService.findUserById(bodyData.from_user_id);
     const friendList = await this.friendsRepository.getFollowList(
       bodyData.from_user_id,
     );
@@ -64,14 +52,7 @@ export class FriendsService {
     return [friendListCount, newfriendList];
   }
   async getFollowerList(bodyData: Partial<Friends>): Promise<any> {
-    const userChecker = await this.friendsRepository.validUser(
-      bodyData.from_user_id,
-    );
-    if (!userChecker || userChecker.length === 0) {
-      throw new BadRequestException(
-        `Invalid input from_user_id ${bodyData.from_user_id}`,
-      );
-    }
+    await this.usersService.findUserById(bodyData.from_user_id);
     const friendList = await this.friendsRepository.getFollowerList(
       bodyData.from_user_id,
     );
