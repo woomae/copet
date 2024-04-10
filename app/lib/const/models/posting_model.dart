@@ -1,14 +1,10 @@
 import 'package:pet/const/category_list.dart';
 
-enum CategoryModel{
-  categoryList
-}
-
 class PostingModel{
-  final int? owner_id;
-  final String? title;
-  final String? body;
-  final CategoryModel? category;
+  final int owner_id;
+  final String title;
+  final String body;
+  final String category;
 
   const PostingModel({
     required this.owner_id,

@@ -4,32 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="add riverPod&#10;- Posting Model 및 Provider 세팅">
-      <change afterPath="$PROJECT_DIR$/lib/common/component/appbars/appbar.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="posting page 최신화">
+      <change afterPath="$PROJECT_DIR$/lib/api/postPosting.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/appbar.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/go_back_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/appbars/go_back_appbar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/next_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/next_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/tapbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/tapbar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/taps.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/taps.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/const/models/posting_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/posting_model.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/community/community_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/community_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/posting.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/setting/setting_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/setting/setting_home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +180,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712752485937</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="merge 및 Refactoring">
+      <option name="closed" value="true" />
+      <created>1712753108094</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1712753108094</updated>
+    </task>
+    <task id="LOCAL-00013" summary="posting page 최신화">
+      <option name="closed" value="true" />
+      <created>1712753187549</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1712753187549</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -222,6 +220,8 @@
     <MESSAGE value="- postingPage 수정,&#10;- communityPage, profilePage 골격 작성" />
     <MESSAGE value="- dropdwonbutton 컴포넌트 구현 완료&#10;- 아직 api연동 불가능" />
     <MESSAGE value="add riverPod&#10;- Posting Model 및 Provider 세팅" />
-    <option name="LAST_COMMIT_MESSAGE" value="add riverPod&#10;- Posting Model 및 Provider 세팅" />
+    <MESSAGE value="merge 및 Refactoring" />
+    <MESSAGE value="posting page 최신화" />
+    <option name="LAST_COMMIT_MESSAGE" value="posting page 최신화" />
   </component>
 </project>
