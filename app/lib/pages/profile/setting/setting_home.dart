@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pet/common/component/go_back_appbar.dart';
+import 'package:pet/common/component/appbars/go_back_appbar.dart';
+import 'package:pet/pages/profile/profile_modify.dart';
 import 'package:pet/style/colors.dart';
 
 class SettingHome extends StatelessWidget {
@@ -7,7 +8,7 @@ class SettingHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: goBackAppBar(),
+      appBar: GoBackAppBar(),
       body: const Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -45,7 +46,11 @@ class SettingButton extends StatelessWidget {
               ),
               foregroundColor: Colors.grey,
               ),
-              onPressed: (){},
+              onPressed: (){
+              if(buttonName == '프로필 수정'){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> ProfileModify()));
+              }
+              },
               child: Row(
                 children: [
                   Text(buttonName, style: const TextStyle(color: Colors.black),),

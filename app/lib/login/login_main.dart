@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
-import '../common/component/tapbar.dart';
+import '../common/component/main_tabbar.dart';
 
 class mainlogin extends StatelessWidget {
   const mainlogin({super.key});

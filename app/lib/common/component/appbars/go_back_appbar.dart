@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../style/icons.dart';
+import '../../../style/icons.dart';
 
-PreferredSizeWidget goBackAppBar(){
+PreferredSizeWidget GoBackAppBar(){
   return AppBar(
     //titleSpacing: 0,
     backgroundColor: Colors.white,
@@ -15,7 +15,10 @@ PreferredSizeWidget goBackAppBar(){
 }
 
 class Back extends StatelessWidget {
-  const Back({super.key});
+
+  Back({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
