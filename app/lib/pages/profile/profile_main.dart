@@ -23,24 +23,27 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Flexible(
-            flex: 7,
-            child: Stack(
-              children: [
-                BackgroundScreen(),
-                Padding(
-                  padding: EdgeInsets.only(top: 150),
-                  child: Profile(childWidget: ProfileContainer()),
-                ),
-              ],
-            ),
-        ),
-        Flexible(
-            flex: 4,
-            child: MyPost())
-      ],
+    return Container(
+      color: WHITE,
+      child: const Column(
+        children: [
+          Flexible(
+              flex: 7,
+              child: Stack(
+                children: [
+                  BackgroundScreen(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 150),
+                    child: Profile(childWidget: ProfileContainer()),
+                  ),
+                ],
+              ),
+          ),
+          Flexible(
+              flex: 4,
+              child: MyPost())
+        ],
+      ),
     );
   }
 }

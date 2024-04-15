@@ -22,6 +22,7 @@ class PostingPage extends ConsumerWidget {
       final state = ref.watch(PostingProvider);
       Navigator.pop(context);
       ref.watch(PostingProvider.notifier).updatePosting(
+        //userId 고정
           owner_id: 1
       );
         await PostPosting.postPosting(
@@ -33,12 +34,22 @@ class PostingPage extends ConsumerWidget {
 
     return Scaffold(
         appBar: PostAppBar( postPostingData ),
-        body: Column(
-          children: [
-            Expanded(child: _Body()),
-            _BottomAppBar()
-          ],
+        body: GestureDetector(
+          onDoubleTap: (){
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Container(
+            color: WHITE,
+            child: Column(
+              children: [
+                Expanded(
+                    child: _Body()),
+                _BottomAppBar()
+              ],
+            ),
+          ),
         ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
@@ -137,7 +148,7 @@ class BodyInput extends ConsumerWidget {
           )
       ),
       keyboardType: TextInputType.multiline,
-      minLines: 10,
+      minLines: 20,
       maxLines: null,
     );
   }
@@ -154,8 +165,14 @@ class _BottomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: EdgeInsets.only(
+          right: 10,
+          left: 10,
+          // 하단 탭바 높이만큼 더 올라가더라,, 그거 빼줘야함
+          bottom:MediaQuery.of(context).viewInsets.bottom + 10 ,
+          top: 10 ),
       decoration: const BoxDecoration(
           border: Border(
               top: BorderSide(
@@ -195,27 +212,24 @@ class PostCategoryButton extends ConsumerWidget {
     final categoryState = ref.watch(PostingProvider).category;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 3),
-      child: GestureDetector(
-        onTap: (){
-          //카테고리 선택
-          ref.read(PostingProvider.notifier).updatePosting(category: categoryName);
-        },
-        child: Container(
-          alignment: Alignment.center,
-          constraints: BoxConstraints(minWidth: 70),
-          decoration: BoxDecoration(
-            color: categoryName == categoryState ? PRIMARY_COLOR : null,
-            border: Border.all(width: 1, color: PRIMARY_COLOR),
-            borderRadius: BorderRadius.circular(20)
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Text(categoryName, style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: categoryName == categoryState ? WHITE : PRIMARY_COLOR,
-              fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize
-            ),),
-          ),
+      child: Container(
+
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: categoryName == categoryState ? PRIMARY_COLOR : null,
+          border: Border.all(width: 1, color: PRIMARY_COLOR),
+          borderRadius: BorderRadius.circular(20)
+        ),
+        child: TextButton(
+          onPressed: (){
+            ref.read(PostingProvider.notifier).updatePosting(category: categoryName);
+          },
+          child: Text(
+            categoryName, style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: categoryName == categoryState ? WHITE : PRIMARY_COLOR,
+            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize
+          ),),
         ),
       ),
     );
