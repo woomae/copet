@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/appbars/appbar.dart';
-import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/pages/community/post.dart';
 import 'package:pet/pages/community/posting_page.dart';
 import 'package:pet/style/colors.dart';
 
 //ListView.builder 활용해서 무한스크롤 구현?
-class Community extends StatelessWidget {
+class Community extends ConsumerWidget {
   const Community({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
     return MaterialApp(
       home: Scaffold(
@@ -20,6 +20,7 @@ class Community extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
               decoration: BoxDecoration(
+                color: WHITE,
                 border: Border(
                     bottom: BorderSide(width: 1, color: Colors.black.withOpacity(0.2))
                 ),

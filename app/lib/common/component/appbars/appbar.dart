@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 PreferredSizeWidget Appbar() {
   return AppBar(
+    scrolledUnderElevation: 0,
     titleSpacing: 0,
     backgroundColor: Colors.white,
     elevation: 0,

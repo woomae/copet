@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet/main/main_screen.dart';
+import 'package:pet/style/colors.dart';
 import '../../const/taps.dart'; // TABS를 정의하는 파일을 가져옵니다.
 
 class TapItem {
@@ -45,6 +46,7 @@ class _mainhomeState extends State<mainhome> with TickerProviderStateMixin {
             )).toList()
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: WHITE,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,

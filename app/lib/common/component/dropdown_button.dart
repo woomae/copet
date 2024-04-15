@@ -46,22 +46,20 @@ class _DropDownButtonState extends State<DropDownButton> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: widget.DropDownList.map(
-                              (e) => Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 1),
-                            child: SizedBox(
-                                width: double.infinity,
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                      foregroundColor: BLACK,
-                                      splashFactory: NoSplash.splashFactory
-                                  ),
-                                  child: Text(e), onPressed: (){
-                                  setState(() {
-                                    isPressed = !isPressed;
-                                    currentItem = e;
-                                  });
-                                },)),
-                          )).toList(),
+                              (e) => SizedBox(
+                                  width: double.infinity,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                        foregroundColor: BLACK,
+                                        splashFactory: NoSplash.splashFactory
+                                    ),
+                                    child: Text(e, style: Theme.of(context).textTheme.bodyMedium,),
+                                    onPressed: (){
+                                    setState(() {
+                                      isPressed = !isPressed;
+                                      currentItem = e;
+                                    });
+                                  },))).toList(),
                     ),
                   ),
                 ) else Flexible(

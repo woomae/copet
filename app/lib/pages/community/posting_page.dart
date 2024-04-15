@@ -15,7 +15,7 @@ class PostingPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //상태초기화
+    //postProvider 초기화
     ref.invalidate(PostingProvider);
 
     void postPostingData() async{

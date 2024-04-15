@@ -1,14 +1,17 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:pet/pages/profile/profile_container.dart';
+import 'package:pet/pages/profile/profile_post_container.dart';
 import 'package:pet/pages/profile/setting/setting_home.dart';
 import 'package:pet/style/colors.dart';
+
 
 class ProfileMain extends StatelessWidget {
   const ProfileMain({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
         body: _Body(),
       ),
@@ -20,16 +23,16 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         Flexible(
-            flex: 6,
+            flex: 7,
             child: Stack(
               children: [
                 BackgroundScreen(),
                 Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Profile(),
+                  padding: EdgeInsets.only(top: 150),
+                  child: Profile(childWidget: ProfileContainer()),
                 ),
               ],
             ),
@@ -43,7 +46,11 @@ class _Body extends StatelessWidget {
 }
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  final Widget childWidget;
+  const Profile({
+    super.key,
+    required this.childWidget
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,7 @@ class Profile extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          padding: EdgeInsets.only(top: 50),
+          padding: const EdgeInsets.only(top: 50),
           width: double.infinity,
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -65,12 +72,12 @@ class Profile extends StatelessWidget {
               )
             ]
             ),
-          child: ModifyContainer(),
+          child: childWidget,
         ),
         Positioned( //프로필 사진
             top: -50,
             child: Container(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               width: 100,
               height: 100,
               decoration: BoxDecoration(
@@ -85,94 +92,14 @@ class Profile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(150)
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
                   child: Image.asset('asset/img/Yaoh.png')),
             )),
       ]
     );
   }
 }
-class ModifyContainer extends StatelessWidget {
-  const ModifyContainer({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Text('닉네임', style: Theme.of(context).textTheme.bodyLarge,),
-          Text('자기소개'),
-          const Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('팔로워', style: TextStyle(decoration: TextDecoration.underline)),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('팔로잉', style: TextStyle(decoration: TextDecoration.underline)),
-                )
-              ],),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Row (
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('프로필 수정'),
-                Text('프로필 수정'),
-              ],),
-          ),
-          Text('해시태그 모음')
-        ],
-      ),
-    );
-  }
-}
 
-class MyPost extends StatelessWidget {
-  const MyPost({
-    super.key,});
-  
-Widget _smallCategory(String text){
-  return Expanded(
-    child: Container(
-      padding: EdgeInsets.all(10),
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(width: 1, color: GREY_BORDER),)
-      ),
-        child: GestureDetector(
-            onTap: (){
-
-            },
-            child: Text(text, style: TextStyle(color: GREY1),))
-    ),
-  );
-}
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              _smallCategory('산책'),
-              _smallCategory('게시글'),
-              _smallCategory('저장')
-            ],),
-          Column(
-            children: [],)
-        ],
-      ),
-    );
-  }
-}
 
 class BackgroundScreen extends StatelessWidget {
   const BackgroundScreen({super.key});
@@ -183,14 +110,16 @@ class BackgroundScreen extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       color: GREY2,
-      padding: EdgeInsets.all(10),
-      child: Align(
-          alignment: Alignment.topRight,
-          child: GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingHome()));
-            },
-              child: Icon(Icons.settings)))
+      padding: const EdgeInsets.all(10),
+      child: SafeArea(
+        child: Align(
+            alignment: Alignment.topRight,
+            child: GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const SettingHome()));
+              },
+                child: const Icon(Icons.settings))),
+      )
     );
   }
 }
