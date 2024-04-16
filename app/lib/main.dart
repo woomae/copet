@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/login/login_area.dart';
 import 'package:pet/login/login_main.dart';
@@ -13,8 +14,8 @@ import 'package:pet/pages/profile/profile_main.dart';
 import 'package:pet/pages/profile/setting/setting_home.dart';
 import 'package:pet/style/colors.dart';
 
-void main() {
-  
+void main() async{
+  await dotenv.load(fileName: ".env");
   runApp(
       ProviderScope(
           child:

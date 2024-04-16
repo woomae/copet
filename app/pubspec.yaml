@@ -35,6 +35,8 @@ dependencies:
   http: ^1.1.0
   webview_cookie_manager: ^2.0.6
   flutter_riverpod: ^2.5.1
+  image_picker: ^1.0.8
+  flutter_dotenv: ^5.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,6 +71,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - asset/img/
     - asset/img/logo.png
     - asset/img/copet_logo.png
