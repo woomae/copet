@@ -1,4 +1,3 @@
-import 'package:pet/const/category_list.dart';
 
 class PostingModel{
   final int owner_id;
@@ -11,7 +10,6 @@ class PostingModel{
     required this.title,
     required this.body,
     required this.category
-}
-);
-
+    }
+  );
 }

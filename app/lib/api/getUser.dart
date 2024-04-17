@@ -11,6 +11,4 @@ class GetUser{
     final user = UsersModel.fromJson(json: res.data['data']);
     return user;
   }
-
-
 }
