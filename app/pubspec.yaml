@@ -30,12 +30,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: ^6.2.4
+  dio: ^5.4.0
+  http: ^1.1.0
+  webview_cookie_manager: ^2.0.6
+  flutter_riverpod: ^2.5.1
+  image_picker: ^1.0.8
+  flutter_dotenv: ^5.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   auth_buttons: ^3.0.2
+
+
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +56,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,8 +71,15 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
+    - asset/img/
     - asset/img/logo.png
     - asset/img/copet_logo.png
+    - asset/img/checkimg.png
+    - asset/img/img_place.png
+    - asset/img/mail.png
+    - asset/img/alarm.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -79,7 +96,26 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
+
+
   # example:
+  fonts:
+    - family: Poetsen
+      fonts:
+        - asset: asset/font/PoetsenOne-Regular.ttf
+          weight: 100
+
+    - family: Segoe
+      fonts:
+        - asset: asset/font/Segoe UI.ttf
+        - asset: asset/font/Segoe UI Bold.ttf
+        - asset: asset/font/Segoe UI Bold Italic.ttf
+        - asset: asset/font/Segoe UI Italic.ttf
+
+    - family: SnowCrap
+      fonts:
+        - asset: asset/font/Yeongdeok Snow Crab.ttf
+          weight: 100
   # fonts:
   #   - family: Schyler
   #     fonts:

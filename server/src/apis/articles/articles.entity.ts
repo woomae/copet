@@ -5,8 +5,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 
@@ -15,11 +15,8 @@ export class Articles extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
-  @Column()
+  @Column({ generated: 'increment' })
   article_id: string;
-
-  @Column()
-  owner_id: string;
 
   @Column()
   author: string;
@@ -30,20 +27,19 @@ export class Articles extends BaseEntity {
   @Column()
   body: string;
 
-  @Column()
+  @Column({ nullable: true })
   img_name: string;
 
-  @Column()
+  @Column({ default: 0 })
   comment_count: number;
 
-  @Column()
+  @Column({ default: 0 })
   scrap_count: number;
 
-  @Column()
+  @Column({ default: 0 })
   complain_count: number;
 
-  @OneToOne(() => Users, (user) => user.article)
-  @JoinColumn({ name: 'owner_id' })
+  @ManyToOne(() => Users, (user) => user.articles)
   owner: Users;
 
   @CreateDateColumn({

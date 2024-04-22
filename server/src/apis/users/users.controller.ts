@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { Users } from './users.entity';
 import { UsersService } from './users.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
@@ -10,7 +10,7 @@ export class UsersController {
   async getAllUsers(): Promise<Users[]> {
     return this.usersService.findAll(); //수정 필요 보안적으로 위험 및 필요없음(테스트용)
   }
-  @Put(':id/init')
+  @Patch(':id/init')
   async initUser(
     @Param('id') id: number,
     @Body() updatedUser: Partial<Users>,
