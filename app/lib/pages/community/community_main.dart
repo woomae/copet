@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet/api/getArticles.dart';
 import 'package:pet/common/component/appbars/appbar.dart';
-import 'package:pet/pages/community/post.dart';
+import 'package:pet/const/models/articles.dart';
+import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/pages/community/posting_page.dart';
 import 'package:pet/style/colors.dart';
 
@@ -11,7 +13,6 @@ class Community extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final height = MediaQuery.of(context).size.height;
     return MaterialApp(
       home: Scaffold(
         appBar: Appbar(),
@@ -38,12 +39,20 @@ class Community extends ConsumerWidget {
             Expanded(
               child: Stack(
                 children: [
-                  ListView.builder(
-                    itemCount: 15,
-                    itemBuilder: (BuildContext context, int index) {
-                      //썸네일, 작성자, 제목, 작성일, /스크랩 여부..?,좋아요 여부,,?,
-                      return Post();
-                    }),
+                  FutureBuilder(
+                      future: GetArticles.getArticles(),
+                      builder:(context, snapshot){
+                        if(snapshot.connectionState == ConnectionState.waiting){
+                          // 로딩 중....
+                        }
+                        if(snapshot.hasData){
+                          return PostList(length: snapshot.data!.length , comments: snapshot.data!);
+                        }
+                        else{
+                          //에러 처리
+                          return Text('로딩 중');
+                        }
+                      }),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
