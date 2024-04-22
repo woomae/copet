@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/api/getUser.dart';
+import 'package:pet/login/login_main.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -9,7 +10,7 @@ import 'package:pet/style/colors.dart';
 void main() async{
   await dotenv.load(fileName: ".env");
   
-  runApp(
+  runApp( //껐다 켜기만 해도 runApp 실행됨.
       const ProviderScope(
           child:
           _App()),
@@ -20,9 +21,7 @@ class _App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.invalidate(UserProvider);
-
-    final userData = GetUser.getUser('1')
+    GetUser.getUser('1')
         .then((e) => ref.watch(UserProvider.notifier).storeUserData(e));
 
     return MaterialApp(
@@ -47,7 +46,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: mainhome(),
+      home: mainlogin(),
     );
   }
 }

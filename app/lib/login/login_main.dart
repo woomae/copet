@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:auth_buttons/auth_buttons.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pet/api/auth/authGoogle.dart';
 import 'package:pet/common/layout/default_layout.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
@@ -136,10 +137,12 @@ class _authgoogle extends StatelessWidget {
 
     final cookies = response.headers['set-cookie'];
 
-    print('Received cookies: $cookies');
-
     // 회원 가입 여부 확인
     bool isRegistered = await checkRegistration(cookies);
+    print('___________________________________Received cookies: $cookies, $isRegistered ');
+
+    AuthGoogle.authGoogle();
+
     if (isRegistered) {
       // 회원 가입된 경우 페이지 이동
       Navigator.push(context, MaterialPageRoute(builder: (context) => mainhome()));
