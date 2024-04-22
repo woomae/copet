@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pet/api/postPosting.dart';
 import 'package:pet/common/component/appbars/post_appbar.dart';
 import 'package:pet/const/category_list.dart';
@@ -56,7 +57,6 @@ class PostingPage extends ConsumerWidget {
 
 
 class _Body extends ConsumerWidget {
-  const _Body({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -159,9 +159,7 @@ class BodyInput extends ConsumerWidget {
 
 
 class _BottomAppBar extends StatelessWidget {
-  const _BottomAppBar({
-    super.key,
-  });
+
 
   @override
   Widget build(BuildContext context) {
@@ -184,10 +182,11 @@ class _BottomAppBar extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            onPressed: (){
-
+            onPressed: ()async{
+              var picker = ImagePicker();
+              final XFile? image = await picker.pickImage(source: ImageSource.gallery);
             }, icon: const Icon(Icons.camera_alt),color: PRIMARY_COLOR,),
-          Spacer(),
+          const Spacer(),
           Row(
             children: categoryList.map(
                     (e) => PostCategoryButton(categoryName: e,)).toList(),
@@ -211,7 +210,7 @@ class PostCategoryButton extends ConsumerWidget {
 
     final categoryState = ref.watch(PostingProvider).category;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 3),
+      padding: const EdgeInsets.symmetric(horizontal: 3),
       child: Container(
 
         alignment: Alignment.center,
