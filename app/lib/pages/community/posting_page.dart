@@ -17,44 +17,36 @@ class PostingPage extends ConsumerWidget {
 
   const PostingPage({super.key});
 
-  void confirmTitle(BuildContext context){
+  void showCommonDialog({required String content, required BuildContext context}){
     showDialog(context: context, builder: (context){
-      return CommonDialog(content: '제목을 입력해주세요');
+      return CommonDialog(content: content);
     });
   }
 
-  void confirmBody(BuildContext context){
-    showDialog(context: context,builder: (context){
-      return CommonDialog(content: '내용을 입력해주세요');
-    });
-  }
+  void postPostingData(BuildContext context, WidgetRef ref) async{
+    final state = ref.watch(PostingProvider);
+    ref.read(PostingProvider.notifier).updatePosting(
+      //userId 고정
+        owner_id: 1
+    );
+    print('--------------------------------------');
+    print(state.title);
 
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    //postProvider 초기화
-    ref.invalidate(PostingProvider);
-
-    void postPostingData() async{
-      final state = ref.watch(PostingProvider);
-      ref.watch(PostingProvider.notifier).updatePosting(
-        //userId 고정
-          owner_id: 1
-      );
-
-      if(state.title == ''){
-        confirmTitle(context);
-      }
-
-      if(state.category != '' && state.body == ''){
-        confirmBody(context);
-      }
-
-      if(state.category != '' && state.title != '' && state.body != '' ){
-        print('------------------------------------------------------------송신');
-        print(state.title);
-        print(state.body);
-        print(state.category);
+    if(state.title == ''){
+      showCommonDialog(content: '제목을 입력해주세요', context: context);
+    }
+    if(state.title != '' && state.body == ''){
+      showCommonDialog(content:'내용을 입력해주세요', context: context);
+    }
+    if(state.title != '' && state.body != '' && state.category == ''){
+      showCommonDialog(content: '카테고리를 선택해주세요', context: context);
+    }
+    if(state.category != '' && state.title != '' && state.body != '' ){
+      print('------------------------------------------------------------송신');
+      print(state.title);
+      print(state.body);
+      print(state.category);
+      try{
         await PostPosting.postPosting(
             owner_id: 1,
             title: state.title ?? '제목없음',
@@ -62,26 +54,31 @@ class PostingPage extends ConsumerWidget {
             category: state.category,
             imagePaths: null ?? state.imagePaths
         );
-        ref.invalidate(PostingProvider);
-        Navigator.pop(context);
       }
+      catch(err){
+        //오류처리
+        print(err);
+      }
+      ref.invalidate(PostingProvider);
+      Navigator.pop(context);
     }
+  }
+
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.invalidate(PostingProvider);
+    //postProvider 초기화
 
     return Scaffold(
-        appBar: PostAppBar( postPostingData ),
+        appBar: PostAppBar( ()=> postPostingData(context, ref) ),
         body: GestureDetector(
           onDoubleTap: (){
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: Container(
             color: WHITE,
-            child: Column(
-              children: [
-                Expanded(
-                    child: _Body()),
-                _BottomAppBar()
-              ],
-            ),
+            child: _Body(),
           ),
         ),
       resizeToAvoidBottomInset: false,
@@ -95,37 +92,41 @@ class _Body extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(PostingProvider);
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 20
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(padding: EdgeInsets.only(bottom: 10)),
-            TitleInput(),
-
-            Padding(padding: EdgeInsets.only(bottom: 10)),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: state.imagePaths != null ?
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(padding: EdgeInsets.only(bottom: 10)),
+                  TitleInput(),
+                
+                  Padding(padding: EdgeInsets.only(bottom: 10)),
                   Column(
-                      children: state.imagePaths!.map(
-                              (e) => Image.file(File(e), width: 300, height: 300, fit: BoxFit.fitWidth,)).toList()
-                  ) : null,
-                ),
-                BodyInput()
-              ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: state.imagePaths != null ?
+                        Column(
+                            children: state.imagePaths!.map(
+                                    (e) => Image.file(File(e), width: 300, height: 300, fit: BoxFit.cover,)).toList()
+                        ) : null,
+                      ),
+                      BodyInput()
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
-      ),
+        _BottomAppBar()
+      ],
     );
   }
 }
@@ -202,16 +203,17 @@ class BodyInput extends ConsumerWidget {
 
 class _BottomAppBar extends ConsumerWidget {
 
+  final heightProvider = StateProvider<bool>((ref) => false);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
+    final state = ref.watch(heightProvider);
     return Container(
       padding: EdgeInsets.only(
           right: 10,
           left: 10,
           // 하단 탭바 높이만큼 더 올라가더라,, 그거 빼줘야함
-          bottom:MediaQuery.of(context).viewInsets.bottom + 10 ,
+          bottom: MediaQuery.of(context).viewInsets.bottom > 0 ? MediaQuery.of(context).viewInsets.bottom - 50 : 10,
           top: 10 ),
       decoration: const BoxDecoration(
           border: Border(
@@ -229,7 +231,7 @@ class _BottomAppBar extends ConsumerWidget {
               final List<XFile>? images = await picker.pickMultiImage();
               if(images != null) {
                 final imagePaths = images.map((e) => e.path).toList();
-                ref.watch(PostingProvider.notifier).updatePosting(
+                ref.read(PostingProvider.notifier).updatePosting(
                     images: imagePaths);
               }
             }, icon: const Icon(Icons.camera_alt),color: PRIMARY_COLOR,),
@@ -243,9 +245,7 @@ class _BottomAppBar extends ConsumerWidget {
 }
 
 class PostCategoryWidget extends ConsumerWidget {
-
   const PostCategoryWidget({super.key,});
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -270,6 +270,7 @@ class PostCategoryWidget extends ConsumerWidget {
                   ),
                     onPressed: () {
                       ref.watch(PostingProvider.notifier).updatePosting(category: categoryName);
+                      print(state.category);
                     },
                     child: Text(categoryName,
                         style: TextStyle(

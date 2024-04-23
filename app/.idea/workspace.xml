@@ -4,21 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/common/component/dialogs/commonDialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/postPosting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/postPosting.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/dropdown_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/next_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/next_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/pre_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/pre_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/posting_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/posting_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="showDialog 호출 시 state에러 수정&#10;- bottom category bar 키패드 따라 올라오게 수정&#10;- image post 수정 필요">
       <change beforePath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
