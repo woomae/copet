@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../style/colors.dart';
+import '../../../style/colors.dart';
 
 class DropDownButton extends StatefulWidget {
   final List DropDownList;

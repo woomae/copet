@@ -4,6 +4,7 @@ import 'package:auth_buttons/auth_buttons.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pet/api/auth/authGoogle.dart';
+import 'package:pet/api/auth/authKakao.dart';
 import 'package:pet/common/layout/default_layout.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
@@ -133,15 +134,13 @@ class _authgoogle extends StatelessWidget {
   static const String _url = 'http://copet.life/auth/google';
 
   Future<void> _launchURL(BuildContext context) async {
-    final response = await http.get(Uri.parse(_url));
+    final response = await AuthGoogle.authGoogle();
 
-    final cookies = response.headers['set-cookie'];
+    final cookies = response.headers['set-cookie']?[0];
 
     // 회원 가입 여부 확인
     bool isRegistered = await checkRegistration(cookies);
-    print('___________________________________Received cookies: $cookies, $isRegistered ');
-
-    AuthGoogle.authGoogle();
+    print('___________________________________Received headers: $cookies');
 
     if (isRegistered) {
       // 회원 가입된 경우 페이지 이동
@@ -230,9 +229,9 @@ class _authkakao extends StatelessWidget {
   static const String _url = 'http://copet.life/auth/kakao';
 
   Future<void> _launchURL(BuildContext context) async {
-    final response = await http.get(Uri.parse(_url));
+    final response = await AuthKakao.authKakao();
 
-    final cookies = response.headers['set-cookie'];
+    final cookies = response.headers['set-cookie']?[0];
 
     print('Received cookies: $cookies');
 

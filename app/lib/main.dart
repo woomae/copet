@@ -28,10 +28,10 @@ class _App extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: const TextTheme(
-          bodySmall : TextStyle(fontSize: 8.0),
-          bodyMedium : TextStyle(fontSize: 12.0),
-          bodyLarge: TextStyle(fontSize: 15.0),
-          labelMedium: TextStyle(fontSize: 12.0, color: GREY1)
+          bodySmall : TextStyle(fontSize: 8.0, decorationThickness: 0),
+          bodyMedium : TextStyle(fontSize: 12.0, decorationThickness: 0),
+          bodyLarge: TextStyle(fontSize: 15.0, decorationThickness: 0),
+          labelMedium: TextStyle(fontSize: 12.0, color: GREY1, decorationThickness: 0)
 
         ),
         iconButtonTheme: IconButtonThemeData(
@@ -46,7 +46,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: mainlogin(),
+      home: mainhome(),
     );
   }
 }

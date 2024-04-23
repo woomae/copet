@@ -6,7 +6,6 @@ class AuthGoogle{
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
     final res = await Dio().get('$apiKey/auth/google');
-    print(res);
     return res;
   }
 }

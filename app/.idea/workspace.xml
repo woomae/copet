@@ -4,24 +4,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="forkRepo와 기존 작업 repo 동일하게 변경">
-      <change afterPath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/common/component/dialogs/commonDialog.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/api/postPosting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/postPosting.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/dropdown_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/next_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/next_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/pre_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/pre_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/const/models/posting_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/posting_model.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login/login_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/community_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/community_main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,11 +80,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\common\component\buttons" />
       <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\const\models" />
       <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\common\component\appbars" />
       <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\const" />
       <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\asset\img" />
-      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\pages\profile" />
     </key>
   </component>
   <component name="RunManager">
@@ -281,7 +278,63 @@
       <option name="project" value="LOCAL" />
       <updated>1713768398893</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="package 설치">
+      <option name="closed" value="true" />
+      <created>1713771101093</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771101093</updated>
+    </task>
+    <task id="LOCAL-00024" summary="kakao,goolge login 로직 분리">
+      <option name="closed" value="true" />
+      <created>1713771138888</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771138888</updated>
+    </task>
+    <task id="LOCAL-00025" summary="postlist 분리">
+      <option name="closed" value="true" />
+      <created>1713771222795</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771222795</updated>
+    </task>
+    <task id="LOCAL-00026" summary="ImagePost 기능 추가">
+      <option name="closed" value="true" />
+      <created>1713771241985</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771241985</updated>
+    </task>
+    <task id="LOCAL-00027" summary="refactoring">
+      <option name="closed" value="true" />
+      <created>1713771260193</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771260193</updated>
+    </task>
+    <task id="LOCAL-00028" summary="ios imagePick 권한">
+      <option name="closed" value="true" />
+      <created>1713771279786</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771279786</updated>
+    </task>
+    <task id="LOCAL-00029" summary=".">
+      <option name="closed" value="true" />
+      <created>1713771306593</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771306593</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,8 +349,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="폴더구조 수정, 설정 페이지 구성 중" />
-    <MESSAGE value="textTheme 추가, Flutter 특유의 버튼 애니메이션 제거" />
     <MESSAGE value="color, icon Theme 추가" />
     <MESSAGE value="네비게이션 기능 제외한 설정페이지 구성" />
     <MESSAGE value="appbar 모듈화" />
@@ -316,6 +367,13 @@
     <MESSAGE value="profilePage userData 부분 Provider 활용" />
     <MESSAGE value="articles 테스트 완료" />
     <MESSAGE value="forkRepo와 기존 작업 repo 동일하게 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="forkRepo와 기존 작업 repo 동일하게 변경" />
+    <MESSAGE value="package 설치" />
+    <MESSAGE value="kakao,goolge login 로직 분리" />
+    <MESSAGE value="postlist 분리" />
+    <MESSAGE value="ImagePost 기능 추가" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="ios imagePick 권한" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>
