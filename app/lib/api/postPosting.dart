@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:pet/const/models/posting_model.dart';
-
-import '../const/models/users_model.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class PostPosting{
 
@@ -11,7 +8,7 @@ class PostPosting{
     required String title,
     required String body,
     required String category,
-    XFile? image
+    List<String>? imagePaths
 }) async{
 
     FormData formData = FormData.fromMap({
@@ -21,18 +18,23 @@ class PostPosting{
       'category' : category
     });
 
-    if(image != null){
+    if(imagePaths != null){
+      final imageNames = imagePaths.map((e) => MultipartFile.fromFileSync(e)).toList();
+
       formData = FormData.fromMap({
         'owner_id' : owner_id,
         'title' : title,
         'body' : body,
         'category' : category,
-        'image_name' : image
+        'image_name' : imageNames
       });
     }
 
-
-    final res = await Dio().post('https://dev.copet.life/articles/create',data: formData);
+    await dotenv.load(fileName: ".env");
+    String? apiKey = dotenv.env['API_KEY'];
+    Dio dio = Dio();
+    dio.options.contentType = 'multipart/form-data';
+    final res = await Dio().post('$apiKey/articles/create',data: formData);
     print(res.data);
   }
 }

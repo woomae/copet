@@ -1,10 +1,14 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pet/api/postPosting.dart';
 import 'package:pet/common/component/appbars/post_appbar.dart';
+import 'package:pet/common/component/dialogs/commonDialog.dart';
 import 'package:pet/const/category_list.dart';
 import 'package:pet/providers/posting_notifier_provider.dart';
+import '../../api/postPosting.dart';
 import '../../style/colors.dart';
 
 
@@ -12,6 +16,18 @@ import '../../style/colors.dart';
 class PostingPage extends ConsumerWidget {
 
   const PostingPage({super.key});
+
+  void confirmTitle(BuildContext context){
+    showDialog(context: context, builder: (context){
+      return CommonDialog(content: '제목을 입력해주세요');
+    });
+  }
+
+  void confirmBody(BuildContext context){
+    showDialog(context: context,builder: (context){
+      return CommonDialog(content: '내용을 입력해주세요');
+    });
+  }
 
 
   @override
@@ -21,16 +37,34 @@ class PostingPage extends ConsumerWidget {
 
     void postPostingData() async{
       final state = ref.watch(PostingProvider);
-      Navigator.pop(context);
       ref.watch(PostingProvider.notifier).updatePosting(
         //userId 고정
           owner_id: 1
       );
+
+      if(state.title == ''){
+        confirmTitle(context);
+      }
+
+      if(state.category != '' && state.body == ''){
+        confirmBody(context);
+      }
+
+      if(state.category != '' && state.title != '' && state.body != '' ){
+        print('------------------------------------------------------------송신');
+        print(state.title);
+        print(state.body);
+        print(state.category);
         await PostPosting.postPosting(
             owner_id: 1,
-            title: state.title ,
+            title: state.title ?? '제목없음',
             body: state.body,
-            category: state.category);
+            category: state.category,
+            imagePaths: null ?? state.imagePaths
+        );
+        ref.invalidate(PostingProvider);
+        Navigator.pop(context);
+      }
     }
 
     return Scaffold(
@@ -60,7 +94,8 @@ class _Body extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const SingleChildScrollView(
+    final state = ref.watch(PostingProvider);
+    return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: 20,
@@ -77,7 +112,14 @@ class _Body extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(padding: EdgeInsets.only(bottom: 10)),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: state.imagePaths != null ?
+                  Column(
+                      children: state.imagePaths!.map(
+                              (e) => Image.file(File(e), width: 300, height: 300, fit: BoxFit.fitWidth,)).toList()
+                  ) : null,
+                ),
                 BodyInput()
               ],
             ),
@@ -158,11 +200,11 @@ class BodyInput extends ConsumerWidget {
 
 
 
-class _BottomAppBar extends StatelessWidget {
+class _BottomAppBar extends ConsumerWidget {
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
 
     return Container(
       padding: EdgeInsets.only(
@@ -184,53 +226,59 @@ class _BottomAppBar extends StatelessWidget {
           IconButton(
             onPressed: ()async{
               var picker = ImagePicker();
-              final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+              final List<XFile>? images = await picker.pickMultiImage();
+              if(images != null) {
+                final imagePaths = images.map((e) => e.path).toList();
+                ref.watch(PostingProvider.notifier).updatePosting(
+                    images: imagePaths);
+              }
             }, icon: const Icon(Icons.camera_alt),color: PRIMARY_COLOR,),
           const Spacer(),
-          Row(
-            children: categoryList.map(
-                    (e) => PostCategoryButton(categoryName: e,)).toList(),
-          )
+          PostCategoryWidget(),
+
         ],
       ),
     );
   }
 }
 
-class PostCategoryButton extends ConsumerWidget {
-  final String categoryName;
-  const PostCategoryButton({
-    super.key,
-    required this.categoryName,
-  });
+class PostCategoryWidget extends ConsumerWidget {
+
+  const PostCategoryWidget({super.key,});
 
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(PostingProvider);
+    return Row(
+        children:
+        categoryList.map((categoryName) =>
 
-    final categoryState = ref.watch(PostingProvider).category;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 3),
-      child: Container(
-
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: categoryName == categoryState ? PRIMARY_COLOR : null,
-          border: Border.all(width: 1, color: PRIMARY_COLOR),
-          borderRadius: BorderRadius.circular(20)
-        ),
-        child: TextButton(
-          onPressed: (){
-            ref.read(PostingProvider.notifier).updatePosting(category: categoryName);
-          },
-          child: Text(
-            categoryName, style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: categoryName == categoryState ? WHITE : PRIMARY_COLOR,
-            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize
-          ),),
-        ),
-      ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+              child: Container(
+                padding: EdgeInsets.zero,
+                decoration: BoxDecoration(
+                  color: state.category == categoryName ? PRIMARY_COLOR : WHITE,
+                  border: Border.all(width: 1, color: PRIMARY_COLOR),
+                  borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    foregroundColor: PRIMARY_COLOR,
+                  ),
+                    onPressed: () {
+                      ref.watch(PostingProvider.notifier).updatePosting(category: categoryName);
+                    },
+                    child: Text(categoryName,
+                        style: TextStyle(
+                          color: state.category == categoryName ? WHITE : PRIMARY_COLOR,
+                          fontWeight: FontWeight.w700,
+                        ))),
+              ),
+            )
+        ).toList()
     );
   }
 }

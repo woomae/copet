@@ -10,14 +10,18 @@ class PostingNotifier extends StateNotifier<PostingModel> {
           owner_id: 0,
           title: '',
           body: '',
-          category: ''));
+          category: '',
+          imagePaths: null
+      ));
 
   void updatePosting(
-      {int? owner_id, String? title, String? body, String? category}) {
+      {int? owner_id, String? title, String? body, String? category, List<String>? images}) {
     state = PostingModel(
         owner_id: owner_id ?? state.owner_id,
         title: title ?? state.title,
         body: body ?? state.body,
-        category: category ?? state.category);
+        category: category ?? state.category,
+        imagePaths: images ?? state.imagePaths
+    );
   }
 }
