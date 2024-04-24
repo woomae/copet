@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="showDialog 호출 시 state에러 수정&#10;- bottom category bar 키패드 따라 올라오게 수정&#10;- image post 수정 필요">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +323,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713771306593</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="showDialog 호출 시 state에러 수정&#10;- bottom category bar 키패드 따라 올라오게 수정&#10;- image post 수정 필요">
+      <option name="closed" value="true" />
+      <created>1713893157359</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1713893157359</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -336,7 +346,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="color, icon Theme 추가" />
     <MESSAGE value="네비게이션 기능 제외한 설정페이지 구성" />
     <MESSAGE value="appbar 모듈화" />
     <MESSAGE value="ProfilePage 구성" />
@@ -361,6 +370,7 @@
     <MESSAGE value="refactoring" />
     <MESSAGE value="ios imagePick 권한" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="showDialog 호출 시 state에러 수정&#10;- bottom category bar 키패드 따라 올라오게 수정&#10;- image post 수정 필요" />
+    <option name="LAST_COMMIT_MESSAGE" value="showDialog 호출 시 state에러 수정&#10;- bottom category bar 키패드 따라 올라오게 수정&#10;- image post 수정 필요" />
   </component>
 </project>
