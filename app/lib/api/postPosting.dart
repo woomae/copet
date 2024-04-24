@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class PostPosting{
 
-  static Future<void> postPosting({
+  static Future<Response> postPosting({
     required int owner_id,
     required String title,
     required String body,
@@ -19,14 +19,15 @@ class PostPosting{
     });
 
     if(imagePaths != null){
-      final imageNames = imagePaths.map((e) => MultipartFile.fromFileSync(e)).toList();
+      final List<String> fileName = imagePaths.map((e) => e.split('/').last).toList();
+      final List imageNames = imagePaths.map((e) => MultipartFile.fromFile(e)).toList();
 
       formData = FormData.fromMap({
         'owner_id' : owner_id,
         'title' : title,
         'body' : body,
         'category' : category,
-        'image_name' : imageNames
+        'img_name' : imageNames
       });
     }
 
@@ -35,6 +36,6 @@ class PostPosting{
     Dio dio = Dio();
     dio.options.contentType = 'multipart/form-data';
     final res = await Dio().post('$apiKey/articles/create',data: formData);
-    print(res.data);
+    return res;
   }
 }

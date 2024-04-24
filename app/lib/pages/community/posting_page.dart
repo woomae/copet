@@ -49,10 +49,10 @@ class PostingPage extends ConsumerWidget {
       try{
         await PostPosting.postPosting(
             owner_id: 1,
-            title: state.title ?? '제목없음',
+            title: state.title,
             body: state.body,
             category: state.category,
-            imagePaths: null ?? state.imagePaths
+            imagePaths: state.imagePaths != null ? state.imagePaths : null
         );
       }
       catch(err){
@@ -232,26 +232,27 @@ class _BottomAppBar extends ConsumerWidget {
         children: [
           IconButton(
             onPressed: ()async{
+              final imageLimit = 3;
               final imageState = ref.watch(PostingProvider).imagePaths;
               var picker = ImagePicker();
-              final List<XFile>? images = await picker.pickMultiImage();
-              //한 번에 5개가 넘는 이미지를 넣으려 할 때
-              if(images != null && images.length > 5){
-                images.removeRange(5, images.length);
+              final List<XFile>? images = await picker.pickMultiImage( imageQuality: 50);
+              //한 번에 3개가 넘는 이미지를 넣으려 할 때
+              if(images != null && images.length > imageLimit){
+                images.removeRange(imageLimit, images.length);
                 showDialog(context: context, builder: (context){
-                  return CommonDialog(content: "사진은 5개까지 선택 가능합니다",);
+                  return CommonDialog(content: "사진은 3개까지 선택 가능합니다",);
                 });
               }
               //이전에 imageState에 이미지가 들어왔다면, 최대 5개까지만 저장하도록 리스트 슬라이싱
-              if(imageState != null && imageState.length + images!.length > 5){
-                images.removeRange(5-imageState.length, images.length);
+              if(imageState != null && imageState.length + images!.length > imageLimit){
+                images.removeRange(imageLimit-imageState.length, images.length);
                 showDialog(context: context, builder: (context){
                   return CommonDialog(content: "사진은 5개까지 업로드 가능합니다",);
                 });
               }
               //state에 이미지패스 저장
-              if(imageState != null && imageState.length < 5) {
-                final imagePaths = images?.map((e) => e.path).toList();
+              if(images != null && images.length < imageLimit) {
+                final imagePaths = images.map((e) => e.path).toList();
                 ref.read(PostingProvider.notifier).updatePosting(
                     images: imagePaths);
               }
