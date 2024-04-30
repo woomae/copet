@@ -7,6 +7,7 @@ import '../../const/models/articles.dart';
 class PostList extends StatelessWidget {
   final int length;
   final List<Comments> comments;
+
   const PostList({
     super.key,
     required this.length,
@@ -15,52 +16,91 @@ class PostList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ListView.builder(
         itemCount: length,
         itemBuilder: (BuildContext context, int i) {
-          //썸네일, 작성자, 제목, 작성일,스크랩 여부,
           return GestureDetector(
             onTap: (){
               print('Posting Pressed');
             },
             child: Container(
-              color: WHITE,
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
-              child: Row(
+              decoration: BoxDecoration(
+                  color: WHITE,
+                border: Border(bottom: BorderSide(width: 1,color: GREY3))
+              ),
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+              child: Flex(
+                direction: Axis.horizontal,
                 children: [
-                  //글 이미지..?
-                  Container(
-                    margin: EdgeInsets.only(right: 5),
-                    width: 45,
-                    height: 45,
-                    decoration: BoxDecoration(
-                        color: GREY2,
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                  ),
                   Expanded(
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(comments[i].title! , style: Theme.of(context).textTheme.bodyMedium,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(comments[i].author!),
+                              Container(
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(),
+                                child: Row(children: [
+                                  Text('[${comments[i].category}]', style: TextStyle(
+                                      color: CATEGORY_COLOR
+                                  ),),
+                                  SizedBox(width: 5,),
+                                  Expanded(
+                                    child: Text(comments[i].title,
+                                      style: Theme.of(context).textTheme.titleMedium,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,),
+                                  ),
+                                ],),
+                              ),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('날짜'),
-                                  GestureDetector(
-                                      onTap: (){},
-                                      child: Icon(Icons.star_outline))
+                                  Text(comments[i].author, style: Theme.of(context).textTheme.bodySmall,),
+
+                                  comments[i].createdAt.year != DateTime.now().year ?
+                                  Text('${DateTime.now().year - comments[i].createdAt.year}년 전' ,style: TextStyle(color: FONT_GREY),) :
+                                  comments[i].createdAt.month != DateTime.now().month ?
+                                  Text('${DateTime.now().month- comments[i].createdAt.month}달 전' ,style: TextStyle(color: FONT_GREY),) :
+                                  comments[i].createdAt.day != DateTime.now().day ?
+                                  Text('${DateTime.now().day - comments[i].createdAt.day}일 전' ,style: TextStyle(color: FONT_GREY),) :
+                                  comments[i].createdAt.minute != DateTime.now().minute ?
+                                  Text('${DateTime.now().minute - comments[i].createdAt.minute}분 전' ,style: TextStyle(color: FONT_GREY),) :
+                                      Text('방금 전'),
                                 ],
                               )
-
-                            ],
-                          )
-                        ],),
+                            ],),
+                        ),
+                        SizedBox(width: 5),
+                        Row(
+                          children: [
+                            //글 이미지..?
+                            // comments[i].imgName != null ?
+                            //   Text(comments[i].imgName![0].toString()) :
+                            Thumbnail(),
+                            Container(
+                              margin: EdgeInsets.only(right: 5),
+                              width: 40,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: GREY1,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(width: 1, color: GREY1)
+                              ),
+                              child: Column(
+                                children: [
+                                  Text('댓글', style: Theme.of(context).textTheme.bodyMedium,),
+                                  Text(comments[i].commentCount.toString(),style: Theme.of(context).textTheme.bodyMedium,)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -71,4 +111,45 @@ class PostList extends StatelessWidget {
   }
 }
 
+class Thumbnail extends StatelessWidget {
+  const Thumbnail ({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    Widget Line = Container(
+      width: 25, height: 3,
+      margin: EdgeInsets.only(bottom: 3),
+      decoration: BoxDecoration(
+          color: GREY3,
+          borderRadius: BorderRadius.circular(30)
+      ),
+    );
+
+    return Container(
+      margin: EdgeInsets.only(right: 5),
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+          color: GREY1,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(width: 1, color: GREY2)
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Line,
+          Line,
+          Container(
+            width: 15, height: 3,
+            decoration: BoxDecoration(
+                color: GREY3,
+                borderRadius: BorderRadius.circular(30)
+            ),
+          ),
+        ],
+      ),
+    );
+
+  }
+}
