@@ -16,56 +16,62 @@ class Community extends ConsumerWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: Appbar(),
-        body: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
-              decoration: BoxDecoration(
-                color: WHITE,
-                border: Border(
-                    bottom: BorderSide(width: 1, color: Colors.black.withOpacity(0.2))
+        body: Container(
+          color: WHITE,
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
+                decoration: BoxDecoration(
+                  color: WHITE,
+                  border: Border(
+                      bottom: BorderSide(width: 1, color: Colors.black.withOpacity(0.2))
+                  ),
                 ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                  Category(categoryName: '일상'),
+                  Category(categoryName: '도움'),
+                  Category(categoryName: 'QnA'),
+                  Category(categoryName: '정보&후기'),
+                ],),
               ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                Category(categoryName: '일상'),
-                Category(categoryName: '도움'),
-                Category(categoryName: 'QnA'),
-                Category(categoryName: '정보&후기'),
-              ],),
-            ),
-            Expanded(
-              child: Stack(
-                children: [
-                  FutureBuilder(
-                      future: GetArticles.getArticles(),
-                      builder:(context, snapshot){
-                        if(snapshot.connectionState == ConnectionState.waiting){
-                          // 로딩 중....
-                        }
-                        if(snapshot.hasData){
-                          return PostList(length: snapshot.data!.length , comments: snapshot.data!);
-                        }
-                        else{
-                          //에러 처리
-                          return Text('로딩 중');
-                        }
-                      }),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      padding: EdgeInsets.only(bottom: 20),
-                      width: 150,
-                      height: 60,
-                      child: PostButton()
-                    ),
-                  )
-                ],
+              Expanded(
+                child: Stack(
+                  children: [
+                    FutureBuilder(
+                        future: GetArticles.getArticles(),
+                        builder:(context, snapshot){
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Center(child: Text('로딩 중'));
+                            // 로딩 중....
+                          }
+                          if(snapshot.hasData){
+                            return RefreshIndicator(
+                                onRefresh: () => GetArticles.getArticles(),
+                                child: PostList(length: snapshot.data!.length , comments: snapshot.data!));
+                          }
+                          else{
+                            //에러 처리
+                            return Center(child: Text('error'));
+                          }
+                        }),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        padding: EdgeInsets.only(bottom: 20),
+                        width: 150,
+                        height: 60,
+                        child: PostButton()
+                      ),
+                    )
+                  ],
+                )
               )
-            )
-          ],
+            ],
+          ),
         )
       ),
     );
