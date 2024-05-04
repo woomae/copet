@@ -11,7 +11,6 @@ import { AppService } from './app.service';
 import { FriendsModule } from './apis/friends/friends.module';
 import { StarsModule } from './apis/stars/stars.module';
 import { CommentsModule } from './apis/comments/comments.module';
-import { LoggerMiddleware } from './common/logger/logger.middleware';
 import { LoggingInterceptor } from './common/logger/logger.intrecepter';
 
 @Module({
