@@ -12,6 +12,7 @@ import { UsersService } from './users.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import ResponseFormat from 'src/common/response-format';
+import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
 
 @Controller('users')
 export class UsersController {
@@ -48,6 +49,7 @@ export class UsersController {
     return response;
   }
   @Get(':id')
+  @UseInterceptors(LoggingInterceptor)
   async findUser(@Param('id') id: number): Promise<StandardResponseDto> {
     let result;
     let response;

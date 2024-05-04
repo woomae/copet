@@ -48,7 +48,7 @@ export default class ResponseFormat {
           location:
             error?.__file__ &&
             `${error?.__file__}:${error?.__line__} (${error?.__function__})`,
-          trace: error?.stack,
+          trace: error?.stack.split('\n')[0],
           version: error?.version,
           build: error?.build,
           hostname: error?.hostname,

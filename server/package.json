@@ -9,7 +9,8 @@
     "build": "nest build",
     "start": "nest start",
     "dev": "cross-env NODE_ENV=local nest start --watch",
-    "serve": "cross-env NODE_ENV=local nodemon --exec ts-node -r tsconfig-paths/register --files ./src/main.ts"
+    "serve": "cross-env NODE_ENV=local nodemon --exec ts-node -r tsconfig-paths/register --files ./src/main.ts",
+    "custom": "cross-env NODE_ENV=prod nodemon --exec ts-node -r tsconfig-paths/register --files ./src/main.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.525.0",
@@ -37,7 +38,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.19",
-    "winston": "^3.13.0"
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

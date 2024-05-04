@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UsersModule } from './apis/users/users.module';
 import { ArticlesModule } from './apis/articles/articles.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +11,8 @@ import { AppService } from './app.service';
 import { FriendsModule } from './apis/friends/friends.module';
 import { StarsModule } from './apis/stars/stars.module';
 import { CommentsModule } from './apis/comments/comments.module';
+import { LoggerMiddleware } from './common/logger/logger.middleware';
+import { LoggingInterceptor } from './common/logger/logger.intrecepter';
 
 @Module({
   imports: [
@@ -30,6 +32,6 @@ import { CommentsModule } from './apis/comments/comments.module';
     CommentsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, LoggingInterceptor],
 })
 export class AppModule {}
