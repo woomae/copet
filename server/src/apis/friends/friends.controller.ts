@@ -1,9 +1,17 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import { FriendsService } from './friends.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { Friends } from './friends.entity';
 import { UsersService } from '../users/users.service';
 import ResponseFormat from 'src/common/response-format';
+import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
 
 @Controller('friends')
 export class FriendsController {
@@ -13,6 +21,7 @@ export class FriendsController {
   ) {}
 
   @Post('friend-request')
+  @UseInterceptors(LoggingInterceptor)
   async sendFriendRequest(
     @Body() friendRequestData: Partial<Friends>,
   ): Promise<StandardResponseDto> {
@@ -27,6 +36,7 @@ export class FriendsController {
     return response;
   }
   @Delete('friend-request')
+  @UseInterceptors(LoggingInterceptor)
   async deleteFriendRequest(
     @Body() friendRequestData: Partial<Friends>,
   ): Promise<StandardResponseDto> {
@@ -42,6 +52,7 @@ export class FriendsController {
   }
 
   @Get('follow')
+  @UseInterceptors(LoggingInterceptor)
   async getFollowList(
     @Body() bodyData: Partial<Friends>,
   ): Promise<StandardResponseDto> {
@@ -57,6 +68,7 @@ export class FriendsController {
   }
 
   @Get('follower')
+  @UseInterceptors(LoggingInterceptor)
   async getFollowerList(
     @Body() bodyData: Partial<Friends>,
   ): Promise<StandardResponseDto> {

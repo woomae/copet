@@ -24,6 +24,7 @@ export class UsersController {
     }),
     //사진용량 구성 필요
   )
+  @UseInterceptors(LoggingInterceptor)
   async initUser(
     @UploadedFiles() files: { petimg: Express.Multer.File[] },
     @Param('id') id: number,
