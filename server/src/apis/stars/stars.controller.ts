@@ -1,13 +1,15 @@
-import { Get, Controller, Post, Body } from '@nestjs/common';
+import { Get, Controller, Post, Body, UseInterceptors } from '@nestjs/common';
 import { StarsService } from './stars.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { Stars } from './stars.entity';
 import ResponseFormat from 'src/common/response-format';
+import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
 
 @Controller('stars')
 export class StarsController {
   constructor(private readonly starsService: StarsService) {}
   @Get('')
+  @UseInterceptors(LoggingInterceptor)
   async getAllStar(
     @Body() bodyData: Partial<Stars>,
   ): Promise<StandardResponseDto> {
@@ -22,6 +24,7 @@ export class StarsController {
     return response;
   }
   @Post('like-request')
+  @UseInterceptors(LoggingInterceptor)
   async likeRequest(
     @Body() bodyData: Partial<Stars>,
   ): Promise<StandardResponseDto> {

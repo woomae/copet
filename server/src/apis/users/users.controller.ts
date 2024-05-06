@@ -12,6 +12,7 @@ import { UsersService } from './users.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import ResponseFormat from 'src/common/response-format';
+import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
 
 @Controller('users')
 export class UsersController {
@@ -23,6 +24,7 @@ export class UsersController {
     }),
     //사진용량 구성 필요
   )
+  @UseInterceptors(LoggingInterceptor)
   async initUser(
     @UploadedFiles() files: { petimg: Express.Multer.File[] },
     @Param('id') id: number,
@@ -48,6 +50,7 @@ export class UsersController {
     return response;
   }
   @Get(':id')
+  @UseInterceptors(LoggingInterceptor)
   async findUser(@Param('id') id: number): Promise<StandardResponseDto> {
     let result;
     let response;

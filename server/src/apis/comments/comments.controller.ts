@@ -1,13 +1,23 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateCommentDto } from 'src/dto/create-comment.dto';
 import ResponseFormat from 'src/common/response-format';
+import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
 
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
   @Get(':id')
+  @UseInterceptors(LoggingInterceptor)
   async getAllCommentsByArticle(
     @Param('id') connected_article_id: number,
   ): Promise<StandardResponseDto> {
@@ -25,6 +35,7 @@ export class CommentsController {
     return response;
   }
   @Post('create')
+  @UseInterceptors(LoggingInterceptor)
   async createComment(
     @Body() bodyData: CreateCommentDto,
   ): Promise<StandardResponseDto> {
@@ -39,6 +50,7 @@ export class CommentsController {
     return response;
   }
   @Delete(':id/delete')
+  @UseInterceptors(LoggingInterceptor)
   async deleteComment(
     @Param('id') comment_id: number,
     @Body() bodyData: any,

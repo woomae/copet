@@ -15,11 +15,13 @@ import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import ResponseFormat from 'src/common/response-format';
+import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
 
 @Controller('articles')
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
   @Get('')
+  @UseInterceptors(LoggingInterceptor)
   async getAllArticles(
     @Query('page') page: number = 1,
     @Query('size') size: number = 10,
@@ -36,6 +38,7 @@ export class ArticlesController {
     return response;
   }
   @Get('owner')
+  @UseInterceptors(LoggingInterceptor)
   async getAllArticleByOwner(
     @Query('owner_id') owner_id: number,
   ): Promise<StandardResponseDto> {
@@ -50,6 +53,7 @@ export class ArticlesController {
     return response;
   }
   @Get(':id')
+  @UseInterceptors(LoggingInterceptor)
   async getArticleById(
     @Param('id') article_id: number,
   ): Promise<StandardResponseDto> {
@@ -65,6 +69,7 @@ export class ArticlesController {
   }
 
   @Post('create')
+  @UseInterceptors(LoggingInterceptor)
   @UseInterceptors(
     FilesInterceptor('img_name', 5, {
       limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
@@ -93,6 +98,7 @@ export class ArticlesController {
     return response;
   }
   @Put(':id/update')
+  @UseInterceptors(LoggingInterceptor)
   @UseInterceptors(
     //사진저장 미들웨어
     FilesInterceptor('img_name', 5, {
@@ -120,6 +126,7 @@ export class ArticlesController {
   }
 
   @Delete(':id/delete')
+  @UseInterceptors(LoggingInterceptor)
   async deleteArticle(
     @Param('id') article_id: number,
     @Body('owner_id') owner_id: number,
