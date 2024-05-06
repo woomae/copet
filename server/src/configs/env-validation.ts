@@ -4,6 +4,7 @@ import { IsEnum, IsNumber, IsString, validateSync } from 'class-validator';
 enum Environment {
   Local = 'local',
   Dev = 'dev',
+  Prod = 'prod',
 }
 
 class EnvironmentVariables {
