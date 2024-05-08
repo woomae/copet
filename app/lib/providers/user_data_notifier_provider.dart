@@ -7,14 +7,14 @@ final userDataProvider = StateNotifierProvider<UserDataNotifier, UserDataModel>(
 class UserDataNotifier extends StateNotifier<UserDataModel> {
   UserDataNotifier() :
         super( UserDataModel(
-          nickname: '',
-          pet_category: '',
-          region_si: '',
-          region_do: '',
-          region_dong: '',
-          petimg: '',
-          petkeyword: '', //수정필요
-          intro: '',
+          nickname: null,
+          pet_category: null,
+          region_si: null,
+          region_do: null,
+          region_dong: null,
+          petimg: null,
+          petkeyword: null, //수정필요
+          intro: null,
       ));
   void updateUserData({
     String? nickname,
