@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:auth_buttons/auth_buttons.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pet/api/auth/authGoogle.dart';
 import 'package:pet/api/auth/authKakao.dart';
@@ -9,10 +7,10 @@ import 'package:pet/common/layout/default_layout.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:http/http.dart' as http;
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 import '../common/component/main_tabbar.dart';
+import '../common/component/utils/webview_login_widget.dart';
 
 class mainlogin extends StatelessWidget {
   const mainlogin({super.key});
@@ -20,7 +18,6 @@ class mainlogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final dio = Dio();
 
     return DefaultLayout(
       child: SafeArea(
@@ -135,13 +132,10 @@ class _authgoogle extends StatelessWidget {
 
   Future<void> _launchURL(BuildContext context) async {
     final response = await AuthGoogle.authGoogle();
-
     final cookies = response.headers['set-cookie']?[0];
-
     // 회원 가입 여부 확인
     bool isRegistered = await checkRegistration(cookies);
     print('___________________________________Received headers: $cookies');
-
     if (isRegistered) {
       // 회원 가입된 경우 페이지 이동
       Navigator.push(context, MaterialPageRoute(builder: (context) => mainhome()));
@@ -226,50 +220,16 @@ class _authfacebook extends StatelessWidget {
 class _authkakao extends StatelessWidget {
   const _authkakao({super.key});
 
-  static const String _url = 'http://copet.life/auth/kakao';
-
-  Future<void> _launchURL(BuildContext context) async {
-    final response = await AuthKakao.authKakao();
-
-    final cookies = response.headers['set-cookie']?[0];
-
-    print('Received cookies: $cookies');
-
-    // 회원 가입 여부 확인
-    bool isRegistered = await checkRegistration(cookies);
-    if (isRegistered) {
-      // 회원 가입된 경우 페이지 이동
-       Navigator.push(context, MaterialPageRoute(builder: (context) => mainhome()));
-    } else {
-      // 회원 가입되지 않은 경우 다른 페이지로 이동 또는 회원 가입 화면 표시
-       Navigator.push(context, MaterialPageRoute(builder: (context) => logintype()));
-    }
-  }
-
-  Future<bool> checkRegistration(String? cookies) async {
-    // 쿠키를 서버로 전송하여 회원 가입 여부 확인
-    // 서버에서는 쿠키를 이용하여 회원 가입 여부를 확인하고 응답을 반환합니다.
-    // 이 예시에서는 간단히 회원 가입 여부를 확인하도록 구현합니다.
-    if (cookies != null && cookies.contains('userId')) {
-      return true; // 회원 가입된 경우
-    } else {
-      return false; // 회원 가입되지 않은 경우
-    }
-
-
-
-
-    if (!await launchUrl(Uri.parse(_url))) {
-
-      throw Exception('Could not launch $_url');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () async {
-          await _launchURL(context);
+          final res = await AuthKakao.authKakao();
+          final String url = res.realUri.toString();
+          //api요청으로 카카오로그인하는 URL로 웹뷰 띄움.
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WebviewLoginWidget(url: url)));
+          //await _launchURL(context);
         },
         child: Text('kakaologin'),
     );
