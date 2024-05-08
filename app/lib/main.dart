@@ -3,17 +3,18 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/api/getUser.dart';
 import 'package:pet/login/login_main.dart';
+import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
 void main() async{
   await dotenv.load(fileName: ".env");
-  
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp( //껐다 켜기만 해도 runApp 실행됨.
       const ProviderScope(
-          child:
-          _App()),
+          child: _App()),
   );
 }
 class _App extends ConsumerWidget {
@@ -21,8 +22,19 @@ class _App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    GetUser.getUser('1')
-        .then((e) => ref.watch(UserProvider.notifier).storeUserData(e));
+    final userRef = ref.watch(UserProvider);
+    bool isRegistered = userRef.nickname != '' ? true : false;
+    print(isRegistered);
+    final userId = userRef.id;
+    if(userRef.id != 0){
+      final res = GetUser.getUser(userRef.id.toString())
+          .then((res) => ref.read(UserProvider.notifier).storeUserData(res))
+          .onError((error, stackTrace){
+            print(error);
+            isRegistered = false;
+          });
+    }
+    print('------------------------------------- userid : $userId');
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -46,7 +58,9 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: mainhome(),
+      home: userRef.id == 0 ? mainlogin() :
+              isRegistered == false ? logintype() :
+              mainhome()
     );
   }
 }

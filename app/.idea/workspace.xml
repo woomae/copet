@@ -4,11 +4,28 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="사진 업로드 5개까지 제한&#10;- 초과 시 showDialog">
+    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="communityPage articleList 섹션 구현">
+      <change afterPath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/getArticles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/getArticles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/getUser.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/getUser.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/api/postPosting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/postPosting.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/const/models/articles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/articles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/community/post_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/post_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/posting_notifier_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -340,7 +357,39 @@
       <option name="project" value="LOCAL" />
       <updated>1713965064313</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="imagePost 기능 구현 완료">
+      <option name="closed" value="true" />
+      <created>1713967955358</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1713967955358</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Color Stlye 추가">
+      <option name="closed" value="true" />
+      <created>1714460416974</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1714460416975</updated>
+    </task>
+    <task id="LOCAL-00034" summary="community 맨 위 섹션에서 스크롤 시 refresh">
+      <option name="closed" value="true" />
+      <created>1714460464659</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1714460464659</updated>
+    </task>
+    <task id="LOCAL-00035" summary="communityPage articleList 섹션 구현">
+      <option name="closed" value="true" />
+      <created>1714460549927</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1714460549928</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -355,10 +404,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="appbar 모듈화" />
-    <MESSAGE value="ProfilePage 구성" />
-    <MESSAGE value="- postingPage 수정,&#10;- communityPage, profilePage 골격 작성" />
-    <MESSAGE value="- dropdwonbutton 컴포넌트 구현 완료&#10;- 아직 api연동 불가능" />
     <MESSAGE value="add riverPod&#10;- Posting Model 및 Provider 세팅" />
     <MESSAGE value="merge 및 Refactoring" />
     <MESSAGE value="posting page 최신화" />
@@ -380,6 +425,10 @@
     <MESSAGE value="." />
     <MESSAGE value="showDialog 호출 시 state에러 수정&#10;- bottom category bar 키패드 따라 올라오게 수정&#10;- image post 수정 필요" />
     <MESSAGE value="사진 업로드 5개까지 제한&#10;- 초과 시 showDialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="사진 업로드 5개까지 제한&#10;- 초과 시 showDialog" />
+    <MESSAGE value="imagePost 기능 구현 완료" />
+    <MESSAGE value="Color Stlye 추가" />
+    <MESSAGE value="community 맨 위 섹션에서 스크롤 시 refresh" />
+    <MESSAGE value="communityPage articleList 섹션 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="communityPage articleList 섹션 구현" />
   </component>
 </project>
