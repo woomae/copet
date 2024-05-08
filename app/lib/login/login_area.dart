@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet/common/component/buttons/dropdown_button.dart';
 import 'package:pet/login/login_name.dart';
-import 'package:pet/login/login_type.dart';
 import 'package:pet/login/login_end.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart';
+import 'package:pet/style/colors.dart';
+
+import '../common/component/buttons/next_button.dart';
+import '../common/component/buttons/pre_button.dart';
 
 const List<String> list1 = <String>['지역선택', 'Twwwwo', 'Three', 'Four'];
 const List<String> list2 = <String>['지역선택', '1', '2', '3'];
 const List<String> list3 = <String>['지역선택', '4', '5', '6'];
 
-class loginarea extends StatelessWidget {
+class loginarea extends ConsumerWidget {
   const loginarea({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.read(userDataProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -33,60 +40,57 @@ class loginarea extends StatelessWidget {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _Title(),
-              const SizedBox(height: 10.0),
-              Center(
-                child: Container(
-                  height: 45,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30), // 테두리 둥글게 만들기
-                    border: Border.all(color: Colors.black, width: 1), // 테두리 스타일 설정
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 28),
-                  child: DropdownButtonExample1(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _Title(),
+                const SizedBox(height: 10.0),
+                DropDownButton(DropDownList: list1,
+                  givenItem: state.region_do == '' ? null : state.region_do,
+                  onPressed: (e){
+                  if(list1[0] != e){
+                    ref.read(userDataProvider.notifier).updateUserData(region_do: e);
+                  }
+                  else{
+                    ref.read(userDataProvider.notifier).updateUserData(region_do: '');
+                  }
+                },),
+                const SizedBox(height: 10.0),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    DropDownButton(DropDownList: list2,
+                      givenItem: state.region_si == '' ? null : state.region_si,
+                      onPressed: (e){
+                      if(list2[0] != e){
+                        ref.read(userDataProvider.notifier).updateUserData(region_si: e);
+                      }
+                      else{
+                        ref.read(userDataProvider.notifier).updateUserData(region_si: '');
+                      }
+                    },),
+                    const SizedBox(width: 10.0),
+                    DropDownButton(DropDownList: list3,
+                      givenItem: state.region_dong == ''? null : state.region_dong,
+                      onPressed: (e){
+                      if(list3[0] != e){
+                        ref.read(userDataProvider.notifier).updateUserData(region_dong: e);
+                      }
+                      else{
+                        ref.read(userDataProvider.notifier).updateUserData(region_dong: '');
+                      }
+                    },),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 10.0),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Container(
-                      height: 45,
-                      width: 185,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30), // 테두리 둥글게 만들기
-                        border: Border.all(color: Colors.black, width: 1), // 테두리 스타일 설정
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 28),
-                      child: DropdownButtonExample2(),
-                    ),
-                  ),
-                  const SizedBox(width: 10.0),
-                  Center(
-                    child: Container(
-                      height: 45,
-                      width: 185,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30), // 테두리 둥글게 만들기
-                        border: Border.all(color: Colors.black, width: 1), // 테두리 스타일 설정
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 28),
-                      child: DropdownButtonExample3(),
-                    ),
-                  ),
-                ],
-              ),
-
-            ],
+              ],
+            ),
           ),
           Column(
             children: [
@@ -137,9 +141,17 @@ class loginarea extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Prebutton(),
+              Prebutton(onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const loginname()));
+              },),
               const SizedBox(width: 20),
-              Nextbutton(),
+              Nextbutton(onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const loginend()));
+              },),
             ],
           )
         ],
@@ -553,7 +565,8 @@ class agreebutton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
+        foregroundColor: WHITE,
+        backgroundColor: PRIMARY_COLOR,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
@@ -561,58 +574,6 @@ class agreebutton extends StatelessWidget {
       ),
       child: Text(
         '전체동의',
-      ),
-    );
-  }
-}
-
-class Nextbutton extends StatelessWidget {
-  const Nextbutton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const loginend()),
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        minimumSize: Size(100, 50),
-      ),
-      child: Text(
-        '다음',
-      ),
-    );
-  }
-}
-
-class Prebutton extends StatelessWidget {
-  const Prebutton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const loginname()),
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        minimumSize: Size(100, 50),
-      ),
-      child: Text(
-        '이전',
       ),
     );
   }

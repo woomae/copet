@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:pet/login/login_type.dart';
-import 'package:pet/main/main_home.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/main/main_screen.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart';
 
-class loginend extends StatelessWidget {
+import '../common/component/buttons/next_button.dart';
+
+class loginend extends ConsumerWidget {
   const loginend({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.read(userDataProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -48,7 +51,16 @@ class loginend extends StatelessWidget {
               children: [
                 const SizedBox(width: 70),
                 const SizedBox(width: 70),
-                Nextbutton(),
+                Nextbutton(onPressed: (){
+                  //Navigator.pushAndRemoveUntil(
+                    //  context, MaterialPageRoute(builder: (context) => mainscreen()), (route) => false);
+                  print(state.pet_category);
+                  print(state.nickname);
+                  print(state.region_do);
+                  print(state.petkeyword);
+                  print(state.intro);
+
+                },),
               ],
             )
           ],
@@ -68,32 +80,6 @@ class subtitle extends StatelessWidget {
       style: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-}
-
-class Nextbutton extends StatelessWidget {
-  const Nextbutton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const mainscreen()),
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        minimumSize: Size(100, 50),
-      ),
-      child: Text(
-        '다음',
       ),
     );
   }

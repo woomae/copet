@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/text_form_field.dart';
 import 'package:pet/login/login_name.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart';
 
-class logintype extends StatelessWidget {
+import '../common/component/buttons/next_button.dart';
+
+class logintype extends ConsumerWidget {
   const logintype({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -31,13 +35,20 @@ class logintype extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _Title(),
-          textformfield(),
+          textformfield(onChanged: (e){
+            ref.read(userDataProvider.notifier).updateUserData(pet_category:e);
+            print(e);
+          },),
           _Subtitle(),
           const SizedBox(height: 350.0),
           Row(
             children: [
               const SizedBox(width: 280.0),
-              Nextbutton(),
+              Nextbutton(onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const loginname()),);
+                },),
             ],
           ),
         ],
@@ -74,32 +85,3 @@ class _Subtitle extends StatelessWidget {
     );
   }
 }
-
-class Nextbutton extends StatelessWidget {
-  const Nextbutton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const loginname()),
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        minimumSize: Size(100, 50),
-      ),
-      child: Text(
-        '다음',
-      ),
-    );
-  }
-}
-
-
-
