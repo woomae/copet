@@ -7,7 +7,6 @@ class GetUser{
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
     final res = await Dio().get('$apiKey/users/$id');
-    print(res.data['data']);
     final user = UsersModel.fromJson(json: res.data['data']);
     return user;
   }

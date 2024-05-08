@@ -8,8 +8,6 @@ class GetArticles {
     String? apiKey = dotenv.env['API_KEY'];
 
     final res = await Dio().get('$apiKey/articles');
-    print('articles 수신');
-
     final Articles articles = Articles.fromJson(json: res.data['data']);
     final List<Comments> comments = articles.comments.map(
             (e) => Comments.fromJson(e as Map<String, dynamic>)).toList();

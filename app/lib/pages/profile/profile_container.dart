@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
-import '../../api/getUser.dart';
 import '../../style/colors.dart';
 
 class ProfileContainer extends ConsumerWidget {
