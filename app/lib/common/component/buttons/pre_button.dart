@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:pet/style/colors.dart';
 
 class Prebutton extends StatelessWidget {
-  const Prebutton({super.key});
+  final Function onPressed;
+  const Prebutton({
+    super.key,
+    required this.onPressed
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        onPressed();
+      },
       style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
+        foregroundColor: WHITE,
+        backgroundColor: PRIMARY_COLOR,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
