@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
+import 'package:pet/main/main_screen.dart';
 
 class loginend extends StatelessWidget {
   const loginend({super.key});
@@ -81,7 +82,7 @@ class Nextbutton extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const mainhome()),
+          MaterialPageRoute(builder: (context) => const mainscreen()),
         );
       },
       style: ElevatedButton.styleFrom(

@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Nextbutton extends StatelessWidget {
-  const Nextbutton({super.key});
+
+  final Function onPressed;
+  const Nextbutton({
+    super.key,
+    required this.onPressed
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        onPressed();
+      },
       style: ElevatedButton.styleFrom(
         primary: Colors.orange,
         shape: RoundedRectangleBorder(
