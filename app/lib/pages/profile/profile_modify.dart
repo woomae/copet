@@ -56,16 +56,16 @@ class ModifyContainer extends StatelessWidget {
               ],
             ),
             InputField(text: '자기소개', hintText: '* 60자 이내',),
-            DropDownButton(DropDownList: Region_do,),
+            DropDownButton(dropDownList: Region_do,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   fit: FlexFit.tight,
-                    child: DropDownButton(DropDownList: Region_do)),
+                    child: DropDownButton(dropDownList: Region_do)),
                 Flexible(
                   fit: FlexFit.tight,
-                    child: DropDownButton(DropDownList: Region_do)),
+                    child: DropDownButton(dropDownList: Region_do)),
               ],
             ),
             Row(
