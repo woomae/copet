@@ -11,6 +11,7 @@ class logintype extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(userDataProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -45,9 +46,10 @@ class logintype extends ConsumerWidget {
             children: [
               const SizedBox(width: 280.0),
               Nextbutton(onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const loginname()),);
+                if(state.pet_category != null && state.pet_category != ''){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const loginname()),);
+                  print(state.pet_category);
+                }
                 },),
             ],
           ),

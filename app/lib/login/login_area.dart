@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
-import 'package:pet/login/login_name.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
+import '../api/patchUserData.dart';
 import '../common/component/buttons/next_button.dart';
 import '../common/component/buttons/pre_button.dart';
+import '../providers/user_notifier_provider.dart';
 
 const List<String> list1 = <String>['지역선택', 'Twwwwo', 'Three', 'Four'];
 const List<String> list2 = <String>['지역선택', '1', '2', '3'];
@@ -18,7 +19,7 @@ class loginarea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.read(userDataProvider);
+    final state = ref.watch(userDataProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -50,8 +51,8 @@ class loginarea extends ConsumerWidget {
               children: [
                 _Title(),
                 const SizedBox(height: 10.0),
-                DropDownButton(DropDownList: list1,
-                  givenItem: state.region_do == '' ? null : state.region_do,
+                DropDownButton(dropDownList: list1,
+                  currentItem: state.region_do,
                   onPressed: (e){
                   if(list1[0] != e){
                     ref.read(userDataProvider.notifier).updateUserData(region_do: e);
@@ -65,8 +66,8 @@ class loginarea extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    DropDownButton(DropDownList: list2,
-                      givenItem: state.region_si == '' ? null : state.region_si,
+                    DropDownButton(dropDownList: list2,
+                      currentItem: state.region_si,
                       onPressed: (e){
                       if(list2[0] != e){
                         ref.read(userDataProvider.notifier).updateUserData(region_si: e);
@@ -76,8 +77,8 @@ class loginarea extends ConsumerWidget {
                       }
                     },),
                     const SizedBox(width: 10.0),
-                    DropDownButton(DropDownList: list3,
-                      givenItem: state.region_dong == ''? null : state.region_dong,
+                    DropDownButton(dropDownList: list3,
+                      currentItem: state.region_dong == '' ? null : state.region_dong,
                       onPressed: (e){
                       if(list3[0] != e){
                         ref.read(userDataProvider.notifier).updateUserData(region_dong: e);
@@ -142,15 +143,10 @@ class loginarea extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Prebutton(onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const loginname()));
+                Navigator.pop(context);
               },),
               const SizedBox(width: 20),
               Nextbutton(onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const loginend()));
               },),
             ],
           )

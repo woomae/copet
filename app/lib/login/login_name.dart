@@ -13,6 +13,7 @@ class loginname extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(userDataProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -47,15 +48,14 @@ class loginname extends ConsumerWidget {
             children: [
               const SizedBox(width: 30.0),
               Prebutton(onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const logintype()));
+                Navigator.pop(context);
               },),
               const SizedBox(width: 160.0),
               Nextbutton(onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const loginarea()));
+                if(state.nickname != null && state.nickname != ''){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const loginarea()));
+                  print(state.nickname);
+                }
                 },),
             ],
           ),
