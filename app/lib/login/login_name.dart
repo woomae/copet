@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet/common/component/buttons/pre_button.dart';
 import 'package:pet/common/component/text_form_field.dart';
 import 'package:pet/login/login_area.dart';
 import 'package:pet/login/login_type.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart';
 
-class loginname extends StatelessWidget {
+import '../common/component/buttons/next_button.dart';
+
+class loginname extends ConsumerWidget {
   const loginname({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -32,15 +37,26 @@ class loginname extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _Title(),
-          textformfield(),
+          textformfield(onChanged: (e){
+            ref.read(userDataProvider.notifier).updateUserData(nickname: e);
+            print(e);
+          },),
           _Subtitle(),
           const SizedBox(height: 350.0),
           Row(
             children: [
               const SizedBox(width: 30.0),
-              Prebutton(),
+              Prebutton(onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const logintype()));
+              },),
               const SizedBox(width: 160.0),
-              Nextbutton(),
+              Nextbutton(onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const loginarea()));
+                },),
             ],
           ),
         ],
@@ -78,54 +94,3 @@ class _Subtitle extends StatelessWidget {
   }
 }
 
-class Nextbutton extends StatelessWidget {
-  const Nextbutton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const loginarea()),
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        minimumSize: Size(100, 50),
-      ),
-      child: Text(
-        '다음',
-      ),
-    );
-  }
-}
-
-class Prebutton extends StatelessWidget {
-  const Prebutton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const logintype()),
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        minimumSize: Size(100, 50),
-      ),
-      child: Text(
-        '이전',
-      ),
-    );
-  }
-}

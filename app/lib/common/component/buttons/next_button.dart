@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Nextbutton extends StatelessWidget {
+import '../../../style/colors.dart';
 
+class Nextbutton extends StatelessWidget {
   final Function onPressed;
   const Nextbutton({
     super.key,
@@ -15,7 +16,9 @@ class Nextbutton extends StatelessWidget {
         onPressed();
       },
       style: ElevatedButton.styleFrom(
-        primary: Colors.orange,
+        foregroundColor: WHITE,
+        backgroundColor: PRIMARY_COLOR,
+        textStyle: TextStyle(color: WHITE),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),

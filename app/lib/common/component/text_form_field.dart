@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 class textformfield extends StatelessWidget {
-  const textformfield({super.key});
+  final Function onChanged;
+  const textformfield({
+    super.key,
+    required this.onChanged
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: TextFormField(
+        onChanged: (e) => onChanged(e),
         cursorColor: Colors.black,
         decoration: InputDecoration(
           focusedBorder: UnderlineInputBorder(
