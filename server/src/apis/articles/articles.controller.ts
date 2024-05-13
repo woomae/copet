@@ -26,7 +26,7 @@ export class ArticlesController {
     @Query('page') page: number = 1,
     @Query('size') size: number = 10,
     @Query('category') category: string,
-  ): Promise<any> {
+  ): Promise<StandardResponseDto> {
     let result;
     let response;
     try {
@@ -78,7 +78,7 @@ export class ArticlesController {
   async createArticle(
     @UploadedFiles() files: { img_name: Express.Multer.File[] },
     @Body() bodyData: CreateArticleDto,
-  ): Promise<any> {
+  ): Promise<StandardResponseDto> {
     let result;
     let response;
     try {

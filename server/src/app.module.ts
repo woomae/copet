@@ -12,6 +12,7 @@ import { FriendsModule } from './apis/friends/friends.module';
 import { StarsModule } from './apis/stars/stars.module';
 import { CommentsModule } from './apis/comments/comments.module';
 import { LoggingInterceptor } from './common/logger/logger.intrecepter';
+import { MocksModule } from './apis/mocks/mocks.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { LoggingInterceptor } from './common/logger/logger.intrecepter';
     FriendsModule,
     StarsModule,
     CommentsModule,
+    MocksModule,
   ],
   controllers: [AppController],
   providers: [AppService, LoggingInterceptor],
