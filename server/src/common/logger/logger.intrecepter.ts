@@ -18,7 +18,7 @@ export class LoggingInterceptor implements NestInterceptor {
     return next.handle().pipe(
       tap((response) => {
         const { statusCode } = response;
-        const trace = response.data.trace;
+        const trace = response.data?.trace;
         if (statusCode >= 400 && statusCode < 500) {
           winstonLogger.warn(
             `[${method}]${originalUrl}(${statusCode}) ${ip} ${userAgent} ${statusCode} ${trace}`,
