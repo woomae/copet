@@ -50,7 +50,7 @@ class PostList extends StatelessWidget {
                                   ),),
                                   SizedBox(width: 5,),
                                   Expanded(
-                                    child: Text(comments[i].title,
+                                    child: Text(comments[i].title!,
                                       style: Theme.of(context).textTheme.titleMedium,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,),
@@ -60,16 +60,16 @@ class PostList extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(comments[i].author, style: Theme.of(context).textTheme.bodySmall,),
+                                  Text(comments[i].author!, style: Theme.of(context).textTheme.bodySmall,),
 
-                                  comments[i].createdAt.year != DateTime.now().year ?
-                                  Text('${DateTime.now().year - comments[i].createdAt.year}년 전' ,style: TextStyle(color: FONT_GREY),) :
-                                  comments[i].createdAt.month != DateTime.now().month ?
-                                  Text('${DateTime.now().month- comments[i].createdAt.month}달 전' ,style: TextStyle(color: FONT_GREY),) :
-                                  comments[i].createdAt.day != DateTime.now().day ?
-                                  Text('${DateTime.now().day - comments[i].createdAt.day}일 전' ,style: TextStyle(color: FONT_GREY),) :
-                                  comments[i].createdAt.minute != DateTime.now().minute ?
-                                  Text('${DateTime.now().minute - comments[i].createdAt.minute}분 전' ,style: TextStyle(color: FONT_GREY),) :
+                                  comments[i].createdAt!.year != DateTime.now().year ?
+                                  Text('${DateTime.now().year - comments[i].createdAt!.year}년 전' ,style: TextStyle(color: FONT_GREY),) :
+                                  comments[i].createdAt!.month != DateTime.now().month ?
+                                  Text('${DateTime.now().month- comments[i].createdAt!.month}달 전' ,style: TextStyle(color: FONT_GREY),) :
+                                  comments[i].createdAt!.day != DateTime.now().day ?
+                                  Text('${DateTime.now().day - comments[i].createdAt!.day}일 전' ,style: TextStyle(color: FONT_GREY),) :
+                                  comments[i].createdAt!.minute != DateTime.now().minute ?
+                                  Text('${DateTime.now().minute - comments[i].createdAt!.minute}분 전' ,style: TextStyle(color: FONT_GREY),) :
                                       Text('방금 전'),
                                 ],
                               )
