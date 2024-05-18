@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Articles } from './articles.entity';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, Like, Repository } from 'typeorm';
 
 @Injectable()
 export class ArticleRepository extends Repository<Articles> {
@@ -75,5 +75,18 @@ export class ArticleRepository extends Repository<Articles> {
   }
   async decreaseCommentCount(id: number): Promise<void> {
     await this.decrement({ _id: id }, 'comment_count', 1);
+  }
+  async searchArticles(q: string, page: number, size: number) {
+    const [comments, total] = await this.findAndCount({
+      where: [{ title: Like(`%${q}%`) }, { body: Like(`%${q}%`) }],
+      take: size,
+      skip: (page - 1) * size,
+    });
+
+    const commentsData = {
+      total,
+      comments,
+    };
+    return commentsData;
   }
 }

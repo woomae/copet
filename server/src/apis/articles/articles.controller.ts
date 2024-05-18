@@ -23,6 +23,7 @@ export class ArticlesController {
   @Get('')
   @UseInterceptors(LoggingInterceptor)
   async getAllArticles(
+    @Query('q') q: string,
     @Query('page') page: number = 1,
     @Query('size') size: number = 10,
     @Query('category') category: string,
