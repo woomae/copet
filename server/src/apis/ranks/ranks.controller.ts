@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Post,
   Query,
@@ -25,6 +26,23 @@ export class RanksController {
     let response;
     try {
       result = await this.ranksService.addSearchTerm(userId, term);
+      response = ResponseFormat.ok(result).format();
+    } catch (error) {
+      response = ResponseFormat.fail(error).format();
+    }
+    return response;
+  }
+
+  @Delete('recent')
+  @UseInterceptors(LoggingInterceptor)
+  async deleteRecentSearchTerms(
+    @Query('userId') userId: number,
+    @Query('term') term: string,
+  ): Promise<StandardResponseDto> {
+    let result;
+    let response;
+    try {
+      result = await this.ranksService.deleteRecentSearchTerms(userId, term);
       response = ResponseFormat.ok(result).format();
     } catch (error) {
       response = ResponseFormat.fail(error).format();

@@ -40,6 +40,11 @@ export class RanksService {
     const terms = await this.redis.lrange(userKey, 0, 9);
     return terms;
   }
+  async deleteRecentSearchTerms(userId: number, term: string): Promise<void> {
+    const userKey = `SearchLog:${userId}`;
+    // 리스트에서 특정 검색어 삭제
+    await this.redis.lrem(userKey, 1, term);
+  }
 
   // 인기 검색어 가져오기
   async getTopSearchTerms(): Promise<string[]> {
