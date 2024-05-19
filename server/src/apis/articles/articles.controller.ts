@@ -23,6 +23,7 @@ export class ArticlesController {
   @Get('')
   @UseInterceptors(LoggingInterceptor)
   async getAllArticles(
+    @Query('q') q: string,
     @Query('page') page: number = 1,
     @Query('size') size: number = 10,
     @Query('category') category: string,
@@ -30,8 +31,18 @@ export class ArticlesController {
     let result;
     let response;
     try {
-      result = await this.articlesService.getAllArticles(page, size, category);
-      response = ResponseFormat.ok(result).format();
+      if (q) {
+        result = await this.articlesService.searchArticles(q, page, size);
+        response = ResponseFormat.ok(result).format();
+        return response;
+      } else {
+        result = await this.articlesService.getAllArticles(
+          page,
+          size,
+          category,
+        );
+        response = ResponseFormat.ok(result).format();
+      }
     } catch (error) {
       response = ResponseFormat.fail(error).format();
     }

@@ -248,4 +248,7 @@ export class ArticlesService {
   async decreaseCommentCount(article_id: number): Promise<void> {
     await this.articleRepository.decreaseCommentCount(article_id);
   }
+  async searchArticles(q: string, page: number, size: number): Promise<any> {
+    return await this.articleRepository.searchArticles(q, page, size);
+  }
 }
