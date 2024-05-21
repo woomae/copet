@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/api/getArticles.dart';
 import 'package:pet/common/component/appbars/appbar.dart';
-import 'package:pet/const/models/articles.dart';
 import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/pages/community/posting_page.dart';
 import 'package:pet/style/colors.dart';
+import '../../const/models/articles.dart';
 
 //ListView.builder 활용해서 무한스크롤 구현?
 class Community extends ConsumerWidget {
@@ -13,6 +13,8 @@ class Community extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final articlesProvider = StateProvider<Future<List<Comments>>>((ref) => GetArticles.getArticles());
+    final articles = ref.watch(articlesProvider);
     return MaterialApp(
       home: Scaffold(
         appBar: Appbar(),
@@ -41,23 +43,28 @@ class Community extends ConsumerWidget {
               Expanded(
                 child: Stack(
                   children: [
-                    FutureBuilder(
-                        future: GetArticles.getArticles(),
-                        builder:(context, snapshot){
-                          if(snapshot.connectionState == ConnectionState.waiting){
-                            return Center(child: Text('로딩 중'));
-                            // 로딩 중....
-                          }
-                          if(snapshot.hasData){
-                            return RefreshIndicator(
-                                onRefresh: () => GetArticles.getArticles(),
-                                child: PostList(length: snapshot.data!.length , comments: snapshot.data!));
-                          }
-                          else{
-                            //에러 처리
-                            return Center(child: Text('error'));
-                          }
-                        }),
+                    RefreshIndicator(
+                      onRefresh: (){
+                        final newFuture = GetArticles.getArticles();
+                        ref.read(articlesProvider.notifier).state = newFuture;
+                        return newFuture;
+                      } ,
+                      child: FutureBuilder(
+                          future: articles,
+                          builder:(context, snapshot){
+                            if(snapshot.connectionState == ConnectionState.waiting){
+                              return Center(child: Text('로딩 중'));
+                              // 로딩 중....
+                            }
+                            if(snapshot.hasData){
+                              return PostList(length: snapshot.data!.length , comments: snapshot.data!);
+                            }
+                            else{
+                              //에러 처리
+                              return Center(child: Text('error'));
+                            }
+                          }),
+                    ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
