@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PostPosting{
 
@@ -8,7 +9,7 @@ class PostPosting{
     required String title,
     required String body,
     required String category,
-    List<String>? imagePaths
+    List? images
 }) async{
 
     FormData formData = FormData.fromMap({
@@ -18,9 +19,13 @@ class PostPosting{
       'category' : category
     });
 
-    if(imagePaths != null){
-      final List<String> fileName = imagePaths.map((e) => e.split('/').last).toList();
-      final List imageNames = imagePaths.map((e) => MultipartFile.fromFile(e)).toList();
+    if(images != null){
+      List<MultipartFile> imageNames = [];
+      for (var file in images) {
+        String fileName = file.path.split('/').last;
+        MultipartFile multipartFile = await MultipartFile.fromFile(file.path, filename: fileName);
+        imageNames.add(multipartFile);
+      }
 
       formData = FormData.fromMap({
         'owner_id' : owner_id,
@@ -35,7 +40,8 @@ class PostPosting{
     String? apiKey = dotenv.env['API_KEY'];
     Dio dio = Dio();
     dio.options.contentType = 'multipart/form-data';
-    final res = await Dio().post('$apiKey/articles/create',data: formData);
+    final res = await dio.post('$apiKey/articles/create',data: formData);
+    print('-----------------------------------------------------------------$res');
     return res;
   }
 }
