@@ -1,20 +1,17 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { UsersModule } from './apis/users/users.module';
-import { ArticlesModule } from './apis/articles/articles.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getTypeOrmConfig } from './configs/typeorm.config';
-import { AuthModule } from './apis/auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validate } from './configs/env-validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { FriendsModule } from './apis/friends/friends.module';
-import { StarsModule } from './apis/stars/stars.module';
-import { CommentsModule } from './apis/comments/comments.module';
-import { LoggingInterceptor } from './common/logger/logger.intrecepter';
-import { MocksModule } from './apis/mocks/mocks.module';
-import { RanksModule } from './apis/ranks/ranks.module';
+import { LoggingInterceptor } from './libs/logger/logger.intrecepter';
 import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis';
+import { V1Module } from './apis/v1/v1.module';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { ResponseInterceptor } from './libs/res/response.intercepter';
+import { ContextMiddleware } from './libs/middleware/request-context/context.middleware';
+import { AllExceptionsFilter } from './libs/filters/http-exception.filter';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -38,16 +35,27 @@ import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis';
         type: 'single',
       }),
     }),
-    AuthModule,
-    ArticlesModule,
-    UsersModule,
-    FriendsModule,
-    StarsModule,
-    CommentsModule,
-    MocksModule,
-    RanksModule,
+    V1Module,
   ],
   controllers: [AppController],
-  providers: [AppService, LoggingInterceptor],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ContextMiddleware).forRoutes('*');
+  }
+}

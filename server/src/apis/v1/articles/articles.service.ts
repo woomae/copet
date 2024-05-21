@@ -4,9 +4,9 @@ import { ArticleRepository } from './articles.repository';
 import { Articles } from './articles.entity';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
 import { UsersService } from '../users/users.service';
-import { categoryChecker } from 'src/lib/category-checker';
 import * as AWS from 'aws-sdk';
 import { ConfigService } from '@nestjs/config';
+import { categoryChecker } from 'src/libs/funcs/category-checker';
 const configService = new ConfigService();
 @Injectable()
 export class ArticlesService {

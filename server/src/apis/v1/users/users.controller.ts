@@ -12,7 +12,7 @@ import { UsersService } from './users.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import ResponseFormat from 'src/common/response-format';
-import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
+import { LoggingInterceptor } from 'src/libs/logger/logger.intrecepter';
 
 @Controller('users')
 export class UsersController {

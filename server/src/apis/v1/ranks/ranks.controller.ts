@@ -8,7 +8,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { RanksService } from './ranks.service';
-import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
+import { LoggingInterceptor } from 'src/libs/logger/logger.intrecepter';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import ResponseFormat from 'src/common/response-format';
 

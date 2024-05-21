@@ -3,7 +3,7 @@ import { StarsService } from './stars.service';
 import { StandardResponseDto } from 'src/dto/standard-response.dto';
 import { Stars } from './stars.entity';
 import ResponseFormat from 'src/common/response-format';
-import { LoggingInterceptor } from 'src/common/logger/logger.intrecepter';
+import { LoggingInterceptor } from 'src/libs/logger/logger.intrecepter';
 
 @Controller('stars')
 export class StarsController {
