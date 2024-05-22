@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
-import { winstonLogger } from './common/logger/winston.util';
+import { winstonLogger } from './libs/logger/winston.util';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: winstonLogger });
