@@ -13,13 +13,11 @@ import {
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { LoggingInterceptor } from 'src/libs/logger/logger.intrecepter';
 
 @Controller('articles')
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
   @Get('')
-  @UseInterceptors(LoggingInterceptor)
   async getAllArticles(
     @Query('q') q: string,
     @Query('page') page: number = 1,
@@ -39,20 +37,17 @@ export class ArticlesController {
     }
   }
   @Get('owner')
-  @UseInterceptors(LoggingInterceptor)
   async getAllArticleByOwner(@Query('owner_id') owner_id: number) {
     const result = await this.articlesService.getAllArticleByOwner(owner_id);
     return result;
   }
   @Get(':id')
-  @UseInterceptors(LoggingInterceptor)
   async getArticleById(@Param('id') article_id: number) {
     const result = await this.articlesService.getArticleById(article_id);
     return result;
   }
 
   @Post('create')
-  @UseInterceptors(LoggingInterceptor)
   @UseInterceptors(
     FilesInterceptor('img_name', 5, {
       limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
@@ -78,7 +73,6 @@ export class ArticlesController {
     }
   }
   @Put(':id/update')
-  @UseInterceptors(LoggingInterceptor)
   @UseInterceptors(
     //사진저장 미들웨어
     FilesInterceptor('img_name', 5, {
@@ -99,7 +93,6 @@ export class ArticlesController {
   }
 
   @Delete(':id/delete')
-  @UseInterceptors(LoggingInterceptor)
   async deleteArticle(
     @Param('id') article_id: number,
     @Body('owner_id') owner_id: number,

@@ -5,7 +5,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validate } from './configs/env-validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoggingInterceptor } from './libs/logger/logger.intrecepter';
 import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis';
 import { V1Module } from './apis/v1/v1.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
@@ -47,10 +46,6 @@ import { AllExceptionsFilter } from './libs/filters/http-exception.filter';
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: LoggingInterceptor,
     },
   ],
 })
