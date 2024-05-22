@@ -61,6 +61,15 @@ class EnvironmentVariables {
 
   @IsString()
   AWS_S3_REGION: string;
+
+  @IsString()
+  REDIS_HOST: string;
+
+  @IsNumber()
+  REDIS_PORT: number;
+
+  @IsString()
+  REDIS_PASSWORD: string;
 }
 
 export function validate(config: Record<string, unknown>) {
