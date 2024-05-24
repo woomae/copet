@@ -26,6 +26,7 @@ class _App extends ConsumerWidget {
     bool isRegistered = userRef.nickname != '' ? true : false;
     print(isRegistered);
     final userId = userRef.id;
+    //쿠키를 가져온 이후
     if(userRef.id != 0){
       final res = GetUser.getUser(userRef.id.toString())
           .then((res) => ref.read(UserProvider.notifier).storeUserData(res))
@@ -58,9 +59,10 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: userRef.id == 0 ? mainlogin() :
-              isRegistered == false ? logintype() :
-              mainhome()
+      home: mainhome()
+      //userRef.id == 0 ? mainlogin() :
+        //      isRegistered == false ? logintype() :
+          //    mainhome()
     );
   }
 }

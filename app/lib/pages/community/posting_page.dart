@@ -29,8 +29,6 @@ class PostingPage extends ConsumerWidget {
       //userId 고정
         owner_id: 1
     );
-    print('--------------------------------------');
-    print(state.title);
 
     if(state.title == ''){
       showCommonDialog(content: '제목을 입력해주세요', context: context);
@@ -46,13 +44,14 @@ class PostingPage extends ConsumerWidget {
       print(state.title);
       print(state.body);
       print(state.category);
+      print(state.images);
       try{
         await PostPosting.postPosting(
             owner_id: 1,
             title: state.title,
             body: state.body,
             category: state.category,
-            imagePaths: state.imagePaths != null ? state.imagePaths : null
+            images: state.images != null ? state.images : null
         );
       }
       catch(err){
@@ -116,10 +115,10 @@ class _Body extends ConsumerWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(bottom: 10),
-                        child: state.imagePaths != null ?
+                        child: state.images != null ?
                         Column(
-                            children: state.imagePaths!.map(
-                                    (e) => Image.file(File(e), width: 300, height: 300, fit: BoxFit.cover,)).toList()
+                            children: state.images!.map(
+                                    (e) => Image.file(File(e.path), width: 300, height: 300, fit: BoxFit.cover,)).toList()
                         ) : null,
                       ),
                       BodyInput()
@@ -212,12 +211,11 @@ class _BottomAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(heightProvider);
+    ref.watch(heightProvider);
     return Container(
       padding: EdgeInsets.only(
           right: 10,
           left: 10,
-          // 하단 탭바 높이만큼 더 올라가더라,, 그거 빼줘야함
           bottom: MediaQuery.of(context).viewInsets.bottom > 0 ? MediaQuery.of(context).viewInsets.bottom - 50 : 10,
           top: 10 ),
       decoration: const BoxDecoration(
@@ -233,9 +231,9 @@ class _BottomAppBar extends ConsumerWidget {
           IconButton(
             onPressed: ()async{
               final imageLimit = 3;
-              final imageState = ref.watch(PostingProvider).imagePaths;
+              final imageState = ref.watch(PostingProvider).images;
               var picker = ImagePicker();
-              final List<XFile>? images = await picker.pickMultiImage( imageQuality: 50);
+              final List<XFile>? images = await picker.pickMultiImage( imageQuality: 30);
               //한 번에 3개가 넘는 이미지를 넣으려 할 때
               if(images != null && images.length > imageLimit){
                 images.removeRange(imageLimit, images.length);
@@ -243,18 +241,17 @@ class _BottomAppBar extends ConsumerWidget {
                   return CommonDialog(content: "사진은 3개까지 선택 가능합니다",);
                 });
               }
-              //이전에 imageState에 이미지가 들어왔다면, 최대 5개까지만 저장하도록 리스트 슬라이싱
+              //이전에 imageState에 이미지가 들어왔다면, 최대 3개까지만 저장하도록 리스트 슬라이싱
               if(imageState != null && imageState.length + images!.length > imageLimit){
                 images.removeRange(imageLimit-imageState.length, images.length);
                 showDialog(context: context, builder: (context){
-                  return CommonDialog(content: "사진은 5개까지 업로드 가능합니다",);
+                  return CommonDialog(content: "사진은 3개까지 업로드 가능합니다",);
                 });
               }
               //state에 이미지패스 저장
               if(images != null && images.length < imageLimit) {
-                final imagePaths = images.map((e) => e.path).toList();
                 ref.read(PostingProvider.notifier).updatePosting(
-                    images: imagePaths);
+                    imageFiles: images);
               }
             }, icon: const Icon(Icons.camera_alt),color: PRIMARY_COLOR,),
           const Spacer(),
