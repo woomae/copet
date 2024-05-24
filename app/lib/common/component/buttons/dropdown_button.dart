@@ -6,12 +6,12 @@ import '../../../style/colors.dart';
 class DropDownButton extends StatefulWidget {
   //givenItem이 null이면 선택하지 않은걸로 간주 => 지역선택
   //givenItem이 있으면 선택 => provider update
-  final String? givenItem;
+  final String? currentItem;
   final Function? onPressed;
-  final List DropDownList;
+  final List dropDownList;
 
   const DropDownButton({
-    super.key, required this.DropDownList, this.onPressed, this.givenItem});
+    super.key, required this.dropDownList, this.onPressed, this.currentItem});
 
   @override
   State<DropDownButton> createState() => _DropDownButtonState();
@@ -19,7 +19,6 @@ class DropDownButton extends StatefulWidget {
 
 class _DropDownButtonState extends State<DropDownButton> {
   bool isPressed = false;
-  late var currentItem = widget.DropDownList[0];
 
   void onPressDropDown(){
     setState(() {
@@ -49,7 +48,7 @@ class _DropDownButtonState extends State<DropDownButton> {
                   fit: FlexFit.tight,
                   child: SingleChildScrollView(
                     child: Column(
-                      children: widget.DropDownList.map(
+                      children: widget.dropDownList.map(
                               (e) => SizedBox(
                                   width: double.infinity,
                                   child: TextButton(
@@ -64,14 +63,13 @@ class _DropDownButtonState extends State<DropDownButton> {
                                       }
                                     setState(() {
                                       isPressed = !isPressed;
-                                      currentItem = e;
                                     });
                                   },))).toList(),
                     ),
                   ),
                 ) else Flexible(
                   fit: FlexFit.tight,
-                  child: Center(child: Text(widget.givenItem != null ? widget.givenItem : currentItem ))),
+                  child: Center(child: Text(widget.currentItem != null ? widget.currentItem : widget.dropDownList[0] ))),
               Icon(Icons.arrow_drop_down_rounded)
             ],
           ),

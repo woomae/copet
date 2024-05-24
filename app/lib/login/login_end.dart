@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet/api/patchUserData.dart';
 import 'package:pet/main/main_screen.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
+import 'package:pet/providers/user_notifier_provider.dart';
 
 import '../common/component/buttons/next_button.dart';
 
@@ -59,6 +61,7 @@ class loginend extends ConsumerWidget {
                   print(state.region_do);
                   print(state.petkeyword);
                   print(state.intro);
+                  print(state.petimg);
 
                 },),
               ],
