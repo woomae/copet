@@ -81,7 +81,10 @@ class PostList extends StatelessWidget {
                             //글 이미지..?
                             // comments[i].imgName != null ?
                             //   Text(comments[i].imgName![0].toString()) :
+                            comments[i].imgName != null && comments[i].imgName != '' ?
+                            Container(width: 50, height: 50,color: Colors.black,) :
                             Thumbnail(),
+
                             Container(
                               margin: EdgeInsets.only(right: 5),
                               width: 40,

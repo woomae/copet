@@ -9,7 +9,7 @@ class PostPosting{
     required String title,
     required String body,
     required String category,
-    List? images
+    List<XFile>? images
 }) async{
 
     FormData formData = FormData.fromMap({
@@ -20,20 +20,16 @@ class PostPosting{
     });
 
     if(images != null){
-      List<MultipartFile> imageNames = [];
-      for (var file in images) {
-        String fileName = file.path.split('/').last;
-        MultipartFile multipartFile = await MultipartFile.fromFile(file.path, filename: fileName);
-        imageNames.add(multipartFile);
-      }
+      for (var image in images) {
+        // XFile에서 파일 이름을 가져오기 위해 path를 사용
+        String fileName = image.path.split('/').last;
 
-      formData = FormData.fromMap({
-        'owner_id' : owner_id,
-        'title' : title,
-        'body' : body,
-        'category' : category,
-        'img_name' : imageNames
-      });
+        // MultipartFile 객체 생성 및 FormData에 추가
+        formData.files.add(MapEntry(
+          'img_name',
+          await MultipartFile.fromFile(image.path, filename: fileName),
+        ));
+      }
     }
 
     await dotenv.load(fileName: ".env");

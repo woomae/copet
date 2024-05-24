@@ -29,8 +29,6 @@ class PostingPage extends ConsumerWidget {
       //userId 고정
         owner_id: 1
     );
-    print('--------------------------------------');
-    print(state.title);
 
     if(state.title == ''){
       showCommonDialog(content: '제목을 입력해주세요', context: context);
@@ -46,6 +44,7 @@ class PostingPage extends ConsumerWidget {
       print(state.title);
       print(state.body);
       print(state.category);
+      print(state.images);
       try{
         await PostPosting.postPosting(
             owner_id: 1,
@@ -234,7 +233,7 @@ class _BottomAppBar extends ConsumerWidget {
               final imageLimit = 3;
               final imageState = ref.watch(PostingProvider).images;
               var picker = ImagePicker();
-              final List<XFile>? images = await picker.pickMultiImage( imageQuality: 50);
+              final List<XFile>? images = await picker.pickMultiImage( imageQuality: 30);
               //한 번에 3개가 넘는 이미지를 넣으려 할 때
               if(images != null && images.length > imageLimit){
                 images.removeRange(imageLimit, images.length);
