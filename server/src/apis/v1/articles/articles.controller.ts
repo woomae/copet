@@ -57,7 +57,7 @@ export class ArticlesController {
     @UploadedFiles() files: { img_name: Express.Multer.File[] },
     @Body() bodyData: CreateArticleDto,
   ) {
-    if (!files || !files.img_name || files.img_name.length === 0) {
+    if (!files) {
       // 파일이 업로드되지 않았을 때 처리
       const result = await this.articlesService.createArticle(
         bodyData,
@@ -65,10 +65,7 @@ export class ArticlesController {
       );
       return result;
     } else {
-      const result = await this.articlesService.createArticle(
-        bodyData,
-        files.img_name,
-      );
+      const result = await this.articlesService.createArticle(bodyData, files);
       return result;
     }
   }
@@ -87,7 +84,7 @@ export class ArticlesController {
     const result = await this.articlesService.updateArticle(
       article_id,
       bodyData,
-      files?.img_name,
+      files,
     );
     return result;
   }

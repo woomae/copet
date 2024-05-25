@@ -55,7 +55,6 @@ export class CommentsService {
       );
     }
     if (comment.comment_owner_id !== user_id) {
-      console.log(comment.comment_owner_id, user_id);
       throw new BadRequestException(
         `You are not the owner of the comment with ID "${comment_id}"`,
       );

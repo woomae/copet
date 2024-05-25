@@ -59,10 +59,7 @@ export class ArticlesService {
     }
     return articleData;
   }
-  async createArticle(
-    bodyData: CreateArticleDto,
-    files: Express.Multer.File[] | undefined,
-  ): Promise<any> {
+  async createArticle(bodyData: CreateArticleDto, files: any): Promise<any> {
     //게시글을 작성한 유저 조회 후 없을 시 에러처리
     const userData = await this.usersService.findUserById(bodyData.owner_id);
     if (!userData) {
@@ -120,7 +117,7 @@ export class ArticlesService {
   async updateArticle(
     article_id: number,
     bodyData: CreateArticleDto,
-    files: Express.Multer.File[] | undefined,
+    files: any,
   ): Promise<Articles> {
     //기존 게시글 조회 후 없을 시 에러처리
     const found = await this.articleRepository.getArticleById(article_id);
@@ -138,10 +135,7 @@ export class ArticlesService {
     }
     //기존게시글 오너가 바디데이터의 오너가 아닐 시 에러처리
     if (
-      !(await this.articleRepository.ownerChecker(
-        article_id,
-        bodyData.owner_id,
-      ))
+      await this.articleRepository.ownerChecker(article_id, bodyData.owner_id)
     ) {
       throw new BadRequestException(`Article is not owned by user `);
     }
@@ -164,6 +158,7 @@ export class ArticlesService {
       const newBodyData: CreateArticleDto = {
         ...bodyData,
         author: userData?.nickname,
+        img_name: null,
       };
       return await this.articleRepository.updateArticle(
         article_id,
