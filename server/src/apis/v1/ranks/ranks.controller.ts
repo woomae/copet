@@ -5,7 +5,7 @@ import { RanksService } from './ranks.service';
 export class RanksController {
   constructor(private readonly ranksService: RanksService) {}
 
-  @Post('add')
+  @Post('')
   async addSearchTerm(
     @Body('userId') userId: number,
     @Body('term') term: string,

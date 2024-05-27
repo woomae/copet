@@ -47,7 +47,7 @@ export class ArticlesController {
     return result;
   }
 
-  @Post('create')
+  @Post('')
   @UseInterceptors(
     FilesInterceptor('img_name', 5, {
       limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
@@ -69,7 +69,7 @@ export class ArticlesController {
       return result;
     }
   }
-  @Put(':id/update')
+  @Put(':id')
   @UseInterceptors(
     //사진저장 미들웨어
     FilesInterceptor('img_name', 5, {
@@ -89,7 +89,7 @@ export class ArticlesController {
     return result;
   }
 
-  @Delete(':id/delete')
+  @Delete(':id')
   async deleteArticle(
     @Param('id') article_id: number,
     @Body('owner_id') owner_id: number,

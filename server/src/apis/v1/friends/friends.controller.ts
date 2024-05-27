@@ -10,13 +10,13 @@ export class FriendsController {
     private readonly usersService: UsersService,
   ) {}
 
-  @Post('friend-request')
+  @Post('')
   async sendFriendRequest(@Body() friendRequestData: Partial<Friends>) {
     const result =
       await this.friendsService.sendFriendRequest(friendRequestData);
     return result;
   }
-  @Delete('friend-request')
+  @Delete('')
   async deleteFriendRequest(@Body() friendRequestData: Partial<Friends>) {
     const result =
       await this.friendsService.deleteFriendRequest(friendRequestData);

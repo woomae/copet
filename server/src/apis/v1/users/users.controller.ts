@@ -14,7 +14,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-  @Patch(':id/init')
+  @Patch(':id')
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'petimg', maxCount: 1 }], {
       limits: { fileSize: 10 * 1024 * 1024 },
