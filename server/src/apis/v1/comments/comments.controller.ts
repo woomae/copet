@@ -12,12 +12,12 @@ export class CommentsController {
 
     return result;
   }
-  @Post('create')
+  @Post('')
   async createComment(@Body() bodyData: CreateCommentDto) {
     const result = await this.commentsService.createComment(bodyData);
     return result;
   }
-  @Delete(':id/delete')
+  @Delete(':id')
   async deleteComment(@Param('id') comment_id: number, @Body() bodyData: any) {
     const result = await this.commentsService.deleteComment(
       comment_id,
