@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:pet/pages/profile/profile_container.dart';
-import 'package:pet/pages/profile/profile_post_container.dart';
+import 'package:pet/pages/profile/profile_information_container.dart';
 import 'package:pet/pages/profile/setting/setting_home.dart';
 import 'package:pet/style/colors.dart';
 
@@ -25,7 +25,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: WHITE,
-      child: const Column(
+      child: Column(
         children: [
           Flexible(
               flex: 7,
@@ -41,7 +41,7 @@ class _Body extends StatelessWidget {
           ),
           Flexible(
               flex: 4,
-              child: MyPost())
+              child: ProfileInformationContainer())
         ],
       ),
     );
