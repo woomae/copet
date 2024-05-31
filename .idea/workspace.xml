@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="feature: 프로필 부분 사용자 별 게시글 조회">
+    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/copet.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copet.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/lib/providers/user_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/providers/user_notifier_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/api/getArticles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/api/getArticles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/const/models/articles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/const/models/articles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/pages/profile/profile_information_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/pages/profile/profile_information_container.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +103,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717145388018</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix: watch 메소드로 인한 재로딩 방지">
+      <option name="closed" value="true" />
+      <created>1717145746582</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1717145746583</updated>
+    </task>
+    <task id="LOCAL-00005" summary="dartSdk 경로 재설정">
+      <option name="closed" value="true" />
+      <created>1717145762496</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1717145762496</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -121,6 +137,8 @@
     <MESSAGE value="flutter, dart sdk 재설정" />
     <MESSAGE value="사용자가 작성한 게시글 프로필에 표시" />
     <MESSAGE value="feature: 프로필 부분 사용자 별 게시글 조회" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature: 프로필 부분 사용자 별 게시글 조회" />
+    <MESSAGE value="fix: watch 메소드로 인한 재로딩 방지" />
+    <MESSAGE value="dartSdk 경로 재설정" />
+    <option name="LAST_COMMIT_MESSAGE" value="dartSdk 경로 재설정" />
   </component>
 </project>
