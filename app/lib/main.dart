@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/api/getUser.dart';
-import 'package:pet/login/login_main.dart';
-import 'package:pet/login/login_type.dart';
+
 import 'package:pet/main/main_home.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -19,19 +18,21 @@ void main() async{
 }
 class _App extends ConsumerWidget {
   const _App({super.key});
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userRef = ref.watch(UserProvider);
     bool isRegistered = userRef.nickname != '' ? true : false;
-    print(isRegistered);
-    final userId = userRef.id;
+    //final userId = userRef.id;
+    final userId = '1';
     //쿠키를 가져온 이후
-    if(userRef.id != 0){
-      final res = GetUser.getUser(userRef.id.toString())
-          .then((res) => ref.read(UserProvider.notifier).storeUserData(res))
+    if(userId != 0){
+      //final res = GetUser.getUser(userRef.id.toString())
+      final res = GetUser.getUser(userId.toString())
+          .then((res){
+            ref.read(UserProvider.notifier).storeUserData(res);
+            })
           .onError((error, stackTrace){
-            print(error);
+            print('------$error');
             isRegistered = false;
           });
     }
