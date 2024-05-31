@@ -6,7 +6,7 @@ class Articles {
 
   Articles.fromJson({required Map<String, dynamic> json}) :
       total = json['tottal'] ?? 0,
-      comments = json['comments'];
+      comments = json['comments'] ?? '';
 }
 
 class Comments {
