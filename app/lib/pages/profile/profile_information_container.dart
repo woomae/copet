@@ -19,6 +19,7 @@ class ProfileInformationContainer extends StatefulWidget {
 class _ProfileInformationContainerState extends State<ProfileInformationContainer> {
   final List<String> profileCategory = ['산책', '게시글', '저장'];
   String currentState = '산책';
+  Future<List<Comments>>? currentFuture;
 
   @override
   void initState(){
@@ -27,11 +28,9 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
 
   @override
   Widget build(BuildContext context) {
-    final userId = ProviderScope.containerOf(context).read(UserProvider).id;
-    final setCurrentState = (String state){
-      setState(() {
+    final userId = ProviderScope.containerOf(context).read(UserProvider).id.toString();
+    final Function setCurrentState = (String state){
         currentState = state;
-      });
     };
     return Column(
       children: [
@@ -44,39 +43,39 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: profileCategory.map((e) => _categoryButton(
                   onPressed: (){
-                    setCurrentState(e);
-                    print(currentState);
+                    setState(() {
+                      setCurrentState(e);
+                    });
                   }, buttonName: e, isPressed : currentState == e)).toList()
           ),
         ),
         Flexible(
           child: FutureBuilder(
-            future:  GetArticles.getArticles(),
+            future:  currentFuture,
             builder: (context, snapshot){
-              final List<Comments>? comments = snapshot.data;
-              if(comments != null){
-                if(currentState == profileCategory[0]){
-                  //산책
-                  return SizedBox();
+              if(snapshot.data != null){
+                if(currentState == '산책'){
+                  currentFuture = null;
                 }
-                if(currentState == profileCategory[1]){
-                  //게시글
-                  final List<Comments> userComments = comments.where((element) => element.iId == userId).toList();
-                  return PostList(length: userComments.length, comments: userComments);
+                if(currentState == '게시글'){
+                  currentFuture = GetArticles.getOwnerArticles(userId: userId);
+                  return PostList(length: snapshot.data!.length, comments: snapshot.data!);
                 }
-                if(currentState == profileCategory[2]){
-                  //저장
-                  return SizedBox();
+                if(currentState == '저장'){
+                  currentFuture = null;
                 }
+
               }
               if(snapshot.connectionState == ConnectionState.waiting){
                 return Center(child: Text('loading'));
               }
-              else{
+              if(snapshot.hasError){
                 final err = snapshot.error;
-                print(comments);
                 print('profileInformation error : $err');
                 return Center(child: Text('error'));
+              }
+              else{
+                return Center(child: Text('No Data'));
               }
             },
           ),
