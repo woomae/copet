@@ -1,11 +1,15 @@
+import { IsArray, IsString } from 'class-validator';
+
 // create-article.dto
 export class CreateArticleDto {
-  constructor(
-    public owner_id: number,
-    public title: string,
-    public body: string,
-    public category: string,
-    public author?: string,
-    public img_name?: string,
-  ) {}
+  @IsString()
+  title: string;
+  @IsString()
+  body: string;
+  @IsString()
+  category: string;
+  @IsString()
+  author?: string;
+  @IsArray()
+  img_urls?: string[];
 }

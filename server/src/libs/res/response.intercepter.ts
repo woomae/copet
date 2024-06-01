@@ -10,8 +10,20 @@ import { map } from 'rxjs/operators';
 import { Result } from './result';
 import { winstonLogger } from '../logger/winston.util';
 
+interface ResponseData {
+  cookies?: {
+    [key: string]: {
+      value: string;
+      options?: Record<string, any>;
+    };
+  };
+  [key: string]: any;
+}
+
 @Injectable()
-export class ResponseInterceptor<T> implements NestInterceptor<T, any> {
+export class ResponseInterceptor<T extends ResponseData>
+  implements NestInterceptor<T, any>
+{
   intercept(
     context: ExecutionContext,
     next: CallHandler<T>,
@@ -24,6 +36,12 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, any> {
 
     return next.handle().pipe(
       map((data) => {
+        if (data.cookies) {
+          for (const [name, value] of Object.entries(data.cookies)) {
+            res.cookie(name, value.value, value.options);
+          }
+          delete data.cookies;
+        }
         winstonLogger.log(
           `[${method}]${originalUrl} ${200} ${ip} ${userAgent}`,
         );

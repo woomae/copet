@@ -7,22 +7,27 @@ import {
   Post,
   Put,
   Query,
+  Req,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
+import { Request } from 'express';
+import { Payload } from '../auth/jwt/jwt.payload';
 
-@Controller('articles')
+@Controller({ path: 'articles', version: '1' })
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
   @Get('')
   async getAllArticles(
-    @Query('q') q: string,
+    @Query('q') q?: string,
     @Query('page') page: number = 1,
     @Query('size') size: number = 10,
-    @Query('category') category: string,
+    @Query('category') category?: string,
   ) {
     if (q) {
       const result = await this.articlesService.searchArticles(q, page, size);
@@ -42,61 +47,61 @@ export class ArticlesController {
     return result;
   }
   @Get(':id')
-  async getArticleById(@Param('id') article_id: number) {
-    const result = await this.articlesService.getArticleById(article_id);
+  async getArticleById(@Param('id') _id: number) {
+    const result = await this.articlesService.getArticleById(_id);
     return result;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('')
   @UseInterceptors(
-    FilesInterceptor('img_name', 5, {
-      limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
+    FileFieldsInterceptor([{ name: 'photos', maxCount: 5 }], {
+      limits: { fileSize: 25 * 1024 * 1024 },
     }),
   )
   async createArticle(
-    @UploadedFiles() files: { img_name: Express.Multer.File[] },
-    @Body() bodyData: CreateArticleDto,
+    @Req() req: Request,
+    @Body() createArticleDto: CreateArticleDto,
+    @UploadedFiles() files?: { img_name: Express.Multer.File[] },
   ) {
-    if (!files) {
-      // 파일이 업로드되지 않았을 때 처리
-      const result = await this.articlesService.createArticle(
-        bodyData,
-        undefined,
-      );
-      return result;
-    } else {
-      const result = await this.articlesService.createArticle(bodyData, files);
-      return result;
-    }
+    const userPayload = req.user as Payload;
+    const result = await this.articlesService.createArticle(
+      createArticleDto,
+      userPayload.user_id,
+      files,
+    );
+    return result;
   }
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   @UseInterceptors(
-    //사진저장 미들웨어
-    FilesInterceptor('img_name', 5, {
-      limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한을 설정합니다. 여기선 10MB),
+    FileFieldsInterceptor([{ name: 'photos', maxCount: 5 }], {
+      limits: { fileSize: 25 * 1024 * 1024 },
     }),
   )
   async updateArticle(
     @UploadedFiles() files: { img_name: Express.Multer.File[] },
+    @Req() req: Request,
     @Body() bodyData: CreateArticleDto,
-    @Param('id') article_id: number,
+    @Param('id') _id: number,
   ) {
+    const userPayload = req.user as Payload;
     const result = await this.articlesService.updateArticle(
-      article_id,
+      _id,
+      userPayload.user_id,
       bodyData,
       files,
     );
     return result;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteArticle(
-    @Param('id') article_id: number,
-    @Body('owner_id') owner_id: number,
-  ) {
+  async deleteArticle(@Param('id') _id: number, @Req() req: Request) {
+    const userPayload = req.user as Payload;
     const result = await this.articlesService.deleteArticle(
-      article_id,
-      owner_id,
+      _id,
+      userPayload.user_id,
     );
     return result;
   }

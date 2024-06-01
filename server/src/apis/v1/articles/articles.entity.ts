@@ -17,23 +17,20 @@ export class Articles extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
-  @Column({ generated: 'increment', unique: true })
-  article_id: number;
-
   @Column()
   author: string;
 
   @Column()
   title: string;
 
-  @Column()
+  @Column({ type: 'text' })
   body: string;
 
   @Column()
   category: string;
 
-  @Column({ nullable: true })
-  img_name: string;
+  @Column({ type: 'json', nullable: true })
+  img_urls: string[];
 
   @Column({ default: 0 })
   comment_count: number;
@@ -48,10 +45,10 @@ export class Articles extends BaseEntity {
   @JoinColumn({ name: 'owner_id' })
   owner_id: number;
 
-  @OneToMany(() => Comments, (comment) => comment.connected_article_id, {
+  @OneToMany(() => Comments, (comment) => comment.article_id, {
     onDelete: 'CASCADE',
   })
-  connected_article_id: Comments[];
+  article_id: Comments[];
 
   @CreateDateColumn({
     type: 'timestamptz',

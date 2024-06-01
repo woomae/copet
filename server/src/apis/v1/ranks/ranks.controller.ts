@@ -1,34 +1,53 @@
-import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { RanksService } from './ranks.service';
-
-@Controller('ranks')
+import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
+import { Request } from 'express';
+import { Payload } from '../auth/jwt/jwt.payload';
+@Controller({ path: 'ranks', version: '1' })
 export class RanksController {
   constructor(private readonly ranksService: RanksService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post('')
-  async addSearchTerm(
-    @Body('userId') userId: number,
-    @Body('term') term: string,
-  ) {
-    const result = await this.ranksService.addSearchTerm(userId, term);
-    return result;
-  }
-
-  @Delete('recent')
-  async deleteRecentSearchTerms(
-    @Query('userId') userId: number,
-    @Query('term') term: string,
-  ) {
-    const result = await this.ranksService.deleteRecentSearchTerms(
-      userId,
+  async addSearchTerm(@Req() req: Request, @Body('term') term: string) {
+    const userPayload = req.user as Payload;
+    const result = await this.ranksService.addSearchTerm(
+      userPayload.user_id,
       term,
     );
     return result;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Delete('recent')
+  async deleteRecentSearchTerms(
+    @Req() req: Request,
+    @Query('term') term: string,
+  ) {
+    const userPayload = req.user as Payload;
+    const result = await this.ranksService.deleteRecentSearchTerms(
+      userPayload.user_id,
+      term,
+    );
+    return result;
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('recent')
-  async getRecentSearchTerms(@Query('userId') userId: number) {
-    const result = await this.ranksService.getRecentSearchTerms(userId);
+  async getRecentSearchTerms(@Req() req: Request) {
+    const userPayload = req.user as Payload;
+    const result = await this.ranksService.getRecentSearchTerms(
+      userPayload.user_id,
+    );
     return result;
   }
 

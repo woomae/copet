@@ -2,13 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-kakao';
+import { UsersService } from '../../users/users.service';
+import { CallBackUserDataDto } from 'src/dto/callback-user.dto';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    private readonly env: ConfigService,
+    private readonly usersService: UsersService,
+  ) {
     super({
-      clientID: configService.get('KAKAO_API_KEY'),
-      callbackURL: configService.get('KAKAO_CALLBACK_URL'),
+      clientID: env.get<string>('KAKAO_API_KEY'),
+      clientSecret: env.get<string>('KAKAO_CLIENT_SECRET'),
+      callbackURL: env.get<string>('KAKAO_CALLBACK_URL'),
     });
   }
 
@@ -16,18 +22,20 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
     accessToken: string,
     refreshToken: string,
     profile: Profile,
-    done: (error: any, user?: any, info?: any) => void,
+    done,
   ) {
-    try {
-      const { _json } = profile;
-      const user = {
-        nickname: _json.properties.nickname,
-        email: _json.kakao_account.email,
-        accessToken,
-      };
-      done(null, user);
-    } catch (error) {
-      done(error);
+    const { id, _json } = profile;
+    const userData: CallBackUserDataDto = {
+      provider_id: id,
+      email: _json.kakao_account.email,
+    };
+    const user = await this.usersService.findOneByProviderId(
+      userData.provider_id,
+    );
+    if (!user) {
+      const newUser = await this.usersService.createUser(userData);
+      return done(null, newUser);
     }
+    done(null, user);
   }
 }

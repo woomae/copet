@@ -1,50 +1,47 @@
-import { Controller, Get, Header, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Header,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
+import { UsersService } from '../users/users.service';
+import { Users } from '../users/users.entity';
+import { Payload } from './jwt/jwt.payload';
+import { JwtAuthGuard } from './jwt/jwt.guard';
 
-@Controller('auth')
+@Controller({ path: 'auth', version: '1' })
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @Get('google')
-  @Header('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8')
-  @UseGuards(AuthGuard('google'))
-  async googleLogin(): Promise<void> {}
-
-  @Get('google/callback')
-  @UseGuards(AuthGuard('google'))
-  async googleAuthCallback(
-    @Req() req: Request & { user?: any },
-    @Res() res: Response,
-  ) {
-    const user = req.user;
-    if (user) {
-      this.authService.handleGoogleLogin(user, res);
-    } else {
-      const errorMessage =
-        req.query.error_description || '구글 로그인에 실패했습니다.';
-      res.status(400).json({ error: errorMessage });
-    }
-  }
 
   @Get('kakao')
-  @Header('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8')
   @UseGuards(AuthGuard('kakao'))
   async kakaoLogin(): Promise<void> {}
 
   @Get('kakao/callback')
   @UseGuards(AuthGuard('kakao'))
-  async kakaoAuthCallback(
-    @Req() req: Request & { user?: any },
-    @Res() res: Response,
-  ) {
-    const user = req.user;
-    if (user) {
-      this.authService.handleKakaoLogin(user, res);
-    } else {
-      const errorMessage =
-        req.query.error_description || '카카오 로그인에 실패했습니다.';
-      res.status(400).json({ error: errorMessage });
-    }
+  async kakaoLoginCallBack(@Req() req: Request) {
+    const user = req.user as Users;
+
+    const payload: Payload = this.authService.createPayload(user);
+
+    const accessToken = this.authService.signToken(payload);
+
+    return {
+      cookies: this.authService.getCookie('user', accessToken),
+    };
+  }
+  @Post('logout')
+  @UseGuards(JwtAuthGuard)
+  async logout() {
+    return {
+      cookies: this.authService.getCookie('user', ''),
+    };
   }
 }

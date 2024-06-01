@@ -4,44 +4,40 @@ import {
   Get,
   Param,
   Patch,
+  Req,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { Users } from './users.entity';
 import { UsersService } from './users.service';
+import { Request } from 'express';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { UpdateUserDto } from 'src/dto/update-user.to';
+import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
+import { Payload } from '../auth/jwt/jwt.payload';
 
-@Controller('users')
+@Controller({ path: 'users', version: '1' })
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @Patch('')
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'petimg', maxCount: 1 }], {
       limits: { fileSize: 10 * 1024 * 1024 },
     }),
-    //사진용량 구성 필요
   )
   async initUser(
-    @UploadedFiles() files: { petimg: Express.Multer.File[] },
-    @Param('id') id: number,
-    @Body() updatedUser: Partial<Users>,
+    @Req() req: Request,
+    @UploadedFiles() file: { petimg: Express.Multer.File[] },
+    @Body() updateUserDto: UpdateUserDto,
   ) {
-    if (!files || !files.petimg || files.petimg.length === 0) {
-      // 파일이 업로드되지 않았을 때 처리
-      const result = await this.usersService.initUser(
-        id,
-        updatedUser,
-        undefined,
-      );
-      return result;
-    } else {
-      const result = await this.usersService.initUser(
-        id,
-        updatedUser,
-        files.petimg[0],
-      );
-      return result;
-    }
+    const userPayload = req.user as Payload;
+    const result = await this.usersService.initUser(
+      userPayload.user_id,
+      updateUserDto,
+      file,
+    );
+    return result;
   }
   @Get(':id')
   async findUser(@Param('id') id: number) {

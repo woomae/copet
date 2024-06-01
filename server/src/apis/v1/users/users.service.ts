@@ -2,24 +2,24 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Users } from './users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersRepository } from './users.repository';
-import { ConfigService } from '@nestjs/config';
-import * as AWS from 'aws-sdk';
 import { Friends } from '../friends/friends.entity';
-const configService = new ConfigService();
+import ApiError from 'src/libs/res/api.errors';
+import ApiCodes from 'src/libs/res/api.codes';
+import ApiMessages from 'src/libs/res/api.messages';
+import { UpdateUserDto } from 'src/dto/update-user.to';
+import { PhotosService } from '../photos/photos.service';
+import { CallBackUserDataDto } from 'src/dto/callback-user.dto';
 @Injectable()
 export class UsersService {
-  private readonly awsS3: AWS.S3;
-  public readonly S3_BUCKET_NAME: string;
   constructor(
+    private readonly photosService: PhotosService,
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
-  ) {
-    this.awsS3 = new AWS.S3({
-      accessKeyId: configService.get('AWS_ACCESS_KEY_ID'),
-      secretAccessKey: configService.get('AWS_SECRET_ACCESS_KEY'),
-      region: configService.get('AWS_S3_REGION'),
+  ) {}
+  async findOneByProviderId(provider_id: string): Promise<Users> {
+    return this.usersRepository.findOne({
+      where: { provider_id },
     });
-    this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME') + '/petimgs';
   }
   async findUserById(id: number): Promise<Users> {
     const found = await this.usersRepository.findUser({ where: { _id: id } });
@@ -44,52 +44,28 @@ export class UsersService {
     }
     return [followerList[0], result];
   }
-  async createUser(user: Users): Promise<Users> {
+  async createUser(user: CallBackUserDataDto): Promise<Users> {
     return await this.usersRepository.save(user);
   }
   async initUser(
     id: number,
-    updatedUser: Partial<Users>,
-    file: Express.Multer.File | undefined,
+    updateUserDto: UpdateUserDto,
+    file?: { petimg: Express.Multer.File[] } | undefined,
   ): Promise<Users> {
     //객체의 모든 값이 null or undefined or 빈문자열이 아닌지 확인
-    if (Object.values(updatedUser).some((value) => !value))
-      throw new BadRequestException('Invalid input userdata');
-    //기존 사진파일 존재시 삭제
-    const existingImg = await this.usersRepository.findUser({
-      where: { _id: id },
-    });
-    if (!existingImg) throw new BadRequestException('Invalid ID');
-    if (existingImg.petimg) {
-      //s3에서 해당 사진 삭제
-      const subindex = existingImg.petimg.indexOf('.com/') + 5;
-      await this.awsS3
-        .deleteObject({
-          Bucket: configService.get('AWS_S3_BUCKET_NAME'),
-          Key: existingImg.petimg.substring(subindex),
-        })
-        .promise();
+    if (Object.values(updateUserDto).some((value) => !value))
+      throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
+        message: '입력값에 문제가 있습니다.',
+      });
+    const bodyObject = this.usersRepository.create(updateUserDto);
+    if (file.petimg) {
+      const img_paths = await this.photosService.uploadFiles(
+        file.petimg,
+        '/petimgs',
+      );
+      bodyObject.petimg = img_paths[0];
     }
-    if (!file || Object.keys(file).length === 0) {
-      const newUpdateUser = { ...updatedUser };
-      await this.usersRepository.initUser({ _id: id }, newUpdateUser);
-    } else {
-      const key = `user-${id}--${Date.now()}`;
-      await this.awsS3
-        .putObject({
-          Bucket: this.S3_BUCKET_NAME,
-          Key: key,
-          Body: file.buffer,
-          ACL: 'public-read',
-          ContentType: file.mimetype,
-        })
-        .promise();
-      const filePath = `https://${configService.get(
-        'AWS_S3_BUCKET_NAME',
-      )}.s3.${configService.get('AWS_S3_REGION')}.amazonaws.com/petimgs/${key}`;
-      const newUpdateUser = { ...updatedUser, petimg: filePath };
-      await this.usersRepository.initUser({ _id: id }, newUpdateUser);
-    }
+    await this.usersRepository.initUser({ _id: id }, bodyObject);
     return await this.usersRepository.findUser({ where: { _id: id } });
   }
 }

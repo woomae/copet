@@ -7,22 +7,28 @@ export class CommentRepository extends Repository<Comments> {
   constructor(dataSource: DataSource) {
     super(Comments, dataSource.createEntityManager());
   }
-  async getAllCommentsByArticle(connected_article_id: number) {
+  async getAllCommentsByArticle(
+    article_id: number,
+  ): Promise<[Comments[], number]> {
     const found = await this.createQueryBuilder('comments')
-      .leftJoin('comments.connected_article_id', 'article')
-      .where('comments.connected_article_id = :connected_article_id', {
-        connected_article_id: connected_article_id,
+      .leftJoin('comments.article_id', 'article')
+      .where('comments.article_id = :article_id', {
+        article_id: article_id,
       })
-      .getMany();
+      .getManyAndCount();
     return found;
   }
-  async getcommentById(comment_id: number) {
-    return await this.findOneBy({ comment_id: comment_id });
+  async getcommentById(_id: number) {
+    return await this.findOneBy({ _id: _id });
   }
   async createComment(bodyData: any): Promise<void> {
     return await this.save(bodyData);
   }
-  async deleteComment(comment_id: number) {
-    return await this.delete({ comment_id: comment_id });
+  async updateComment(_id: number, comment: string) {
+    await this.update({ _id: _id }, { comment: comment });
+    return await this.findOneBy({ _id: _id });
+  }
+  async deleteComment(_id: number) {
+    return await this.delete({ _id: _id });
   }
 }

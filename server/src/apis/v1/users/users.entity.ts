@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { Articles } from '../articles/articles.entity';
 import { Friends } from '../friends/friends.entity';
@@ -15,6 +16,9 @@ import { Stars } from '../stars/stars.entity';
 export class Users extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
+
+  @Column({ unique: true })
+  provider_id: string;
 
   @Column({ nullable: true })
   nickname: string;
@@ -31,8 +35,8 @@ export class Users extends BaseEntity {
   @Column({ nullable: true })
   petimg: string;
 
-  @Column({ nullable: true })
-  petkeyword: string;
+  @Column({ type: 'json', nullable: true })
+  petkeyword: string[];
 
   @Column({ nullable: true })
   intro: string;

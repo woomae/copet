@@ -15,22 +15,19 @@ export class Comments extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
-  @Column({ generated: 'increment', unique: true })
-  comment_id: number;
-
   @Column()
-  comment_owner_id: number;
+  owner_id: number;
 
-  @ManyToOne(() => Articles, (article) => article.article_id, {
+  @ManyToOne(() => Articles, (article) => article._id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'connected_article_id' })
-  connected_article_id: number;
+  @JoinColumn({ name: 'article_id' })
+  article_id: number;
 
   @Column()
   nickname: string;
 
-  @Column()
+  @Column({ type: 'text' })
   comment: string;
 
   @CreateDateColumn({

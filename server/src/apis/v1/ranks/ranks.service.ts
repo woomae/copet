@@ -7,8 +7,8 @@ export class RanksService {
   constructor(@InjectRedis() private readonly redis: Redis) {}
 
   // 유저별 최근 검색어 추가 및 인기 검색어 업데이트
-  async addSearchTerm(userId: number, term: string) {
-    const userKey = `SearchLog:${userId}`;
+  async addSearchTerm(user_id: number, term: string) {
+    const userKey = `SearchLog:${user_id}`;
     const popularKey = 'popular_searches';
     const timestampKey = `${popularKey}:timestamps`;
     const now = Date.now();
@@ -35,13 +35,13 @@ export class RanksService {
   }
 
   // 유저별 최근 검색어 가져오기
-  async getRecentSearchTerms(userId: number): Promise<string[]> {
-    const userKey = `SearchLog:${userId}`;
+  async getRecentSearchTerms(user_id: number): Promise<string[]> {
+    const userKey = `SearchLog:${user_id}`;
     const terms = await this.redis.lrange(userKey, 0, 9);
     return terms;
   }
-  async deleteRecentSearchTerms(userId: number, term: string): Promise<void> {
-    const userKey = `SearchLog:${userId}`;
+  async deleteRecentSearchTerms(user_id: number, term: string): Promise<void> {
+    const userKey = `SearchLog:${user_id}`;
     // 리스트에서 특정 검색어 삭제
     await this.redis.lrem(userKey, 1, term);
   }
