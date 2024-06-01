@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { getTypeOrmConfig } from './configs/typeorm.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validate } from './configs/env-validation';
@@ -11,6 +12,7 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './libs/res/response.intercepter';
 import { ContextMiddleware } from './libs/middleware/request-context/context.middleware';
 import { AllExceptionsFilter } from './libs/filters/http-exception.filter';
+import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -33,6 +35,10 @@ import { AllExceptionsFilter } from './libs/filters/http-exception.filter';
         },
         type: 'single',
       }),
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      exclude: ['/api*'],
     }),
     V1Module,
   ],
