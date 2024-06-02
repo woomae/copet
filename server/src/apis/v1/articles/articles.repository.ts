@@ -7,8 +7,8 @@ export class ArticleRepository extends Repository<Articles> {
   constructor(dataSource: DataSource) {
     super(Articles, dataSource.createEntityManager());
   }
-  async getArticleById(article_id: number) {
-    return await this.findOneBy({ article_id: article_id });
+  async getArticleById(_id: number) {
+    return await this.findOneBy({ _id: _id });
   }
   async getAllArticlesByCategory(page: number, size: number, category: string) {
     const [comments, total] = await this.findAndCount({
@@ -42,17 +42,14 @@ export class ArticleRepository extends Repository<Articles> {
       .getMany();
   }
 
-  async createArticle(bodyData: any): Promise<void> {
-    return await this.save(bodyData);
-  }
   async updateArticle(id: number, bodyData: any): Promise<Articles> {
-    await this.update({ article_id: id }, bodyData);
-    return await this.findOneBy({ article_id: id });
+    await this.update({ _id: id }, bodyData);
+    return await this.findOneBy({ _id: id });
   }
-  async ownerChecker(article_id: number, owner_id: number): Promise<boolean> {
+  async ownerChecker(_id: number, owner_id: number): Promise<boolean> {
     const result = await this.createQueryBuilder('articles')
       .leftJoinAndSelect('articles.owner_id', 'user')
-      .where('articles._id = :article_id', { article_id: article_id })
+      .where('articles._id = :_id', { _id: _id })
       .andWhere('user._id = :owner_id', { owner_id: owner_id })
       .getOne();
     if (result) {

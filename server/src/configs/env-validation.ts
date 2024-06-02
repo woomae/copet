@@ -30,15 +30,6 @@ class EnvironmentVariables {
   DB_DATABASE: string;
 
   @IsString()
-  GOOGLE_CLIENT_ID: string;
-
-  @IsString()
-  GOOGLE_SECRET_ID: string;
-
-  @IsString()
-  GOOGLE_REDIRECT_URL: string;
-
-  @IsString()
   ROOT_URL: string;
 
   @IsString()
@@ -46,6 +37,9 @@ class EnvironmentVariables {
 
   @IsString()
   KAKAO_API_KEY: string;
+
+  @IsString()
+  KAKAO_CLIENT_SECRET: string;
 
   @IsString()
   KAKAO_CALLBACK_URL: string;
@@ -57,7 +51,7 @@ class EnvironmentVariables {
   AWS_SECRET_ACCESS_KEY: string;
 
   @IsString()
-  AWS_S3_BUCKET_NAME: string;
+  AWS_S3_BUCKET: string;
 
   @IsString()
   AWS_S3_REGION: string;
@@ -70,6 +64,15 @@ class EnvironmentVariables {
 
   @IsString()
   REDIS_PASSWORD: string;
+
+  @IsString()
+  JWT_SECRET: string;
+
+  @IsString()
+  JWT_EXPIRES_IN: string;
+
+  @IsString()
+  COOKIE_DOMAIN: string;
 }
 
 export function validate(config: Record<string, unknown>) {

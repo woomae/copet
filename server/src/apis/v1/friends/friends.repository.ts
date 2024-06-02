@@ -8,8 +8,12 @@ export class FriendsRepository extends Repository<Friends> {
     super(Friends, dataSource.createEntityManager());
   }
   async createFriendRequest(
-    friendRequestData: Partial<Friends>,
+    id: number,
+    friend_user_id: number,
   ): Promise<Friends> {
+    const friendRequestData = new Friends();
+    friendRequestData.friend_user_id = friend_user_id;
+    friendRequestData.from_user_id = id;
     return await this.save(friendRequestData);
   }
   async getFollowList(from_user_id: number): Promise<[Friends[], number]> {
@@ -31,14 +35,14 @@ export class FriendsRepository extends Repository<Friends> {
       .getManyAndCount();
     return result;
   }
-  async friendChecker(friendRequestData: Partial<Friends>): Promise<boolean> {
+  async friendChecker(id: number, friend_user_id: number): Promise<boolean> {
     const result = await this.createQueryBuilder('friends')
       .leftJoinAndSelect('friends.friend_user_id', 'user')
       .where('friends.from_user_id = :fromUserId', {
-        fromUserId: friendRequestData.from_user_id,
+        fromUserId: id,
       })
       .andWhere('user._id = :friendUserId', {
-        friendUserId: friendRequestData.friend_user_id,
+        friendUserId: friend_user_id,
       })
       .getOne();
     if (result) {
@@ -47,14 +51,14 @@ export class FriendsRepository extends Repository<Friends> {
       return false;
     }
   }
-  async deleteFriendRequest(friendRequestData: Partial<Friends>): Promise<any> {
+  async deleteFriendRequest(id: number, friend_user_id: number): Promise<any> {
     const result = await this.createQueryBuilder('friends')
       .leftJoinAndSelect('friends.friend_user_id', 'user')
       .where('friends.from_user_id = :fromUserId', {
-        fromUserId: friendRequestData.from_user_id,
+        fromUserId: id,
       })
       .andWhere('user._id = :friendUserId', {
-        friendUserId: friendRequestData.friend_user_id,
+        friendUserId: friend_user_id,
       })
       .getOne();
     return await this.delete({ _id: result._id });

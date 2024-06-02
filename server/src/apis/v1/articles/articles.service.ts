@@ -1,43 +1,38 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ArticleRepository } from './articles.repository';
 import { Articles } from './articles.entity';
 import { CreateArticleDto } from 'src/dto/create-article.dto';
 import { UsersService } from '../users/users.service';
-import * as AWS from 'aws-sdk';
-import { ConfigService } from '@nestjs/config';
+
 import { categoryChecker } from 'src/libs/funcs/category-checker';
-const configService = new ConfigService();
+import { PhotosService } from '../photos/photos.service';
+import ApiError from 'src/libs/res/api.errors';
+import ApiCodes from 'src/libs/res/api.codes';
+import ApiMessages from 'src/libs/res/api.messages';
+import { ConfigService } from '@nestjs/config';
+import { Repository } from 'typeorm';
+import { Photos } from '../photos/photos.entity';
+import { CreatePhotoDto } from 'src/dto/create-photo.dto';
 @Injectable()
 export class ArticlesService {
-  private readonly awsS3: AWS.S3;
-  public readonly S3_BUCKET_NAME: string;
-
   constructor(
+    private readonly env: ConfigService,
+    private readonly photosService: PhotosService,
+    private usersService: UsersService,
     @InjectRepository(ArticleRepository)
     private articleRepository: ArticleRepository,
-    private usersService: UsersService,
-  ) {
-    this.awsS3 = new AWS.S3({
-      accessKeyId: configService.get('AWS_ACCESS_KEY_ID'),
-      secretAccessKey: configService.get('AWS_SECRET_ACCESS_KEY'),
-      region: configService.get('AWS_S3_REGION'),
-    });
-    this.S3_BUCKET_NAME = configService.get('AWS_S3_BUCKET_NAME') + '/articles';
-  }
-  async getArticleById(article_id: number): Promise<Articles> {
-    const found = await this.articleRepository.getArticleById(article_id);
-    if (!found) {
-      throw new BadRequestException(
-        `Article with ID "${article_id}" not found`,
-      );
-    }
-    return found;
+    @InjectRepository(Photos)
+    private readonly photosRepository: Repository<Photos>,
+  ) {}
+  async getArticleById(_id: number): Promise<Articles> {
+    const result = await this.articleRepository.getArticleById(_id);
+    return result;
   }
   async getAllArticles(
     page: number,
     size: number,
-    category: string,
+    category?: string,
   ): Promise<any> {
     //카테고리 체크
     if (category) {
@@ -50,186 +45,90 @@ export class ArticlesService {
     return await this.articleRepository.getAllArticles(page, size);
   }
   async getAllArticleByOwner(owner_id: number): Promise<Articles[]> {
-    const articleData =
-      await this.articleRepository.getAllArticleByOwner(owner_id);
-    if (!articleData || articleData.length === 0) {
-      throw new BadRequestException(
-        `ArticleData with ID "${owner_id}" not found`,
-      );
-    }
-    return articleData;
+    const result = await this.articleRepository.getAllArticleByOwner(owner_id);
+    return result;
   }
-  async createArticle(bodyData: CreateArticleDto, files: any): Promise<any> {
+  async createArticle(
+    createArticleDto: CreateArticleDto,
+    owner_id: number,
+    files?: { img_name: Express.Multer.File[] } | undefined,
+  ): Promise<Articles> {
     //게시글을 작성한 유저 조회 후 없을 시 에러처리
-    const userData = await this.usersService.findUserById(bodyData.owner_id);
-    if (!userData) {
-      throw new BadRequestException(
-        `User with ID "${bodyData.owner_id}" not found`,
+    const userData = await this.usersService.findUserById(owner_id);
+    categoryChecker(createArticleDto.category); // 카테고리 체크
+    const bodyObject = this.articleRepository.create(createArticleDto);
+    if (files.img_name) {
+      const img_paths = await this.photosService.uploadFiles(
+        files.img_name,
+        '/articles',
       );
+      const photo = new CreatePhotoDto();
+      photo.article = bodyObject;
+      img_paths.forEach((img_path) => {
+        photo.img_path = img_path;
+        this.photosRepository.save(photo);
+      });
     }
-    categoryChecker(bodyData.category); // 카테고리 체크
-    if (!files || Object.keys(files).length === 0) {
-      //사진데이터 미존재시 처리
-      const newBodyData: CreateArticleDto = {
-        ...bodyData,
-        author: userData?.nickname,
-      };
-      return await this.articleRepository.createArticle(newBodyData);
-    } else {
-      const img_arr = [];
-      for (const file of files) {
-        try {
-          //사진데이터 존재시 처리
-          const key = `user-${bodyData.owner_id}--${Date.now()}`;
-
-          await this.awsS3
-            .putObject({
-              Bucket: this.S3_BUCKET_NAME,
-              Key: key,
-              Body: file.buffer,
-              ACL: 'public-read',
-              ContentType: file.mimetype,
-            })
-            .promise();
-
-          img_arr.push(
-            `https://${configService.get(
-              'AWS_S3_BUCKET_NAME',
-            )}.s3.${configService.get(
-              'AWS_S3_REGION',
-            )}.amazonaws.com/articles/${key}`,
-          );
-        } catch (error) {
-          throw new BadRequestException(`File upload failed : ${error}`);
-        }
-      }
-      const img_paths = img_arr.map((img) => img);
-      const img_path = img_paths.join(',');
-      const newBodyData: CreateArticleDto = {
-        ...bodyData,
-        author: userData?.nickname,
-        img_name: img_path,
-      };
-
-      return await this.articleRepository.createArticle(newBodyData);
-    }
+    bodyObject.owner_id = owner_id;
+    bodyObject.author = userData.nickname;
+    return await this.articleRepository.save(bodyObject);
   }
   async updateArticle(
-    article_id: number,
-    bodyData: CreateArticleDto,
-    files: any,
+    _id: number,
+    owner_id: number,
+    createArticleDto: CreateArticleDto,
+    files?: { img_name: Express.Multer.File[] } | undefined,
   ): Promise<Articles> {
     //기존 게시글 조회 후 없을 시 에러처리
-    const found = await this.articleRepository.getArticleById(article_id);
-    if (!found) {
-      throw new BadRequestException(
-        `Article with ID "${article_id}" not found`,
-      );
-    }
-    //게시글을 작성한 유저 조회 후 없을 시 에러처리
-    const userData = await this.usersService.findUserById(bodyData.owner_id);
-    if (!userData) {
-      throw new BadRequestException(
-        `User with ID "${bodyData.owner_id}" not found`,
-      );
+    const articleData = await this.articleRepository.getArticleById(_id);
+    if (!articleData) {
+      throw new ApiError(ApiCodes.NOT_FOUND, ApiMessages.NOT_FOUND, {
+        message: '게시글을 찾을 수 없습니다.',
+      });
     }
     //기존게시글 오너가 바디데이터의 오너가 아닐 시 에러처리
-    if (
-      await this.articleRepository.ownerChecker(article_id, bodyData.owner_id)
-    ) {
-      throw new BadRequestException(`Article is not owned by user `);
+    if (await this.articleRepository.ownerChecker(_id, owner_id)) {
+      throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
+        message: '게시글의 작성자가 아닙니다.',
+      });
     }
-    categoryChecker(bodyData.category); // 카테고리 체크
-    //기존 사진들 삭제
-    if (found.img_name) {
-      const img_arr = found.img_name.split(',');
-      for (const img of img_arr) {
-        const subindex = img.indexOf('.com/') + 5;
-        await this.awsS3
-          .deleteObject({
-            Bucket: configService.get('AWS_S3_BUCKET_NAME'),
-            Key: img.substring(subindex), //키 값은 버킷부터의 경로로 작성
-          })
-          .promise();
-      }
-    }
-    if (!files || Object.keys(files).length === 0) {
-      //사진데이터 미존재시 처리
-      const newBodyData: CreateArticleDto = {
-        ...bodyData,
-        author: userData?.nickname,
-        img_name: null,
-      };
-      return await this.articleRepository.updateArticle(
-        article_id,
-        newBodyData,
+    categoryChecker(createArticleDto.category); // 카테고리 체크
+    // //기존 사진들 삭제
+    // if (articleData.img_urls) {
+    //   this.photosService.deleteFiles(articleData.img_urls, '/articles');
+    //   articleData.img_urls = null;
+    // }
+    const bodyObject = this.articleRepository.create(createArticleDto);
+    bodyObject.owner_id = owner_id;
+    if (files.img_name) {
+      const img_paths = await this.photosService.uploadFiles(
+        files.img_name,
+        '/articles',
       );
-    } else {
-      const img_arr = [];
-      for (const file of files) {
-        try {
-          const key = `user-${bodyData.owner_id}--${Date.now()}`;
-
-          await this.awsS3
-            .putObject({
-              Bucket: this.S3_BUCKET_NAME,
-              Key: key,
-              Body: file.buffer,
-              ACL: 'public-read',
-              ContentType: file.mimetype,
-            })
-            .promise();
-
-          img_arr.push(
-            `https://${configService.get(
-              'AWS_S3_BUCKET_NAME',
-            )}.s3.${configService.get(
-              'AWS_S3_REGION',
-            )}.amazonaws.com/articles/${key}`,
-          );
-        } catch (error) {
-          throw new BadRequestException(`File upload failed : ${error}`);
-        }
-      }
-      const img_paths = img_arr.map((img) => img);
-      const img_path = img_paths.join(',');
-      const newBodyData: CreateArticleDto = {
-        ...bodyData,
-        author: userData?.nickname,
-        img_name: img_path,
-      };
-      return await this.articleRepository.updateArticle(
-        article_id,
-        newBodyData,
-      );
+      const photo = new CreatePhotoDto();
+      photo.article = bodyObject;
+      img_paths.forEach((img_path) => {
+        photo.img_path = img_path;
+        this.photosRepository.save(photo);
+      });
     }
+    return await this.articleRepository.updateArticle(_id, bodyObject);
   }
-  async deleteArticle(article_id: number, owner_id: number): Promise<void> {
+  async deleteArticle(_id: number, owner_id: number): Promise<void> {
     //기존 게시글 조회 후 없을 시 에러처리
-    const found = await this.articleRepository.getArticleById(article_id);
-    if (!found) {
-      throw new BadRequestException(
-        `Article with ID "${article_id}" not found`,
-      );
+    const articleData = await this.articleRepository.getArticleById(_id);
+    if (!articleData) {
+      throw new ApiError(ApiCodes.NOT_FOUND, ApiMessages.NOT_FOUND, {
+        message: '게시글을 찾을 수 없습니다.',
+      });
     }
     //유저아이디와 게시글의 오너아이디가 같은지 확인
-    if (await this.articleRepository.ownerChecker(article_id, owner_id)) {
-      throw new BadRequestException(`Article is not owned by user `);
+    if (await this.articleRepository.ownerChecker(_id, owner_id)) {
+      throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
+        message: '게시글의 작성자가 아닙니다.',
+      });
     }
-    //기존 사진들 삭제
-    if (found.img_name) {
-      const img_arr = found.img_name.split(',');
-      for (const img of img_arr) {
-        const subindex = img.indexOf('.com/') + 5;
-        await this.awsS3
-          .deleteObject({
-            Bucket: configService.get('AWS_S3_BUCKET_NAME'),
-            Key: img.substring(subindex), //키 값은 버킷부터의 경로로 작성
-          })
-          .promise();
-      }
-    }
-    await this.articleRepository.delete({ _id: article_id });
+    await this.articleRepository.delete({ _id: _id });
   }
   async increaseScrapCount(article_id: number): Promise<void> {
     await this.articleRepository.increaseScrapCount(article_id);

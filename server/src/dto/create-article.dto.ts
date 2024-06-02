@@ -1,11 +1,23 @@
+import { Transform } from 'class-transformer';
+import { IsArray, IsString } from 'class-validator';
+import { Photos } from 'src/apis/v1/photos/photos.entity';
+
 // create-article.dto
 export class CreateArticleDto {
-  constructor(
-    public owner_id: number,
-    public title: string,
-    public body: string,
-    public category: string,
-    public author?: string,
-    public img_name?: string,
-  ) {}
+  @IsString()
+  title: string;
+
+  @IsString()
+  body: string;
+
+  @IsString()
+  category: string;
+
+  @IsString()
+  author?: string;
+
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }) => JSON.parse(value))
+  img_urls?: Photos[];
 }

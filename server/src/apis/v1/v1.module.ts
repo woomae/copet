@@ -7,6 +7,7 @@ import { MocksModule } from './mocks/mocks.module';
 import { RanksModule } from './ranks/ranks.module';
 import { StarsModule } from './stars/stars.module';
 import { UsersModule } from './users/users.module';
+import { PhotosModule } from './photos/photos.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UsersModule } from './users/users.module';
     CommentsModule,
     MocksModule,
     RanksModule,
+    PhotosModule,
   ],
 })
 export class V1Module {}

@@ -5,30 +5,30 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Users } from '../users/users.entity';
 import { Articles } from '../articles/articles.entity';
 
 @Entity()
-export class Comments extends BaseEntity {
+export class Photos extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
   @Column()
-  owner_id: number;
+  img_path: string;
 
-  @ManyToOne(() => Articles, (article) => article._id, {
+  @ManyToOne(() => Users, (user) => user.photo, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'article_id' })
-  article_id: number;
+  user: Users;
 
-  @Column()
-  nickname: string;
-
-  @Column({ type: 'text' })
-  comment: string;
+  @ManyToOne(() => Articles, (article) => article.photos, {
+    onDelete: 'CASCADE',
+  })
+  article: Articles;
 
   @CreateDateColumn({
     type: 'timestamptz',

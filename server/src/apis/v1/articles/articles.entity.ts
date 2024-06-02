@@ -11,14 +11,12 @@ import {
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 import { Comments } from '../comments/comments.entity';
+import { Photos } from '../photos/photos.entity';
 
 @Entity()
 export class Articles extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
-
-  @Column({ generated: 'increment', unique: true })
-  article_id: number;
 
   @Column()
   author: string;
@@ -26,14 +24,11 @@ export class Articles extends BaseEntity {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ type: 'text' })
   body: string;
 
   @Column()
   category: string;
-
-  @Column({ nullable: true })
-  img_name: string;
 
   @Column({ default: 0 })
   comment_count: number;
@@ -48,10 +43,15 @@ export class Articles extends BaseEntity {
   @JoinColumn({ name: 'owner_id' })
   owner_id: number;
 
-  @OneToMany(() => Comments, (comment) => comment.connected_article_id, {
+  @OneToMany(() => Comments, (comment) => comment.article_id, {
     onDelete: 'CASCADE',
   })
-  connected_article_id: Comments[];
+  article_id: Comments[];
+
+  @OneToMany(() => Photos, (photo) => photo.article, {
+    onDelete: 'CASCADE',
+  })
+  photos: Photos[];
 
   @CreateDateColumn({
     type: 'timestamptz',

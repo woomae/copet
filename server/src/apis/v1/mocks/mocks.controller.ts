@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { MocksService } from './mocks.service';
 
-@Controller('mocks')
+@Controller({ path: 'mocks', version: '1' })
 export class MocksController {
   constructor(private readonly mocksService: MocksService) {}
   @Get('petPlaces')

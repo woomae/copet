@@ -5,6 +5,9 @@ import { Comments } from './comments.entity';
 import { UsersService } from '../users/users.service';
 import { ArticlesService } from '../articles/articles.service';
 import { CreateCommentDto } from 'src/dto/create-comment.dto';
+import ApiError from 'src/libs/res/api.errors';
+import ApiCodes from 'src/libs/res/api.codes';
+import ApiMessages from 'src/libs/res/api.messages';
 
 @Injectable()
 export class CommentsService {
@@ -15,53 +18,56 @@ export class CommentsService {
     private articlesService: ArticlesService,
   ) {}
   async getAllCommentsByArticle(
-    connected_article_id: number,
-  ): Promise<Comments[]> {
+    article_id: number,
+  ): Promise<[Object, Comments[]]> {
     const found =
-      await this.commentRepository.getAllCommentsByArticle(
-        connected_article_id,
-      );
-    if (!found || found.length === 0) {
-      throw new BadRequestException(
-        `Comments with ID "${connected_article_id}" not found`,
-      );
-    }
-    return found;
+      await this.commentRepository.getAllCommentsByArticle(article_id);
+
+    return [{ count: found[1] }, found[0]];
   }
-  async createComment(bodyData: CreateCommentDto): Promise<void> {
-    bodyData.nickname = (
-      await this.usersService.findUserById(bodyData.user_id)
-    ).nickname;
-    bodyData.comment_owner_id = bodyData.user_id;
-    if (
-      !bodyData.connected_article_id ||
-      !bodyData.comment ||
-      !bodyData.nickname
-    ) {
-      throw new BadRequestException(`Please check your input data`);
-    }
-    await this.articlesService.increaseCommentCount(
-      bodyData.connected_article_id,
-    );
+  async createComment(
+    id: number,
+    article_id: number,
+    bodyData: CreateCommentDto,
+  ): Promise<void> {
+    bodyData.nickname = (await this.usersService.findUserById(id)).nickname;
+    bodyData.owner_id = id;
+    bodyData.article_id = article_id;
+    await this.articlesService.increaseCommentCount(article_id);
     return await this.commentRepository.createComment(bodyData);
   }
-  async deleteComment(comment_id: number, user_id: number): Promise<void> {
-    //넘어온값들 올바른지 확인할것
-    //코멘트체크, 오너체크
-    const comment = await this.commentRepository.getcommentById(comment_id);
+  async updateComment(
+    _id: number,
+    user_id: number,
+    commentText: string,
+  ): Promise<Comments> {
+    const comment = await this.commentRepository.getcommentById(_id);
     if (!comment) {
-      throw new BadRequestException(
-        `Comment with ID "${comment_id}" not found`,
-      );
+      throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
+        message: 'Comment not found',
+      });
     }
-    if (comment.comment_owner_id !== user_id) {
-      throw new BadRequestException(
-        `You are not the owner of the comment with ID "${comment_id}"`,
-      );
+    if (comment.owner_id !== user_id) {
+      throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
+        message: 'You are not the owner of the comment',
+      });
     }
-    await this.articlesService.decreaseCommentCount(
-      comment.connected_article_id,
-    );
-    await this.commentRepository.deleteComment(comment_id);
+    return await this.commentRepository.updateComment(_id, commentText);
+  }
+
+  async deleteComment(_id: number, user_id: number): Promise<void> {
+    const comment = await this.commentRepository.getcommentById(_id);
+    if (!comment) {
+      throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
+        message: 'Comment not found',
+      });
+    }
+    if (comment.owner_id !== user_id) {
+      throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
+        message: 'You are not the owner of the comment',
+      });
+    }
+    await this.articlesService.decreaseCommentCount(comment.article_id);
+    await this.commentRepository.deleteComment(_id);
   }
 }
