@@ -10,7 +10,10 @@ import '../../style/colors.dart';
 
 class ProfileInformationContainer extends StatefulWidget {
   ProfileInformationContainer({
-    super.key,});
+    super.key,
+    this.othersId
+  });
+  final int? othersId;
 
   @override
   State<ProfileInformationContainer> createState() => _ProfileInformationContainerState();
@@ -28,7 +31,11 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
 
   @override
   Widget build(BuildContext context) {
-    final userId = ProviderScope.containerOf(context).read(UserProvider).id;
+    final userId = widget.othersId != null ? widget.othersId
+        : ProviderScope.containerOf(context).read(UserProvider).id;
+    if(widget.othersId != null){
+      profileCategory.removeLast();
+    }
     return Column(
       children: [
         Container(
@@ -48,8 +55,8 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
                       if(currentState == profileCategory[1]){
                         currentFuture = GetArticles.getOwnerArticles(userId: userId.toString());
                       }
-                      if(currentState == profileCategory[2]){
-                        currentFuture = GetArticles.getLikeArticles(userId: userId);
+                      if(currentState == profileCategory[2] ){
+                        currentFuture = GetArticles.getLikeArticles(userId: userId!);
                       }
                     });
                   }, buttonName: e, isPressed : currentState == e)).toList()
@@ -65,7 +72,6 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
                   return Center(child: Text('currentFuture null'));
                 }
                 return PostList(length: snapshot.data!.length, comments: snapshot.data!);
-
               }
               if(snapshot.connectionState == ConnectionState.waiting){
                 return Center(child: Text('loading'));

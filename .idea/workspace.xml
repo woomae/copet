@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/copet.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copet.iml" afterDir="false" />
+    <list default="true" id="677a1d26-c344-45e7-a67e-b66d4e4a9859" name="Changes" comment="feature: 좋아요한 게시글 조회">
+      <change afterPath="$PROJECT_DIR$/app/lib/common/component/buttons/common_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/lib/pages/profile/others_profile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/lib/api/getArticles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/api/getArticles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/lib/const/models/articles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/const/models/articles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/pages/profile/profile_container.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/lib/pages/profile/profile_information_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/pages/profile/profile_information_container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/pages/profile/profile_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/pages/profile/profile_main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/pages/profile/setting/setting_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/pages/profile/setting/setting_home.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +60,7 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/personal__profile&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/profile&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
@@ -119,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717145762496</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feature: 좋아요한 게시글 조회">
+      <option name="closed" value="true" />
+      <created>1717161515032</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717161515032</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,6 +150,7 @@
     <MESSAGE value="feature: 프로필 부분 사용자 별 게시글 조회" />
     <MESSAGE value="fix: watch 메소드로 인한 재로딩 방지" />
     <MESSAGE value="dartSdk 경로 재설정" />
-    <option name="LAST_COMMIT_MESSAGE" value="dartSdk 경로 재설정" />
+    <MESSAGE value="feature: 좋아요한 게시글 조회" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature: 좋아요한 게시글 조회" />
   </component>
 </project>
