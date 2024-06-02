@@ -4,7 +4,7 @@ import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { winstonLogger } from './libs/logger/winston.util';
 import * as bodyParser from 'body-parser';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: winstonLogger });
@@ -21,6 +21,14 @@ async function bootstrap() {
   // 최대 요청 본문 크기 설정
   app.use(bodyParser.json({ limit: '25mb' }));
   app.use(bodyParser.urlencoded({ limit: '25mb', extended: true }));
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   await app.listen(port);
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ArticleRepository } from './articles.repository';
 import { Articles } from './articles.entity';
@@ -11,14 +11,19 @@ import ApiError from 'src/libs/res/api.errors';
 import ApiCodes from 'src/libs/res/api.codes';
 import ApiMessages from 'src/libs/res/api.messages';
 import { ConfigService } from '@nestjs/config';
+import { Repository } from 'typeorm';
+import { Photos } from '../photos/photos.entity';
+import { CreatePhotoDto } from 'src/dto/create-photo.dto';
 @Injectable()
 export class ArticlesService {
   constructor(
     private readonly env: ConfigService,
     private readonly photosService: PhotosService,
+    private usersService: UsersService,
     @InjectRepository(ArticleRepository)
     private articleRepository: ArticleRepository,
-    private usersService: UsersService,
+    @InjectRepository(Photos)
+    private readonly photosRepository: Repository<Photos>,
   ) {}
   async getArticleById(_id: number): Promise<Articles> {
     const result = await this.articleRepository.getArticleById(_id);
@@ -57,10 +62,15 @@ export class ArticlesService {
         files.img_name,
         '/articles',
       );
-      bodyObject.owner_id = owner_id;
-      bodyObject.author = userData.nickname;
-      bodyObject.img_urls = img_paths;
+      const photo = new CreatePhotoDto();
+      photo.article = bodyObject;
+      img_paths.forEach((img_path) => {
+        photo.img_path = img_path;
+        this.photosRepository.save(photo);
+      });
     }
+    bodyObject.owner_id = owner_id;
+    bodyObject.author = userData.nickname;
     return await this.articleRepository.save(bodyObject);
   }
   async updateArticle(
@@ -83,11 +93,11 @@ export class ArticlesService {
       });
     }
     categoryChecker(createArticleDto.category); // 카테고리 체크
-    //기존 사진들 삭제
-    if (articleData.img_urls) {
-      this.photosService.deleteFiles(articleData.img_urls, '/articles');
-      articleData.img_urls = null;
-    }
+    // //기존 사진들 삭제
+    // if (articleData.img_urls) {
+    //   this.photosService.deleteFiles(articleData.img_urls, '/articles');
+    //   articleData.img_urls = null;
+    // }
     const bodyObject = this.articleRepository.create(createArticleDto);
     bodyObject.owner_id = owner_id;
     if (files.img_name) {
@@ -95,7 +105,12 @@ export class ArticlesService {
         files.img_name,
         '/articles',
       );
-      bodyObject.img_urls = img_paths;
+      const photo = new CreatePhotoDto();
+      photo.article = bodyObject;
+      img_paths.forEach((img_path) => {
+        photo.img_path = img_path;
+        this.photosRepository.save(photo);
+      });
     }
     return await this.articleRepository.updateArticle(_id, bodyObject);
   }
@@ -112,10 +127,6 @@ export class ArticlesService {
       throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
         message: '게시글의 작성자가 아닙니다.',
       });
-    }
-    if (articleData.img_urls) {
-      this.photosService.deleteFiles(articleData.img_urls, '/articles');
-      articleData.img_urls = null;
     }
     await this.articleRepository.delete({ _id: _id });
   }

@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 import { Comments } from '../comments/comments.entity';
+import { Photos } from '../photos/photos.entity';
 
 @Entity()
 export class Articles extends BaseEntity {
@@ -29,9 +30,6 @@ export class Articles extends BaseEntity {
   @Column()
   category: string;
 
-  @Column({ type: 'json', nullable: true })
-  img_urls: string[];
-
   @Column({ default: 0 })
   comment_count: number;
 
@@ -49,6 +47,11 @@ export class Articles extends BaseEntity {
     onDelete: 'CASCADE',
   })
   article_id: Comments[];
+
+  @OneToMany(() => Photos, (photo) => photo.article, {
+    onDelete: 'CASCADE',
+  })
+  photos: Photos[];
 
   @CreateDateColumn({
     type: 'timestamptz',

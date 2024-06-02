@@ -12,7 +12,7 @@ import {
 import { UsersService } from './users.service';
 import { Request } from 'express';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { UpdateUserDto } from 'src/dto/update-user.to';
+import { UpdateUserDto } from 'src/dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
 import { Payload } from '../auth/jwt/jwt.payload';
 
