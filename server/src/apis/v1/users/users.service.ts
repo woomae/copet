@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Users } from './users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersRepository } from './users.repository';
@@ -30,9 +30,7 @@ export class UsersService {
     });
   }
   async findUserById(id: number): Promise<Users> {
-    const found = await this.usersRepository.findOne({ where: { _id: id } });
-    if (!found) throw new BadRequestException('Invalid ID');
-    return found;
+    return await this.usersRepository.findOne({ where: { _id: id } });
   }
   async findUserByEmail(email: string): Promise<Users> {
     const found = await this.usersRepository.findOne({

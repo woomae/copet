@@ -44,12 +44,12 @@ export class Articles extends BaseEntity {
   owner_id: number;
 
   @OneToMany(() => Comments, (comment) => comment.article_id, {
-    onDelete: 'CASCADE',
+    cascade: ['remove'],
   })
   article_id: Comments[];
 
   @OneToMany(() => Photos, (photo) => photo.article, {
-    onDelete: 'CASCADE',
+    cascade: ['remove'],
   })
   photos: Photos[];
 

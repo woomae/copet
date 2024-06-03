@@ -55,14 +55,14 @@ export class ArticlesController {
   @UseGuards(JwtAuthGuard)
   @Post('')
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'photos', maxCount: 5 }], {
+    FileFieldsInterceptor([{ name: 'photo', maxCount: 5 }], {
       limits: { fileSize: 25 * 1024 * 1024 },
     }),
   )
   async createArticle(
     @Req() req: Request,
     @Body() createArticleDto: CreateArticleDto,
-    @UploadedFiles() files?: { img_name: Express.Multer.File[] },
+    @UploadedFiles() files?: { photo: Express.Multer.File[] },
   ) {
     const userPayload = req.user as Payload;
     const result = await this.articlesService.createArticle(
