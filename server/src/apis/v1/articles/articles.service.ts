@@ -51,27 +51,29 @@ export class ArticlesService {
   async createArticle(
     createArticleDto: CreateArticleDto,
     owner_id: number,
-    files?: { img_name: Express.Multer.File[] } | undefined,
+    files?: { photo: Express.Multer.File[] } | undefined,
   ): Promise<Articles> {
     //게시글을 작성한 유저 조회 후 없을 시 에러처리
     const userData = await this.usersService.findUserById(owner_id);
     categoryChecker(createArticleDto.category); // 카테고리 체크
     const bodyObject = this.articleRepository.create(createArticleDto);
-    if (files.img_name) {
+    bodyObject.owner_id = owner_id;
+    bodyObject.author = userData.nickname;
+    const savedData = await this.articleRepository.save(bodyObject);
+    if (files.photo) {
       const img_paths = await this.photosService.uploadFiles(
-        files.img_name,
+        files.photo,
         '/articles',
       );
-      const photo = new CreatePhotoDto();
-      photo.article = bodyObject;
       img_paths.forEach((img_path) => {
+        const photo = new Photos();
+        photo.article = bodyObject;
         photo.img_path = img_path;
         this.photosRepository.save(photo);
       });
     }
-    bodyObject.owner_id = owner_id;
-    bodyObject.author = userData.nickname;
-    return await this.articleRepository.save(bodyObject);
+
+    return await this.articleRepository.getArticleById(savedData._id);
   }
   async updateArticle(
     _id: number,

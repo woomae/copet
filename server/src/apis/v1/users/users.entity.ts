@@ -6,8 +6,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
-  OneToOne,
-  ManyToOne,
   ManyToMany,
   JoinTable,
 } from 'typeorm';
@@ -45,17 +43,17 @@ export class Users extends BaseEntity {
   intro: string;
 
   @OneToMany(() => Articles, (article) => article.owner_id, {
-    onDelete: 'CASCADE',
+    cascade: ['remove'],
   })
   owner_id: Articles[];
 
   @OneToMany(() => Friends, (friend) => friend.friend_user_id, {
-    onDelete: 'CASCADE',
+    cascade: ['remove'],
   })
   friend_user_id: Friends[];
 
   @OneToMany(() => Stars, (star) => star.clicked_user_id, {
-    onDelete: 'CASCADE',
+    cascade: ['remove'],
   })
   clicked_user_id: Stars[];
 
@@ -64,7 +62,7 @@ export class Users extends BaseEntity {
   petkeywords: PetKeywords[];
 
   @OneToMany(() => Photos, (photo) => photo.user, {
-    onDelete: 'CASCADE',
+    cascade: ['remove'],
   })
   photo: Photos;
 
