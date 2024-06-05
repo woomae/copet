@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsArray, IsObject, IsString } from 'class-validator';
+import { IsArray, IsObject, IsOptional, IsString } from 'class-validator';
 
 // update-user.dto
 export class UpdateUserDto {
@@ -21,6 +21,7 @@ export class UpdateUserDto {
   @Transform(({ value }) => JSON.parse(value))
   petkeyword: string[];
 
+  @IsOptional()
   @IsString()
   intro?: string;
 }

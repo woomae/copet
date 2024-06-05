@@ -36,11 +36,11 @@ export class ResponseInterceptor<T extends ResponseData>
 
     return next.handle().pipe(
       map((data) => {
-        if (data.cookies) {
-          for (const [name, value] of Object.entries(data.cookies)) {
+        if (data?.cookies) {
+          for (const [name, value] of Object.entries(data?.cookies)) {
             res.cookie(name, value.value, value.options);
           }
-          delete data.cookies;
+          delete data?.cookies;
         }
         winstonLogger.log(
           `[${method}]${originalUrl} ${200} ${ip} ${userAgent}`,

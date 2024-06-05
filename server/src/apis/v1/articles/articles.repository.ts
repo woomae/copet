@@ -42,10 +42,6 @@ export class ArticleRepository extends Repository<Articles> {
       .getMany();
   }
 
-  async updateArticle(id: number, bodyData: any): Promise<Articles> {
-    await this.update({ _id: id }, bodyData);
-    return await this.findOneBy({ _id: id });
-  }
   async ownerChecker(_id: number, owner_id: number): Promise<boolean> {
     const result = await this.createQueryBuilder('articles')
       .leftJoinAndSelect('articles.owner_id', 'user')

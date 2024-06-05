@@ -79,7 +79,7 @@ export class ArticlesService {
     _id: number,
     owner_id: number,
     createArticleDto: CreateArticleDto,
-    files?: { img_name: Express.Multer.File[] } | undefined,
+    files?: { photo: Express.Multer.File[] } | undefined,
   ): Promise<Articles> {
     //기존 게시글 조회 후 없을 시 에러처리
     const articleData = await this.articleRepository.getArticleById(_id);
@@ -95,26 +95,34 @@ export class ArticlesService {
       });
     }
     categoryChecker(createArticleDto.category); // 카테고리 체크
-    // //기존 사진들 삭제
-    // if (articleData.img_urls) {
-    //   this.photosService.deleteFiles(articleData.img_urls, '/articles');
-    //   articleData.img_urls = null;
-    // }
-    const bodyObject = this.articleRepository.create(createArticleDto);
-    bodyObject.owner_id = owner_id;
-    if (files.img_name) {
-      const img_paths = await this.photosService.uploadFiles(
-        files.img_name,
+    //기존 사진들 삭제
+    if (createArticleDto.delete_img) {
+      console.log(createArticleDto.delete_img);
+      await this.photosService.deleteFiles(
+        createArticleDto.delete_img,
         '/articles',
       );
-      const photo = new CreatePhotoDto();
-      photo.article = bodyObject;
+      createArticleDto.delete_img.map(async (img) => {
+        await this.photosRepository.delete({ img_path: img });
+      });
+    }
+    articleData.title = createArticleDto.title;
+    articleData.body = createArticleDto.body;
+    articleData.category = createArticleDto.category;
+
+    if (files.photo) {
+      const img_paths = await this.photosService.uploadFiles(
+        files.photo,
+        '/articles',
+      );
       img_paths.forEach((img_path) => {
+        const photo = new Photos();
+        photo.article = articleData;
         photo.img_path = img_path;
         this.photosRepository.save(photo);
       });
     }
-    return await this.articleRepository.updateArticle(_id, bodyObject);
+    return await this.articleRepository.save(articleData);
   }
   async deleteArticle(_id: number, owner_id: number): Promise<void> {
     //기존 게시글 조회 후 없을 시 에러처리
