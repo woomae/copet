@@ -4,7 +4,7 @@ import {
   ArgumentsHost,
   HttpException,
 } from '@nestjs/common';
-import { Response } from 'express';
+import e, { Response } from 'express';
 import { Result } from '../res/result';
 import { HttpStatus } from '@nestjs/common';
 import { winstonLogger } from '../logger/winston.util';
@@ -24,16 +24,16 @@ export class AllExceptionsFilter implements ExceptionFilter {
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
-
     const message =
       exception instanceof HttpException ? exception.getResponse() : exception;
-
+    const stack =
+      exception instanceof HttpException ? exception.stack : exception;
     winstonLogger.error(
       `[${request.method}]${request.url} ${status} ${request.ip} ${
         request.headers['user-agent']
       } detail: ${JSON.stringify(message)}`,
+      stack,
     );
-
     const response = Result.fail<Error>(exception).toJson();
     res.status(HttpStatus.OK).json(response);
   }

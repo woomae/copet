@@ -28,6 +28,7 @@ export const winstonLogger = WinstonModule.createLogger({
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.ms(),
+        winston.format.errors({ stack: true }),
         utilities.format.nestLike('Copet', {
           colors: true,
           prettyPrint: true,

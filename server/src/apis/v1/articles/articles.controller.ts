@@ -75,12 +75,12 @@ export class ArticlesController {
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'photos', maxCount: 5 }], {
+    FileFieldsInterceptor([{ name: 'photo', maxCount: 5 }], {
       limits: { fileSize: 25 * 1024 * 1024 },
     }),
   )
   async updateArticle(
-    @UploadedFiles() files: { img_name: Express.Multer.File[] },
+    @UploadedFiles() files: { photo: Express.Multer.File[] },
     @Req() req: Request,
     @Body() bodyData: CreateArticleDto,
     @Param('id') _id: number,
@@ -97,10 +97,10 @@ export class ArticlesController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteArticle(@Param('id') _id: number, @Req() req: Request) {
+  async deleteArticle(@Param('id') id: number, @Req() req: Request) {
     const userPayload = req.user as Payload;
     const result = await this.articlesService.deleteArticle(
-      _id,
+      id,
       userPayload.user_id,
     );
     return result;
