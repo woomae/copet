@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
+import 'package:pet/const/models/user_data_model.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -19,7 +20,7 @@ class loginarea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(userDataProvider);
+    final userDataState = ref.watch(userDataProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -52,13 +53,13 @@ class loginarea extends ConsumerWidget {
                 _Title(),
                 const SizedBox(height: 10.0),
                 DropDownButton(dropDownList: list1,
-                  currentItem: state.region_do,
+                  currentItem: userDataState.region?.state,
                   onPressed: (e){
                   if(list1[0] != e){
-                    ref.read(userDataProvider.notifier).updateUserData(region_do: e);
+                    ref.read(userDataProvider.notifier).updateUserData(state_: e);
                   }
                   else{
-                    ref.read(userDataProvider.notifier).updateUserData(region_do: '');
+                    ref.read(userDataProvider.notifier).updateUserData(state_: e);
                   }
                 },),
                 const SizedBox(height: 10.0),
@@ -67,24 +68,24 @@ class loginarea extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     DropDownButton(dropDownList: list2,
-                      currentItem: state.region_si,
+                      currentItem: userDataState.region?.city,
                       onPressed: (e){
                       if(list2[0] != e){
-                        ref.read(userDataProvider.notifier).updateUserData(region_si: e);
+                        ref.read(userDataProvider.notifier).updateUserData(city: e);
                       }
                       else{
-                        ref.read(userDataProvider.notifier).updateUserData(region_si: '');
+                        ref.read(userDataProvider.notifier).updateUserData(city: '');
                       }
                     },),
                     const SizedBox(width: 10.0),
                     DropDownButton(dropDownList: list3,
-                      currentItem: state.region_dong == '' ? null : state.region_dong,
+                      currentItem: userDataState.region?.district == '' ? null : userDataState.region?.district,
                       onPressed: (e){
                       if(list3[0] != e){
-                        ref.read(userDataProvider.notifier).updateUserData(region_dong: e);
+                        ref.read(userDataProvider.notifier).updateUserData(district: e);
                       }
                       else{
-                        ref.read(userDataProvider.notifier).updateUserData(region_dong: '');
+                        ref.read(userDataProvider.notifier).updateUserData(district: '');
                       }
                     },),
                   ],

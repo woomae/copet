@@ -29,7 +29,7 @@ class Comments {
         required this.author,
         required this.title,
         required this.body,
-        required this.category,
+        this.category,
         required this.imgName,
         required this.commentCount,
         required this.scrapCount,

@@ -25,10 +25,6 @@ class PostingPage extends ConsumerWidget {
 
   void postPostingData(BuildContext context, WidgetRef ref) async{
     final state = ref.watch(PostingProvider);
-    ref.read(PostingProvider.notifier).updatePosting(
-      //userId 고정
-        owner_id: 1
-    );
 
     if(state.title == ''){
       showCommonDialog(content: '제목을 입력해주세요', context: context);
@@ -47,7 +43,6 @@ class PostingPage extends ConsumerWidget {
       print(state.images);
       try{
         await PostPosting.postPosting(
-            owner_id: 1,
             title: state.title,
             body: state.body,
             category: state.category,
