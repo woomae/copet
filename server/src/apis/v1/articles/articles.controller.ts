@@ -25,17 +25,23 @@ export class ArticlesController {
   @Get('')
   async getAllArticles(
     @Query('q') q?: string,
-    @Query('page') page: number = 1,
-    @Query('size') size: number = 10,
+    @Query('page') page: string = '1',
+    @Query('size') size: string = '10',
     @Query('category') category?: string,
   ) {
+    const pageInt = parseInt(page, 1);
+    const sizeInt = parseInt(size, 10);
     if (q) {
-      const result = await this.articlesService.searchArticles(q, page, size);
+      const result = await this.articlesService.searchArticles(
+        q,
+        pageInt,
+        sizeInt,
+      );
       return result;
     } else {
       const result = await this.articlesService.getAllArticles(
-        page,
-        size,
+        pageInt,
+        sizeInt,
         category,
       );
       return result;
@@ -48,7 +54,7 @@ export class ArticlesController {
   }
   @Get(':id')
   async getArticleById(@Param('id') _id: number) {
-    const result = await this.articlesService.getArticleById(_id);
+    const result = await this.articlesService.getArticleByIdWithPhotos(_id);
     return result;
   }
 

@@ -13,7 +13,7 @@ import ApiMessages from 'src/libs/res/api.messages';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { Photos } from '../photos/photos.entity';
-import { CreatePhotoDto } from 'src/dto/create-photo.dto';
+
 @Injectable()
 export class ArticlesService {
   constructor(
@@ -25,8 +25,8 @@ export class ArticlesService {
     @InjectRepository(Photos)
     private readonly photosRepository: Repository<Photos>,
   ) {}
-  async getArticleById(_id: number): Promise<Articles> {
-    const result = await this.articleRepository.getArticleById(_id);
+  async getArticleByIdWithPhotos(_id: number): Promise<any> {
+    const result = await this.articleRepository.getArticleByIdWithPhotos(_id);
     return result;
   }
   async getAllArticles(
@@ -73,7 +73,7 @@ export class ArticlesService {
       });
     }
 
-    return await this.articleRepository.getArticleById(savedData._id);
+    return savedData;
   }
   async updateArticle(
     _id: number,
@@ -82,7 +82,7 @@ export class ArticlesService {
     files?: { photo: Express.Multer.File[] } | undefined,
   ): Promise<Articles> {
     //기존 게시글 조회 후 없을 시 에러처리
-    const articleData = await this.articleRepository.getArticleById(_id);
+    const articleData = await this.articleRepository.findOneBy({ _id: _id });
     if (!articleData) {
       throw new ApiError(ApiCodes.NOT_FOUND, ApiMessages.NOT_FOUND, {
         message: '게시글을 찾을 수 없습니다.',
@@ -126,7 +126,7 @@ export class ArticlesService {
   }
   async deleteArticle(_id: number, owner_id: number): Promise<void> {
     //기존 게시글 조회 후 없을 시 에러처리
-    const articleData = await this.articleRepository.getArticleById(_id);
+    const articleData = await this.articleRepository.findOneBy({ _id: _id });
     if (!articleData) {
       throw new ApiError(ApiCodes.NOT_FOUND, ApiMessages.NOT_FOUND, {
         message: '게시글을 찾을 수 없습니다.',

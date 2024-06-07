@@ -16,7 +16,7 @@ export class StarsService {
   }
   async likeRequest(id, article_id): Promise<Stars> {
     //없는 article_id인지 확인
-    if (await this.articlesService.getArticleById(article_id))
+    if (await this.articlesService.getArticleByIdWithPhotos(article_id))
       throw new BadRequestException('article_id is not exist');
     //이미 좋아요인지 확인 후 좋아요를 누르거나 취소
     if (await this.starsRepository.likeChecker(id, article_id)) {
