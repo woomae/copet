@@ -24,31 +24,43 @@ export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
   @Get('')
   async getAllArticles(
+    @Query('page') page: string = '1',
+    @Query('size') size: string = '10',
+    @Query('owner') owner?: string,
     @Query('q') q?: string,
-    @Query('page') page: number = 1,
-    @Query('size') size: number = 10,
     @Query('category') category?: string,
   ) {
+    const pageInt = parseInt(page, 10);
+    const sizeInt = parseInt(size, 10);
+    const ownerInt = parseInt(owner, 10);
+    console.log(pageInt, sizeInt, ownerInt, q, category);
     if (q) {
-      const result = await this.articlesService.searchArticles(q, page, size);
-      return result;
-    } else {
-      const result = await this.articlesService.getAllArticles(
-        page,
-        size,
-        category,
+      const result = await this.articlesService.searchArticles(
+        q,
+        pageInt,
+        sizeInt,
       );
       return result;
     }
-  }
-  @Get('owner')
-  async getAllArticleByOwner(@Query('owner_id') owner_id: number) {
-    const result = await this.articlesService.getAllArticleByOwner(owner_id);
+    if (ownerInt) {
+      const result = await this.articlesService.getAllArticleByOwner(
+        ownerInt,
+        pageInt,
+        sizeInt,
+      );
+      return result;
+    }
+
+    const result = await this.articlesService.getAllArticles(
+      pageInt,
+      sizeInt,
+      category,
+    );
     return result;
   }
   @Get(':id')
   async getArticleById(@Param('id') _id: number) {
-    const result = await this.articlesService.getArticleById(_id);
+    const result = await this.articlesService.getArticleByIdWithPhotos(_id);
     return result;
   }
 
