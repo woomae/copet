@@ -44,8 +44,16 @@ export class ArticlesService {
     }
     return await this.articleRepository.getAllArticles(page, size);
   }
-  async getAllArticleByOwner(owner_id: number): Promise<Articles[]> {
-    const result = await this.articleRepository.getAllArticleByOwner(owner_id);
+  async getAllArticleByOwner(
+    owner_id: number,
+    page: number,
+    size: number,
+  ): Promise<any> {
+    const result = await this.articleRepository.getAllArticleByOwner(
+      owner_id,
+      page,
+      size,
+    );
     return result;
   }
   async createArticle(

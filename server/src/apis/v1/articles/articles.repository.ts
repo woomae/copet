@@ -52,11 +52,26 @@ export class ArticleRepository extends Repository<Articles> {
       articles: articlesData,
     };
   }
-  async getAllArticleByOwner(owner_id: number) {
-    return await this.createQueryBuilder('articles')
-      .leftJoin('articles.owner_id', 'user')
-      .where('articles.owner_id = :owner_id', { owner_id: owner_id })
-      .getMany();
+  async getAllArticleByOwner(owner_id: number, page: number, size: number) {
+    const queryBuilder = this.createQueryBuilder('article')
+      .leftJoinAndSelect('article.photos', 'photo')
+      .where('article.owner_id = :owner_id', { owner_id: owner_id })
+      .take(size)
+      .skip((page - 1) * size);
+    const [articles, total] = await queryBuilder.getManyAndCount();
+    const articlesData = articles.map((article) => ({
+      ...article,
+      photos: article.photos.map((photo) => photo.img_path), // 포토 객체의 img_path만 포함
+    }));
+
+    return {
+      total,
+      articles: articlesData,
+    };
+    // return await this.createQueryBuilder('articles')
+    //   .leftJoin('articles.owner_id', 'user')
+    //   .where('articles.owner_id = :owner_id', { owner_id: owner_id })
+    //   .getMany();
   }
 
   async ownerChecker(_id: number, owner_id: number): Promise<boolean> {
