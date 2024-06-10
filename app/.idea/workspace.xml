@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="98a309ef-bef5-48dd-8364-5c1f52ad8f5b" name="Changes" comment="feature: kakaoLogin JWT 토큰 디코딩">
-      <change afterPath="$PROJECT_DIR$/lib/common/component/region_dropdown_widget.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/const/models/region_model.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/const/regions/jellanamdo/jeollanamdo.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/const/regions/region_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/patchUserData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/patchUserData.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/user_data_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/user_data_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/regions.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/user_data_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/user_data_notifier_provider.dart" afterDir="false" />
-    </list>
+    <list default="true" id="98a309ef-bef5-48dd-8364-5c1f52ad8f5b" name="Changes" comment="feature: 데이터모델 추가에 따른 지역 선택 DropDwon 버튼 변경&#10;- district 추가 예정, refactoring 필요" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
