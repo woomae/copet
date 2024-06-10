@@ -51,7 +51,6 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
                   final decodedUser = JwtDecoder.decode(cookieValue);
                   final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
                   provider.read(UserProvider.notifier).updateUser(id: parsedUser.userId);
-                  Navigator.pop(context);
                 }
                 if(cookie[0].value == null){
                   provider.read(UserProvider.notifier).updateUser(id: 0, nickname: '');

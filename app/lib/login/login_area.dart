@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
 import 'package:pet/const/models/user_data_model.dart';
+import 'package:pet/const/regions/jellanamdo/jeollanamdo.dart';
+import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -9,6 +11,7 @@ import 'package:pet/style/colors.dart';
 import '../api/patchUserData.dart';
 import '../common/component/buttons/next_button.dart';
 import '../common/component/buttons/pre_button.dart';
+import '../const/models/region_model.dart';
 import '../providers/user_notifier_provider.dart';
 
 const List<String> list1 = <String>['지역선택', 'Twwwwo', 'Three', 'Four'];
@@ -16,11 +19,15 @@ const List<String> list2 = <String>['지역선택', '1', '2', '3'];
 const List<String> list3 = <String>['지역선택', '4', '5', '6'];
 
 class loginarea extends ConsumerWidget {
-  const loginarea({super.key});
+  loginarea({super.key});
+  //districtName 수정 필요
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userDataState = ref.watch(userDataProvider);
+    final regionsName = regionList.map((e) => e.stateName).toList();
+    final citiesName = userDataState.region?.state?.cities.map((e) => e.cityName).toList();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -52,14 +59,18 @@ class loginarea extends ConsumerWidget {
               children: [
                 _Title(),
                 const SizedBox(height: 10.0),
-                DropDownButton(dropDownList: list1,
-                  currentItem: userDataState.region?.state,
-                  onPressed: (e){
-                  if(list1[0] != e){
-                    ref.read(userDataProvider.notifier).updateUserData(state_: e);
+                DropDownButton(
+                  dropDownList: regionsName,
+                  currentItem: userDataState.region?.state?.stateName,
+                  onPressed: (String e){
+                  if(regionsName[0] != e){
+                    print(e);
+                    final State_? currentState = State_.getStateByString(e);
+                    ref.read(userDataProvider.notifier).updateUserData(state_: currentState);
                   }
                   else{
-                    ref.read(userDataProvider.notifier).updateUserData(state_: e);
+                    final State_? currentState = State_.getStateByString(e);
+                    ref.read(userDataProvider.notifier).updateUserData(state_: currentState);
                   }
                 },),
                 const SizedBox(height: 10.0),
@@ -67,25 +78,30 @@ class loginarea extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    DropDownButton(dropDownList: list2,
-                      currentItem: userDataState.region?.city,
-                      onPressed: (e){
-                      if(list2[0] != e){
-                        ref.read(userDataProvider.notifier).updateUserData(city: e);
+                    DropDownButton(
+                      dropDownList: citiesName,
+                      currentItem: userDataState.region?.city?.cityName,
+                      onPressed: (String e){
+                      if(userDataState.region?.city?.cityName != e){
+                        final currentCity = City.getCityByString(e);
+                        ref.read(userDataProvider.notifier).updateUserData(city: currentCity);
                       }
                       else{
-                        ref.read(userDataProvider.notifier).updateUserData(city: '');
-                      }
+                        final currentCity = City.getCityByString(e);
+                        ref.read(userDataProvider.notifier).updateUserData(city: currentCity);                      }
                     },),
                     const SizedBox(width: 10.0),
-                    DropDownButton(dropDownList: list3,
-                      currentItem: userDataState.region?.district == '' ? null : userDataState.region?.district,
+                    DropDownButton(
+                      dropDownList: null,
+                      currentItem: userDataState.region?.district?.districtName[0] == ''
+                          ? null
+                          : userDataState.region?.district?.districtName[0],
                       onPressed: (e){
                       if(list3[0] != e){
                         ref.read(userDataProvider.notifier).updateUserData(district: e);
                       }
                       else{
-                        ref.read(userDataProvider.notifier).updateUserData(district: '');
+                        ref.read(userDataProvider.notifier).updateUserData(district: null);
                       }
                     },),
                   ],

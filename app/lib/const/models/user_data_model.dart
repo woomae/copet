@@ -1,10 +1,4 @@
-class Region {
-  final String? state;
-  final String? city;
-  final String? district;
-
-  Region({required this.state, required this.city, required this.district});
-}
+import 'package:pet/const/models/region_model.dart';
 
 class PetKeyWords{
   final int id;
