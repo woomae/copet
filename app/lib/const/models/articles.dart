@@ -6,7 +6,7 @@ class Articles {
 
   Articles.fromJson({required Map<String, dynamic> json}) :
       total = json['tottal'] ?? 0,
-      comments = json['comments'];
+      comments = json['comments'] ?? '';
 }
 
 class Comments {
@@ -51,3 +51,19 @@ class Comments {
     createdAt = DateTime.parse(json['created_at']) ?? DateTime.now(),
     updatedAt = DateTime.parse(json['updated_at']) ?? DateTime.now();
   }
+class Stars {
+  final int iId;
+  final int articleId;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  Stars(this.iId, this.articleId, this.createdAt, this.updatedAt);
+
+  Stars.fromJson(Map<String, dynamic> json):
+      iId = json['_id'] ?? 0,
+      articleId = json['article_id'] ?? 0,
+        createdAt = DateTime.parse(json['created_at']) ?? DateTime.now(),
+        updatedAt = DateTime.parse(json['updated_at']) ?? DateTime.now();
+}
+
+

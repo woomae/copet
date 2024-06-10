@@ -9,14 +9,17 @@ class SettingHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GoBackAppBar(),
-      body: const Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          SettingButton(buttonName: '프로필 수정'),
-          SettingButton(buttonName: '키워드 수정'),
-          SettingButton(buttonName: '알림 설정'),
-          SettingButton(buttonName: '계정 탈퇴'),
-        ],
+      body: Container(
+        color: WHITE,
+        child: const Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SettingButton(buttonName: '프로필 수정'),
+            SettingButton(buttonName: '키워드 수정'),
+            SettingButton(buttonName: '알림 설정'),
+            SettingButton(buttonName: '계정 탈퇴'),
+          ],
+        ),
       )
     );
   }
@@ -33,6 +36,7 @@ class SettingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
       decoration: const BoxDecoration(
+        color: WHITE,
         border: Border(
           bottom: BorderSide(width: 0.5, color: Colors.black)
         )

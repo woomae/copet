@@ -18,6 +18,7 @@ class PostList extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ListView.builder(
+        padding: EdgeInsets.only(top: 0),
         itemCount: length,
         itemBuilder: (BuildContext context, int i) {
           return GestureDetector(
@@ -82,7 +83,7 @@ class PostList extends StatelessWidget {
                             // comments[i].imgName != null ?
                             //   Text(comments[i].imgName![0].toString()) :
                             comments[i].imgName != null && comments[i].imgName != '' ?
-                            Container(width: 50, height: 50,color: Colors.black,) :
+                            Thumbnail() :
                             Thumbnail(),
 
                             Container(

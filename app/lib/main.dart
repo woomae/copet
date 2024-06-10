@@ -31,7 +31,7 @@ class _App extends ConsumerWidget {
       final res = GetUser.getUser(userRef.id.toString())
           .then((res) => ref.read(UserProvider.notifier).storeUserData(res))
           .onError((error, stackTrace){
-            print(error);
+            print('------$error');
             isRegistered = false;
           });
     }
