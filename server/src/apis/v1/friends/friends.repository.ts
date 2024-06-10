@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Friends } from './friends.entity';
+import { Users } from '../users/users.entity';
 
 @Injectable()
 export class FriendsRepository extends Repository<Friends> {
@@ -18,7 +19,7 @@ export class FriendsRepository extends Repository<Friends> {
   }
   async getFollowList(from_user_id: number): Promise<[Friends[], number]> {
     const result = await this.createQueryBuilder('friends')
-      .leftJoinAndSelect('friends.friend_user_id', 'user')
+      .leftJoinAndSelect('friends.friend_user_id', 'user') // friends.friend_user_id를 user로 조인
       .where('friends.from_user_id = :from_user_id', {
         from_user_id: from_user_id,
       })

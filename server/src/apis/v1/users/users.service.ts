@@ -38,6 +38,23 @@ export class UsersService {
     });
     return found;
   }
+  async getFollowInfo(
+    followList: [number, Friends[]],
+  ): Promise<[number, Users[]]> {
+    const result = [];
+    for (const follow of followList[1]) {
+      const user = await this.usersRepository.findOne({
+        where: { _id: follow._id },
+        relations: ['petkeywords', 'photo'],
+      });
+      user.petkeywords = user.petkeywords.map(
+        (keyword) => keyword.keyword,
+      ) as unknown as PetKeywords[];
+      user.photo = user.photo[0]?.img_path;
+      result.push(user);
+    }
+    return [followList[0], result];
+  }
   async getFollowerInfo(
     followerList: [number, Friends[]],
   ): Promise<[number, Users[]]> {
@@ -45,7 +62,12 @@ export class UsersService {
     for (const follower of followerList[1]) {
       const user = await this.usersRepository.findOne({
         where: { _id: follower.from_user_id },
+        relations: ['petkeywords', 'photo'],
       });
+      user.petkeywords = user.petkeywords.map(
+        (keyword) => keyword.keyword,
+      ) as unknown as PetKeywords[];
+      user.photo = user.photo[0]?.img_path;
       result.push(user);
     }
     return [followerList[0], result];

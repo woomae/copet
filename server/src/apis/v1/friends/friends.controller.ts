@@ -22,23 +22,20 @@ export class FriendsController {
   ) {}
 
   @Post('')
-  async sendFriendRequest(@Req() req: Request, @Body() friend_user_id: number) {
+  async sendFriendRequest(@Req() req: Request, @Body() bodyData: any) {
     const userPayload = req.user as Payload;
     const result = await this.friendsService.sendFriendRequest(
       userPayload.user_id,
-      friend_user_id,
+      bodyData.friend_user_id,
     );
     return result;
   }
   @Delete('')
-  async deleteFriendRequest(
-    @Req() req: Request,
-    @Body() friend_user_id: number,
-  ) {
+  async deleteFriendRequest(@Req() req: Request, @Body() bodyData: any) {
     const userPayload = req.user as Payload;
     const result = await this.friendsService.deleteFriendRequest(
       userPayload.user_id,
-      friend_user_id,
+      bodyData.friend_user_id,
     );
     return result;
   }
@@ -46,7 +43,10 @@ export class FriendsController {
   @Get('follow')
   async getFollowList(@Req() req: Request) {
     const userPayload = req.user as Payload;
-    const result = await this.friendsService.getFollowList(userPayload.user_id);
+    const followList = await this.friendsService.getFollowList(
+      userPayload.user_id,
+    );
+    const result = await this.usersService.getFollowInfo(followList);
     return result;
   }
 
