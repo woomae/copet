@@ -53,7 +53,7 @@ class loginname extends ConsumerWidget {
               const SizedBox(width: 160.0),
               Nextbutton(onPressed: (){
                 if(state.nickname != null && state.nickname != ''){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const loginarea()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => loginarea()));
                   print(state.nickname);
                 }
                 },),
