@@ -20,13 +20,29 @@ const List<String> list3 = <String>['지역선택', '4', '5', '6'];
 
 class loginarea extends ConsumerWidget {
   loginarea({super.key});
-  //districtName 수정 필요
+  //district 수정 필요
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userDataState = ref.watch(userDataProvider);
-    final regionsName = regionList.map((e) => e.stateName).toList();
-    final citiesName = userDataState.region?.state?.cities.map((e) => e.cityName).toList();
+    //지역 상수에서 지역 이름만 가져와서 리스트화
+    final List<String> regionsName = regionList.map((e) => e.stateName).toList();
+    final List<String>? citiesName = City.getCityListByString(userDataState.region?.state);
+    final List<String>? districtsName = District.getDistrictListByString(userDataState.region?.city);
+
+    ref.listen(userDataProvider.select((userData) => userData.region?.state), (previous, next) {
+      ref.read(userDataProvider.notifier).updateUserData( state_: next,city: null, district: null);
+    });
+    ref.listen(userDataProvider.select((userData) => userData.region?.city), (previous, next) {
+      ref.read(userDataProvider.notifier).updateUserData(state_: userDataState.region?.state, city: next, district: null);
+    });
+    ref.listen(userDataProvider.select((userData) => userData.region?.district), (previous, next) {
+      ref.read(userDataProvider.notifier).updateUserData(
+          state_: userDataState.region?.state, city: userDataState.region?.city, district: next);
+    });
+    //지역 상수에서 각 단위의 이름만 추출해서 배열화
+    //이미 읍면동이 선택된 상태에서 시를 선택했을 때, 이전의  읍면동과 시가 다르면 초기화.....
+
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -61,17 +77,9 @@ class loginarea extends ConsumerWidget {
                 const SizedBox(height: 10.0),
                 DropDownButton(
                   dropDownList: regionsName,
-                  currentItem: userDataState.region?.state?.stateName,
+                  currentItem: userDataState.region?.state,
                   onPressed: (String e){
-                  if(regionsName[0] != e){
-                    print(e);
-                    final State_? currentState = State_.getStateByString(e);
-                    ref.read(userDataProvider.notifier).updateUserData(state_: currentState);
-                  }
-                  else{
-                    final State_? currentState = State_.getStateByString(e);
-                    ref.read(userDataProvider.notifier).updateUserData(state_: currentState);
-                  }
+                    ref.read(userDataProvider.notifier).updateUserData(state_: e);
                 },),
                 const SizedBox(height: 10.0),
 
@@ -80,29 +88,17 @@ class loginarea extends ConsumerWidget {
                   children: [
                     DropDownButton(
                       dropDownList: citiesName,
-                      currentItem: userDataState.region?.city?.cityName,
+                      currentItem: userDataState.region?.city,
                       onPressed: (String e){
-                      if(userDataState.region?.city?.cityName != e){
-                        final currentCity = City.getCityByString(e);
-                        ref.read(userDataProvider.notifier).updateUserData(city: currentCity);
-                      }
-                      else{
-                        final currentCity = City.getCityByString(e);
-                        ref.read(userDataProvider.notifier).updateUserData(city: currentCity);                      }
-                    },),
+                        ref.read(userDataProvider.notifier).updateUserData(city: e);                      }
+                    ),
                     const SizedBox(width: 10.0),
                     DropDownButton(
-                      dropDownList: null,
-                      currentItem: userDataState.region?.district?.districtName[0] == ''
-                          ? null
-                          : userDataState.region?.district?.districtName[0],
-                      onPressed: (e){
-                      if(list3[0] != e){
-                        ref.read(userDataProvider.notifier).updateUserData(district: e);
-                      }
-                      else{
-                        ref.read(userDataProvider.notifier).updateUserData(district: null);
-                      }
+                      dropDownList: districtsName,
+                      currentItem: userDataState.region?.district,
+                      onPressed: (String e){
+                        print(districtsName);
+                          ref.read(userDataProvider.notifier).updateUserData(district: e);
                     },),
                   ],
                 ),

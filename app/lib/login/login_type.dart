@@ -36,7 +36,9 @@ class logintype extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _Title(),
-          textformfield(onChanged: (e){
+          textformfield(
+            text: state.pet_category,
+            onChanged: (e){
             ref.read(userDataProvider.notifier).updateUserData(pet_category:e);
             print(e);
           },),

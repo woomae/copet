@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="98a309ef-bef5-48dd-8364-5c1f52ad8f5b" name="Changes" comment="feature: 데이터모델 추가에 따른 지역 선택 DropDwon 버튼 변경&#10;- district 추가 예정, refactoring 필요" />
+    <list default="true" id="98a309ef-bef5-48dd-8364-5c1f52ad8f5b" name="Changes" comment="fix:project 라이브러리 루트 변경">
+      <change afterPath="$PROJECT_DIR$/lib/const/regions/jeollabukdo/jeollabukdo.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/patchUserData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/patchUserData.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/text_form_field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/text_form_field.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/const/models/region_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/region_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/const/regions/jellanamdo/jeollanamdo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/regions/jellanamdo/jeollanamdo.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/const/regions/region_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/regions/region_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_type.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/user_data_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/user_data_notifier_provider.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,6 +47,11 @@
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;fix/api__and__constants&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet/app&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.28275862&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -73,12 +91,32 @@
       <option name="project" value="LOCAL" />
       <updated>1718007895639</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix:project 라이브러리 루트 변경">
+      <option name="closed" value="true" />
+      <created>1718036497806</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718036497806</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix: root project 경로 변경" />
     <MESSAGE value="feature: kakaoLogin JWT 토큰 디코딩" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature: kakaoLogin JWT 토큰 디코딩" />
+    <MESSAGE value="fix:project 라이브러리 루트 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix:project 라이브러리 루트 변경" />
   </component>
 </project>

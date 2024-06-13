@@ -38,7 +38,9 @@ class loginname extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _Title(),
-          textformfield(onChanged: (e){
+          textformfield(
+            text: state.nickname,
+            onChanged: (e){
             ref.read(userDataProvider.notifier).updateUserData(nickname: e);
             print(e);
           },),
