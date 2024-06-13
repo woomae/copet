@@ -1,9 +1,10 @@
 import 'package:pet/const/regions/jellanamdo/jeollanamdo.dart';
+import 'package:pet/const/regions/jeollabukdo/jeollabukdo.dart';
 
 class Region {
-  final State_? state;
-  final City? city;
-  final District? district;
+  final String? state;
+  final String? city;
+  final String? district;
 
   Region({required this.state, required this.city, required this.district});
 
@@ -32,18 +33,29 @@ class State_ {
 
 class City {
   final String cityName;
-  final List<District> districts;
+  final District districts;
   City({required this.cityName, required this.districts});
 
-  static City? getCityByString(String e){
+  static List<String>? getCityListByString(String? e){
     switch(e){
-      case '목포':
-        return mokpo;
+      case '전라남도':
+        return jeollanamdo.cities.map((e) => e.cityName).toList();
+      case '전라북도':
+        return jeollabukdo.cities.map((e) => e.cityName).toList();
     }
     return null;
   }
 }
 class District{
-  final List districtName;
+  final List<String> districtName;
   District({required this.districtName});
+  static List<String>? getDistrictListByString(String? e){
+    switch(e){
+      case '순천시':
+        return suncheon.districts.districtName;
+      case '목포시':
+        return mokpo.districts.districtName;
+    }
+    return null;
+  }
 }

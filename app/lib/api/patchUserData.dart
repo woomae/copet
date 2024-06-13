@@ -22,9 +22,9 @@ class PatchUserData{
     if (nickname != null && nickname != '') formData.fields.add(MapEntry('nickname', nickname));
     if (pet_category != null && pet_category != '') formData.fields.add(MapEntry('pet_catagory', pet_category));
     if (region != null) {
-      if (region.state != null) formData.fields.add(MapEntry('region_state', region.state!.stateName));
-      if (region.city != null) formData.fields.add(MapEntry('region_city', region.city!.cityName));
-      if (region.district != null) formData.fields.add(MapEntry('region_district', region.district!.districtName[0]));
+      if (region.state != null) formData.fields.add(MapEntry('region_state', region.state!));
+      if (region.city != null) formData.fields.add(MapEntry('region_city', region.city!));
+      if (region.district != null) formData.fields.add(MapEntry('region_district', region.district!));
     }
     if (petkeyword != null && petkeyword !='') formData.fields.add(MapEntry('petkeyword', petkeyword));
     if (intro != null && intro != '') formData.fields.add(MapEntry('intro', intro));

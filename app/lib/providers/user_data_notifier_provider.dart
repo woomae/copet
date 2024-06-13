@@ -20,9 +20,9 @@ class UserDataNotifier extends StateNotifier<UserDataModel> {
     String? nickname,
     String? pet_category,
     Region? region,
-    State_? state_,
-    City? city,
-    District? district,
+    String? state_,
+    String? city,
+    String? district,
     String? photo,
     List<PetKeyWords>? petkeyword,
     String? intro,
@@ -30,7 +30,7 @@ class UserDataNotifier extends StateNotifier<UserDataModel> {
     state = UserDataModel(
         nickname: nickname ?? state.nickname,
         pet_category: pet_category ?? state.pet_category,
-        region: Region(state: state_ ?? state.region?.state, city: city ?? state.region?.city, district: district?.districtName[0] ?? state.region?.district),
+        region: Region(state: state_, city: city, district: district),
         photo: photo ?? state.photo,
         petkeyword: petkeyword ?? state.petkeyword,
         intro: intro ?? state.intro
