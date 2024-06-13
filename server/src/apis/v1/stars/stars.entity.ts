@@ -10,9 +10,11 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Stars extends BaseEntity {
+  @Exclude({ toPlainOnly: true })
   @PrimaryGeneratedColumn()
   _id: number;
 
@@ -23,11 +25,13 @@ export class Stars extends BaseEntity {
   @JoinColumn({ name: 'clicked_user_id' })
   clicked_user_id: number;
 
+  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
   created_at: Date;
 
+  @Exclude({ toPlainOnly: true })
   @UpdateDateColumn({
     type: 'timestamptz',
   })

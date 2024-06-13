@@ -13,6 +13,7 @@ import { Repository } from 'typeorm';
 import { PetKeywords } from '../petkeywords/petkeywords.entity';
 import { Photos } from '../photos/photos.entity';
 import { CreatePhotoDto } from 'src/dto/create-photo.dto';
+import { prune } from 'src/libs/utils';
 @Injectable()
 export class UsersService {
   constructor(
@@ -30,7 +31,10 @@ export class UsersService {
     });
   }
   async findUserById(id: number): Promise<Users> {
-    return await this.usersRepository.findOne({ where: { _id: id } });
+    return await this.usersRepository.findOne({
+      where: { _id: id },
+      relations: ['petkeywords', 'photo'],
+    });
   }
   async findUserByEmail(email: string): Promise<Users> {
     const found = await this.usersRepository.findOne({
@@ -81,10 +85,7 @@ export class UsersService {
     file?: { petimg: Express.Multer.File[] } | undefined,
   ): Promise<Users> {
     //객체의 모든 값이 null or undefined or 빈문자열이 아닌지 확인
-    if (Object.values(updateUserDto).some((value) => !value))
-      throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
-        message: '입력값에 문제가 있습니다.',
-      });
+    updateUserDto = prune(updateUserDto);
     const user = await this.usersRepository.findOne({
       where: { _id: id },
     });
@@ -96,7 +97,7 @@ export class UsersService {
         });
       }),
     );
-    user.petkeywords = petKeywords.filter(Boolean); // Filter out null values
+    user.petkeywords = petKeywords.filter(Boolean);
 
     const photoEntity = await this.photosRepository.findOne({
       where: { user: { _id: user._id } },
