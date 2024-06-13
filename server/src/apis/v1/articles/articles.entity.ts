@@ -12,6 +12,7 @@ import {
 import { Users } from '../users/users.entity';
 import { Comments } from '../comments/comments.entity';
 import { Photos } from '../photos/photos.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Articles extends BaseEntity {
@@ -53,11 +54,13 @@ export class Articles extends BaseEntity {
   })
   photos: Photos[];
 
+  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
   created_at: Date;
 
+  @Exclude({ toPlainOnly: true })
   @UpdateDateColumn({
     type: 'timestamptz',
   })

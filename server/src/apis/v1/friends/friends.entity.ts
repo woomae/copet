@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Friends extends BaseEntity {
@@ -22,11 +23,13 @@ export class Friends extends BaseEntity {
   @Column({ nullable: true })
   from_user_id: number;
 
+  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
   created_at: Date;
 
+  @Exclude({ toPlainOnly: true })
   @UpdateDateColumn({
     type: 'timestamptz',
   })

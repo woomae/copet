@@ -11,9 +11,11 @@ import {
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 import { Articles } from '../articles/articles.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Photos extends BaseEntity {
+  @Exclude({ toPlainOnly: true })
   @PrimaryGeneratedColumn()
   _id: number;
 
@@ -30,11 +32,13 @@ export class Photos extends BaseEntity {
   })
   article: Articles;
 
+  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
   created_at: Date;
 
+  @Exclude({ toPlainOnly: true })
   @UpdateDateColumn({
     type: 'timestamptz',
   })

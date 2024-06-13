@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Articles } from '../articles/articles.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Comments extends BaseEntity {
@@ -30,11 +31,13 @@ export class Comments extends BaseEntity {
   @Column({ type: 'text' })
   comment: string;
 
+  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
   created_at: Date;
 
+  @Exclude({ toPlainOnly: true })
   @UpdateDateColumn({
     type: 'timestamptz',
   })

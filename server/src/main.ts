@@ -1,10 +1,14 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { winstonLogger } from './libs/logger/winston.util';
 import * as bodyParser from 'body-parser';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: winstonLogger });
@@ -21,7 +25,7 @@ async function bootstrap() {
   // 최대 요청 본문 크기 설정
   app.use(bodyParser.json({ limit: '25mb' }));
   app.use(bodyParser.urlencoded({ limit: '25mb', extended: true }));
-
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
