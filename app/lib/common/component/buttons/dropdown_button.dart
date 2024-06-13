@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import '../../../style/colors.dart';
 
 class DropDownButton extends StatefulWidget {
-  //givenItem이 null이면 선택하지 않은걸로 간주 => 지역선택
-  //givenItem이 있으면 선택 => provider update
+  //currentItem이 null이면 선택하지 않은걸로 간주 => 지역선택
+  //currentItem이 있으면 선택 => provider update
   final String? currentItem;
   final Function? onPressed;
   final List? dropDownList;
 
-  const DropDownButton({
+  DropDownButton({
     super.key, required this.dropDownList, this.onPressed, this.currentItem});
 
   @override
@@ -27,11 +27,14 @@ class _DropDownButtonState extends State<DropDownButton> {
   }
   @override
   Widget build(BuildContext context) {
+    final currentItem = widget.currentItem;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: GestureDetector(
         onTap: (){
-          onPressDropDown();
+          if(widget.dropDownList != null){
+            onPressDropDown();
+          }
         },
         child: Container(
           width: 160,
@@ -63,16 +66,17 @@ class _DropDownButtonState extends State<DropDownButton> {
                                   if(widget.onPressed != null){
                                     widget.onPressed!(e);
                                   }
-                                  setState(() {
-                                    isPressed = !isPressed;
-                                  });
+                                    setState(() {
+                                      isPressed = !isPressed;
+                                    });
                                 },))).toList(),
                     ),
                   ),
                 ) else Flexible(
                   fit: FlexFit.tight,
-                  child: Center(child: Text(widget.currentItem != null ? widget.currentItem : widget.dropDownList![0] ))),
-              Icon(Icons.arrow_drop_down_rounded)
+                  child: Center(
+                      child: Text(currentItem != null ? currentItem : '선택'))),
+                  Icon(Icons.arrow_drop_down_rounded)
             ],
           )
 
