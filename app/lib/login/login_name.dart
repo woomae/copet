@@ -38,7 +38,9 @@ class loginname extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _Title(),
-          textformfield(onChanged: (e){
+          textformfield(
+            text: state.nickname,
+            onChanged: (e){
             ref.read(userDataProvider.notifier).updateUserData(nickname: e);
             print(e);
           },),
@@ -53,7 +55,7 @@ class loginname extends ConsumerWidget {
               const SizedBox(width: 160.0),
               Nextbutton(onPressed: (){
                 if(state.nickname != null && state.nickname != ''){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const loginarea()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => loginarea()));
                   print(state.nickname);
                 }
                 },),

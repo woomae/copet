@@ -8,7 +8,6 @@ final PostingProvider = StateNotifierProvider<PostingNotifier, PostingModel>(
 class PostingNotifier extends StateNotifier<PostingModel> {
   PostingNotifier() :
         super(const PostingModel(
-          owner_id: 0,
           title: '',
           body: '',
           category: '',
@@ -16,10 +15,9 @@ class PostingNotifier extends StateNotifier<PostingModel> {
       ));
 
   void updatePosting(
-      {int? owner_id, String? title, String? body, String? category, List<XFile>? imageFiles}) {
+      {String? title, String? body, String? category, List<XFile>? imageFiles}) {
     final List<XFile>? images = imageFiles == null ? state.images : [...?state.images,...imageFiles] ;
     state = PostingModel(
-        owner_id: owner_id ?? state.owner_id,
         title: title ?? state.title,
         body: body ?? state.body,
         category: category ?? state.category,

@@ -56,12 +56,6 @@ class loginend extends ConsumerWidget {
                 Nextbutton(onPressed: (){
                   //Navigator.pushAndRemoveUntil(
                     //  context, MaterialPageRoute(builder: (context) => mainscreen()), (route) => false);
-                  print(state.pet_category);
-                  print(state.nickname);
-                  print(state.region_do);
-                  print(state.petkeyword);
-                  print(state.intro);
-                  print(state.petimg);
 
                 },),
               ],

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
+import 'package:pet/const/models/user_data_model.dart';
+import 'package:pet/const/regions/jellanamdo/jeollanamdo.dart';
+import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -8,6 +11,7 @@ import 'package:pet/style/colors.dart';
 import '../api/patchUserData.dart';
 import '../common/component/buttons/next_button.dart';
 import '../common/component/buttons/pre_button.dart';
+import '../const/models/region_model.dart';
 import '../providers/user_notifier_provider.dart';
 
 const List<String> list1 = <String>['지역선택', 'Twwwwo', 'Three', 'Four'];
@@ -15,11 +19,31 @@ const List<String> list2 = <String>['지역선택', '1', '2', '3'];
 const List<String> list3 = <String>['지역선택', '4', '5', '6'];
 
 class loginarea extends ConsumerWidget {
-  const loginarea({super.key});
+  loginarea({super.key});
+  //district 수정 필요
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(userDataProvider);
+    final userDataState = ref.watch(userDataProvider);
+    //지역 상수에서 지역 이름만 가져와서 리스트화
+    final List<String> regionsName = regionList.map((e) => e.stateName).toList();
+    final List<String>? citiesName = City.getCityListByString(userDataState.region?.state);
+    final List<String>? districtsName = District.getDistrictListByString(userDataState.region?.city);
+
+    ref.listen(userDataProvider.select((userData) => userData.region?.state), (previous, next) {
+      ref.read(userDataProvider.notifier).updateUserData( state_: next,city: null, district: null);
+    });
+    ref.listen(userDataProvider.select((userData) => userData.region?.city), (previous, next) {
+      ref.read(userDataProvider.notifier).updateUserData(state_: userDataState.region?.state, city: next, district: null);
+    });
+    ref.listen(userDataProvider.select((userData) => userData.region?.district), (previous, next) {
+      ref.read(userDataProvider.notifier).updateUserData(
+          state_: userDataState.region?.state, city: userDataState.region?.city, district: next);
+    });
+    //지역 상수에서 각 단위의 이름만 추출해서 배열화
+    //이미 읍면동이 선택된 상태에서 시를 선택했을 때, 이전의  읍면동과 시가 다르면 초기화.....
+
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -51,41 +75,30 @@ class loginarea extends ConsumerWidget {
               children: [
                 _Title(),
                 const SizedBox(height: 10.0),
-                DropDownButton(dropDownList: list1,
-                  currentItem: state.region_do,
-                  onPressed: (e){
-                  if(list1[0] != e){
-                    ref.read(userDataProvider.notifier).updateUserData(region_do: e);
-                  }
-                  else{
-                    ref.read(userDataProvider.notifier).updateUserData(region_do: '');
-                  }
+                DropDownButton(
+                  dropDownList: regionsName,
+                  currentItem: userDataState.region?.state,
+                  onPressed: (String e){
+                    ref.read(userDataProvider.notifier).updateUserData(state_: e);
                 },),
                 const SizedBox(height: 10.0),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    DropDownButton(dropDownList: list2,
-                      currentItem: state.region_si,
-                      onPressed: (e){
-                      if(list2[0] != e){
-                        ref.read(userDataProvider.notifier).updateUserData(region_si: e);
-                      }
-                      else{
-                        ref.read(userDataProvider.notifier).updateUserData(region_si: '');
-                      }
-                    },),
+                    DropDownButton(
+                      dropDownList: citiesName,
+                      currentItem: userDataState.region?.city,
+                      onPressed: (String e){
+                        ref.read(userDataProvider.notifier).updateUserData(city: e);                      }
+                    ),
                     const SizedBox(width: 10.0),
-                    DropDownButton(dropDownList: list3,
-                      currentItem: state.region_dong == '' ? null : state.region_dong,
-                      onPressed: (e){
-                      if(list3[0] != e){
-                        ref.read(userDataProvider.notifier).updateUserData(region_dong: e);
-                      }
-                      else{
-                        ref.read(userDataProvider.notifier).updateUserData(region_dong: '');
-                      }
+                    DropDownButton(
+                      dropDownList: districtsName,
+                      currentItem: userDataState.region?.district,
+                      onPressed: (String e){
+                        print(districtsName);
+                          ref.read(userDataProvider.notifier).updateUserData(district: e);
                     },),
                   ],
                 ),

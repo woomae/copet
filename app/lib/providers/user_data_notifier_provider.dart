@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/const/models/user_data_model.dart';
 
+import '../const/models/region_model.dart';
+
 final userDataProvider = StateNotifierProvider<UserDataNotifier, UserDataModel>(
         (ref) => UserDataNotifier());
 
@@ -9,30 +11,27 @@ class UserDataNotifier extends StateNotifier<UserDataModel> {
         super( UserDataModel(
           nickname: null,
           pet_category: null,
-          region_si: null,
-          region_do: null,
-          region_dong: null,
-          petimg: null,
+          region: null,
+          photo: null,
           petkeyword: null, //수정필요
           intro: null,
       ));
   void updateUserData({
     String? nickname,
     String? pet_category,
-    String? region_do,
-    String? region_si,
-    String? region_dong,
-    String? petimg,
-    String? petkeyword,
+    Region? region,
+    String? state_,
+    String? city,
+    String? district,
+    String? photo,
+    List<PetKeyWords>? petkeyword,
     String? intro,
   }) {
     state = UserDataModel(
         nickname: nickname ?? state.nickname,
         pet_category: pet_category ?? state.pet_category,
-        region_do: region_do ?? state.region_do,
-        region_si: region_si ?? state.region_si,
-        region_dong: region_dong ?? state.region_dong,
-        petimg: petimg ?? state.petimg,
+        region: Region(state: state_, city: city, district: district),
+        photo: photo ?? state.photo,
         petkeyword: petkeyword ?? state.petkeyword,
         intro: intro ?? state.intro
     );

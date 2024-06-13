@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/common/component/buttons/next_button.dart';
-import 'package:pet/const/regions.dart';
+import 'package:pet/common/component/region_dropdown_widget.dart';
+import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/pages/profile/profile_main.dart';
 import '../../common/component/buttons/dropdown_button.dart';
 import '../../style/colors.dart';
@@ -37,9 +38,18 @@ class _Body extends StatelessWidget {
   }
 }
 
-class ModifyContainer extends StatelessWidget {
+class ModifyContainer extends StatefulWidget {
   const ModifyContainer({super.key});
 
+  @override
+  State<ModifyContainer> createState() => _ModifyContainerState();
+}
+
+class _ModifyContainerState extends State<ModifyContainer> {
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -56,18 +66,7 @@ class ModifyContainer extends StatelessWidget {
               ],
             ),
             InputField(text: '자기소개', hintText: '* 60자 이내',),
-            DropDownButton(dropDownList: Region_do,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  fit: FlexFit.tight,
-                    child: DropDownButton(dropDownList: Region_do)),
-                Flexible(
-                  fit: FlexFit.tight,
-                    child: DropDownButton(dropDownList: Region_do)),
-              ],
-            ),
+            RegionDropdownWidget(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

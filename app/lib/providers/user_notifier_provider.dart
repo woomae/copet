@@ -43,17 +43,20 @@ class UserNotifier extends StateNotifier<UsersModel> {
   }
 
   void storeUserData(UsersModel data)  {
-    state = UsersModel(
-        id: data.id,
-        nickname: data.nickname,
-        email: data.email,
-        pet_category: data.pet_category,
-        region: data.region,
-        petimg: data.petimg,
-        petkeyword: data.petkeyword,
-        intro: data.intro,
-        created_at: data.created_at,
-        updated_at: data.updated_at
-    );
+    if(state.id != data.id){
+      state = UsersModel(
+          id: data.id,
+          nickname: data.nickname,
+          email: data.email,
+          pet_category: data.pet_category,
+          region: data.region,
+          petimg: data.petimg,
+          petkeyword: data.petkeyword,
+          intro: data.intro,
+          created_at: data.created_at,
+          updated_at: data.updated_at
+      );
+    }
+    else return;
   }
 }

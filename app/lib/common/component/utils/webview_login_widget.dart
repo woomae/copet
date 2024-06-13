@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:pet/const/models/token_user_model.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
 class WebviewLoginWidget extends StatefulWidget {
@@ -42,17 +45,16 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
               if(url.toString().contains(apiKey)){
                 //리다이렉트 시
                 final List<Cookie> cookie = await cookieManager.getCookies(url: url!);
-                if (cookie[0].value.contains('user_id')) {
+                final String? cookieValue = cookie[0].value;
+                if (cookieValue != null) {
                   //쿠키에서 userid가져온 후, provider를 통해 id 업데이트
-                  final value = cookie[0].value.toString();
-                  final userIdIndex = value.substring(value.indexOf('user_id')+8, value.length);
-                  final userId = int.parse(userIdIndex.split('%')[0]);
-
-                  provider.read(UserProvider.notifier).updateUser(id: userId);
+                  final decodedUser = JwtDecoder.decode(cookieValue);
+                  final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
+                  provider.read(UserProvider.notifier).updateUser(id: parsedUser.userId);
                 }
-                if(cookie[0].value.contains('user_id') == false){
+                if(cookie[0].value == null){
                   provider.read(UserProvider.notifier).updateUser(id: 0, nickname: '');
-                  print('------------------------------------------------userid없음');
+                  print('------------------------------------------------token없음');
                   //쿠키에 userid없으면 logintype으로 이동
                 }
                 else{
