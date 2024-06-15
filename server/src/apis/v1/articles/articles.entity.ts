@@ -13,6 +13,7 @@ import { Users } from '../users/users.entity';
 import { Comments } from '../comments/comments.entity';
 import { Photos } from '../photos/photos.entity';
 import { Exclude } from 'class-transformer';
+import { Stars } from '../stars/stars.entity';
 
 @Entity()
 export class Articles extends BaseEntity {
@@ -47,12 +48,17 @@ export class Articles extends BaseEntity {
   @OneToMany(() => Comments, (comment) => comment.article_id, {
     cascade: ['remove'],
   })
-  article_id: Comments[];
+  comments: Comments[];
 
   @OneToMany(() => Photos, (photo) => photo.article, {
     cascade: ['remove'],
   })
   photos: Photos[];
+
+  @OneToMany(() => Stars, (star) => star.article_id, {
+    cascade: ['remove'],
+  })
+  stars: Stars[];
 
   @Exclude({ toPlainOnly: true })
   @CreateDateColumn({

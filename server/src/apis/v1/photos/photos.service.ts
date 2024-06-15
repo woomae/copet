@@ -88,15 +88,4 @@ export class PhotosService {
     const fileName = url.pathname.split('/').pop();
     return decodeURIComponent(fileName);
   }
-
-  // async deleteFiles(articleData: string[], location: string) {
-  //   for (const img of articleData) {
-  //     await this.awsS3
-  //       .deleteObject({
-  //         Bucket: this.env.get('AWS_S3_BUCKET') + location,
-  //         Key: img, //키 값은 버킷부터의 경로로 작성
-  //       })
-  //       .promise();
-  //   }
-  // }
 }

@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 import { Exclude } from 'class-transformer';
+import { Articles } from '../articles/articles.entity';
 
 @Entity()
 export class Stars extends BaseEntity {
@@ -18,7 +19,8 @@ export class Stars extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
 
-  @Column()
+  @ManyToOne(() => Articles, (article) => article._id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'article_id' })
   article_id: number;
 
   @ManyToOne(() => Users, (user) => user._id, { onDelete: 'CASCADE' })

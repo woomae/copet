@@ -14,6 +14,7 @@ import { CreateCommentDto } from 'src/dto/create-comment.dto';
 import { Request } from 'express';
 import { Payload } from '../auth/jwt/jwt.payload';
 import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
+import { UpdateCommentDto } from 'src/dto/update-comment.dto';
 
 @Controller({ path: 'comments', version: '1' })
 export class CommentsController {
@@ -26,15 +27,10 @@ export class CommentsController {
   }
   @UseGuards(JwtAuthGuard)
   @Post('')
-  async createComment(
-    @Req() req: Request,
-    @Param('id') article_id: number,
-    @Body() bodyData: CreateCommentDto,
-  ) {
+  async createComment(@Req() req: Request, @Body() bodyData: CreateCommentDto) {
     const userPayload = req.user as Payload;
     const result = await this.commentsService.createComment(
       userPayload.user_id,
-      article_id,
       bodyData,
     );
     return result;
@@ -43,24 +39,24 @@ export class CommentsController {
   @Patch(':id')
   async updateComment(
     @Req() req: Request,
-    @Param('id') _id: number,
-    @Body() comment: string,
+    @Param('id') id: number,
+    @Body() updateCommentDto: UpdateCommentDto,
   ) {
     const userPayload = req.user as Payload;
     const result = await this.commentsService.updateComment(
-      _id,
+      id,
       userPayload.user_id,
-      comment,
+      updateCommentDto,
     );
     return result;
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteComment(@Param('id') _id: number, @Req() req: Request) {
+  async deleteComment(@Param('id') id: number, @Req() req: Request) {
     const userPayload = req.user as Payload;
     const result = await this.commentsService.deleteComment(
-      _id,
+      id,
       userPayload.user_id,
     );
     return result;

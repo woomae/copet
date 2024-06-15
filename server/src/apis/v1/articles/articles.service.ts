@@ -25,8 +25,11 @@ export class ArticlesService {
     @InjectRepository(Photos)
     private readonly photosRepository: Repository<Photos>,
   ) {}
-  async getArticleByIdWithPhotos(_id: number): Promise<any> {
-    const result = await this.articleRepository.getArticleByIdWithPhotos(_id);
+  async getArticleById(_id: number): Promise<any> {
+    const result = await this.articleRepository.findOne({
+      where: { _id: _id },
+      relations: ['photos'],
+    });
     return result;
   }
   async getAllArticles(
