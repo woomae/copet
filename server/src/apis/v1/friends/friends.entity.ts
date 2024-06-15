@@ -20,7 +20,8 @@ export class Friends extends BaseEntity {
   @JoinColumn({ name: 'friend_user_id' })
   friend_user_id: number;
 
-  @Column({ nullable: true })
+  @ManyToOne(() => Users, (user) => user._id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'from_user_id' })
   from_user_id: number;
 
   @Exclude({ toPlainOnly: true })

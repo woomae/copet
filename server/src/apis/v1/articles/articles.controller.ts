@@ -33,7 +33,6 @@ export class ArticlesController {
     const pageInt = parseInt(page, 10);
     const sizeInt = parseInt(size, 10);
     const ownerInt = parseInt(owner, 10);
-    console.log(pageInt, sizeInt, ownerInt, q, category);
     if (q) {
       const result = await this.articlesService.searchArticles(
         q,
@@ -60,7 +59,7 @@ export class ArticlesController {
   }
   @Get(':id')
   async getArticleById(@Param('id') _id: number) {
-    const result = await this.articlesService.getArticleByIdWithPhotos(_id);
+    const result = await this.articlesService.getArticleById(_id);
     return result;
   }
 

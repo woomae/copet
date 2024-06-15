@@ -8,6 +8,7 @@ import { CreateCommentDto } from 'src/dto/create-comment.dto';
 import ApiError from 'src/libs/res/api.errors';
 import ApiCodes from 'src/libs/res/api.codes';
 import ApiMessages from 'src/libs/res/api.messages';
+import { UpdateCommentDto } from 'src/dto/update-comment.dto';
 
 @Injectable()
 export class CommentsService {
@@ -27,21 +28,19 @@ export class CommentsService {
   }
   async createComment(
     id: number,
-    article_id: number,
     bodyData: CreateCommentDto,
-  ): Promise<void> {
+  ): Promise<Comments> {
     bodyData.nickname = (await this.usersService.findUserById(id)).nickname;
     bodyData.owner_id = id;
-    bodyData.article_id = article_id;
-    await this.articlesService.increaseCommentCount(article_id);
+    await this.articlesService.increaseCommentCount(bodyData.article_id);
     return await this.commentRepository.createComment(bodyData);
   }
   async updateComment(
-    _id: number,
+    id: number,
     user_id: number,
-    commentText: string,
+    updateCommentDto: UpdateCommentDto,
   ): Promise<Comments> {
-    const comment = await this.commentRepository.getcommentById(_id);
+    const comment = await this.commentRepository.getcommentById(id);
     if (!comment) {
       throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
         message: 'Comment not found',
@@ -52,11 +51,14 @@ export class CommentsService {
         message: 'You are not the owner of the comment',
       });
     }
-    return await this.commentRepository.updateComment(_id, commentText);
+    return await this.commentRepository.updateComment(
+      id,
+      updateCommentDto.comment,
+    );
   }
 
-  async deleteComment(_id: number, user_id: number): Promise<void> {
-    const comment = await this.commentRepository.getcommentById(_id);
+  async deleteComment(id: number, user_id: number): Promise<void> {
+    const comment = await this.commentRepository.getcommentById(id);
     if (!comment) {
       throw new ApiError(ApiCodes.BAD_REQUEST, ApiMessages.BAD_REQUEST, {
         message: 'Comment not found',
@@ -68,6 +70,6 @@ export class CommentsService {
       });
     }
     await this.articlesService.decreaseCommentCount(comment.article_id);
-    await this.commentRepository.deleteComment(_id);
+    await this.commentRepository.deleteComment(id);
   }
 }

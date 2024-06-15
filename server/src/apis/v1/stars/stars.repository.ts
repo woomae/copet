@@ -8,7 +8,15 @@ export class StarsRepository extends Repository<Stars> {
     super(Stars, dataSource.createEntityManager());
   }
   async getAllStar(id: number) {
-    return await this.findBy({ clicked_user_id: id });
+    const result = await this.createQueryBuilder('stars')
+      .where('stars.clicked_user_id = :clicked_user_id', {
+        clicked_user_id: id,
+      })
+      .leftJoinAndSelect('stars.article_id', 'articles')
+      .leftJoinAndSelect('articles.photos', 'photos')
+      .getMany();
+    return result;
+    // return await this.findBy({ clicked_user_id: id });
   }
   async createLikeRequest(starData: Partial<Stars>): Promise<Stars> {
     return await this.save(starData);
