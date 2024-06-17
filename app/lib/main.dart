@@ -5,6 +5,7 @@ import 'package:pet/api/getUser.dart';
 import 'package:pet/login/login_main.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
+import 'package:pet/pages/community/article_page.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
@@ -25,7 +26,8 @@ class _App extends ConsumerWidget {
     final userRef = ref.watch(UserProvider);
     bool isRegistered = userRef.nickname != '' ? true : false;
     print(isRegistered);
-    final userId = userRef.id;
+    //final userId = userRef.id;
+    final userId = 1;
     //쿠키를 가져온 이후
     if(userId != 0){
       final res = GetUser.getUser(userRef.id.toString())
@@ -43,8 +45,9 @@ class _App extends ConsumerWidget {
         textTheme: const TextTheme(
           bodySmall : TextStyle(fontSize: 8.0, decorationThickness: 0),
           bodyMedium : TextStyle(fontSize: 12.0, decorationThickness: 0),
-          bodyLarge: TextStyle(fontSize: 15.0, decorationThickness: 0),
-          labelMedium: TextStyle(fontSize: 12.0, color: GREY1, decorationThickness: 0)
+          bodyLarge: TextStyle(fontSize: 12.0, fontWeight:FontWeight.w500, decorationThickness: 0),
+          titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,decorationThickness: 0),
+          labelMedium: TextStyle(fontSize: 12.0, color: GREY3, decorationThickness: 0)
 
         ),
         iconButtonTheme: IconButtonThemeData(
@@ -59,10 +62,10 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home:
-      userRef.id == 0 ? mainlogin() :
-      isRegistered == false ? logintype() :
-      mainhome()
+      home: ArticlePage(articleId: 0,)
+      //userRef.id == 0 ? mainlogin() :
+      //isRegistered == false ? logintype() :
+      //mainhome()
     );
   }
 }

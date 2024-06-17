@@ -13,7 +13,7 @@ class Community extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final articlesProvider = StateProvider<Future<List<Comments>>>((ref) => GetArticles.getArticles());
+    final articlesProvider = StateProvider<Future<List<Article>>>((ref) => GetArticles.getArticles());
     final articles = ref.watch(articlesProvider);
     return MaterialApp(
       home: Scaffold(

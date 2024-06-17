@@ -6,7 +6,7 @@ import '../../const/models/articles.dart';
 
 class PostList extends StatelessWidget {
   final int length;
-  final List<Comments> comments;
+  final List<Article> comments;
 
   const PostList({
     super.key,

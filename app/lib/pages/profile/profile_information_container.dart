@@ -22,7 +22,7 @@ class ProfileInformationContainer extends StatefulWidget {
 class _ProfileInformationContainerState extends State<ProfileInformationContainer> {
   final List<String> profileCategory = ['산책', '게시글', '저장'];
   String currentState = '산책';
-  Future<List<Comments>>? currentFuture;
+  Future<List<Article>>? currentFuture;
 
   @override
   void initState(){
