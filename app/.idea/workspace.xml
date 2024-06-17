@@ -4,19 +4,23 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="98a309ef-bef5-48dd-8364-5c1f52ad8f5b" name="Changes" comment="fix:project 라이브러리 루트 변경">
-      <change afterPath="$PROJECT_DIR$/lib/const/regions/jeollabukdo/jeollabukdo.dart" afterDir="false" />
+    <list default="true" id="005e7bd6-fd4e-4540-8af1-d1d7403b9b38" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/copet.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_SDK.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/patchUserData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/patchUserData.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/text_form_field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/text_form_field.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/region_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/region_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/regions/jellanamdo/jeollanamdo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/regions/jellanamdo/jeollanamdo.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/regions/region_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/regions/region_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_type.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/user_data_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/user_data_notifier_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,39 +31,34 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="develop" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2hg0cgoQ7DfHf28bwCz2kYy33bU" />
+  <component name="ProjectId" id="2hzmPwlB52ULUFJ7T2uMTH7QZG9" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fix/api__and__constants&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet/app&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.28275862&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "feature/articles",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/Users/z6231/Desktop/code/Git_cowork/copet/app",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\copet\app\lib\const\regions\jellanamdo" />
-    </key>
-  </component>
+}]]></component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
@@ -69,54 +68,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="98a309ef-bef5-48dd-8364-5c1f52ad8f5b" name="Changes" comment="" />
-      <created>1718000496011</created>
+      <changelist id="005e7bd6-fd4e-4540-8af1-d1d7403b9b38" name="Changes" comment="" />
+      <created>1718605259070</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1718000496011</updated>
+      <updated>1718605259070</updated>
     </task>
-    <task id="LOCAL-00001" summary="fix: root project 경로 변경">
-      <option name="closed" value="true" />
-      <created>1718007774375</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1718007774375</updated>
-    </task>
-    <task id="LOCAL-00002" summary="feature: kakaoLogin JWT 토큰 디코딩">
-      <option name="closed" value="true" />
-      <created>1718007895639</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1718007895639</updated>
-    </task>
-    <task id="LOCAL-00003" summary="fix:project 라이브러리 루트 변경">
-      <option name="closed" value="true" />
-      <created>1718036497806</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1718036497806</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: root project 경로 변경" />
-    <MESSAGE value="feature: kakaoLogin JWT 토큰 디코딩" />
-    <MESSAGE value="fix:project 라이브러리 루트 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix:project 라이브러리 루트 변경" />
   </component>
 </project>
