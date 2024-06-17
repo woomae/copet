@@ -28,7 +28,7 @@ export class ArticlesService {
   async getArticleById(_id: number): Promise<any> {
     const result = await this.articleRepository.findOne({
       where: { _id: _id },
-      relations: ['photos'],
+      relations: ['photos', 'comments'],
     });
     return result;
   }
