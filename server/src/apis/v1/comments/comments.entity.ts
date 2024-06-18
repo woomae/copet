@@ -31,7 +31,6 @@ export class Comments extends BaseEntity {
   @Column({ type: 'text' })
   comment: string;
 
-  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
