@@ -60,7 +60,6 @@ export class Articles extends BaseEntity {
   })
   stars: Stars[];
 
-  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
