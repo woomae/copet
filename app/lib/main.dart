@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/api/getUser.dart';
+import 'package:pet/login/login_area.dart';
+import 'package:pet/login/login_end.dart';
 import 'package:pet/login/login_main.dart';
+import 'package:pet/login/login_name.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
+import 'package:pet/pages/profile/profile_modify.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
@@ -59,7 +63,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: mainhome()
+      home: logintype()
       //userRef.id == 0 ? mainlogin() :
         //      isRegistered == false ? logintype() :
           //    mainhome()

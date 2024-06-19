@@ -20,6 +20,7 @@ class loginarea extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(userDataProvider);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -28,16 +29,37 @@ class loginarea extends ConsumerWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
-          'COPET',
+          '회원가입',
           style: TextStyle(
             fontFamily: 'Poetsen',
             color: Colors.black,
-            fontSize: 25,
-
+            fontSize: 20,
           ),
         ),
-        centerTitle: false,
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'COPET',
+                style: TextStyle(
+                  fontFamily: 'Poetsen',
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -51,45 +73,59 @@ class loginarea extends ConsumerWidget {
               children: [
                 _Title(),
                 const SizedBox(height: 10.0),
-                DropDownButton(dropDownList: list1,
+                DropDownButton(
+                  dropDownList: list1,
                   currentItem: state.region_do,
-                  onPressed: (e){
-                  if(list1[0] != e){
-                    ref.read(userDataProvider.notifier).updateUserData(region_do: e);
-                  }
-                  else{
-                    ref.read(userDataProvider.notifier).updateUserData(region_do: '');
-                  }
-                },),
+                  onPressed: (e) {
+                    if (list1[0] != e) {
+                      ref
+                          .read(userDataProvider.notifier)
+                          .updateUserData(region_do: e);
+                    } else {
+                      ref
+                          .read(userDataProvider.notifier)
+                          .updateUserData(region_do: '');
+                    }
+                  },
+                ),
                 const SizedBox(height: 10.0),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    DropDownButton(dropDownList: list2,
+                    DropDownButton(
+                      dropDownList: list2,
                       currentItem: state.region_si,
-                      onPressed: (e){
-                      if(list2[0] != e){
-                        ref.read(userDataProvider.notifier).updateUserData(region_si: e);
-                      }
-                      else{
-                        ref.read(userDataProvider.notifier).updateUserData(region_si: '');
-                      }
-                    },),
+                      onPressed: (e) {
+                        if (list2[0] != e) {
+                          ref
+                              .read(userDataProvider.notifier)
+                              .updateUserData(region_si: e);
+                        } else {
+                          ref
+                              .read(userDataProvider.notifier)
+                              .updateUserData(region_si: '');
+                        }
+                      },
+                    ),
                     const SizedBox(width: 10.0),
-                    DropDownButton(dropDownList: list3,
-                      currentItem: state.region_dong == '' ? null : state.region_dong,
-                      onPressed: (e){
-                      if(list3[0] != e){
-                        ref.read(userDataProvider.notifier).updateUserData(region_dong: e);
-                      }
-                      else{
-                        ref.read(userDataProvider.notifier).updateUserData(region_dong: '');
-                      }
-                    },),
+                    DropDownButton(
+                      dropDownList: list3,
+                      currentItem:
+                          state.region_dong == '' ? null : state.region_dong,
+                      onPressed: (e) {
+                        if (list3[0] != e) {
+                          ref
+                              .read(userDataProvider.notifier)
+                              .updateUserData(region_dong: e);
+                        } else {
+                          ref
+                              .read(userDataProvider.notifier)
+                              .updateUserData(region_dong: '');
+                        }
+                      },
+                    ),
                   ],
                 ),
-
               ],
             ),
           ),
@@ -139,17 +175,7 @@ class loginarea extends ConsumerWidget {
               agreebutton(),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Prebutton(onPressed: (){
-                Navigator.pop(context);
-              },),
-              const SizedBox(width: 20),
-              Nextbutton(onPressed: (){
-              },),
-            ],
-          )
+          nextbutton_area(),
         ],
       ),
     );
@@ -183,7 +209,6 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
 
   //double menuWidth = 200.0; // 초기 값 설정, 원하는 값으로 조절
 
-
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
@@ -196,8 +221,6 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
           dropdownValue = value;
         });
       },
-
-
       itemBuilder: (BuildContext context) {
         return list1.map((String value) {
           // 각 항목의 너비를 측정
@@ -232,7 +255,6 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
       ),
     );
   }
-
 }
 
 class DropdownButtonExample2 extends StatefulWidget {
@@ -342,6 +364,9 @@ class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
     );
   }
 }
+
+
+
 class agreetext extends StatelessWidget {
   const agreetext({super.key});
 
@@ -362,9 +387,7 @@ class agreetextlist1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '개인정보 보호동의 개인정보 보호동의'
-    );
+    return Text('개인정보 보호동의 개인정보 보호동의');
   }
 }
 
@@ -373,9 +396,7 @@ class agreetextlist2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-        '개인정보 보호동의 개인정보 보호동의'
-    );
+    return Text('개인정보 보호동의 개인정보 보호동의');
   }
 }
 
@@ -384,9 +405,7 @@ class agreetextlist3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-        '개인정보 보호동의 개인정보 보호동의'
-    );
+    return Text('개인정보 보호동의 개인정보 보호동의');
   }
 }
 
@@ -395,12 +414,9 @@ class agreetextlist4 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-        '개인정보 보호동의 개인정보 보호동의'
-    );
+    return Text('개인정보 보호동의 개인정보 보호동의');
   }
 }
-
 
 class Checkbox1 extends StatefulWidget {
   const Checkbox1({super.key});
@@ -570,6 +586,33 @@ class agreebutton extends StatelessWidget {
       ),
       child: Text(
         '전체동의',
+      ),
+    );
+  }
+}
+
+class nextbutton_area extends StatelessWidget {
+  const nextbutton_area({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          foregroundColor: WHITE,
+          backgroundColor: PRIMARY_COLOR,
+          textStyle: TextStyle(color: WHITE),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          minimumSize: Size(100, 50),
+        ),
+        child: Text(
+          '다음',
+        ),
       ),
     );
   }

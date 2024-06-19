@@ -71,9 +71,9 @@ class ModifyContainer extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Nextbutton( //수정 요청 보낸 후 제대로 응답이 도착했는지 확인하는 에러처리 필요
-                  onPressed: () => Navigator.pop(context),
-                )
+                // Nextbutton( //수정 요청 보낸 후 제대로 응답이 도착했는지 확인하는 에러처리 필요
+                //   onPressed: () => Navigator.pop(context),
+                // )
               ],
             )
             ]
@@ -103,21 +103,12 @@ class InputField extends StatelessWidget {
         children: [
           Text(text, style: Theme.of(context).textTheme.bodyMedium,),
           SizedBox( height: 5,),
-          TextFormField(
-            style : Theme.of(context).textTheme.bodySmall,
-            decoration: const InputDecoration(
-              enabledBorder:  OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  borderSide: BorderSide(width: 1, color: Colors.grey)
-              ),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  borderSide: BorderSide(width: 1, color: Colors.grey)
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1, color: Colors.grey)
-              ),
-            ),
+          textformfield_modify(
+            onChanged: (value) {
+              // Handle changes here
+            },
+            text: text,
+            hintText: hintText,
           ),
           SizedBox(height: 5,),
           Text(hintText, style: Theme.of(context).textTheme.labelMedium,)
@@ -127,3 +118,58 @@ class InputField extends StatelessWidget {
   }
 }
 
+class textformfield_modify extends StatelessWidget {
+  final String? text;
+  final Function onChanged;
+  final String hintText;
+
+  textformfield_modify({
+    super.key,
+    required this.onChanged,
+    this.text,
+    required this.hintText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController controller = TextEditingController(text: text != null ? text : '');
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextFormField(
+            controller: controller,
+            onChanged: (e) => onChanged(e),
+            cursorColor: Colors.black,
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(width: 1, color: Colors.grey),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Colors.grey),
+              ),
+              isDense: true,
+              contentPadding: EdgeInsets.all(5),
+            ),
+          ),
+          if (hintText.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                hintText,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}

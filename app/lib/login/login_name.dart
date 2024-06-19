@@ -14,52 +14,75 @@ class loginname extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(userDataProvider);
+    bool isInputNotEmpty = state.nickname?.isNotEmpty ?? false;
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         //titleSpacing: 0,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
-          'COPET',
+          '회원가입',
           style: TextStyle(
             fontFamily: 'Poetsen',
             color: Colors.black,
-            fontSize: 25,
-
+            fontSize: 20,
           ),
         ),
-        centerTitle: false,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _Title(),
-          textformfield(onChanged: (e){
-            ref.read(userDataProvider.notifier).updateUserData(nickname: e);
-            print(e);
-          },),
-          _Subtitle(),
-          const SizedBox(height: 350.0),
-          Row(
-            children: [
-              const SizedBox(width: 30.0),
-              Prebutton(onPressed: (){
-                Navigator.pop(context);
-              },),
-              const SizedBox(width: 160.0),
-              Nextbutton(onPressed: (){
-                if(state.nickname != null && state.nickname != ''){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const loginarea()));
-                  print(state.nickname);
-                }
-                },),
-            ],
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'COPET',
+                style: TextStyle(
+                  fontFamily: 'Poetsen',
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
           ),
         ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 90, bottom: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _Title(),
+            textformfield(
+              text: state.nickname,
+              hintText: 'ㆍ닉네임은 언제나 변경이 가능합니다.',
+              onChanged: (e) {
+                ref.read(userDataProvider.notifier).updateUserData(nickname: e);
+                print(e);
+              },
+            ),
+            Spacer(),
+            Nextbutton(
+              onPressed: () {
+                if (state.nickname != null && state.nickname != '') {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => loginarea()));
+                  print(state.nickname);
+                }
+              },
+              enabled: isInputNotEmpty,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -70,27 +93,15 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '      닉네임',
-      style: TextStyle(
-        fontSize: 18,
-        color: Colors.black,
+    return Padding(
+      padding: const EdgeInsets.only(left: 30),
+      child: Text(
+        '닉네임',
+        style: TextStyle(
+          fontSize: 18,
+          color: Colors.black,
+        ),
       ),
     );
   }
 }
-
-class _Subtitle extends StatelessWidget {
-  const _Subtitle({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      '         * 닉네임은 언제든 변경이 가능합니다.',
-      style: TextStyle(
-        color: Colors.grey,
-      ),
-    );
-  }
-}
-
