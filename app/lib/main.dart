@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/api/getUser.dart';
+import 'package:pet/login/login_agree.dart';
 import 'package:pet/login/login_area.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/login/login_main.dart';
@@ -63,7 +64,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: logintype()
+      home: loginarea()
       //userRef.id == 0 ? mainlogin() :
         //      isRegistered == false ? logintype() :
           //    mainhome()

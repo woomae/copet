@@ -61,21 +61,16 @@ class loginarea extends ConsumerWidget {
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 90, bottom: 40),
+        child: Column(
+          children: [
+            Column(
               children: [
                 _Title(),
-                const SizedBox(height: 10.0),
                 DropDownButton(
                   dropDownList: list1,
-                  currentItem: state.region_do,
+                  currentItem: state.region_do == '' ? null : state.region_do,
                   onPressed: (e) {
                     if (list1[0] != e) {
                       ref
@@ -88,13 +83,12 @@ class loginarea extends ConsumerWidget {
                     }
                   },
                 ),
-                const SizedBox(height: 10.0),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     DropDownButton(
                       dropDownList: list2,
-                      currentItem: state.region_si,
+                      currentItem:
+                          state.region_si == '' ? null : state.region_si,
                       onPressed: (e) {
                         if (list2[0] != e) {
                           ref
@@ -107,7 +101,6 @@ class loginarea extends ConsumerWidget {
                         }
                       },
                     ),
-                    const SizedBox(width: 10.0),
                     DropDownButton(
                       dropDownList: list3,
                       currentItem:
@@ -128,55 +121,10 @@ class loginarea extends ConsumerWidget {
                 ),
               ],
             ),
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetext(),
-                  const SizedBox(width: 70),
-                  const SizedBox(width: 70),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetextlist1(),
-                  const SizedBox(width: 10),
-                  Checkbox1(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetextlist2(),
-                  const SizedBox(width: 10),
-                  Checkbox2(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetextlist3(),
-                  const SizedBox(width: 10),
-                  Checkbox3(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetextlist4(),
-                  const SizedBox(width: 10),
-                  Checkbox4(),
-                ],
-              ),
-              agreebutton(),
-            ],
-          ),
-          nextbutton_area(),
-        ],
+            Spacer(),
+            nextbutton_area(),
+          ],
+        ),
       ),
     );
   }
@@ -188,9 +136,9 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '      지역설정',
+      '지역 설정',
       style: TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         color: Colors.black,
       ),
     );
@@ -213,7 +161,7 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
+        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
       ),
       elevation: 0,
       onSelected: (String value) {
@@ -233,7 +181,7 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
             child: Container(
               //width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
+                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
               ),
               child: Text(value),
             ),
@@ -271,7 +219,7 @@ class _DropdownButtonExample2State extends State<DropdownButtonExample2> {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
+        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
       ),
       onSelected: (String value) {
         setState(() {
@@ -285,7 +233,7 @@ class _DropdownButtonExample2State extends State<DropdownButtonExample2> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
+                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
               ),
               child: Text(value),
             ),
@@ -325,7 +273,7 @@ class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
+        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
       ),
       onSelected: (String value) {
         setState(() {
@@ -339,7 +287,7 @@ class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
+                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
               ),
               child: Text(value),
             ),
@@ -360,232 +308,6 @@ class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
             const Icon(Icons.arrow_drop_down, size: 40, color: Colors.grey),
           ],
         ),
-      ),
-    );
-  }
-}
-
-
-
-class agreetext extends StatelessWidget {
-  const agreetext({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      '개인정보 보호동의',
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-}
-
-class agreetextlist1 extends StatelessWidget {
-  const agreetextlist1({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('개인정보 보호동의 개인정보 보호동의');
-  }
-}
-
-class agreetextlist2 extends StatelessWidget {
-  const agreetextlist2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('개인정보 보호동의 개인정보 보호동의');
-  }
-}
-
-class agreetextlist3 extends StatelessWidget {
-  const agreetextlist3({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('개인정보 보호동의 개인정보 보호동의');
-  }
-}
-
-class agreetextlist4 extends StatelessWidget {
-  const agreetextlist4({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('개인정보 보호동의 개인정보 보호동의');
-  }
-}
-
-class Checkbox1 extends StatefulWidget {
-  const Checkbox1({super.key});
-
-  @override
-  State<Checkbox1> createState() => _Checkbox1State();
-}
-
-class _Checkbox1State extends State<Checkbox1> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.orange;
-      }
-      return Colors.white;
-    }
-
-    return Transform.scale(
-      scale: 1,
-      child: Checkbox(
-        checkColor: Colors.black,
-        fillColor: MaterialStateProperty.resolveWith(getColor),
-        value: isChecked,
-        onChanged: (bool? value) {
-          setState(() {
-            isChecked = value!;
-          });
-        },
-      ),
-    );
-  }
-}
-
-class Checkbox2 extends StatefulWidget {
-  const Checkbox2({super.key});
-
-  @override
-  State<Checkbox2> createState() => _Checkbox2State();
-}
-
-class _Checkbox2State extends State<Checkbox2> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.orange;
-      }
-      return Colors.white;
-    }
-
-    return Checkbox(
-      checkColor: Colors.black,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-      },
-    );
-  }
-}
-
-class Checkbox3 extends StatefulWidget {
-  const Checkbox3({super.key});
-
-  @override
-  State<Checkbox3> createState() => _Checkbox3State();
-}
-
-class _Checkbox3State extends State<Checkbox3> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.orange;
-      }
-      return Colors.white;
-    }
-
-    return Checkbox(
-      checkColor: Colors.black,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-      },
-    );
-  }
-}
-
-class Checkbox4 extends StatefulWidget {
-  const Checkbox4({super.key});
-
-  @override
-  State<Checkbox4> createState() => _Checkbox4State();
-}
-
-class _Checkbox4State extends State<Checkbox4> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.orange;
-      }
-      return Colors.white;
-    }
-
-    return Checkbox(
-      checkColor: Colors.black,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-      },
-    );
-  }
-}
-
-class agreebutton extends StatelessWidget {
-  const agreebutton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        foregroundColor: WHITE,
-        backgroundColor: PRIMARY_COLOR,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        minimumSize: Size(120, 50),
-      ),
-      child: Text(
-        '전체동의',
       ),
     );
   }
