@@ -64,7 +64,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: loginarea()
+      home: loginagree()
       //userRef.id == 0 ? mainlogin() :
         //      isRegistered == false ? logintype() :
           //    mainhome()
