@@ -36,7 +36,6 @@ export class Comments extends BaseEntity {
   })
   created_at: Date;
 
-  @Exclude({ toPlainOnly: true })
   @UpdateDateColumn({
     type: 'timestamptz',
   })
