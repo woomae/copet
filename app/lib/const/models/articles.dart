@@ -1,3 +1,5 @@
+import 'package:image_picker/image_picker.dart';
+
 class Articles {
   final int total;
   final List article;
@@ -16,7 +18,7 @@ class Article {
   final String title;
   final String body;
   final String category;
-  final String? imgName;
+  final List<XFile>? imgName;
   final int commentCount;
   final int scrapCount;
   final int complainCount;

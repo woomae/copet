@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/api/getArticles.dart';
+import 'package:pet/api/article/getArticles.dart';
 import 'package:pet/const/models/articles.dart';
 import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/providers/user_notifier_provider.dart';

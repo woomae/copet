@@ -33,11 +33,12 @@ class PatchUserData{
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
     final res = await Dio().patch(
-        '$apiKey/users/$userId/init',
+        '$apiKey/users/',
         data: formData,
         options: Options(
           headers: {
             'Content-Type': 'multipart/form-data',
+            'Cookie' : 'user='
           }
         )
     );
