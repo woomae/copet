@@ -55,25 +55,30 @@ class loginend extends ConsumerWidget {
             ),
           ),
         ],
+        shape: Border(
+          bottom: BorderSide(color: Color(0xFFDEDEDE), width: 1.0),
+        ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              children: [
-                //const SizedBox(height: 100),
-                ClipRRect(
-                  child: Image.asset(
-                    'asset/img/checkimg.png',
+        child: Padding(
+          padding: const EdgeInsets.only(top: 200, bottom: 40),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  ClipRRect(
+                    child: Image.asset(
+                      'asset/img/checkimg.png',
+                    ),
                   ),
-                ),
-                const SizedBox(height: 61),
-                subtitle(),
-              ],
-            ),
-            nextbutton_end()
-          ],
+                  const SizedBox(height: 60),
+                  subtitle(),
+                ],
+              ),
+              Spacer(),
+              nextbutton_end(),
+            ],
+          ),
         ),
       ),
     );

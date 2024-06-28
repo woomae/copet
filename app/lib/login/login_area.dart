@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
+import 'package:pet/login/login_agree.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -60,6 +61,9 @@ class loginarea extends ConsumerWidget {
             ),
           ),
         ],
+        shape: Border(
+          bottom: BorderSide(color: Color(0xFFDEDEDE), width: 1.0),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 90, bottom: 40),
@@ -322,7 +326,12 @@ class nextbutton_area extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const loginagree()),
+          );
+        },
         style: ElevatedButton.styleFrom(
           foregroundColor: WHITE,
           backgroundColor: PRIMARY_COLOR,

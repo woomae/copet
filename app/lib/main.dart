@@ -5,10 +5,12 @@ import 'package:pet/api/getUser.dart';
 import 'package:pet/login/login_agree.dart';
 import 'package:pet/login/login_area.dart';
 import 'package:pet/login/login_end.dart';
+import 'package:pet/login/login_keyword.dart';
 import 'package:pet/login/login_main.dart';
 import 'package:pet/login/login_name.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
+import 'package:pet/main/main_screen.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -64,7 +66,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: loginagree()
+      home: mainscreen()
       //userRef.id == 0 ? mainlogin() :
         //      isRegistered == false ? logintype() :
           //    mainhome()

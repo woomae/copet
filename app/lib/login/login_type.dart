@@ -53,6 +53,9 @@ class logintype extends ConsumerWidget {
             ),
           ),
         ],
+        shape: Border(
+          bottom: BorderSide(color: Color(0xFFDEDEDE), width: 1.0),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 90, bottom: 40),

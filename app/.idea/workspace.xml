@@ -5,9 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/asset/img/check_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/activity.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/calm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/curiosity.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/cute.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/eat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/energy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/extroverted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/introverted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/loyalty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/scared.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/sensitive.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/sweet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/main/walk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/component/keyword/keyword.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/login/login_keyword.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login/login_agree.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_agree.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_end.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_end.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_type.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main/main_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,11 +94,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\main" />
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img" />
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\keyword" />
       <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\providers" />
       <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\providers\articles_providers" />
-      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\common\component\buttons" />
-      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\const\models" />
-      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\common\component\appbars" />
     </key>
   </component>
   <component name="RunManager">

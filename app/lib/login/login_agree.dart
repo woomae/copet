@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet/login/login_end.dart';
+import 'package:pet/login/login_keyword.dart';
 
 import '../style/colors.dart';
 
@@ -100,6 +101,9 @@ class _loginagreeState extends State<loginagree> {
             ),
           ),
         ],
+        shape: Border(
+          bottom: BorderSide(color: Color(0xFFDEDEDE), width: 1.0),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 90, bottom: 40),
@@ -305,7 +309,7 @@ class nextbutton_agree extends StatelessWidget {
         onPressed: areRequiredChecked ? () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const loginend()),
+            MaterialPageRoute(builder: (context) => const loginkeyword()),
           );
         } : null,
         style: ElevatedButton.styleFrom(
