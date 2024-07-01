@@ -4,6 +4,7 @@ import 'package:pet/common/component/buttons/dropdown_button.dart';
 import 'package:pet/const/models/user_data_model.dart';
 import 'package:pet/const/regions/jellanamdo/jeollanamdo.dart';
 import 'package:pet/const/regions/region_list.dart';
+import 'package:pet/login/login_agree.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -52,26 +53,46 @@ class loginarea extends ConsumerWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
-          'COPET',
+          '회원가입',
           style: TextStyle(
             fontFamily: 'Poetsen',
             color: Colors.black,
-            fontSize: 25,
-
+            fontSize: 20,
           ),
         ),
-        centerTitle: false,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        centerTitle: true,
+        actions: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'COPET',
+                style: TextStyle(
+                  fontFamily: 'Poetsen',
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+        ],
+        shape: Border(
+          bottom: BorderSide(color: Color(0xFFDEDEDE), width: 1.0),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 90, bottom: 40),
+        child: Column(
+          children: [
+            Column(
               children: [
                 _Title(),
                 const SizedBox(height: 10.0),
@@ -117,52 +138,7 @@ class loginarea extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetextlist1(),
-                  const SizedBox(width: 10),
-                  Checkbox1(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetextlist2(),
-                  const SizedBox(width: 10),
-                  Checkbox2(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetextlist3(),
-                  const SizedBox(width: 10),
-                  Checkbox3(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetextlist4(),
-                  const SizedBox(width: 10),
-                  Checkbox4(),
-                ],
-              ),
-              agreebutton(),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Prebutton(onPressed: (){
-                Navigator.pop(context);
-              },),
-              const SizedBox(width: 20),
-              Nextbutton(onPressed: (){
-              },),
-            ],
-          )
+
         ],
       ),
     );
@@ -175,9 +151,9 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '      지역설정',
+      '지역 설정',
       style: TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         color: Colors.black,
       ),
     );
@@ -196,12 +172,11 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
 
   //double menuWidth = 200.0; // 초기 값 설정, 원하는 값으로 조절
 
-
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
+        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
       ),
       elevation: 0,
       onSelected: (String value) {
@@ -209,8 +184,6 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
           dropdownValue = value;
         });
       },
-
-
       itemBuilder: (BuildContext context) {
         return list1.map((String value) {
           // 각 항목의 너비를 측정
@@ -223,7 +196,7 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
             child: Container(
               //width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
+                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
               ),
               child: Text(value),
             ),
@@ -245,7 +218,6 @@ class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
       ),
     );
   }
-
 }
 
 class DropdownButtonExample2 extends StatefulWidget {
@@ -262,7 +234,7 @@ class _DropdownButtonExample2State extends State<DropdownButtonExample2> {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
+        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
       ),
       onSelected: (String value) {
         setState(() {
@@ -276,7 +248,7 @@ class _DropdownButtonExample2State extends State<DropdownButtonExample2> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
+                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
               ),
               child: Text(value),
             ),
@@ -316,7 +288,7 @@ class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
+        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
       ),
       onSelected: (String value) {
         setState(() {
@@ -330,7 +302,7 @@ class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
+                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
               ),
               child: Text(value),
             ),
@@ -355,234 +327,34 @@ class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
     );
   }
 }
-class agreetext extends StatelessWidget {
-  const agreetext({super.key});
+
+class nextbutton_area extends StatelessWidget {
+  const nextbutton_area({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '개인정보 보호동의',
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-}
-
-class agreetextlist1 extends StatelessWidget {
-  const agreetextlist1({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      '개인정보 보호동의 개인정보 보호동의'
-    );
-  }
-}
-
-class agreetextlist2 extends StatelessWidget {
-  const agreetextlist2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-        '개인정보 보호동의 개인정보 보호동의'
-    );
-  }
-}
-
-class agreetextlist3 extends StatelessWidget {
-  const agreetextlist3({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-        '개인정보 보호동의 개인정보 보호동의'
-    );
-  }
-}
-
-class agreetextlist4 extends StatelessWidget {
-  const agreetextlist4({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-        '개인정보 보호동의 개인정보 보호동의'
-    );
-  }
-}
-
-
-class Checkbox1 extends StatefulWidget {
-  const Checkbox1({super.key});
-
-  @override
-  State<Checkbox1> createState() => _Checkbox1State();
-}
-
-class _Checkbox1State extends State<Checkbox1> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.orange;
-      }
-      return Colors.white;
-    }
-
-    return Transform.scale(
-      scale: 1,
-      child: Checkbox(
-        checkColor: Colors.black,
-        fillColor: MaterialStateProperty.resolveWith(getColor),
-        value: isChecked,
-        onChanged: (bool? value) {
-          setState(() {
-            isChecked = value!;
-          });
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const loginagree()),
+          );
         },
-      ),
-    );
-  }
-}
-
-class Checkbox2 extends StatefulWidget {
-  const Checkbox2({super.key});
-
-  @override
-  State<Checkbox2> createState() => _Checkbox2State();
-}
-
-class _Checkbox2State extends State<Checkbox2> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.orange;
-      }
-      return Colors.white;
-    }
-
-    return Checkbox(
-      checkColor: Colors.black,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-      },
-    );
-  }
-}
-
-class Checkbox3 extends StatefulWidget {
-  const Checkbox3({super.key});
-
-  @override
-  State<Checkbox3> createState() => _Checkbox3State();
-}
-
-class _Checkbox3State extends State<Checkbox3> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.orange;
-      }
-      return Colors.white;
-    }
-
-    return Checkbox(
-      checkColor: Colors.black,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-      },
-    );
-  }
-}
-
-class Checkbox4 extends StatefulWidget {
-  const Checkbox4({super.key});
-
-  @override
-  State<Checkbox4> createState() => _Checkbox4State();
-}
-
-class _Checkbox4State extends State<Checkbox4> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.orange;
-      }
-      return Colors.white;
-    }
-
-    return Checkbox(
-      checkColor: Colors.black,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-      },
-    );
-  }
-}
-
-class agreebutton extends StatelessWidget {
-  const agreebutton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        foregroundColor: WHITE,
-        backgroundColor: PRIMARY_COLOR,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+        style: ElevatedButton.styleFrom(
+          foregroundColor: WHITE,
+          backgroundColor: PRIMARY_COLOR,
+          textStyle: TextStyle(color: WHITE),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          minimumSize: Size(100, 50),
         ),
-        minimumSize: Size(120, 50),
-      ),
-      child: Text(
-        '전체동의',
+        child: Text(
+          '다음',
+        ),
       ),
     );
   }

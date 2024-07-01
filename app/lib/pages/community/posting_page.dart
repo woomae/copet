@@ -8,7 +8,7 @@ import 'package:pet/common/component/appbars/post_appbar.dart';
 import 'package:pet/common/component/dialogs/commonDialog.dart';
 import 'package:pet/const/category_list.dart';
 import 'package:pet/providers/posting_notifier_provider.dart';
-import '../../api/postPosting.dart';
+import '../../api/article/postPosting.dart';
 import '../../style/colors.dart';
 
 
@@ -134,8 +134,8 @@ class TitleInput extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return TextFormField(
+      initialValue: ref.read(PostingProvider).title,
       onChanged: (e){
         ref.read(PostingProvider.notifier).updatePosting(title: e);
       },
@@ -169,10 +169,11 @@ class BodyInput extends ConsumerWidget {
 
 남을 비방하거나 욕설 등의 부적절한 글은 삼가주세요.""";
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return TextFormField(
+      initialValue: ref.read(PostingProvider).body,
       onChanged: (e){
         ref.read(PostingProvider.notifier).updatePosting(body: e);
       },

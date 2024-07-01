@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/api/getUser.dart';
+import 'package:pet/login/login_agree.dart';
+import 'package:pet/login/login_area.dart';
+import 'package:pet/login/login_end.dart';
+import 'package:pet/login/login_keyword.dart';
 import 'package:pet/login/login_main.dart';
+import 'package:pet/login/login_name.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
+import 'package:pet/main/main_screen.dart';
+import 'package:pet/pages/profile/profile_modify.dart';
+import 'package:pet/pages/community/article_page.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
@@ -43,8 +51,9 @@ class _App extends ConsumerWidget {
         textTheme: const TextTheme(
           bodySmall : TextStyle(fontSize: 8.0, decorationThickness: 0),
           bodyMedium : TextStyle(fontSize: 12.0, decorationThickness: 0),
-          bodyLarge: TextStyle(fontSize: 15.0, decorationThickness: 0),
-          labelMedium: TextStyle(fontSize: 12.0, color: GREY1, decorationThickness: 0)
+          bodyLarge: TextStyle(fontSize: 12.0, fontWeight:FontWeight.w500, decorationThickness: 0),
+          titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,decorationThickness: 0),
+          labelMedium: TextStyle(fontSize: 12.0, color: GREY3, decorationThickness: 0)
 
         ),
         iconButtonTheme: IconButtonThemeData(
@@ -59,10 +68,10 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home:
-      userRef.id == 0 ? mainlogin() :
-      isRegistered == false ? logintype() :
-      mainhome()
+      home: mainscreen()
+      //userRef.id == 0 ? mainlogin() :
+      //isRegistered == false ? logintype() :
+      //mainhome()
     );
   }
 }

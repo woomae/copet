@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/api/getArticles.dart';
+import 'package:pet/api/article/getArticles.dart';
 import 'package:pet/common/component/appbars/appbar.dart';
 import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/pages/community/posting_page.dart';
@@ -13,7 +13,7 @@ class Community extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final articlesProvider = StateProvider<Future<List<Comments>>>((ref) => GetArticles.getArticles());
+    final articlesProvider = StateProvider<Future<List<Article>>>((ref) => GetArticles.getArticles());
     final articles = ref.watch(articlesProvider);
     return MaterialApp(
       home: Scaffold(

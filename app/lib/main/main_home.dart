@@ -86,6 +86,21 @@ class _mainhomeState extends State<mainhome> with TickerProviderStateMixin {
             ),
           ),
           centerTitle: false,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.white.withOpacity(0), // 상단 투명 부분의 색상 (투명도 조절 가능)
+                    Colors.white, // 하단 일반적인 흰색 배경
+                  ],
+                  stops: [0.0, 0.33], // 각 색상의 정지점 (0.0 ~ 1.0 사이 값)
+                ),
+              ),
+            ),
+          ),
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(

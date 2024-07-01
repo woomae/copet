@@ -17,12 +17,15 @@ class mainscreen extends StatelessWidget {
             backgroundColor: Colors.white,
             pinned: true,
             elevation: 0,
-            title: Text(
-              'COPET',
-              style: TextStyle(
-                fontFamily: 'Poetsen',
-                color: Colors.black,
-                fontSize: 25,
+            title: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'COPET',
+                style: TextStyle(
+                  fontFamily: 'Poetsen',
+                  color: Colors.black,
+                  fontSize: 25,
+                ),
               ),
             ),
             centerTitle: false,
@@ -33,19 +36,19 @@ class mainscreen extends StatelessWidget {
                   padding: EdgeInsets.only(right: 20),
                   child: Image.asset(
                     'asset/img/alarm.png', // 원하는 이미지의 경로
-                    width: 20.0, // 이미지의 너비
-                    height: 21.54, // 이미지의 높이
+                    width: 18.0, // 이미지의 너비
+                    height: 19.38, // 이미지의 높이
                   ),
                 ),
               ),
               InkWell(
                 onTap: () {},
                 child: Padding(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: EdgeInsets.only(right: 30),
                   child: Image.asset(
                     'asset/img/mail.png', // 원하는 이미지의 경로
-                    width: 25.0, // 이미지의 너비
-                    height: 18.75, // 이미지의 높이
+                    width: 22.0, // 이미지의 너비
+                    height: 16.5, // 이미지의 높이
                   ),
                 ),
               ),
@@ -53,7 +56,7 @@ class mainscreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,36 +64,12 @@ class mainscreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
+                      WalkButton(
+                        imagePath: 'asset/img/main/walk.png',
+                        width: 100,
+                        height: 200,
                         onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xFFF2F2F2),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          minimumSize: Size(186, 200),
-                          elevation: 0,
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  '산책 가기',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 25,
-                                    fontFamily: 'SnowCrap',
-                                  ),
-                                ),
-                                const SizedBox(width: 30),
-                              ],
-                            ),
-                            const SizedBox(height: 80),
-                          ],
-                        ),
                       ),
-                      const SizedBox(width: 20),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -538,6 +517,33 @@ class _HorizontalListState extends State<HorizontalList> {
           ],
         ),
       ],
+    );
+  }
+}
+
+class WalkButton extends StatelessWidget {
+  final String imagePath;
+  final double width;
+  final double height;
+  final VoidCallback onPressed;
+
+  const WalkButton({
+    Key? key,
+    required this.imagePath,
+    required this.width,
+    required this.height,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Image.asset(
+        imagePath,
+        width: width,
+        height: height,
+      ),
     );
   }
 }
