@@ -4,25 +4,34 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="005e7bd6-fd4e-4540-8af1-d1d7403b9b38" name="Changes" comment="feature: 게시글 상세 페이지 작성&#10;- api response에서 작성일 제외됨에 따라 변경 필요&#10;- 게시글, 댓글 수정 기능 추가작업 필요">
-      <change afterPath="$PROJECT_DIR$/lib/api/article/deleteArticle.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/article/deleteComment.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/article/patchComment.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/article/postComment.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/common/component/dialogs/confirmDialog.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/common/component/utils/format_date.dart" afterDir="false" />
+    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/asset/img/check_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/activity.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/calm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/curiosity.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/cute.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/eat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/energy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/extroverted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/introverted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/loyalty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/scared.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/sensitive.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/keyword/sweet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/main/walk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/component/keyword/keyword.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/login/login_keyword.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/getArticles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getArticles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/getComments.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getComments.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/patchUserData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/patchUserData.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/postPosting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postPosting.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/articles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/articles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/article_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/article_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/community_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/community_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_information_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_information_container.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/style/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/style/colors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_agree.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_agree.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_end.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_end.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_type.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main/main_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,35 +44,61 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="develop" />
+        <entry key="$PROJECT_DIR$/.." value="feature/app-pages" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="7b7e3772-b413-478e-9782-c77f581dea08" />
+        <option name="url" value="https://github.com/woomae/copet.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2hzmPwlB52ULUFJ7T2uMTH7QZG9" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2aTy6QizJgq72tqvFz10sPZ0uRB" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/articles&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/personal__profile&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet/app&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;emulator&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\copet\app\lib\api\article" />
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\main" />
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img" />
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\keyword" />
+      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\providers" />
+      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\providers\articles_providers" />
     </key>
   </component>
   <component name="RunManager">
@@ -75,34 +110,380 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="005e7bd6-fd4e-4540-8af1-d1d7403b9b38" name="Changes" comment="" />
-      <created>1718605259070</created>
+      <changelist id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="" />
+      <created>1704356687830</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1718605259070</updated>
+      <updated>1704356687830</updated>
     </task>
-    <task id="LOCAL-00001" summary="fix: root 프로젝트 경로 변경">
+    <task id="LOCAL-00001" summary="폴더구조 수정, 설정 페이지 구성 중">
       <option name="closed" value="true" />
-      <created>1718606571407</created>
+      <created>1707238669163</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1718606571407</updated>
+      <updated>1707238669163</updated>
     </task>
-    <task id="LOCAL-00002" summary="feature: 게시글 상세 페이지 작성&#10;- api response에서 작성일 제외됨에 따라 변경 필요&#10;- 게시글, 댓글 수정 기능 추가작업 필요">
+    <task id="LOCAL-00002" summary="textTheme 추가, Flutter 특유의 버튼 애니메이션 제거">
       <option name="closed" value="true" />
-      <created>1718617887524</created>
+      <created>1709473395150</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1718617887524</updated>
+      <updated>1709473395150</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="color, icon Theme 추가">
+      <option name="closed" value="true" />
+      <created>1709473485228</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1709473485228</updated>
+    </task>
+    <task id="LOCAL-00004" summary="네비게이션 기능 제외한 설정페이지 구성">
+      <option name="closed" value="true" />
+      <created>1709473498942</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1709473498942</updated>
+    </task>
+    <task id="LOCAL-00005" summary="appbar 모듈화">
+      <option name="closed" value="true" />
+      <created>1709473523363</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1709473523363</updated>
+    </task>
+    <task id="LOCAL-00006" summary="- postingPage 수정,&#10;- communityPage, profilePage 골격 작성">
+      <option name="closed" value="true" />
+      <created>1710055086429</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1710055086429</updated>
+    </task>
+    <task id="LOCAL-00007" summary="- postingPage 수정,&#10;- communityPage, profilePage 골격 작성">
+      <option name="closed" value="true" />
+      <created>1710137517227</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1710137517227</updated>
+    </task>
+    <task id="LOCAL-00008" summary="- postingPage 수정,&#10;- communityPage, profilePage 골격 작성">
+      <option name="closed" value="true" />
+      <created>1710137568820</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1710137568820</updated>
+    </task>
+    <task id="LOCAL-00009" summary="- postingPage 수정,&#10;- communityPage, profilePage 골격 작성">
+      <option name="closed" value="true" />
+      <created>1710137598283</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1710137598283</updated>
+    </task>
+    <task id="LOCAL-00010" summary="- dropdwonbutton 컴포넌트 구현 완료&#10;- 아직 api연동 불가능">
+      <option name="closed" value="true" />
+      <created>1711613829116</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711613829116</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add riverPod&#10;- Posting Model 및 Provider 세팅">
+      <option name="closed" value="true" />
+      <created>1712752485937</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1712752485937</updated>
+    </task>
+    <task id="LOCAL-00012" summary="merge 및 Refactoring">
+      <option name="closed" value="true" />
+      <created>1712753108094</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1712753108094</updated>
+    </task>
+    <task id="LOCAL-00013" summary="posting page 최신화">
+      <option name="closed" value="true" />
+      <created>1712753187549</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1712753187549</updated>
+    </task>
+    <task id="LOCAL-00014" summary="PostingApi 테스트 완료&#10;- 이미지 post 기능 추가 필요">
+      <option name="closed" value="true" />
+      <created>1712761489644</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1712761489644</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Galaxy 테스팅&#10;- flutter 특유의 이상한 버튼 애니메이션 제거&#10;- 이상한 간격들 수정">
+      <option name="closed" value="true" />
+      <created>1713198283863</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1713198283863</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix:키패드에 bottomBar가 가려지는 문제 수정">
+      <option name="closed" value="true" />
+      <created>1713201811561</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1713201811561</updated>
+    </task>
+    <task id="LOCAL-00017" summary="android 인터넷 권한 추가">
+      <option name="closed" value="true" />
+      <created>1713255962366</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1713255962366</updated>
+    </task>
+    <task id="LOCAL-00018" summary=".env 추가">
+      <option name="closed" value="true" />
+      <created>1713255983701</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1713255983701</updated>
+    </task>
+    <task id="LOCAL-00019" summary="constant, provider 추가">
+      <option name="closed" value="true" />
+      <created>1713270320102</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1713270320102</updated>
+    </task>
+    <task id="LOCAL-00020" summary="profilePage userData 부분 Provider 활용">
+      <option name="closed" value="true" />
+      <created>1713270407973</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1713270407973</updated>
+    </task>
+    <task id="LOCAL-00021" summary="articles 테스트 완료">
+      <option name="closed" value="true" />
+      <created>1713363263890</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1713363263890</updated>
+    </task>
+    <task id="LOCAL-00022" summary="forkRepo와 기존 작업 repo 동일하게 변경">
+      <option name="closed" value="true" />
+      <created>1713768398893</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1713768398893</updated>
+    </task>
+    <task id="LOCAL-00023" summary="package 설치">
+      <option name="closed" value="true" />
+      <created>1713771101093</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771101093</updated>
+    </task>
+    <task id="LOCAL-00024" summary="kakao,goolge login 로직 분리">
+      <option name="closed" value="true" />
+      <created>1713771138888</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771138888</updated>
+    </task>
+    <task id="LOCAL-00025" summary="postlist 분리">
+      <option name="closed" value="true" />
+      <created>1713771222795</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771222795</updated>
+    </task>
+    <task id="LOCAL-00026" summary="ImagePost 기능 추가">
+      <option name="closed" value="true" />
+      <created>1713771241985</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771241985</updated>
+    </task>
+    <task id="LOCAL-00027" summary="refactoring">
+      <option name="closed" value="true" />
+      <created>1713771260193</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771260193</updated>
+    </task>
+    <task id="LOCAL-00028" summary="ios imagePick 권한">
+      <option name="closed" value="true" />
+      <created>1713771279786</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771279786</updated>
+    </task>
+    <task id="LOCAL-00029" summary=".">
+      <option name="closed" value="true" />
+      <created>1713771306593</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1713771306593</updated>
+    </task>
+    <task id="LOCAL-00030" summary="showDialog 호출 시 state에러 수정&#10;- bottom category bar 키패드 따라 올라오게 수정&#10;- image post 수정 필요">
+      <option name="closed" value="true" />
+      <created>1713893157359</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1713893157359</updated>
+    </task>
+    <task id="LOCAL-00031" summary="사진 업로드 5개까지 제한&#10;- 초과 시 showDialog">
+      <option name="closed" value="true" />
+      <created>1713965064313</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1713965064313</updated>
+    </task>
+    <task id="LOCAL-00032" summary="imagePost 기능 구현 완료">
+      <option name="closed" value="true" />
+      <created>1713967955358</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1713967955358</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Color Stlye 추가">
+      <option name="closed" value="true" />
+      <created>1714460416974</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1714460416975</updated>
+    </task>
+    <task id="LOCAL-00034" summary="community 맨 위 섹션에서 스크롤 시 refresh">
+      <option name="closed" value="true" />
+      <created>1714460464659</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1714460464659</updated>
+    </task>
+    <task id="LOCAL-00035" summary="communityPage articleList 섹션 구현">
+      <option name="closed" value="true" />
+      <created>1714460549927</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1714460549928</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Webveiw를 통한 Auth 구현">
+      <option name="closed" value="true" />
+      <created>1715161176725</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1715161176725</updated>
+    </task>
+    <task id="LOCAL-00037" summary="api를 통해 가져온 url로 웹뷰 라우팅">
+      <option name="closed" value="true" />
+      <created>1715161348090</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1715161348090</updated>
+    </task>
+    <task id="LOCAL-00038" summary="불필요한 import 제거">
+      <option name="closed" value="true" />
+      <created>1715161398260</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1715161398260</updated>
+    </task>
+    <task id="LOCAL-00039" summary="commonButton style 변경">
+      <option name="closed" value="true" />
+      <created>1715183357213</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1715183357213</updated>
+    </task>
+    <task id="LOCAL-00040" summary="imagePost 바로 직전에 사진에 접근하도록 변경">
+      <option name="closed" value="true" />
+      <created>1716305118156</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1716305118156</updated>
+    </task>
+    <task id="LOCAL-00041" summary="postList 최상단 스크롤 시 refresh 기능">
+      <option name="closed" value="true" />
+      <created>1716305558453</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1716305558456</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: root 프로젝트 경로 변경" />
-    <MESSAGE value="feature: 게시글 상세 페이지 작성&#10;- api response에서 작성일 제외됨에 따라 변경 필요&#10;- 게시글, 댓글 수정 기능 추가작업 필요" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature: 게시글 상세 페이지 작성&#10;- api response에서 작성일 제외됨에 따라 변경 필요&#10;- 게시글, 댓글 수정 기능 추가작업 필요" />
+    <MESSAGE value="android 인터넷 권한 추가" />
+    <MESSAGE value=".env 추가" />
+    <MESSAGE value="constant, provider 추가" />
+    <MESSAGE value="profilePage userData 부분 Provider 활용" />
+    <MESSAGE value="articles 테스트 완료" />
+    <MESSAGE value="forkRepo와 기존 작업 repo 동일하게 변경" />
+    <MESSAGE value="package 설치" />
+    <MESSAGE value="kakao,goolge login 로직 분리" />
+    <MESSAGE value="postlist 분리" />
+    <MESSAGE value="ImagePost 기능 추가" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="ios imagePick 권한" />
+    <MESSAGE value="." />
+    <MESSAGE value="showDialog 호출 시 state에러 수정&#10;- bottom category bar 키패드 따라 올라오게 수정&#10;- image post 수정 필요" />
+    <MESSAGE value="사진 업로드 5개까지 제한&#10;- 초과 시 showDialog" />
+    <MESSAGE value="imagePost 기능 구현 완료" />
+    <MESSAGE value="Color Stlye 추가" />
+    <MESSAGE value="community 맨 위 섹션에서 스크롤 시 refresh" />
+    <MESSAGE value="communityPage articleList 섹션 구현" />
+    <MESSAGE value="Webveiw를 통한 Auth 구현" />
+    <MESSAGE value="api를 통해 가져온 url로 웹뷰 라우팅" />
+    <MESSAGE value="불필요한 import 제거" />
+    <MESSAGE value="commonButton style 변경" />
+    <MESSAGE value="imagePost 바로 직전에 사진에 접근하도록 변경" />
+    <MESSAGE value="postList 최상단 스크롤 시 refresh 기능" />
+    <option name="LAST_COMMIT_MESSAGE" value="postList 최상단 스크롤 시 refresh 기능" />
   </component>
 </project>

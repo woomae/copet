@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/api/getUser.dart';
+import 'package:pet/login/login_agree.dart';
+import 'package:pet/login/login_area.dart';
+import 'package:pet/login/login_end.dart';
+import 'package:pet/login/login_keyword.dart';
 import 'package:pet/login/login_main.dart';
+import 'package:pet/login/login_name.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
+import 'package:pet/main/main_screen.dart';
+import 'package:pet/pages/profile/profile_modify.dart';
 import 'package:pet/pages/community/article_page.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -26,8 +33,7 @@ class _App extends ConsumerWidget {
     final userRef = ref.watch(UserProvider);
     bool isRegistered = userRef.nickname != '' ? true : false;
     print(isRegistered);
-    //final userId = userRef.id;
-    final userId = 1;
+    final userId = userRef.id;
     //쿠키를 가져온 이후
     if(userId != 0){
       final res = GetUser.getUser(userRef.id.toString())
@@ -62,7 +68,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: ArticlePage(articleId: 0,)
+      home: mainscreen()
       //userRef.id == 0 ? mainlogin() :
       //isRegistered == false ? logintype() :
       //mainhome()

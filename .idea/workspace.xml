@@ -4,27 +4,40 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5e636b7-3405-421c-b895-16c42676bb93" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/copet.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Dart_SDK.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/app/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/app/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/app/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/app/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/app/windows/flutter/generated_plugins.cmake" afterDir="false" />
+    <list default="true" id="c5e636b7-3405-421c-b895-16c42676bb93" name="Changes" comment="feature: 좋아요한 게시글 조회">
+      <change afterPath="$PROJECT_DIR$/app/asset/img/check_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/activity.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/calm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/curiosity.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/cute.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/eat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/energy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/extroverted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/introverted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/loyalty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/scared.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/sensitive.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/keyword/sweet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asset/img/main/walk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/lib/common/component/keyword/keyword.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/lib/login/login_agree.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/lib/login/login_keyword.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/common/component/buttons/next_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/common/component/buttons/next_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/common/component/text_form_field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/common/component/text_form_field.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/login/login_area.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/login/login_end.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/login/login_end.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/login/login_name.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/login/login_type.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/main/main_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/main/main_home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/main/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/pages/profile/profile_modify.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +65,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "Merging feature/articles",
     "last_opened_file_path": "C:/Users/z6231/Desktop/code/Git_cowork/copet/app",
     "show.migrate.to.gradle.popup": "false"
   }

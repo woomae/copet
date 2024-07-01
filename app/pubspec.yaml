@@ -82,6 +82,22 @@ flutter:
     - asset/img/img_place.png
     - asset/img/mail.png
     - asset/img/alarm.png
+    - asset/img/check_white.png
+    - asset/img/keyword/
+    - asset/img/keyword/activity.png
+    - asset/img/keyword/calm.png
+    - asset/img/keyword/curiosity.png
+    - asset/img/keyword/cute.png
+    - asset/img/keyword/eat.png
+    - asset/img/keyword/energy.png
+    - asset/img/keyword/extroverted.png
+    - asset/img/keyword/introverted.png
+    - asset/img/keyword/loyalty.png
+    - asset/img/keyword/scared.png
+    - asset/img/keyword/sensitive.png
+    - asset/img/keyword/sweet.png
+    - asset/img/main/
+    - asset/img/main/walk.png
 
 
   # To add assets to your application, add an assets section, like this:
