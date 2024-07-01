@@ -36,10 +36,6 @@ import { join } from 'path';
         type: 'single',
       }),
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      exclude: ['/api*'],
-    }),
     V1Module,
   ],
   controllers: [AppController],
