@@ -1,33 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet/api/getUser.dart';
+import 'package:pet/login/login_agree.dart';
 import 'package:pet/login/login_area.dart';
+import 'package:pet/login/login_end.dart';
+import 'package:pet/login/login_keyword.dart';
 import 'package:pet/login/login_main.dart';
 import 'package:pet/login/login_name.dart';
 import 'package:pet/login/login_type.dart';
-import 'package:auth_buttons/auth_buttons.dart';
-import 'package:pet/login/login_end.dart';
-import 'package:pet/common/component/appbar.dart';
-import 'package:pet/const/taps.dart';
-import 'package:pet/common/component/tapbar.dart';
-import 'package:pet/main/logout.dart';
 import 'package:pet/main/main_home.dart';
-import 'package:pet/common/component/splashscreen.dart';
+import 'package:pet/main/main_screen.dart';
+import 'package:pet/pages/profile/profile_modify.dart';
+import 'package:pet/pages/community/article_page.dart';
+import 'package:pet/providers/user_notifier_provider.dart';
+import 'package:pet/style/colors.dart';
 
-void main() {
-  runApp(
-    _App(),
+void main() async{
+  await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp( //껐다 켜기만 해도 runApp 실행됨.
+      const ProviderScope(
+          child: _App()),
   );
 }
-
-class _App extends StatelessWidget {
+class _App extends ConsumerWidget {
   const _App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userRef = ref.watch(UserProvider);
+    bool isRegistered = userRef.nickname != '' ? true : false;
+    print(isRegistered);
+    final userId = userRef.id;
+    //쿠키를 가져온 이후
+    if(userId != 0){
+      final res = GetUser.getUser(userRef.id.toString())
+          .then((res) => ref.read(UserProvider.notifier).storeUserData(res))
+          .onError((error, stackTrace){
+            print('------$error');
+            isRegistered = false;
+          });
+    }
+    print('------------------------------------- userid : $userId');
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: mainlogin(),
+      theme: ThemeData(
+        textTheme: const TextTheme(
+          bodySmall : TextStyle(fontSize: 8.0, decorationThickness: 0),
+          bodyMedium : TextStyle(fontSize: 12.0, decorationThickness: 0),
+          bodyLarge: TextStyle(fontSize: 12.0, fontWeight:FontWeight.w500, decorationThickness: 0),
+          titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,decorationThickness: 0),
+          labelMedium: TextStyle(fontSize: 12.0, color: GREY3, decorationThickness: 0)
+
+        ),
+        iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith((states) => Colors.transparent)
+          )
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            textStyle: MaterialStateProperty.resolveWith((states) => TextStyle(color: BLACK)),
+            overlayColor: MaterialStateProperty.resolveWith((states) => Colors.transparent)
+          )
+        )
+      ),
+      home: mainscreen()
+      //userRef.id == 0 ? mainlogin() :
+      //isRegistered == false ? logintype() :
+      //mainhome()
     );
   }
 }
-
 

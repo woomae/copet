@@ -1,16 +1,18 @@
-import { Module } from '@nestjs/common';
-import { UsersModule } from './apis/users/users.module';
-import { ArticlesModule } from './apis/articles/articles.module';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { getTypeOrmConfig } from './configs/typeorm.config';
-import { AuthModule } from './apis/auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validate } from './configs/env-validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from './common/sttp-exception.filter';
-
+import { RedisModule, RedisModuleOptions } from '@nestjs-modules/ioredis';
+import { V1Module } from './apis/v1/v1.module';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { ResponseInterceptor } from './libs/res/response.intercepter';
+import { ContextMiddleware } from './libs/middleware/request-context/context.middleware';
+import { AllExceptionsFilter } from './libs/filters/http-exception.filter';
+import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,14 +23,36 @@ import { HttpExceptionFilter } from './common/sttp-exception.filter';
     TypeOrmModule.forRootAsync({
       useFactory: async () => await getTypeOrmConfig(),
     }),
-    AuthModule,
-    ArticlesModule,
-    UsersModule,
+    RedisModule.forRootAsync({
+      inject: [ConfigService], // ConfigService 주입
+      useFactory: async (
+        configService: ConfigService,
+      ): Promise<RedisModuleOptions> => ({
+        options: {
+          host: configService.get('REDIS_HOST'),
+          port: configService.get('REDIS_PORT'),
+          password: configService.get('REDIS_PASSWORD'),
+        },
+        type: 'single',
+      }),
+    }),
+    V1Module,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    { provide: APP_FILTER, useClass: HttpExceptionFilter },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ContextMiddleware).forRoutes('*');
+  }
+}

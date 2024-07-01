@@ -39,3 +39,6 @@ lerna-debug.log*
 .env
 logs
 pm2-config.json
+
+#images
+uploads/

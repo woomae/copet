@@ -34,6 +34,12 @@ dependencies:
   dio: ^5.4.0
   http: ^1.1.0
   webview_cookie_manager: ^2.0.6
+  flutter_inappwebview: ^6.0.0
+  flutter_riverpod: ^2.5.1
+  image_picker: ^1.0.8
+  flutter_dotenv: ^5.1.0
+  jwt_decoder: ^2.0.1
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -68,9 +74,31 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
+    - asset/img/
     - asset/img/logo.png
     - asset/img/copet_logo.png
     - asset/img/checkimg.png
+    - asset/img/img_place.png
+    - asset/img/mail.png
+    - asset/img/alarm.png
+    - asset/img/check_white.png
+    - asset/img/keyword/
+    - asset/img/keyword/activity.png
+    - asset/img/keyword/calm.png
+    - asset/img/keyword/curiosity.png
+    - asset/img/keyword/cute.png
+    - asset/img/keyword/eat.png
+    - asset/img/keyword/energy.png
+    - asset/img/keyword/extroverted.png
+    - asset/img/keyword/introverted.png
+    - asset/img/keyword/loyalty.png
+    - asset/img/keyword/scared.png
+    - asset/img/keyword/sensitive.png
+    - asset/img/keyword/sweet.png
+    - asset/img/main/
+    - asset/img/main/walk.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -102,6 +130,11 @@ flutter:
         - asset: asset/font/Segoe UI Bold.ttf
         - asset: asset/font/Segoe UI Bold Italic.ttf
         - asset: asset/font/Segoe UI Italic.ttf
+
+    - family: SnowCrap
+      fonts:
+        - asset: asset/font/Yeongdeok Snow Crab.ttf
+          weight: 100
   # fonts:
   #   - family: Schyler
   #     fonts:

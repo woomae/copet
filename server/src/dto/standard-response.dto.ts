@@ -1,4 +1,4 @@
-// standard-response.dto.ts
+//deprecated
 export class StandardResponseDto {
   constructor(
     public statusCode: number,
