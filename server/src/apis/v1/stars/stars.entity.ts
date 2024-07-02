@@ -14,7 +14,7 @@ import { Exclude } from 'class-transformer';
 import { Articles } from '../articles/articles.entity';
 
 @Entity()
-export class Stars extends BaseEntity {
+export class Stars {
   @Exclude({ toPlainOnly: true })
   @PrimaryGeneratedColumn()
   _id: number;

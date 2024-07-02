@@ -17,7 +17,7 @@ import { Photos } from '../photos/photos.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity()
-export class Users extends BaseEntity {
+export class Users {
   @PrimaryGeneratedColumn()
   _id: number;
 

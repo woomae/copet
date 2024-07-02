@@ -16,7 +16,7 @@ import { Exclude } from 'class-transformer';
 import { Stars } from '../stars/stars.entity';
 
 @Entity()
-export class Articles extends BaseEntity {
+export class Articles {
   @PrimaryGeneratedColumn()
   _id: number;
 
