@@ -5,32 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/asset/img/check_white.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/activity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/calm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/curiosity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/cute.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/eat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/energy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/extroverted.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/introverted.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/loyalty.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/scared.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/sensitive.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/keyword/sweet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/main/walk.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/common/component/keyword/keyword.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/login/login_keyword.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/font/NotoSans-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/font/NotoSans-Italic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/font/NotoSans-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/font/NotoSans-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/font/NotoSans-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/font/NotoSans-SemiBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/font/NotoSans-Thin.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/main/QA.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/main/banner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/main/daily.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/main/information.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/taps/chaticon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/taps/mainicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/taps/mapicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/taps/profileicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/taps/searchicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/main/main_item.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_agree.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_agree.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_end.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_end.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_type.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/img/main/walk.png" beforeDir="false" afterPath="$PROJECT_DIR$/asset/img/main/walk.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/main_tabbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/main_tabbar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main/main_place.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_place.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main/mainscrollview.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/mainscrollview.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,11 +93,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\taps" />
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\font" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\main" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\keyword" />
-      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\providers" />
-      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\test\copet\app\lib\providers\articles_providers" />
     </key>
   </component>
   <component name="RunManager">

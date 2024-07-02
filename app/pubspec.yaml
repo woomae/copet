@@ -96,6 +96,16 @@ flutter:
     - asset/img/keyword/sweet.png
     - asset/img/main/
     - asset/img/main/walk.png
+    - asset/img/main/daily.png
+    - asset/img/main/information.png
+    - asset/img/main/QA.png
+    - asset/img/main/banner.png
+    - asset/img/taps/
+    - asset/img/taps/mainicon.png
+    - asset/img/taps/chaticon.png
+    - asset/img/taps/searchicon.png
+    - asset/img/taps/mapicon.png
+    - asset/img/taps/profileicon.png
 
 
   # To add assets to your application, add an assets section, like this:
@@ -133,6 +143,24 @@ flutter:
       fonts:
         - asset: asset/font/Yeongdeok Snow Crab.ttf
           weight: 100
+
+    - family: NotoSansKR
+      fonts:
+        - asset: asset/font/NotoSans-Thin.ttf
+          weight: 100
+        - asset: asset/font/NotoSans-Light.ttf
+          weight: 300
+        - asset: asset/font/NotoSans-Regular.ttf
+          weight: 400
+        - asset: asset/font/NotoSans-SemiBold.ttf
+          weight: 600
+        - asset: asset/font/NotoSans-Bold.ttf
+          weight: 700
+        - asset: asset/font/NotoSans-Italic.ttf
+          style: italic
+        - asset: asset/font/NotoSans-Medium.ttf
+          weight: 500
+
   # fonts:
   #   - family: Schyler
   #     fonts:
