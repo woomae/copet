@@ -54,6 +54,7 @@ class Community extends ConsumerWidget {
                       fontFamily: 'SnowCrap',
                       color: Colors.black,
                       fontSize: 25,
+                      letterSpacing: -3,
                     ),
                   ),
                 ),

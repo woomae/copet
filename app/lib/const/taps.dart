@@ -3,6 +3,7 @@ import 'package:pet/main/main_home.dart';
 import 'package:pet/main/main_screen.dart';
 import 'package:pet/pages/community/community_main.dart';
 import 'package:pet/pages/profile/profile_main.dart';
+import 'package:pet/pages/search/search_main.dart';
 
 class TabInfo {
   final IconData icon;
@@ -30,6 +31,7 @@ const TABS = [
   TabInfo(
     icon: Icons.search,
     label: '펫플레이스',
+      screen: mainsearch()
   ),
   TabInfo(
     icon: Icons.place,

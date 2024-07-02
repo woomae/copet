@@ -13,6 +13,8 @@ import 'package:pet/main/main_home.dart';
 import 'package:pet/main/main_screen.dart';
 import 'package:pet/pages/community/community_main.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
+import 'package:pet/pages/search/search_main.dart';
+import 'package:pet/pages/search/search_result.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
@@ -67,7 +69,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: mainhome()
+      home: result()
       //userRef.id == 0 ? mainlogin() :
         //      isRegistered == false ? logintype() :
           //    mainhome()

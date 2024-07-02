@@ -106,6 +106,8 @@ flutter:
     - asset/img/taps/searchicon.png
     - asset/img/taps/mapicon.png
     - asset/img/taps/profileicon.png
+    - asset/img/search/
+    - asset/img/search/searchicon.png
 
 
   # To add assets to your application, add an assets section, like this:

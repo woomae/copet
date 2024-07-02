@@ -546,26 +546,13 @@ class mainscreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '코펫',
-                            style: TextStyle(
-                              fontFamily: 'Segeo',
-                              fontSize: 15,
-                              color: Color(0xFFAFAFAF),
-                            ),
-                          ),
-                          Text(
-                            '문의사항 코펫이메일@gmail.com',
-                            style: TextStyle(
-                              fontFamily: 'Segeo',
-                              fontSize: 15,
-                              color: Color(0xFFAFAFAF),
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        '코펫\n문의사항 코펫이메일@gmail.com',
+                        style: TextStyle(
+                          fontFamily: 'Segeo',
+                          fontSize: 15,
+                          color: Color(0xFFAFAFAF),
+                        ),
                       ),
                     ),
                   ),
