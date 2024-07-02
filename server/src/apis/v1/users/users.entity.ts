@@ -35,7 +35,6 @@ export class Users {
   @Column({ nullable: true })
   pet_category: string;
 
-  @Exclude({ toPlainOnly: true })
   @Column({ type: 'json', nullable: true })
   region: {
     state: string;
