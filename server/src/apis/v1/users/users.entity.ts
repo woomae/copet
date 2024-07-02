@@ -33,7 +33,7 @@ export class Users extends BaseEntity {
   email: string;
 
   @Column({ nullable: true })
-  pet_catagory: string;
+  pet_category: string;
 
   @Exclude({ toPlainOnly: true })
   @Column({ type: 'json', nullable: true })

@@ -1,4 +1,10 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  Controller,
+  DefaultValuePipe,
+  Get,
+  ParseIntPipe,
+  Query,
+} from '@nestjs/common';
 import { MocksService } from './mocks.service';
 
 @Controller({ path: 'mocks', version: '1' })
@@ -6,9 +12,9 @@ export class MocksController {
   constructor(private readonly mocksService: MocksService) {}
   @Get('petPlaces')
   async getPetPlaces(
-    @Query('page') page: number = 1,
-    @Query('size') size: number = 10,
     @Query('region') region: string,
+    @Query('page', new DefaultValuePipe('1'), ParseIntPipe) page?: number,
+    @Query('size', new DefaultValuePipe('10'), ParseIntPipe) size?: number,
   ) {
     const result = await this.mocksService.getPetPlaces(page, size, region);
     return result;
@@ -16,8 +22,8 @@ export class MocksController {
 
   @Get('merchandises')
   async getMerchandises(
-    @Query('page') page: number = 1,
-    @Query('size') size: number = 10,
+    @Query('page', new DefaultValuePipe('1'), ParseIntPipe) page?: number,
+    @Query('size', new DefaultValuePipe('10'), ParseIntPipe) size?: number,
   ) {
     const result = await this.mocksService.getMerchandises(page, size);
     return result;
