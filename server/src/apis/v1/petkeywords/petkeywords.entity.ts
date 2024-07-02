@@ -11,7 +11,7 @@ import { Users } from '../users/users.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity()
-export class PetKeywords extends BaseEntity {
+export class PetKeywords {
   @Exclude({ toPlainOnly: true })
   @PrimaryGeneratedColumn()
   _id: number;

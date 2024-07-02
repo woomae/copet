@@ -17,7 +17,7 @@ import { Photos } from '../photos/photos.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity()
-export class Users extends BaseEntity {
+export class Users {
   @PrimaryGeneratedColumn()
   _id: number;
 
@@ -35,7 +35,6 @@ export class Users extends BaseEntity {
   @Column({ nullable: true })
   pet_category: string;
 
-  @Exclude({ toPlainOnly: true })
   @Column({ type: 'json', nullable: true })
   region: {
     state: string;

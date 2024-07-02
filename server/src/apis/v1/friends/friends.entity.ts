@@ -12,7 +12,7 @@ import { Users } from '../users/users.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity()
-export class Friends extends BaseEntity {
+export class Friends {
   @PrimaryGeneratedColumn()
   _id: number;
 
