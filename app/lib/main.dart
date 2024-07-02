@@ -11,6 +11,7 @@ import 'package:pet/login/login_name.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:pet/main/main_screen.dart';
+import 'package:pet/pages/community/community_main.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';

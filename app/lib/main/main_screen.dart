@@ -66,7 +66,7 @@ class mainscreen extends StatelessWidget {
             pinned: true,
             elevation: 0,
             title: Padding(
-              padding: const EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.only(left: 20),
               child: Text(
                 'COPET',
                 style: TextStyle(
