@@ -2,12 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pet/const/models/articles.dart';
 
+import '../dioBaseOpstions.dart';
+
 class GetArticles {
   static Future<List<Article>> getArticles() async {
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
 
-    final res = await Dio().get('$apiKey/articles?size=100');
+    final res = await dio.get('$apiKey/articles?size=100');
     final Articles articles = Articles.fromJson(json: res.data['result']);
     final List<Article> comments = articles.article.map(
             (e) => Article.fromJson(e as Map<String, dynamic>)).toList();
@@ -20,7 +22,7 @@ class GetArticles {
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
 
-    final res = await Dio().get('$apiKey/articles?size=100&owner=$userId');
+    final res = await dio.get('$apiKey/articles?size=100&owner=$userId');
     final Articles articles = Articles.fromJson(json: res.data['result']);
     final List<Article> comments = articles.article.map(
             (e) => Article.fromJson(e as Map<String, dynamic>)).toList();
@@ -36,7 +38,7 @@ class GetArticles {
     List<Article> likedArticlesList = [];
     Article comment;
 
-    final getStarRes = await Dio().get('$apiKey/stars',data: { 'clicked_user_id' : userId});
+    final getStarRes = await dio.get('$apiKey/stars',data: { 'clicked_user_id' : userId});
     final List<Stars> starResData = getStarRes.data['result'];
     print(starResData.runtimeType);
     if(starResData != []){
@@ -44,7 +46,7 @@ class GetArticles {
               (e) => Stars.fromJson(e as Map<String, dynamic>)).toList();
 
       stars.map((e) async {
-        final res = await Dio().get('$apiKey/articles/$e');
+        final res = await dio.get('$apiKey/articles/$e');
         print('res : $res');
         comment = Article.fromJson(res.data['result']);
         likedArticlesList.add(comment);
@@ -57,7 +59,7 @@ class GetArticles {
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
 
-    final res = await Dio().get('$apiKey/articles/$articleId');
+    final res = await dio.get('$apiKey/articles/$articleId');
     final Articles articles = Articles.fromJson(json: res.data['result']);
     final Article comments = Article.fromJson(articles as Map<String, dynamic>);
 

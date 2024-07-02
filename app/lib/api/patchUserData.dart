@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:pet/api/dioBaseOpstions.dart';
 import 'package:pet/const/models/user_data_model.dart';
 
 import '../const/models/region_model.dart';
@@ -38,7 +39,7 @@ class PatchUserData{
 
     final token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcl9pZCI6IjMzOTM3ODQzMzkiLCJlbWFpbCI6Inp4Y3YyOTg3QG5hdmVyLmNvbSIsInVzZXJfaWQiOjMsImlhdCI6MTcxOTg5NzQyNCwiZXhwIjoxNzIwNTAyMjI0fQ.8YDhBvcLbBsoUfCvAXflOVgWFsHRqzNHgDYfA0Xru4E';
 
-    final res = await Dio().patch(
+    final res = await dio.patch(
         '$apiKey/users/',
         data: formData,
         options: Options(

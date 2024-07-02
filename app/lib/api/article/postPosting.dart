@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../dioBaseOpstions.dart';
+
 class PostPosting{
 
   static Future<Response> postPosting({
@@ -32,7 +34,6 @@ class PostPosting{
 
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
-    Dio dio = Dio();
     dio.options.contentType = 'multipart/form-data';
     final res = await dio.post('$apiKey/articles',data: formData);
     print('-----------------------------------------------------------------$res');
