@@ -8,7 +8,7 @@ class textformfield extends StatelessWidget {
   textformfield({
     super.key,
     required this.onChanged,
-    this.text
+    this.text,
     required this.hintText,
   });
 

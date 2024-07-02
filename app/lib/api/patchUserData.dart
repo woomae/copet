@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pet/const/models/user_data_model.dart';
@@ -7,12 +9,11 @@ import '../const/models/region_model.dart';
 class PatchUserData{
 
   static Future<Response> patchUserData({
-    required int? userId,
     String? nickname,
     String? pet_category,
     Region? region,
     String? petimg,
-    String? petkeyword,
+    List<String>? petkeyword,
     String? intro,
   }) async{
 
@@ -20,25 +21,31 @@ class PatchUserData{
 
     final FormData formData = FormData();
     if (nickname != null && nickname != '') formData.fields.add(MapEntry('nickname', nickname));
-    if (pet_category != null && pet_category != '') formData.fields.add(MapEntry('pet_catagory', pet_category));
+    if (pet_category != null && pet_category != '') formData.fields.add(MapEntry('pet_category', pet_category));
     if (region != null) {
-      if (region.state != null) formData.fields.add(MapEntry('region_state', region.state!));
-      if (region.city != null) formData.fields.add(MapEntry('region_city', region.city!));
-      if (region.district != null) formData.fields.add(MapEntry('region_district', region.district!));
+      if (region.state != null) formData.fields.add(MapEntry('region[state]', region.state!));
+      if (region.city != null) formData.fields.add(MapEntry('region[city]', region.city!));
+      if (region.district != null) formData.fields.add(MapEntry('region[district]', region.district!));
     }
-    if (petkeyword != null && petkeyword !='') formData.fields.add(MapEntry('petkeyword', petkeyword));
+    if (petkeyword != null ) {
+        formData.fields.add(MapEntry('petkeyword', jsonEncode(petkeyword)));
+    }
     if (intro != null && intro != '') formData.fields.add(MapEntry('intro', intro));
     if (petimg != null) formData.files.add(MapEntry('petimg', MultipartFile.fromFileSync(petimg)));
 
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
+
+    final token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcl9pZCI6IjMzOTM3ODQzMzkiLCJlbWFpbCI6Inp4Y3YyOTg3QG5hdmVyLmNvbSIsInVzZXJfaWQiOjMsImlhdCI6MTcxOTg5NzQyNCwiZXhwIjoxNzIwNTAyMjI0fQ.8YDhBvcLbBsoUfCvAXflOVgWFsHRqzNHgDYfA0Xru4E';
+
     final res = await Dio().patch(
         '$apiKey/users/',
         data: formData,
         options: Options(
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Cookie' : 'user='
+//            'Authorization': 'Bearer <$token>',
+            'Cookie' : 'user=$token'
           }
         )
     );

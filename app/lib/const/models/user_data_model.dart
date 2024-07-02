@@ -15,7 +15,7 @@ class UserDataModel {
   final Region? region;
   final String? intro;
   final String? photo;
-  final List<PetKeyWords>? petkeyword;
+  final List<String>? petkeyword;
 
   UserDataModel({
     required this.nickname,

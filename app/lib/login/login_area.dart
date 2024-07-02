@@ -6,6 +6,7 @@ import 'package:pet/const/regions/jellanamdo/jeollanamdo.dart';
 import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/login/login_agree.dart';
 import 'package:pet/login/login_end.dart';
+import 'package:pet/login/login_keyword.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
@@ -31,16 +32,6 @@ class loginarea extends ConsumerWidget {
     final List<String>? citiesName = City.getCityListByString(userDataState.region?.state);
     final List<String>? districtsName = District.getDistrictListByString(userDataState.region?.city);
 
-    ref.listen(userDataProvider.select((userData) => userData.region?.state), (previous, next) {
-      ref.read(userDataProvider.notifier).updateUserData( state_: next,city: null, district: null);
-    });
-    ref.listen(userDataProvider.select((userData) => userData.region?.city), (previous, next) {
-      ref.read(userDataProvider.notifier).updateUserData(state_: userDataState.region?.state, city: next, district: null);
-    });
-    ref.listen(userDataProvider.select((userData) => userData.region?.district), (previous, next) {
-      ref.read(userDataProvider.notifier).updateUserData(
-          state_: userDataState.region?.state, city: userDataState.region?.city, district: next);
-    });
     //지역 상수에서 각 단위의 이름만 추출해서 배열화
     //이미 읍면동이 선택된 상태에서 시를 선택했을 때, 이전의  읍면동과 시가 다르면 초기화.....
 
@@ -100,7 +91,7 @@ class loginarea extends ConsumerWidget {
                   dropDownList: regionsName,
                   currentItem: userDataState.region?.state,
                   onPressed: (String e){
-                    ref.read(userDataProvider.notifier).updateUserData(state_: e);
+                    ref.read(userDataProvider.notifier).updateUserData(state_: e, city: '', district: '');
                 },),
                 const SizedBox(height: 10.0),
 
@@ -111,14 +102,14 @@ class loginarea extends ConsumerWidget {
                       dropDownList: citiesName,
                       currentItem: userDataState.region?.city,
                       onPressed: (String e){
-                        ref.read(userDataProvider.notifier).updateUserData(city: e);                      }
+                        ref.read(userDataProvider.notifier).updateUserData(city: e, district: '');                      }
                     ),
                     const SizedBox(width: 10.0),
                     DropDownButton(
                       dropDownList: districtsName,
                       currentItem: userDataState.region?.district,
                       onPressed: (String e){
-                        print(districtsName);
+                        print(e);
                           ref.read(userDataProvider.notifier).updateUserData(district: e);
                     },),
                   ],
@@ -126,7 +117,7 @@ class loginarea extends ConsumerWidget {
 
               ],
             ),
-          ),
+
           Column(
             children: [
               Row(
@@ -138,9 +129,34 @@ class loginarea extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 10),
+            ],
+          ),
+            Spacer(),
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                final state = ref.watch(userDataProvider);
+                bool isInputNotEmpty = state.nickname?.isNotEmpty ?? false;
+                return Nextbutton(
+                  onPressed: () {
+                    if (state.region != null && state.region?.state != null
+                        && state.region?.city != null && state.region?.district != null) {
+                      ref.read(userDataProvider.notifier).updateUserData(state_: state.region?.state);
+                      ref.read(userDataProvider.notifier).updateUserData(city: state.region?.city);
+                      ref.read(userDataProvider.notifier).updateUserData(district: state.region?.district);
 
-        ],
-      ),
+                      print(state.region?.state);
+                      print(state.region?.city);
+                      print(state.region?.district);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => loginkeyword()));
+                    }
+                  },
+                  enabled: isInputNotEmpty,
+                );
+              },
+            ),
+        ])
+      )
     );
   }
 }

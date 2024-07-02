@@ -24,13 +24,20 @@ class UserDataNotifier extends StateNotifier<UserDataModel> {
     String? city,
     String? district,
     String? photo,
-    List<PetKeyWords>? petkeyword,
+    List<String>? petkeyword,
     String? intro,
   }) {
+    state_ = state_ == null ? state.region?.state : (state_ == '' ? null : state_);
+    city = city == null ? state.region?.city : (city == '' ? null : city);
+    district = district == null ? state.region?.district : (district == '' ? null : district);
+
     state = UserDataModel(
         nickname: nickname ?? state.nickname,
         pet_category: pet_category ?? state.pet_category,
-        region: Region(state: state_, city: city, district: district),
+        region: Region(
+            state: state_,
+            city: city,
+            district: district),
         photo: photo ?? state.photo,
         petkeyword: petkeyword ?? state.petkeyword,
         intro: intro ?? state.intro
