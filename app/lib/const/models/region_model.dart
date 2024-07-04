@@ -8,6 +8,10 @@ class Region {
 
   Region({required this.state, required this.city, required this.district});
 
+  Region.fromJson({required Map<String, dynamic> json}):
+      state = json['state'] ?? '',
+      city = json['city'] ?? '',
+      district = json['district'] ?? '';
 }
 
 class State_ {

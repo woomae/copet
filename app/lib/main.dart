@@ -16,6 +16,8 @@ import 'package:pet/pages/community/article_page.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
+import 'api/dioBaseOpstions.dart';
+
 void main() async{
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,14 +38,14 @@ class _App extends ConsumerWidget {
     final userId = userRef.id;
     //쿠키를 가져온 이후
     if(userId != 0){
+      print('------------------------------------- userid : $userId');
       final res = GetUser.getUser(userRef.id.toString())
           .then((res) => ref.read(UserProvider.notifier).storeUserData(res))
           .onError((error, stackTrace){
             print('------$error');
-            isRegistered = false;
+            ref.invalidate(UserProvider);
           });
     }
-    print('------------------------------------- userid : $userId');
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -68,10 +70,10 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: mainscreen()
-      //userRef.id == 0 ? mainlogin() :
-      //isRegistered == false ? logintype() :
-      //mainhome()
+      home:
+      userRef.id == 0 ? mainlogin() :
+      isRegistered == false ? logintype() :
+      mainhome()
     );
   }
 }

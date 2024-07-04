@@ -11,8 +11,7 @@ class logintype extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(userDataProvider);
-    bool isInputNotEmpty = state.pet_category?.isNotEmpty ?? false;
+    final state = ref.read(userDataProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -74,17 +73,24 @@ class logintype extends ConsumerWidget {
               },
             ),
             Spacer(),
-            Nextbutton(
-              onPressed: () {
-                if (state.pet_category != null && state.pet_category != '') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const loginname()),
-                  );
-                  print(state.pet_category);
-                }
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                final state = ref.watch(userDataProvider);
+                bool isInputNotEmpty = state.pet_category?.isNotEmpty ?? false;
+
+                return Nextbutton(
+                onPressed: () {
+                  if (state.pet_category != null && state.pet_category != '') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const loginname()),
+                    );
+                    print(state.pet_category);
+                  }
+                },
+                enabled: isInputNotEmpty,
+                );
               },
-              enabled: isInputNotEmpty,
             ),
           ],
         ),
@@ -92,6 +98,7 @@ class logintype extends ConsumerWidget {
     );
   }
 }
+
 
 class _Title extends StatelessWidget {
   const _Title({super.key});

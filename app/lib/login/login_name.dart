@@ -13,8 +13,7 @@ class loginname extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(userDataProvider);
-    bool isInputNotEmpty = state.nickname?.isNotEmpty ?? false;
+    final state = ref.read(userDataProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -74,15 +73,21 @@ class loginname extends ConsumerWidget {
               },
             ),
             Spacer(),
-            Nextbutton(
-              onPressed: () {
-                if (state.nickname != null && state.nickname != '') {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => loginarea()));
-                  print(state.nickname);
-                }
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                final state = ref.watch(userDataProvider);
+                bool isInputNotEmpty = state.nickname?.isNotEmpty ?? false;
+                return Nextbutton(
+                  onPressed: () {
+                    if (state.nickname != null && state.nickname != '') {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => loginarea()));
+                      print(state.nickname);
+                    }
+                  },
+                  enabled: isInputNotEmpty,
+                );
               },
-              enabled: isInputNotEmpty,
             ),
           ],
         ),
