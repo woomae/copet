@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:pet/api/dioBaseOpstions.dart';
 import 'package:pet/const/models/token_user_model.dart';
+import 'package:pet/pages/loading_page.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
 class WebviewLoginWidget extends StatefulWidget {
@@ -63,7 +65,7 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
                 else{
                   //에러처리
                 }
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoadingPage()));
               }
             }
         );

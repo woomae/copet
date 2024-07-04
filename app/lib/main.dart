@@ -32,20 +32,6 @@ class _App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userRef = ref.watch(UserProvider);
-    bool isRegistered = userRef.nickname != '' ? true : false;
-    print(isRegistered);
-    final userId = userRef.id;
-    //쿠키를 가져온 이후
-    if(userId != 0){
-      print('------------------------------------- userid : $userId');
-      final res = GetUser.getUser(userRef.id.toString())
-          .then((res) => ref.read(UserProvider.notifier).storeUserData(res))
-          .onError((error, stackTrace){
-            print('------$error');
-            ref.invalidate(UserProvider);
-          });
-    }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -70,10 +56,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home:
-      userRef.id == 0 ? mainlogin() :
-      isRegistered == false ? logintype() :
-      mainhome()
+      home: mainlogin()
     );
   }
 }

@@ -28,7 +28,7 @@ UsersModel.fromJson({required Map<String, dynamic> json}):
   nickname = json['nickname'] ?? '',
   pet_category = json['pet_category'] ?? '',
   region = Region.fromJson(json: json['region']),
-  petimg = json['petimg'] ?? '',
-  petkeyword = json['petkeyword'] ?? '',
+  petimg = List.from(json['petimg'] ?? []),
+  petkeyword = List<String>.from(json['petkeyword'] ?? []),
   intro = json['intro'] ?? '';
 }
