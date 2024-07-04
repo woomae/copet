@@ -305,9 +305,10 @@ class nextbutton_keyword extends ConsumerWidget {
                   region: state.region,
                   petkeyword: state.petkeyword
               );
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const loginend()),
+                MaterialPageRoute(builder: (context) => loginend()),
+                    (Route<dynamic> route) => false,
               );
             }
             catch(e){

@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:pet/api/dioBaseOpstions.dart';
 import 'package:pet/const/models/token_user_model.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
@@ -33,7 +34,6 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
   build(BuildContext context){
     return SafeArea(
       child: Consumer(builder:(context, provider, child){
-        final ref = provider.read(UserProvider);
         return  InAppWebView(
             key: webViewKey,
             initialUrlRequest: URLRequest(url: WebUri(widget.url)),
@@ -50,6 +50,9 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
                   //쿠키에서 userid가져온 후, provider를 통해 id 업데이트
                   final decodedUser = JwtDecoder.decode(cookieValue);
                   final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
+                  //dio baseoptio 에 토큰 추가
+                  //전역 provider에 userid 추가
+                  dio.options.headers['Cookie'] = 'user=$cookieValue';
                   provider.read(UserProvider.notifier).updateUser(id: parsedUser.userId);
                 }
                 if(cookie[0].value == null){
