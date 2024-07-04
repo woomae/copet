@@ -37,7 +37,7 @@ class ProfileContainer extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.location_on_outlined),
-                Text(state.region),
+                Text(state.region.state!),
               ],
             )
           ],
@@ -51,7 +51,7 @@ class ProfileContainer extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child:Column(
                   children: [
-                    Text(state.petkeyword, style: Theme.of(context).textTheme.bodyLarge,)
+                    Text(state.petkeyword[0], style: Theme.of(context).textTheme.bodyLarge,)
                   ],)
         // 띄어쓰기 기준으로 슬라이싱해서 .toList() 하면 될듯?
         )]

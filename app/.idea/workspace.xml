@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="fix: 원활한 dio options 수정을 위한 dio 객체 통일">
+    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="fix: 회원가입 api test 완료&#10;- 로그인 시 웹뷰 단에서 dio header에 토큰값 저장">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/getUser.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/getUser.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/region_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/region_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/users_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/users_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_end.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_end.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_keyword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_keyword.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/user_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/user_notifier_provider.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +19,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="develop" />
+        <entry key="$PROJECT_DIR$/.." value="feature/map" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -443,7 +435,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719901678814</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="fix: 회원가입 api test 완료&#10;- 로그인 시 웹뷰 단에서 dio header에 토큰값 저장">
+      <option name="closed" value="true" />
+      <created>1720071484337</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1720071484337</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -458,7 +458,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="constant, provider 추가" />
     <MESSAGE value="profilePage userData 부분 Provider 활용" />
     <MESSAGE value="articles 테스트 완료" />
     <MESSAGE value="forkRepo와 기존 작업 repo 동일하게 변경" />
@@ -483,6 +482,7 @@
     <MESSAGE value="postList 최상단 스크롤 시 refresh 기능" />
     <MESSAGE value="fix: 회원가입 중 입력한 정보를 회원가입 내내 유지하도록 수정&#10;- user data patch api 에러 수정" />
     <MESSAGE value="fix: 원활한 dio options 수정을 위한 dio 객체 통일" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 원활한 dio options 수정을 위한 dio 객체 통일" />
+    <MESSAGE value="fix: 회원가입 api test 완료&#10;- 로그인 시 웹뷰 단에서 dio header에 토큰값 저장" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 회원가입 api test 완료&#10;- 로그인 시 웹뷰 단에서 dio header에 토큰값 저장" />
   </component>
 </project>
