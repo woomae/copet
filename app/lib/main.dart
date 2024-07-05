@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -16,6 +17,13 @@ import 'const/models/token_user_model.dart';
 void main() async{
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+
+  final clientId = dotenv.env['CLIENT_ID'];
+  await NaverMapSdk.instance.initialize(
+      clientId: clientId,
+      onAuthFailed: (error) {
+        print('네이버 맵 인증오류 : $error');
+      });
 
   runApp( //껐다 켜기만 해도 runApp 실행됨.
       ProviderScope(
