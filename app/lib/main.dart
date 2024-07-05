@@ -1,52 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:pet/api/getUser.dart';
-import 'package:pet/login/login_agree.dart';
-import 'package:pet/login/login_area.dart';
-import 'package:pet/login/login_end.dart';
-import 'package:pet/login/login_keyword.dart';
 import 'package:pet/login/login_main.dart';
 import 'package:pet/login/login_name.dart';
-import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
-import 'package:pet/main/main_screen.dart';
-import 'package:pet/pages/profile/profile_modify.dart';
-import 'package:pet/pages/community/article_page.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
 import 'api/dioBaseOpstions.dart';
+import 'const/models/token_user_model.dart';
 
 void main() async{
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp( //껐다 켜기만 해도 runApp 실행됨.
-      const ProviderScope(
+      ProviderScope(
           child: _App()),
   );
 }
 class _App extends ConsumerWidget {
-  const _App({super.key});
+  _App({super.key});
+
+  Future<bool> checkAccessToken(WidgetRef ref) async {
+    final storage = FlutterSecureStorage();
+    final accessToken = await storage.read(key: 'ACCESS_TOKEN');
+    print('accessToken : $accessToken');
+    if (accessToken != null) {
+      final decodedUser = JwtDecoder.decode(accessToken);
+      final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
+      dio.options.headers = {
+        'Cookie' : 'user=$accessToken'
+      };
+      final res = await GetUser.getUser(parsedUser.userId.toString());
+      print(res.nickname);
+      ref.read(UserProvider.notifier).storeUserData(res);
+      // 여기서 필요에 따라 사용자 등록 여부를 확인하고 true 또는 false 반환
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userRef = ref.watch(UserProvider);
-    bool isRegistered = userRef.nickname != '' ? true : false;
-    print(isRegistered);
-    final userId = userRef.id;
-    //쿠키를 가져온 이후
-    if(userId != 0){
-      print('------------------------------------- userid : $userId');
-      final res = GetUser.getUser(userRef.id.toString())
-          .then((res) => ref.read(UserProvider.notifier).storeUserData(res))
-          .onError((error, stackTrace){
-            print('------$error');
-            ref.invalidate(UserProvider);
-          });
-    }
-
+    //토큰 소지 시 토큰 기반으로 userid 뽑아내서 유저 조회하고 바로 mainhome으로 보내는 로직 필요함.
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -70,10 +72,42 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home:
-      userRef.id == 0 ? mainlogin() :
-      isRegistered == false ? logintype() :
-      mainhome()
+
+      home: Container(
+        color: WHITE,
+        child: FutureBuilder(
+          future: checkAccessToken(ref),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot){
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: SizedBox(
+                  width: 75,
+                  height: 75,
+                  child: CircularProgressIndicator(
+                    color: PRIMARY_COLOR,
+                    strokeWidth: 3,
+                  ),
+                ),
+              );
+            }
+            //비동기 작업 (회원가입 여부 판별) 완료 후
+            else{
+              if(snapshot.data == true){
+                final userNickname = ref.read(UserProvider).nickname;
+                //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
+                if(userNickname == ''){
+                  return loginname();
+                }
+                else return mainhome();
+              }
+              if(snapshot.data == false){
+                return mainlogin();
+              }
+              else return SizedBox();
+            }
+          },
+        ),
+      )
     );
   }
 }
