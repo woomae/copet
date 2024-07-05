@@ -685,7 +685,7 @@ class MoreButton_hot extends StatelessWidget {
     return TextButton(
       onPressed: () {},
       style: TextButton.styleFrom(
-        primary: Color(0xFFD9D9D9),
+        foregroundColor: Color(0xFFD9D9D9),
         backgroundColor: Colors.white,
         textStyle: TextStyle(
           fontFamily: 'NotoSansKR',
@@ -710,7 +710,7 @@ class MoreButton_place extends StatelessWidget {
         );
       },
       style: TextButton.styleFrom(
-        primary: Color(0xFFD9D9D9),
+        foregroundColor: Color(0xFFD9D9D9),
         backgroundColor: Colors.white,
         textStyle: TextStyle(
           fontFamily: 'NotoSansKR',
@@ -735,7 +735,7 @@ class MoreButton_item extends StatelessWidget {
         );
       },
       style: TextButton.styleFrom(
-        primary: Color(0xFFD9D9D9),
+        foregroundColor: Color(0xFFD9D9D9),
         backgroundColor: Colors.white,
         textStyle: TextStyle(
           fontFamily: 'NotoSansKR',

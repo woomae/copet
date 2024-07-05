@@ -7,7 +7,6 @@ import 'package:pet/common/layout/default_layout.dart';
 import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 import '../common/component/main_tabbar.dart';
 import '../common/component/utils/webview_login_widget.dart';
@@ -263,12 +262,6 @@ class logoutscreen extends StatelessWidget {
     return ElevatedButton(
 
           onPressed: () async {
-            // 쿠키 매니저 생성
-            final cookieManager = WebviewCookieManager();
-
-            // 에뮬레이터의 쿠키 삭제
-            await cookieManager.clearCookies();
-
             // 쿠키 삭제 후, 로그아웃 화면으로 이동
             Navigator.pushReplacementNamed(context, '/login_main');
           },
