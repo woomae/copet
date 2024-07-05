@@ -41,8 +41,8 @@ async function bootstrap() {
   app.use(cookieParser()); // cookieParser 사용
 
   // 최대 요청 본문 크기 설정
-  app.use(bodyParser.json({ limit: '25mb' }));
-  app.use(bodyParser.urlencoded({ limit: '25mb', extended: true }));
+  // app.use(bodyParser.json({ limit: '25mb' }));
+  // app.use(bodyParser.urlencoded({ limit: '25mb', extended: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalPipes(
     new ValidationPipe({
