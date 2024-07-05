@@ -9,6 +9,8 @@ import ApiError from 'src/libs/res/api.errors';
 import ApiCodes from 'src/libs/res/api.codes';
 import ApiMessages from 'src/libs/res/api.messages';
 import { UpdateCommentDto } from 'src/dto/update-comment.dto';
+import { NotificationsService } from '../notifications/notifications.service';
+import { commentPayloads } from 'src/libs/notifications/payloads/commentPayloads';
 
 @Injectable()
 export class CommentsService {
@@ -17,6 +19,7 @@ export class CommentsService {
     private commentRepository: CommentRepository,
     private usersService: UsersService,
     private articlesService: ArticlesService,
+    private notificationsService: NotificationsService,
   ) {}
   async getAllCommentsByArticle(
     article_id: number,
@@ -33,7 +36,17 @@ export class CommentsService {
     bodyData.nickname = (await this.usersService.findUserById(id)).nickname;
     bodyData.owner_id = id;
     await this.articlesService.increaseCommentCount(bodyData.article_id);
-    return await this.commentRepository.createComment(bodyData);
+    const result = await this.commentRepository.createComment(bodyData);
+    //알림 전송
+    const receiveUserId = (
+      await this.articlesService.getArticleById(bodyData.article_id)
+    ).owner_id;
+    await this.notificationsService.sendNotification(
+      receiveUserId,
+      id,
+      commentPayloads,
+    );
+    return result;
   }
   async updateComment(
     id: number,

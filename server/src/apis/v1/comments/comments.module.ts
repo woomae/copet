@@ -4,10 +4,11 @@ import { CommentsService } from './comments.service';
 import { CommentRepository } from './comments.repository';
 import { UsersModule } from '../users/users.module';
 import { ArticlesModule } from '../articles/articles.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   controllers: [CommentsController],
   providers: [CommentsService, CommentRepository],
-  imports: [UsersModule, ArticlesModule],
+  imports: [UsersModule, ArticlesModule, NotificationsModule],
 })
 export class CommentsModule {}

@@ -25,6 +25,10 @@ export class Users {
   @Column({ unique: true })
   provider_id: string;
 
+  @Exclude({ toPlainOnly: true })
+  @Column({ nullable: true })
+  firebase_token: string;
+
   @Column({ nullable: true })
   nickname: string;
 

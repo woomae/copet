@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Patch,
+  Post,
   Req,
   UploadedFiles,
   UseGuards,
@@ -15,6 +16,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { UpdateUserDto } from 'src/dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
 import { Payload } from '../auth/jwt/jwt.payload';
+import { User } from 'src/common/decorators/user.decorator';
 
 @Controller({ path: 'users', version: '1' })
 export class UsersController {
@@ -27,13 +29,12 @@ export class UsersController {
     }),
   )
   async initUser(
-    @Req() req: Request,
+    @User() user: Payload,
     @UploadedFiles() file: { petimg: Express.Multer.File[] },
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    const userPayload = req.user as Payload;
     const result = await this.usersService.initUser(
-      userPayload.user_id,
+      user.user_id,
       updateUserDto,
       file,
     );
@@ -42,6 +43,13 @@ export class UsersController {
   @Get(':id')
   async findUser(@Param('id') id: number) {
     const result = await this.usersService.findUserById(id);
+    return result;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('save-token')
+  async saveToken(@User() user: Payload, @Body() body: { token: string }) {
+    const result = await this.usersService.saveToken(user.user_id, body.token);
     return result;
   }
 }

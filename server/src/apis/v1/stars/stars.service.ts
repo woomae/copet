@@ -6,6 +6,8 @@ import { ArticlesService } from '../articles/articles.service';
 import ApiError from 'src/libs/res/api.errors';
 import ApiCodes from 'src/libs/res/api.codes';
 import ApiMessages from 'src/libs/res/api.messages';
+import { NotificationsService } from '../notifications/notifications.service';
+import { starPayloads } from 'src/libs/notifications/payloads/starPayloads';
 
 @Injectable()
 export class StarsService {
@@ -13,13 +15,15 @@ export class StarsService {
     @InjectRepository(StarsRepository)
     private starsRepository: StarsRepository,
     private articlesService: ArticlesService,
+    private notificationsService: NotificationsService,
   ) {}
   async getAllStar(id: number): Promise<Stars[]> {
     return await this.starsRepository.getAllStar(id);
   }
   async likeRequest(id: number, article_id: number): Promise<Stars> {
+    const articleData = await this.articlesService.getArticleById(article_id);
     //없는 article_id인지 확인
-    if (!(await this.articlesService.getArticleById(article_id)))
+    if (!articleData)
       throw new ApiError(ApiCodes.NOT_FOUND, ApiMessages.NOT_FOUND, {
         message: 'article_id not found',
       });
@@ -35,6 +39,13 @@ export class StarsService {
     const starData = new Stars();
     starData.clicked_user_id = id;
     starData.article_id = article_id;
-    return await this.starsRepository.createLikeRequest(starData);
+    const result = await this.starsRepository.createLikeRequest(starData);
+    //알림 전송
+    await this.notificationsService.sendNotification(
+      articleData.owner_id,
+      id,
+      starPayloads,
+    );
+    return result;
   }
 }

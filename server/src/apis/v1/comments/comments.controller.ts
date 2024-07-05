@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from 'src/dto/create-comment.dto';
-import { Request } from 'express';
 import { Payload } from '../auth/jwt/jwt.payload';
 import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
 import { UpdateCommentDto } from 'src/dto/update-comment.dto';
+import { User } from 'src/common/decorators/user.decorator';
 
 @Controller({ path: 'comments', version: '1' })
 export class CommentsController {
@@ -27,10 +27,12 @@ export class CommentsController {
   }
   @UseGuards(JwtAuthGuard)
   @Post('')
-  async createComment(@Req() req: Request, @Body() bodyData: CreateCommentDto) {
-    const userPayload = req.user as Payload;
+  async createComment(
+    @User() user: Payload,
+    @Body() bodyData: CreateCommentDto,
+  ) {
     const result = await this.commentsService.createComment(
-      userPayload.user_id,
+      user.user_id,
       bodyData,
     );
     return result;
@@ -38,14 +40,13 @@ export class CommentsController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async updateComment(
-    @Req() req: Request,
+    @User() user: Payload,
     @Param('id') id: number,
     @Body() updateCommentDto: UpdateCommentDto,
   ) {
-    const userPayload = req.user as Payload;
     const result = await this.commentsService.updateComment(
       id,
-      userPayload.user_id,
+      user.user_id,
       updateCommentDto,
     );
     return result;
@@ -53,12 +54,8 @@ export class CommentsController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteComment(@Param('id') id: number, @Req() req: Request) {
-    const userPayload = req.user as Payload;
-    const result = await this.commentsService.deleteComment(
-      id,
-      userPayload.user_id,
-    );
+  async deleteComment(@User() user: Payload, @Param('id') id: number) {
+    const result = await this.commentsService.deleteComment(id, user.user_id);
     return result;
   }
 }
