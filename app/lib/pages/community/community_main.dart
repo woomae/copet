@@ -30,7 +30,7 @@ class Community extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final articlesProvider = StateProvider<Future<List<Comments>>>(
+    final articlesProvider = StateProvider<Future<List<Article>>>(
         (ref) => GetArticles.getArticles());
     final articles = ref.watch(articlesProvider);
     final selectedCategory = ref.watch(selectedCategoryProvider);
