@@ -7,10 +7,12 @@ export class NotificationsRepository extends Repository<Notifications> {
   constructor(dataSource: DataSource) {
     super(Notifications, dataSource.createEntityManager());
   }
-  async getNotifications(user_id: number) {
-    const result = await this.createQueryBuilder('notifications')
+  async getNotifications(user_id: number, page: number, size: number) {
+    const queryBuilder = this.createQueryBuilder('notifications')
       .where('notifications.user_id = :user_id', { user_id: user_id })
-      .getMany();
-    return result;
+      .take(size)
+      .skip((page - 1) * size);
+    const [notifications, total] = await queryBuilder.getManyAndCount();
+    return { total, notifications: notifications };
   }
 }

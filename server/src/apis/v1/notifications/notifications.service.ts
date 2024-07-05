@@ -5,6 +5,10 @@ import { Notifications } from './notification.entity';
 import { TokenMessage } from 'firebase-admin/lib/messaging/messaging-api';
 import { NotificationsRepository } from './notifications.repository';
 import { UsersService } from '../users/users.service';
+import { getNotificationQueryDto } from 'src/dto/getNotificationQuery.dto';
+import ApiError from 'src/libs/res/api.errors';
+import ApiCodes from 'src/libs/res/api.codes';
+import ApiMessages from 'src/libs/res/api.messages';
 
 @Injectable()
 export class NotificationsService {
@@ -50,8 +54,27 @@ export class NotificationsService {
       });
     return result;
   }
-  async getNotifications(user_id: number) {
-    const result = await this.notificationsRepository.getNotifications(user_id);
+  async getNotifications(user_id: number, query: getNotificationQueryDto) {
+    const result = await this.notificationsRepository.getNotifications(
+      user_id,
+      query.page,
+      query.size,
+    );
+    return result;
+  }
+  async deleteNotification(notificationId: number) {
+    //하나 조회해서 본인거 맞느지 확인
+    const notificaton = await this.notificationsRepository.findOneBy({
+      _id: notificationId,
+    });
+    if (!notificaton) {
+      throw new ApiError(ApiCodes.NOT_FOUND, ApiMessages.NOT_FOUND, {
+        message: '알림을 찾을 수 없습니다.',
+      });
+    }
+    const result = await this.notificationsRepository.delete({
+      _id: notificationId,
+    });
     return result;
   }
 }
