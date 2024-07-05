@@ -236,23 +236,23 @@ class _authkakao extends StatelessWidget {
   }
 }
 
-class test extends StatelessWidget {
-  const test({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => maintabbar(),
-        ));
-      },
-      child: Text(
-        'test',
-      ),
-    );
-  }
-}
+// class test extends StatelessWidget {
+//   const test({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return ElevatedButton(
+//       onPressed: () {
+//         Navigator.of(context).push(MaterialPageRoute(
+//           builder: (_) => maintabbar(),
+//         ));
+//       },
+//       child: Text(
+//         'test',
+//       ),
+//     );
+//   }
+// }
 
 class logoutscreen extends StatelessWidget {
   const logoutscreen({super.key});

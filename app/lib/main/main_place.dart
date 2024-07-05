@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet/main/main_home.dart';
 
 import 'main_screen.dart';
 
@@ -21,14 +22,17 @@ class mainplace extends StatelessWidget {
             backgroundColor: Colors.white,
             pinned: true,
             elevation: 0,
-            title: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                'COPET',
-                style: TextStyle(
-                  fontFamily: 'Poetsen',
-                  color: Colors.black,
-                  fontSize: 25,
+            title: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  'COPET',
+                  style: TextStyle(
+                    fontFamily: 'Poetsen',
+                    color: Colors.black,
+                    fontSize: 25,
+                  ),
                 ),
               ),
             ),
@@ -41,7 +45,7 @@ class mainplace extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const mainscreen()),
+                  MaterialPageRoute(builder: (context) => const mainhome()),
                 );
               },
             ),
@@ -59,18 +63,19 @@ class mainplace extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _Title(),
-                  const SizedBox(height: 10.0),
-                  Center(
-                    child: Container(
-                      height: 45,
-                      width: 380,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
-                        border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Center(
+                      child: Container(
+                        height: 45,
+                        width: 380,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
+                          border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 28),
+                        child: DropdownButtonExample1(),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 28),
-                      child: DropdownButtonExample1(),
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -78,28 +83,33 @@ class mainplace extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Container(
-                          height: 45,
-                          width: 185,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
-                            border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Container(
+                            height: 45,
+                            width: 185,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
+                              border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 28),
+                            child: DropdownButtonExample2(),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 28),
-                          child: DropdownButtonExample2(),
                         ),
                       ),
-                      const SizedBox(width: 10.0),
                       Center(
-                        child: Container(
-                          height: 45,
-                          width: 185,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
-                            border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Container(
+                            height: 45,
+                            width: 185,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
+                              border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 28),
+                            child: DropdownButtonExample3(),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 28),
-                          child: DropdownButtonExample3(),
                         ),
                       ),
                     ],
@@ -109,9 +119,9 @@ class mainplace extends StatelessWidget {
                   SingleChildScrollView(
                     child: Container(
                       width: double.infinity,
-                      height: 60,
+                      height: 8,
                       decoration: BoxDecoration(
-                        color: Color(0xFFE7E7E7),
+                        color: Color(0xFFF2F2F2),
                         borderRadius: BorderRadius.circular(5),
                       ),
                     ),
@@ -127,20 +137,7 @@ class mainplace extends StatelessWidget {
   }
 }
 
-class _Title extends StatelessWidget {
-  const _Title({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      '      지역 설정',
-      style: TextStyle(
-        fontSize: 16,
-        color: Colors.black,
-      ),
-    );
-  }
-}
 
 class DropdownButtonExample1 extends StatefulWidget {
   const DropdownButtonExample1({super.key});
