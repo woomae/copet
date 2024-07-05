@@ -1,18 +1,19 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendsRepository } from './friends.repository';
 import { Friends } from './friends.entity';
-import { UsersService } from '../users/users.service';
 import ApiError from 'src/libs/res/api.errors';
 import ApiCodes from 'src/libs/res/api.codes';
 import ApiMessages from 'src/libs/res/api.messages';
+import { NotificationsService } from '../notifications/notifications.service';
+import { friendPayloads } from 'src/libs/notifications/payloads/friendPayloads';
 
 @Injectable()
 export class FriendsService {
   constructor(
     @InjectRepository(FriendsRepository)
     private friendsRepository: FriendsRepository,
-    private usersService: UsersService,
+    private notificationsService: NotificationsService,
   ) {}
   async sendFriendRequest(
     id: number,
@@ -23,7 +24,17 @@ export class FriendsService {
         message: 'Already friend',
       });
     }
-    return await this.friendsRepository.createFriendRequest(id, friend_user_id);
+    const result = await this.friendsRepository.createFriendRequest(
+      id,
+      friend_user_id,
+    );
+    //알림 전송
+    await this.notificationsService.sendNotification(
+      friend_user_id,
+      id,
+      friendPayloads,
+    );
+    return result;
   }
   async deleteFriendRequest(
     id: number,

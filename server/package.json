@@ -33,6 +33,7 @@
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "cross-env": "^7.0.3",
+    "firebase-admin": "^12.2.0",
     "glob": "^10.3.10",
     "ioredis": "^5.4.1",
     "joi": "^17.11.0",

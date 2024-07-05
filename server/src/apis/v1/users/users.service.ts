@@ -22,6 +22,14 @@ export class UsersService {
     @InjectRepository(Photos)
     private readonly photosRepository: Repository<Photos>,
   ) {}
+  async saveToken(user_id: number, firebase_token: string): Promise<Users> {
+    const user = await this.usersRepository.findOne({
+      where: { _id: user_id },
+    });
+    user.firebase_token = firebase_token;
+    return await this.usersRepository.save(user);
+  }
+
   async findOneByProviderId(provider_id: string): Promise<Users> {
     return this.usersRepository.findOne({
       where: { provider_id },

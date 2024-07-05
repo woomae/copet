@@ -20,37 +20,24 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
 import { Request } from 'express';
 import { Payload } from '../auth/jwt/jwt.payload';
+import { User } from 'src/common/decorators/user.decorator';
+import { getArticleQueryDto } from 'src/dto/getArticleQuery.dto';
 
 @Controller({ path: 'articles', version: '1' })
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
   @Get('')
-  async getAllArticles(
-    // @Query('page') page: string = '1',
-    @Query('page', new DefaultValuePipe('1'), ParseIntPipe) page?: number,
-    @Query('size', new DefaultValuePipe('10'), ParseIntPipe) size?: number,
-    @Query('owner', ParseIntPipe) owner?: number,
-    @Query('q') q?: string,
-    @Query('category') category?: string,
-  ) {
-    if (q) {
-      const result = await this.articlesService.searchArticles(q, page, size);
+  async getAllArticles(@Query() query: getArticleQueryDto) {
+    if (query.q) {
+      const result = await this.articlesService.searchArticles(query);
       return result;
     }
-    if (owner) {
-      const result = await this.articlesService.getAllArticleByOwner(
-        owner,
-        page,
-        size,
-      );
+    if (query.owner) {
+      const result = await this.articlesService.getAllArticleByOwner(query);
       return result;
     }
 
-    const result = await this.articlesService.getAllArticles(
-      page,
-      size,
-      category,
-    );
+    const result = await this.articlesService.getAllArticles(query);
     return result;
   }
   @Get(':id')
@@ -67,14 +54,13 @@ export class ArticlesController {
     }),
   )
   async createArticle(
-    @Req() req: Request,
+    @User() user: Payload,
     @Body() createArticleDto: CreateArticleDto,
     @UploadedFiles() files?: { photo: Express.Multer.File[] },
   ) {
-    const userPayload = req.user as Payload;
     const result = await this.articlesService.createArticle(
       createArticleDto,
-      userPayload.user_id,
+      user.user_id,
       files,
     );
     return result;
@@ -88,14 +74,13 @@ export class ArticlesController {
   )
   async updateArticle(
     @UploadedFiles() files: { photo: Express.Multer.File[] },
-    @Req() req: Request,
+    @User() user: Payload,
     @Body() bodyData: CreateArticleDto,
     @Param('id') _id: number,
   ) {
-    const userPayload = req.user as Payload;
     const result = await this.articlesService.updateArticle(
       _id,
-      userPayload.user_id,
+      user.user_id,
       bodyData,
       files,
     );
@@ -104,12 +89,8 @@ export class ArticlesController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteArticle(@Param('id') id: number, @Req() req: Request) {
-    const userPayload = req.user as Payload;
-    const result = await this.articlesService.deleteArticle(
-      id,
-      userPayload.user_id,
-    );
+  async deleteArticle(@Param('id') id: number, @User() user: Payload) {
+    const result = await this.articlesService.deleteArticle(id, user.user_id);
     return result;
   }
 }
