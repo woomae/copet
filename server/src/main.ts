@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { winstonLogger } from './libs/logger/winston.util';
-import * as bodyParser from 'body-parser';
+import * as httpContext from 'express-http-context';
 import {
   ClassSerializerInterceptor,
   ValidationPipe,
@@ -40,9 +40,7 @@ async function bootstrap() {
 
   app.use(cookieParser()); // cookieParser 사용
 
-  // 최대 요청 본문 크기 설정
-  // app.use(bodyParser.json({ limit: '25mb' }));
-  // app.use(bodyParser.urlencoded({ limit: '25mb', extended: true }));
+  app.use(httpContext.middleware);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalPipes(
     new ValidationPipe({
