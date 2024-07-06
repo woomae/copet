@@ -11,12 +11,12 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Request } from 'express';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { UpdateUserDto } from 'src/dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/jwt/jwt.guard';
 import { Payload } from '../auth/jwt/jwt.payload';
 import { User } from 'src/common/decorators/user.decorator';
+import { memoryStorage } from 'multer';
 
 @Controller({ path: 'users', version: '1' })
 export class UsersController {
@@ -25,6 +25,7 @@ export class UsersController {
   @Patch('')
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'petimg', maxCount: 1 }], {
+      storage: memoryStorage(),
       limits: { fileSize: 10 * 1024 * 1024 },
     }),
   )
