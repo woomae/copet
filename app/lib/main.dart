@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:pet/api/getUser.dart';
+import 'package:pet/common/component/widgets/spinner_widget.dart';
 import 'package:pet/login/login_main.dart';
 import 'package:pet/login/login_name.dart';
 import 'package:pet/main/main_home.dart';
@@ -27,16 +28,16 @@ void main() async{
 
   runApp( //껐다 켜기만 해도 runApp 실행됨.
       ProviderScope(
-          child: _App()),
+          child: App()),
   );
 }
-class _App extends ConsumerWidget {
-  _App({super.key});
+class App extends ConsumerWidget {
+  App({super.key});
 
   Future<bool> checkAccessToken(WidgetRef ref) async {
     final storage = FlutterSecureStorage();
     final accessToken = await storage.read(key: 'ACCESS_TOKEN');
-    print('accessToken : $accessToken');
+    //print('accessToken : $accessToken');
     if (accessToken != null) {
       final decodedUser = JwtDecoder.decode(accessToken);
       final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
@@ -44,7 +45,6 @@ class _App extends ConsumerWidget {
         'Cookie' : 'user=$accessToken'
       };
       final res = await GetUser.getUser(parsedUser.userId.toString());
-      print(res.nickname);
       ref.read(UserProvider.notifier).storeUserData(res);
       // 여기서 필요에 따라 사용자 등록 여부를 확인하고 true 또는 false 반환
       return true;
@@ -87,31 +87,20 @@ class _App extends ConsumerWidget {
           future: checkAccessToken(ref),
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot){
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: SizedBox(
-                  width: 75,
-                  height: 75,
-                  child: CircularProgressIndicator(
-                    color: PRIMARY_COLOR,
-                    strokeWidth: 3,
-                  ),
-                ),
-              );
+              return SpinnerWidget();
             }
             //비동기 작업 (회원가입 여부 판별) 완료 후
             else{
               if(snapshot.data == true){
-                final userNickname = ref.read(UserProvider).nickname;
+                final userNickname = ref.watch(UserProvider).nickname;
                 //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
-                if(userNickname == ''){
+                if(userNickname == '')
                   return loginname();
-                }
-                else return mainhome();
+                else
+                  return mainhome();
               }
-              if(snapshot.data == false){
+              else
                 return mainlogin();
-              }
-              else return SizedBox();
             }
           },
         ),
