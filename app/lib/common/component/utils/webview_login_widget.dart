@@ -9,6 +9,7 @@ import 'package:pet/const/models/token_user_model.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
 import '../../../api/getUser.dart';
+import '../../../main.dart';
 import '../../../main/main_home.dart';
 
 class WebviewLoginWidget extends StatefulWidget {
@@ -55,15 +56,9 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
                   //쿠키에서 userid가져온 후, provider를 통해 id 업데이트
                   final decodedUser = JwtDecoder.decode(cookieValue);
                   final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
-                  //dio baseoptio 에 토큰 추가
-                  //전역 provider에 userid 추가
-
                   await storage.write(key: 'ACCESS_TOKEN', value: cookieValue);
-                  provider.read(UserProvider.notifier).updateUser(id: parsedUser.userId);
-
                   final res = await GetUser.getUser(parsedUser.userId.toString());
                   provider.read(UserProvider.notifier).storeUserData(res);
-                  print('nickname : ${res.nickname}');
                 }
                 if(cookieValue == null){
                   provider.read(UserProvider.notifier).updateUser(id: 0, nickname: '');
@@ -73,7 +68,7 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
                 else{
                   //에러처리
                 }
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => App()), (route) => false);
               }
             }
         );

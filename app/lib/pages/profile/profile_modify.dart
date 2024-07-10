@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/common/component/buttons/next_button.dart';
-import 'package:pet/common/component/region_dropdown_widget.dart';
+import 'package:pet/common/component/widgets/region_dropdown_widget.dart';
 import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/pages/profile/profile_main.dart';
 import '../../common/component/buttons/dropdown_button.dart';
