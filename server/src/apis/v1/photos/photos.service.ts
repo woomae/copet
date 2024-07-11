@@ -32,7 +32,7 @@ export class PhotosService {
     file: Express.Multer.File,
     location: string,
   ): Promise<string> {
-    const fileName = `${uuidv4()}-${encodeURIComponent(file.originalname)}`;
+    const fileName = `${uuidv4()}`;
     const params = {
       Bucket: this.env.get('AWS_S3_BUCKET') + location,
       Key: fileName,
