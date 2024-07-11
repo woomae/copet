@@ -6,12 +6,14 @@ import 'package:pet/pages/profile/profile_main.dart';
 import 'package:pet/pages/search/search_main.dart';
 
 class TabInfo {
-  final IconData icon;
+  final String iconPath;
+  final String selectedIconPath;
   final String label;
   final screen;
 
   const TabInfo({
-    required this.icon,
+    required this.iconPath,
+    required this.selectedIconPath,
     required this.label,
     this.screen
   });
@@ -19,27 +21,32 @@ class TabInfo {
 
 const TABS = [
   TabInfo(
-    icon: Icons.cruelty_free,
-    label: '홈',
+    iconPath: 'asset/img/taps/mainicon.png',
+    selectedIconPath: 'asset/img/taps/selectmain.png',
+    label: '메인',
     screen : mainscreen()
   ),
   TabInfo(
-    icon: Icons.chat,
+    iconPath: 'asset/img/taps/chaticon.png',
+    selectedIconPath: 'asset/img/taps/selectchat.png',
     label: '커뮤니티',
     screen: Community()
   ),
   TabInfo(
-    icon: Icons.search,
-    label: '펫플레이스',
+    iconPath: 'asset/img/taps/searchicon.png',
+    selectedIconPath: 'asset/img/taps/selectsearch.png',
+    label: '검색',
       screen: mainsearch()
   ),
   TabInfo(
-    icon: Icons.place,
-    label: '지도',
+    iconPath: 'asset/img/taps/mapicon.png',
+    selectedIconPath: 'asset/img/taps/selectmap.png',
+    label: '산책',
   ),
   TabInfo(
-    icon: Icons.account_circle_outlined,
-    label: '내정보',
+    iconPath: 'asset/img/taps/profileicon.png',
+    selectedIconPath: 'asset/img/taps/selectprofile.png',
+    label: '프로필',
     screen: ProfileMain()
   ),
 ];

@@ -12,7 +12,11 @@ import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:pet/main/main_screen.dart';
 import 'package:pet/pages/community/community_main.dart';
+import 'package:pet/pages/profile/follow/follow.dart';
+import 'package:pet/pages/profile/profile_main.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
+import 'package:pet/pages/profile/otherProfile/profile_other.dart';
+import 'package:pet/pages/profile/setting/alarm.dart';
 import 'package:pet/pages/search/search_main.dart';
 import 'package:pet/pages/search/search_result.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
@@ -69,7 +73,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: result()
+      home: mainhome()
       //userRef.id == 0 ? mainlogin() :
         //      isRegistered == false ? logintype() :
           //    mainhome()

@@ -81,6 +81,7 @@ flutter:
     - asset/img/mail.png
     - asset/img/alarm.png
     - asset/img/check_white.png
+    - asset/img/downbutton.png
     - asset/img/keyword/
     - asset/img/keyword/activity.png
     - asset/img/keyword/calm.png
@@ -106,8 +107,25 @@ flutter:
     - asset/img/taps/searchicon.png
     - asset/img/taps/mapicon.png
     - asset/img/taps/profileicon.png
+    - asset/img/taps/selectmain.png
+    - asset/img/taps/selectchat.png
+    - asset/img/taps/selectsearch.png
+    - asset/img/taps/selectmap.png
+    - asset/img/taps/selectprofile.png
     - asset/img/search/
     - asset/img/search/searchicon.png
+    - asset/img/profile/
+    - asset/img/profile/settingicon.png
+    - asset/img/profile/modify.png
+    - asset/img/profile/img_modify.png
+    - asset/img/test/
+    - asset/img/test/test1.png
+    - asset/img/test/test2.png
+    - asset/img/test/test3.png
+    - asset/img/test/test4.png
+    - asset/img/test/test5.png
+    - asset/img/test/test6.png
+    - asset/img/test/test7.png
 
 
   # To add assets to your application, add an assets section, like this:
@@ -162,6 +180,11 @@ flutter:
           style: italic
         - asset: asset/font/NotoSans-Medium.ttf
           weight: 500
+
+    - family: CherryBomb
+      fonts:
+        - asset: asset/font/CherryBombOne-Regular.ttf
+          weight: 400
 
   # fonts:
   #   - family: Schyler
