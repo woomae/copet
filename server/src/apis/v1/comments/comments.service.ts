@@ -39,7 +39,7 @@ export class CommentsService {
     const result = await this.commentRepository.createComment(bodyData);
     //알림 전송
     const receiveUserId = (
-      await this.articlesService.getArticleById(bodyData.article_id)
+      await this.articlesService.getArticleById(id, bodyData.article_id)
     ).owner_id;
     await this.notificationsService.sendNotification(
       receiveUserId,

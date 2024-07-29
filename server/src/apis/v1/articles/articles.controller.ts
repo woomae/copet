@@ -40,9 +40,10 @@ export class ArticlesController {
     const result = await this.articlesService.getAllArticles(query);
     return result;
   }
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async getArticleById(@Param('id') _id: number) {
-    const result = await this.articlesService.getArticleById(_id);
+  async getArticleById(@Param('id') _id: number, @User() user: Payload) {
+    const result = await this.articlesService.getArticleById(_id, user.user_id);
     return result;
   }
 
