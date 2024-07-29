@@ -14,6 +14,7 @@ import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { Photos } from '../photos/photos.entity';
 import { getArticleQueryDto } from 'src/dto/getArticleQuery.dto';
+import { StarsRepository } from '../stars/stars.repository';
 
 @Injectable()
 export class ArticlesService {
@@ -26,12 +27,17 @@ export class ArticlesService {
     @InjectRepository(Photos)
     private readonly photosRepository: Repository<Photos>,
   ) {}
-  async getArticleById(_id: number): Promise<any> {
+  async getArticleById(_id: number, user_id: number): Promise<any> {
     const result = await this.articleRepository.findOne({
       where: { _id: _id },
       relations: ['photos', 'comments'],
     });
-    return result;
+    //isfavorite 체크 후 객체에 추가
+    const islike = await this.articleRepository.articleLikeChecker(
+      user_id,
+      _id,
+    );
+    return { ...result, islike };
   }
   async getAllArticles(query): Promise<any> {
     //카테고리 체크
