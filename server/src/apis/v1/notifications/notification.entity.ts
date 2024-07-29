@@ -1,19 +1,21 @@
-import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Users } from '../users/users.entity';
 
 @Entity()
 export class Notifications {
   @PrimaryGeneratedColumn()
   _id: number;
 
-  @Exclude({ toPlainOnly: true })
-  @Column()
-  firebase_token: string;
+  @ManyToOne(() => Users, (user) => user.notification, {
+    onDelete: 'CASCADE',
+  })
+  user_id: number;
 
   @Column()
   title: string;

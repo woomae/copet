@@ -30,8 +30,11 @@ export class NotificationsController {
     return result;
   }
   @Delete(':id')
-  async deleteNotification(@Param('id') id: number) {
-    const result = await this.notificationService.deleteNotification(id);
+  async deleteNotification(@Param('id') id: number, @User() user: Payload) {
+    const result = await this.notificationService.deleteNotification(
+      id,
+      user.user_id,
+    );
     return result;
   }
 }

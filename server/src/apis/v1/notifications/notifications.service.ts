@@ -44,7 +44,7 @@ export class NotificationsService {
       .then(async (response) => {
         // 알림 정보를 데이터베이스에 저장
         const notification = new Notifications();
-        notification.firebase_token = payload.token;
+        notification.user_id = receiveUser;
         notification.title = payload.notification.title;
         notification.body = payload.notification.body;
 
@@ -62,10 +62,11 @@ export class NotificationsService {
     );
     return result;
   }
-  async deleteNotification(notificationId: number) {
+  async deleteNotification(notificationId: number, user_id: number) {
     //하나 조회해서 본인거 맞느지 확인
     const notificaton = await this.notificationsRepository.findOneBy({
       _id: notificationId,
+      user_id: user_id,
     });
     if (!notificaton) {
       throw new ApiError(ApiCodes.NOT_FOUND, ApiMessages.NOT_FOUND, {

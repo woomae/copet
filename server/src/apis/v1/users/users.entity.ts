@@ -15,6 +15,7 @@ import { Stars } from '../stars/stars.entity';
 import { PetKeywords } from '../petkeywords/petkeywords.entity';
 import { Photos } from '../photos/photos.entity';
 import { Exclude } from 'class-transformer';
+import { Notifications } from '../notifications/notification.entity';
 
 @Entity()
 export class Users {
@@ -72,6 +73,11 @@ export class Users {
     cascade: ['remove'],
   })
   photo: Photos;
+
+  @OneToMany(() => Notifications, (notification) => notification.user, {
+    cascade: ['remove'],
+  })
+  notification: Notifications[];
 
   @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
