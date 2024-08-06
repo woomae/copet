@@ -27,7 +27,7 @@ UsersModel.fromJson({required Map<String, dynamic> json}):
   id = json['_id'] ?? 0,
   nickname = json['nickname'] ?? '',
   pet_category = json['pet_category'] ?? '',
-  region = json['region'] == null ? Region(state: '', city: '', district: '') : Region.fromJson(json: json['region']),
+  region = json['region'] != null ? Region.fromJson(json: json['region']):Region(state: '', city: '', district: '') ,
   petimg = List.from(json['petimg'] ?? []),
   petkeyword = List<String>.from(json['petkeyword'] ?? []),
   intro = json['intro'] ?? '';

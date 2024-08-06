@@ -60,11 +60,9 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
                 }
                 if(cookieValue == null){
                   print('------------------------------------------------ cookie 없음');
-                  Navigator.pop(context);
                 }
                 else{
                   //에러처리
-                  Navigator.pop(context);
                 }
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => App()), (route) => false);
               }

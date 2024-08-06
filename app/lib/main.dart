@@ -37,6 +37,7 @@ class App extends ConsumerWidget {
   Future<bool> checkAccessToken(WidgetRef ref) async {
     final storage = FlutterSecureStorage();
     final accessToken = await storage.read(key: 'ACCESS_TOKEN');
+    print("액세스 토큰 존재 : ${accessToken?.isNotEmpty}");
     //print('accessToken : $accessToken');
     if (accessToken != null) {
       final decodedUser = JwtDecoder.decode(accessToken);
