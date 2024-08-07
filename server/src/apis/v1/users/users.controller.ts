@@ -5,7 +5,6 @@ import {
   Param,
   Patch,
   Post,
-  Req,
   UploadedFiles,
   UseGuards,
   UseInterceptors,

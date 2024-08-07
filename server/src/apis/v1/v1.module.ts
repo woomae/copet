@@ -9,6 +9,7 @@ import { StarsModule } from './stars/stars.module';
 import { UsersModule } from './users/users.module';
 import { PhotosModule } from './photos/photos.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { WalkmapsModule } from './walkmaps/walkmaps.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     RanksModule,
     PhotosModule,
     NotificationsModule,
+    WalkmapsModule,
   ],
 })
 export class V1Module {}
