@@ -57,13 +57,9 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
                   final decodedUser = JwtDecoder.decode(cookieValue);
                   final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
                   await storage.write(key: 'ACCESS_TOKEN', value: cookieValue);
-                  final res = await GetUser.getUser(parsedUser.userId.toString());
-                  provider.read(UserProvider.notifier).storeUserData(res);
                 }
                 if(cookieValue == null){
-                  provider.read(UserProvider.notifier).updateUser(id: 0, nickname: '');
-                  print('------------------------------------------------token없음');
-                  //쿠키에 userid없으면 logintype으로 이동
+                  print('------------------------------------------------ cookie 없음');
                 }
                 else{
                   //에러처리

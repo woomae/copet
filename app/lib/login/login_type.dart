@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/text_form_field.dart';
+import 'package:pet/login/login_area.dart';
 import 'package:pet/login/login_name.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 
@@ -83,7 +84,7 @@ class logintype extends ConsumerWidget {
                   if (state.pet_category != null && state.pet_category != '') {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const loginname()),
+                      MaterialPageRoute(builder: (context) => loginarea()),
                     );
                     print(state.pet_category);
                   }
