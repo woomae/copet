@@ -4,6 +4,7 @@ import { Type } from 'class-transformer';
 import { IsArray, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Articles } from 'src/apis/v1/articles/articles.entity';
 import { Users } from 'src/apis/v1/users/users.entity';
+import { Walkmaps } from 'src/apis/v1/walkmaps/walkmaps.entity';
 
 export class CreatePhotoDto {
   @IsString()
@@ -18,4 +19,9 @@ export class CreatePhotoDto {
   @ValidateNested()
   @Type(() => Articles)
   article?: Articles;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Walkmaps)
+  walkmap?: Walkmaps;
 }

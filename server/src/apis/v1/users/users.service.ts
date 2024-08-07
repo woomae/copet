@@ -123,7 +123,7 @@ export class UsersService {
       await this.photosRepository.save(photo);
     }
     await this.usersRepository.save(user);
-    //아래 findOne은 추후 제거 예정
+    //아래 findOne은 추후 제거 필요
     return await this.usersRepository.findOne({
       where: { _id: id },
       relations: ['petkeywords', 'photo'],

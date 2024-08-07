@@ -8,6 +8,7 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  OneToOne,
 } from 'typeorm';
 import { Articles } from '../articles/articles.entity';
 import { Friends } from '../friends/friends.entity';
@@ -16,6 +17,7 @@ import { PetKeywords } from '../petkeywords/petkeywords.entity';
 import { Photos } from '../photos/photos.entity';
 import { Exclude } from 'class-transformer';
 import { Notifications } from '../notifications/notification.entity';
+import { Walkmaps } from '../walkmaps/walkmaps.entity';
 
 @Entity()
 export class Users {
@@ -74,10 +76,15 @@ export class Users {
   })
   photo: Photos;
 
-  @OneToMany(() => Notifications, (notification) => notification.user, {
+  @OneToMany(() => Notifications, (notification) => notification.user_id, {
     cascade: ['remove'],
   })
   notification: Notifications[];
+
+  @OneToMany(() => Walkmaps, (walkmap) => walkmap.owner_id, {
+    cascade: ['remove'],
+  })
+  walkmap: Walkmaps[];
 
   @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
