@@ -5,16 +5,13 @@ import 'package:pet/const/models/articles.dart';
 import '../dioBaseOpstions.dart';
 
 class GetArticles {
-  static Future<List<Article>> getArticles() async {
+  static Future<Articles> getArticles() async {
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
 
-    final res = await dio.get('$apiKey/articles?size=100');
+    final res = await dio.get('$apiKey/articles');
     final Articles articles = Articles.fromJson(json: res.data['result']);
-    final List<Article> comments = articles.article.map(
-            (e) => Article.fromJson(e as Map<String, dynamic>)).toList();
-    
-    return comments;
+    return articles;
   }
 
 
@@ -60,9 +57,8 @@ class GetArticles {
     String? apiKey = dotenv.env['API_KEY'];
 
     final res = await dio.get('$apiKey/articles/$articleId');
-    final Articles articles = Articles.fromJson(json: res.data['result']);
-    final Article comments = Article.fromJson(articles as Map<String, dynamic>);
-
+    final Article comments = Article.fromJson(res.data['result']);
+    print(comments);
     return comments;
   }
 }
