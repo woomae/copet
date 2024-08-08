@@ -38,10 +38,7 @@ class mainitem extends StatelessWidget {
               ),
               iconSize: 40,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const mainhome()),
-                );
+                Navigator.pop(context);
               },
             ),
             centerTitle: false,

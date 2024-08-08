@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/pages/profile/otherProfile/profile_other.dart';
+import 'package:pet/style/colors.dart';
 
 class followlist extends StatelessWidget {
   const followlist({super.key});
@@ -9,6 +10,7 @@ class followlist extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GoBackAppBar(),
+      backgroundColor: WHITE,
       body: _Body(),
     );
   }
@@ -17,32 +19,120 @@ class followlist extends StatelessWidget {
 class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // 3개의 열로 구성된 그리드
-          mainAxisSpacing: 40, // 주 축(수직 방향)의 간격
-          crossAxisSpacing: 10, // 교차 축(수평 방향)의 간격
-          childAspectRatio: 0.6, // 각 항목의 가로 세로 비율
-        ),
-        itemCount: 9, // 총 9개의 항목이라고 가정
-        itemBuilder: (context, index) {
-          return _FollowButton(
-            nickname: '닉네임', // 예: 닉네임 1, 닉네임 2, ...
-            imageAssetPath: 'asset/img/test/test${index % 4 + 1}.png',
-            onTap: () {
-              // 프로필 페이지로 이동하는 코드
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Profileother(), // ProfileOtherPage는 실제 프로필 페이지 클래스명
-                ),
-              );
-            },// 예: avatar1.png, avatar2.png, ...
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: 10, // 팔로워 수에 맞게 변경
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Profileother()), // ProfileOther 페이지로 이동
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+            child: Container(
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage('asset/img/Yaoh.png'), // 프로필 이미지 경로 설정
+                      ),
+                      SizedBox(width: 10),
+                      Text('닉네임',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'CherryBomb',
+                          color: Color(0xFF222222),
+                        ),), // 닉네임 설정
+                    ],
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                      Container(
+                        width: 65,
+                        height: 35,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF0F0F0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '메시지',
+                            style: TextStyle(
+                              color: Color(0xFF222222),
+                              fontFamily: 'NotoSansKR',
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                      PopupMenuButton<String>(
+                        icon: Icon(Icons.more_horiz),
+                        onSelected: (value) {
+                          // '차단하기' 및 '언팔로우' 동작 설정
+                          if (value == '차단하기') {
+                            // 차단하기 동작
+                          } else if (value == '언팔로우') {
+                            // 언팔로우 동작
+                          }
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        color: Colors.white.withOpacity(0.9),
+                        itemBuilder: (BuildContext context) {
+                          return [
+                            PopupMenuItem<String>(
+                              value: '차단하기',
+                              child: Container(
+                                width: 170, // 원하는 width 값 설정
+                                height: 46, // 원하는 height 값 설정
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,// 메뉴 항목의 배경색 설정
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '차단하기',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    Spacer(),
+                                    Image.asset(
+                                      'asset/img/follow/trash.png', // 쓰레기통 아이콘 경로 설정
+                                      width: 24,
+                                      height: 24,
+                                      color: Colors.red,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            PopupMenuItem<String>(
+                              value: '언팔로우',
+                              child: Container(
+                                width: 170, // 원하는 width 값 설정
+                                height: 46, // 원하는 height 값 설정
+                                child: Text(
+                                  '언팔로우',
+                                ),
+                              ),
+                            ),
+                          ];
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

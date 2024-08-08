@@ -73,7 +73,7 @@ class _App extends ConsumerWidget {
           )
         )
       ),
-      home: mainhome()
+      home: logintype()
       //userRef.id == 0 ? mainlogin() :
         //      isRegistered == false ? logintype() :
           //    mainhome()

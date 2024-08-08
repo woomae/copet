@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:pet/main/main_item.dart';
+import 'package:pet/pages/community/community_main.dart';
+import 'package:pet/pages/search/search_main.dart';
 
 import 'main_place.dart';
 import 'main_screen.dart';
@@ -19,6 +21,19 @@ class Item {
 
 class mainscreen extends StatelessWidget {
   const mainscreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: Scaffold(
+        body: _Body(),
+      ),
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +136,13 @@ class mainscreen extends StatelessWidget {
                         Column(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const mainsearch()),
+                                );
+                              },
                               child: Container(
                                 width:
                                     MediaQuery.of(context).size.width * 0.5 - 30,
@@ -156,7 +177,13 @@ class mainscreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Community()),
+                                );
+                              },
                               child: Container(
                                 width:
                                     MediaQuery.of(context).size.width * 0.5 - 30,
@@ -217,7 +244,11 @@ class mainscreen extends StatelessWidget {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      // 버튼이 클릭되었을 때 수행할 작업을 여기에 추가합니다.
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const Community()),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: CircleBorder(),
@@ -246,7 +277,11 @@ class mainscreen extends StatelessWidget {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      // 버튼이 클릭되었을 때 수행할 작업을 여기에 추가합니다.
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const Community()),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: CircleBorder(),
@@ -275,7 +310,11 @@ class mainscreen extends StatelessWidget {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      // 버튼이 클릭되었을 때 수행할 작업을 여기에 추가합니다.
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const Community()),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: CircleBorder(),
@@ -546,14 +585,7 @@ class mainscreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
-                      child: Text(
-                        '코펫\n문의사항 코펫이메일@gmail.com',
-                        style: TextStyle(
-                          fontFamily: 'Segeo',
-                          fontSize: 15,
-                          color: Color(0xFFAFAFAF),
-                        ),
-                      ),
+                      child: footer(),
                     ),
                   ),
                 ],
@@ -788,6 +820,25 @@ class ItemCard extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class footer extends StatelessWidget {
+  const footer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        '코펫\n문의사항 코펫이메일@gmail.com',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'Segeo',
+          fontSize: 15,
+          color: Color(0xFFAFAFAF),
         ),
       ),
     );

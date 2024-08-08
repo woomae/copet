@@ -126,6 +126,8 @@ flutter:
     - asset/img/test/test5.png
     - asset/img/test/test6.png
     - asset/img/test/test7.png
+    - asset/img/follow/
+    - asset/img/follow/trash.png
 
 
   # To add assets to your application, add an assets section, like this:

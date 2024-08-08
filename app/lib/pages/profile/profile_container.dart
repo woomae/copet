@@ -80,11 +80,24 @@ class ProfileContainer extends ConsumerWidget {
                 onPressed: () {
                   //팔로워기능
                 },
-                child: const Text(
-                  '팔로워',
-                  style: TextStyle(
-                    fontFamily: 'Segoe',
-                    color: Color(0xFF959595),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '팔로워',
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF959595),
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' 0', // 팔로워 수 추가
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF222222),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -98,11 +111,24 @@ class ProfileContainer extends ConsumerWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const followlist()));
                 },
-                child: const Text(
-                  '팔로잉',
-                  style: TextStyle(
-                    fontFamily: 'Segoe',
-                    color: Color(0xFF959595),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '팔로잉',
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF959595),
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' 0', // 팔로잉 수 추가
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF222222),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               )

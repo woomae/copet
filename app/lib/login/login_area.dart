@@ -2,31 +2,91 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
 import 'package:pet/login/login_agree.dart';
-import 'package:pet/login/login_end.dart';
-import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
-import '../api/patchUserData.dart';
-import '../common/component/buttons/next_button.dart';
-import '../common/component/buttons/pre_button.dart';
-import '../providers/user_notifier_provider.dart';
+const Map<String, List<String>> regionMap = {
+  '서울특별시': ['종로구', '중구', '용산구', '성동구'],
+  '인천광역시': ['중구', '동구', '미추홀구', '연수구'],
+  '대구광역시': ['중구', '동구', '서구', '남구'],
+  '대전광역시': ['동구', '중구', '서구', '유성구'],
+  '울산광역시': ['중구', '남구', '동구', '북구'],
+  '부산광역시': ['중구', '서구', '동구', '영도구'],
+  '광주광역시': ['동구', '서구', '남구', '북구', '광산구'],
+};
 
-const List<String> list1 = <String>['지역선택', 'Twwwwo', 'Three', 'Four'];
-const List<String> list2 = <String>['지역선택', '1', '2', '3'];
-const List<String> list3 = <String>['지역선택', '4', '5', '6'];
+const Map<String, Map<String, List<String>>> dongMap = {
+  '서울특별시': {
+    '종로구': ['종로1가', '종로2가', '종로3가'],
+    '중구': ['중1가', '중2가', '중3가'],
+    '용산구': ['용산1가', '용산2가', '용산3가'],
+    '성동구': ['성동1가', '성동2가', '성동3가'],
+  },
+  '인천광역시': {
+    '중구': ['인천중1가', '인천중2가', '인천중3가'],
+    '동구': ['인천동1가', '인천동2가', '인천동3가'],
+    '미추홀구': ['미추홀1가', '미추홀2가', '미추홀3가'],
+    '연수구': ['연수1가', '연수2가', '연수3가'],
+  },
+  '대구광역시': {
+    '중구': ['대구중1가', '대구중2가', '대구중3가'],
+    '동구': ['대구동1가', '대구동2가', '대구동3가'],
+    '서구': ['대구서1가', '대구서2가', '대구서3가'],
+    '남구': ['대구남1가', '대구남2가', '대구남3가'],
+  },
+  '대전광역시': {
+    '동구': ['대전동1가', '대전동2가', '대전동3가'],
+    '중구': ['대전중1가', '대전중2가', '대전중3가'],
+    '서구': ['대전서1가', '대전서2가', '대전서3가'],
+    '유성구': ['유성1가', '유성2가', '유성3가'],
+  },
+  '울산광역시': {
+    '중구': ['울산중1가', '울산중2가', '울산중3가'],
+    '남구': ['울산남1가', '울산남2가', '울산남3가'],
+    '동구': ['울산동1가', '울산동2가', '울산동3가'],
+    '북구': ['울산북1가', '울산북2가', '울산북3가'],
+  },
+  '부산광역시': {
+    '중구': ['부산중1가', '부산중2가', '부산중3가'],
+    '서구': ['부산서1가', '부산서2가', '부산서3가'],
+    '동구': ['부산동1가', '부산동2가', '부산동3가'],
+    '영도구': ['영도1가', '영도2가', '영도3가'],
+  },
+  '광주광역시': {
+    '동구': ['광주동1가', '광주동2가', '광주동3가'],
+    '서구': ['광주서1가', '광주서2가', '광주서3가'],
+    '남구': ['광주남1가', '광주남2가', '광주남3가'],
+    '북구': ['광주북1가', '광주북2가', '광주북3가'],
+    '광산구': ['광산1가', '광산2가', '광산3가'],
+  },
+};
+
+final regionProvider = StateProvider<String>((ref) => '지역선택');
+final districtProvider = StateProvider<String>((ref) => '지역선택');
+final dongProvider = StateProvider<String>((ref) => '지역선택');
 
 class loginarea extends ConsumerWidget {
   const loginarea({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(userDataProvider);
+    final selectedRegion = ref.watch(regionProvider);
+    final selectedDistrict = ref.watch(districtProvider);
+    final selectedDong = ref.watch(dongProvider);
+
+    List<String> districts = selectedRegion != '지역선택' ? regionMap[selectedRegion]! : ['지역선택'];
+    List<String> dongs = (selectedRegion != '지역선택' && selectedDistrict != '지역선택')
+        ? dongMap[selectedRegion]![selectedDistrict]!
+        : ['지역선택'];
+
+    // Determine if the "Next" button should be enabled
+    bool isButtonEnabled = selectedRegion != '지역선택' &&
+        selectedDistrict != '지역선택' &&
+        selectedDong != '지역선택';
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        //titleSpacing: 0,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -68,71 +128,74 @@ class loginarea extends ConsumerWidget {
       body: Padding(
         padding: const EdgeInsets.only(top: 90, bottom: 40),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              children: [
-                _Title(),
-                DropDownButton(
-                  dropDownList: list1,
-                  currentItem: state.region_do == '' ? null : state.region_do,
-                  onPressed: (e) {
-                    if (list1[0] != e) {
-                      ref
-                          .read(userDataProvider.notifier)
-                          .updateUserData(region_do: e);
-                    } else {
-                      ref
-                          .read(userDataProvider.notifier)
-                          .updateUserData(region_do: '');
-                    }
-                  },
-                ),
-                Row(
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: _Title(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Center(
+                child: Column(
                   children: [
                     DropDownButton(
-                      dropDownList: list2,
-                      currentItem:
-                          state.region_si == '' ? null : state.region_si,
-                      onPressed: (e) {
-                        if (list2[0] != e) {
-                          ref
-                              .read(userDataProvider.notifier)
-                              .updateUserData(region_si: e);
-                        } else {
-                          ref
-                              .read(userDataProvider.notifier)
-                              .updateUserData(region_si: '');
-                        }
+                      dropDownList: ['지역선택'] + regionMap.keys.toList(),
+                      currentItem: selectedRegion,
+                      onPressed: (value) {
+                        ref.read(regionProvider.notifier).state = value;
+                        ref.read(districtProvider.notifier).state = '지역선택';
+                        ref.read(dongProvider.notifier).state = '지역선택';
                       },
+                      width: 350,
+                      height: 150,
+                      borderRadius: 20,
+                      borderColor: Color(0xFF777777),
                     ),
-                    DropDownButton(
-                      dropDownList: list3,
-                      currentItem:
-                          state.region_dong == '' ? null : state.region_dong,
-                      onPressed: (e) {
-                        if (list3[0] != e) {
-                          ref
-                              .read(userDataProvider.notifier)
-                              .updateUserData(region_dong: e);
-                        } else {
-                          ref
-                              .read(userDataProvider.notifier)
-                              .updateUserData(region_dong: '');
-                        }
-                      },
+                    const SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DropDownButton(
+                          dropDownList: districts,
+                          currentItem: selectedDistrict,
+                          onPressed: (value) {
+                            ref.read(districtProvider.notifier).state = value;
+                            ref.read(dongProvider.notifier).state = '지역선택';
+                          },
+                          width: 180,
+                          height: 150,
+                          borderRadius: 20,
+                          borderColor: Color(0xFF777777),
+                        ),
+                        const SizedBox(width: 20),
+                        DropDownButton(
+                          dropDownList: dongs,
+                          currentItem: selectedDong,
+                          onPressed: (value) {
+                            ref.read(dongProvider.notifier).state = value;
+                          },
+                          width: 153,
+                          height: 150,
+                          borderRadius: 20,
+                          borderColor: Color(0xFF777777),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
             Spacer(),
-            nextbutton_area(),
+            nextbutton_area(isEnabled: isButtonEnabled),
           ],
         ),
       ),
     );
   }
 }
+
+
 
 class _Title extends StatelessWidget {
   const _Title({super.key});
@@ -149,176 +212,9 @@ class _Title extends StatelessWidget {
   }
 }
 
-class DropdownButtonExample1 extends StatefulWidget {
-  const DropdownButtonExample1({super.key});
-
-  @override
-  State<DropdownButtonExample1> createState() => _DropdownButtonExample1State();
-}
-
-class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
-  String dropdownValue = list1.first;
-
-  //double menuWidth = 200.0; // 초기 값 설정, 원하는 값으로 조절
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
-      ),
-      elevation: 0,
-      onSelected: (String value) {
-        setState(() {
-          dropdownValue = value;
-        });
-      },
-      itemBuilder: (BuildContext context) {
-        return list1.map((String value) {
-          // 각 항목의 너비를 측정
-          //double itemWidth = getTextWidth(value, Theme.of(context).textTheme.bodyText2!);
-
-          // 가장 긴 항목의 너비로 메뉴의 너비 설정
-          //menuWidth = math.max(menuWidth, itemWidth);
-          return PopupMenuItem<String>(
-            value: value,
-            child: Container(
-              //width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
-              ),
-              child: Text(value),
-            ),
-          );
-        }).toList();
-      },
-      child: Container(
-        //width: menuWidth, // 버튼과 메뉴의 너비를 동일하게 설정
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, // 아이콘을 오른쪽 끝으로 이동
-          children: [
-            Text(
-              dropdownValue,
-              style: const TextStyle(color: Colors.black),
-            ),
-            Icon(Icons.arrow_drop_down, size: 40, color: Colors.grey),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DropdownButtonExample2 extends StatefulWidget {
-  const DropdownButtonExample2({super.key});
-
-  @override
-  State<DropdownButtonExample2> createState() => _DropdownButtonExample2State();
-}
-
-class _DropdownButtonExample2State extends State<DropdownButtonExample2> {
-  String dropdownValue = list2.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
-      ),
-      onSelected: (String value) {
-        setState(() {
-          dropdownValue = value;
-        });
-      },
-      itemBuilder: (BuildContext context) {
-        return list2.map((String value) {
-          return PopupMenuItem<String>(
-            value: value,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
-              ),
-              child: Text(value),
-            ),
-          );
-        }).toList();
-      },
-      child: Container(
-        //padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                dropdownValue,
-                style: const TextStyle(color: Colors.black),
-              ),
-            ),
-            const Icon(Icons.arrow_drop_down, size: 40, color: Colors.grey),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DropdownButtonExample3 extends StatefulWidget {
-  const DropdownButtonExample3({super.key});
-
-  @override
-  State<DropdownButtonExample3> createState() => _DropdownButtonExample3State();
-}
-
-class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
-  String dropdownValue = list3.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20), // 열릴 때의 모서리 둥글게 조절
-      ),
-      onSelected: (String value) {
-        setState(() {
-          dropdownValue = value;
-        });
-      },
-      itemBuilder: (BuildContext context) {
-        return list3.map((String value) {
-          return PopupMenuItem<String>(
-            value: value,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), // 각 아이템의 모서리 둥글게 조절
-              ),
-              child: Text(value),
-            ),
-          );
-        }).toList();
-      },
-      child: Container(
-        //padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                dropdownValue,
-                style: const TextStyle(color: Colors.black),
-              ),
-            ),
-            const Icon(Icons.arrow_drop_down, size: 40, color: Colors.grey),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class nextbutton_area extends StatelessWidget {
-  const nextbutton_area({super.key});
+  final bool isEnabled;
+  const nextbutton_area({super.key, required this.isEnabled});
 
   @override
   Widget build(BuildContext context) {
@@ -326,15 +222,17 @@ class nextbutton_area extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: isEnabled
+            ? () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const loginagree()),
           );
-        },
+        }
+            : null, // Disable button if not enabled
         style: ElevatedButton.styleFrom(
           foregroundColor: WHITE,
-          backgroundColor: PRIMARY_COLOR,
+          backgroundColor: isEnabled ? PRIMARY_COLOR : Color(0xFFB0B0B0), // Change color based on enabled state
           textStyle: TextStyle(color: WHITE),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
