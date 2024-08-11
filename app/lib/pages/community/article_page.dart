@@ -8,7 +8,6 @@ import 'package:pet/api/article/patchComment.dart';
 import 'package:pet/api/article/postComment.dart';
 import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/common/component/dialogs/confirmDialog.dart';
-import 'package:pet/common/component/utils/format_date.dart';
 import 'package:pet/common/component/widgets/spinner_widget.dart';
 import 'package:pet/const/models/comments_model.dart';
 import 'package:pet/pages/community/posting_page.dart';
@@ -18,6 +17,7 @@ import 'package:pet/style/colors.dart';
 
 import '../../api/article/getArticles.dart';
 import '../../const/models/articles.dart';
+import '../../utils/format_date.dart';
 
 
 class ArticlePage extends StatelessWidget {
