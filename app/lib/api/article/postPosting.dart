@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../const/models/articles.dart';
 import '../dioBaseOpstions.dart';
 
 class PostPosting{
@@ -10,7 +11,7 @@ class PostPosting{
     required String title,
     required String body,
     required String category,
-    List<XFile>? images
+    List<Photo>? images
 }) async{
 
     FormData formData = FormData.fromMap({
@@ -21,13 +22,10 @@ class PostPosting{
 
     if(images != null){
       for (var image in images) {
-        // XFile에서 파일 이름을 가져오기 위해 path를 사용
-        String fileName = image.path.split('/').last;
-
         // MultipartFile 객체 생성 및 FormData에 추가
         formData.files.add(MapEntry(
           'photo',
-          await MultipartFile.fromFile(image.path, filename: fileName),
+          await MultipartFile.fromFile(image.imgPath),
         ));
       }
     }

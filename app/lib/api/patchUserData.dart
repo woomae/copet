@@ -37,18 +37,9 @@ class PatchUserData{
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
 
-    final token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcl9pZCI6IjMzOTM3ODQzMzkiLCJlbWFpbCI6Inp4Y3YyOTg3QG5hdmVyLmNvbSIsInVzZXJfaWQiOjMsImlhdCI6MTcxOTg5NzQyNCwiZXhwIjoxNzIwNTAyMjI0fQ.8YDhBvcLbBsoUfCvAXflOVgWFsHRqzNHgDYfA0Xru4E';
-
     final res = await dio.patch(
         '$apiKey/users/',
         data: formData,
-        options: Options(
-          headers: {
-            'Content-Type': 'multipart/form-data',
-//            'Authorization': 'Bearer <$token>',
-            'Cookie' : 'user=$token'
-          }
-        )
     );
     print(res);
     return res;

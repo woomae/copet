@@ -9,6 +9,7 @@ import 'package:pet/api/article/postComment.dart';
 import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/common/component/dialogs/confirmDialog.dart';
 import 'package:pet/common/component/utils/format_date.dart';
+import 'package:pet/common/component/widgets/spinner_widget.dart';
 import 'package:pet/const/models/comments_model.dart';
 import 'package:pet/pages/community/posting_page.dart';
 import 'package:pet/providers/posting_notifier_provider.dart';
@@ -26,16 +27,20 @@ class ArticlePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: WHITE,
       resizeToAvoidBottomInset: true,
       appBar: GoBackAppBar(),
       body: FutureBuilder(
         future: GetArticles.getSingleArticle(articleId: articleId.toString()),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          final Article data = snapshot.data;
           if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: Text('로딩 중'));
+            return Center(child: SizedBox(
+              width: 50, height: 50,
+              child: SpinnerWidget(),
+            ));
           }
           if(snapshot.hasData){
+            final Article data = snapshot.data;
             return Column(
               children: [
                 Expanded(
@@ -45,23 +50,25 @@ class ArticlePage extends StatelessWidget {
                       color: WHITE,
                       child: Column(
                         children: [
-                          //목업
-                          _Title(article: Article(iId: 0, articleId: articleId, author: '', title: '제목', body: '본문', category: '일상', imgName: [], commentCount: 1, scrapCount: 0, complainCount: 0, createdAt: DateTime.now(), updatedAt: DateTime.now()),),
-                          BodyText(bodyText: '본문', count: 1, scrap: 1,),
-
                           _Title(article: data,),
                           //_Title(titleText: data.title, nickname: data.author, postDate: '24.01.01'),
-                          BodyText(bodyText: data.body, count: data.commentCount, scrap: data.scrapCount,),
+                          BodyText(
+                            bodyText: data.body,
+                            count: data.commentCount,
+                            scrap: data.scrapCount,
+                            photos: data.photos,
+                          ),
                           BodyComments(
                               count: 2, comments: [
                             Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
+                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
                             Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
                             Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
                             Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
                             Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
                             Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
                             Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
+
                           ]),
 
                           FutureBuilder<Comments>(
@@ -88,7 +95,7 @@ class ArticlePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                _bottomInputBar(articleId: data.articleId.toString(),)
+                _bottomInputBar(articleId: data.id.toString(),)
               ],
             );
           }
@@ -267,7 +274,7 @@ class _TitleState extends State<_Title> {
                           bool confirmed = await confirmDialog(context);
                           if (confirmed) {
                             // 수락(Confirm) 버튼을 눌렀을 때의 로직
-                            DeleteArticle.deleteArticle(widget.article.articleId.toString());
+                            DeleteArticle.deleteArticle(widget.article.id.toString());
                           } else {
                             // 취소(Cancel) 버튼을 눌렀을 때의 로직
                             return null;
@@ -280,7 +287,7 @@ class _TitleState extends State<_Title> {
                             title: widget.article.title,
                             body: widget.article.body,
                             category: widget.article.category,
-                            imageFiles: widget.article.imgName
+                            imageFiles: widget.article.photos
                           );
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>PostingPage()));
                         },
@@ -300,11 +307,13 @@ class BodyText extends StatelessWidget {
   final String bodyText;
   final int count;
   final int scrap;
-  const BodyText({super.key, required this.bodyText, required this.count, required this.scrap});
+  final List<Photo>? photos;
+  const BodyText({super.key, required this.bodyText, required this.count, required this.scrap, required this.photos});
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ConstrainedBox(
           constraints: const BoxConstraints(
@@ -317,10 +326,23 @@ class BodyText extends StatelessWidget {
                 color: WHITE,
                 border: Border.symmetric(horizontal: BorderSide(width: 1, color: GREY))
             ),
-            child:
-              Padding(
-                padding: EdgeInsets.all(20),
-                  child: Text(bodyText, style: Theme.of(context).textTheme.bodyMedium,)),
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (photos != null)
+                  Column(
+                    children: photos!.map((photo) {
+                      return Image.network(
+                        photo.imgPath);
+                    }).toList(),
+                  ) else SizedBox(),
+                  SizedBox(height: 10),
+                  Text(bodyText, style: Theme.of(context).textTheme.bodyMedium,),
+                ],
+              ),
+            ),
           ),
         ),
         Padding(
