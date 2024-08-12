@@ -1,19 +1,24 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pet/pages/profile/profile_container.dart';
 import 'package:pet/pages/profile/profile_information_container.dart';
+import 'package:pet/pages/profile/otherProfile/profile_information_other.dart';
+import 'package:pet/pages/profile/otherProfile/profile_other_container.dart';
 import 'package:pet/pages/profile/setting/setting_home.dart';
 import 'package:pet/style/colors.dart';
 
-class ProfileMain extends StatelessWidget {
-  const ProfileMain({super.key});
+import '../../../style/icons.dart';
+
+class Profileother extends StatelessWidget {
+  const Profileother({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: _Body(),
-      ),
+    return  Scaffold(
+      body: _Body(),
     );
+
   }
 }
 
@@ -34,15 +39,15 @@ class _Body extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 175),
                   child: Profile(
-                    childWidget: ProfileContainer(),
+                    childWidget: ProfileotherContainer(),
                   ),
                 ),
               ],
             ),
           ),
           Flexible(
-            flex: 4,
-            child: ProfileInformationContainer(),
+            flex: 3,
+            child: ProfileInformationother(),
           ),
         ],
       ),
@@ -113,25 +118,57 @@ class BackgroundScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: GREY2,
-      padding: const EdgeInsets.only(right: 20),
-      child: SafeArea(
-        child: Align(
-          alignment: Alignment.topRight,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SettingHome()));
-            },
-            child: Image.asset(
-              'asset/img/profile/settingicon.png',
-              width: 31.09,
-              height: 33.34,
+    return Stack(
+      children: [
+        Container(
+          height: 250,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFFFFFFF), // 완전 불투명한 흰색
+                Color(0xFFFFEECC), // 연한 주황색
+              ],
+              stops: [0.0, 1.0], // 각 색상이 위치하는 비율
+              begin: Alignment.topCenter, // 그라데이션 시작점 (왼쪽 위)
+              end: Alignment.bottomCenter, // 그라데이션 끝점 (오른쪽 아래)
             ),
           ),
+        ),
+        SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 17),
+            child: Back(iconColor: Color(0xFFB0B0B0), width: 13.34, height: 22.63),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Back extends StatelessWidget {
+  final double width;
+  final double height;
+  final Color iconColor;
+
+  const Back({
+    super.key,
+    this.width = 24.0,
+    this.height = 24.0,
+    this.iconColor = Colors.black,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        width: width,
+        height: height,
+        child: Icon(
+          Icons.arrow_back_ios,
+          color: iconColor,
         ),
       ),
     );

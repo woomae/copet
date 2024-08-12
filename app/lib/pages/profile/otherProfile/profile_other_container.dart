@@ -1,56 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/pages/profile/follow/follow.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
-import '../../style/colors.dart';
+import '../../../style/colors.dart';
 
-class ProfileContainer extends ConsumerWidget {
+class ProfileotherContainer extends ConsumerWidget {
   //나중엔 로그인 시 get요청 날려서 provider에 저장하고 가져와서 쓰는걸로
 
-  const ProfileContainer({super.key});
+  const ProfileotherContainer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final isFollowing = ref.watch(isFollowingProvider);
     final state = ref.watch(UserProvider);
+
     return Column(
       children: [
         Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 30),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Center(
-                    child: Text(
-                      state.nickname.isNotEmpty ? state.nickname : '닉네임',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'CherryBomb',
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
-                    ),
+              child: Center(
+                child: Text(
+                  state.nickname.isNotEmpty ? state.nickname : '닉네임',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'CherryBomb',
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
                   ),
-                  Positioned(
-                    right: MediaQuery.of(context).size.width / 2 -
-                        76,
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const ProfileModify()));
-                      },
-                      icon: Image.asset(
-                        'asset/img/profile/modify.png',
-                        width: 15, // 이미지 너비 조절
-                        height: 15, // 이미지 높이 조절
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
             Padding(
@@ -77,9 +57,7 @@ class ProfileContainer extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   //foregroundColor: BLACK,
                 ),
-                onPressed: () {
-                  //팔로워기능
-                },
+                onPressed: () {},
                 child: RichText(
                   text: TextSpan(
                     children: [
@@ -107,10 +85,7 @@ class ProfileContainer extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   //foregroundColor: Colors.red,
                 ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const followlist()));
-                },
+                onPressed: () {},
                 child: RichText(
                   text: TextSpan(
                     children: [
@@ -201,7 +176,82 @@ class ProfileContainer extends ConsumerWidget {
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(top: 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 150,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Color(0xFFE6E6E6),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(60),
+                    ),
+                    splashFactory: NoSplash.splashFactory,
+                  ),
+                  onPressed: () {
+                    // 버튼 눌렀을 때 상태 업데이트
+                    ref.read(isFollowingProvider.notifier).toggle(); // toggle 함수 호출
+                  },
+                  child: Text(
+                    isFollowing ? '언팔로우' : '팔로우', // 상태에 따라 텍스트 변경
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Segoe',
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: 150,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Color(0xFFE6E6E6),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(60),
+                    ),
+                    splashFactory: NoSplash.splashFactory,
+                  ),
+                  onPressed: () {
+                    // 버튼 기능
+                  },
+                  child: Text(
+                    '메세지',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Segoe',
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
+  }
+}
+
+final isFollowingProvider = StateNotifierProvider<IsFollowingNotifier, bool>((ref) {
+  return IsFollowingNotifier(); // IsFollowingNotifier 인스턴스 반환
+});
+
+// 상태를 변경할 StateNotifier 클래스 정의
+class IsFollowingNotifier extends StateNotifier<bool> {
+  IsFollowingNotifier() : super(false); // 초기 상태는 false로 설정
+
+  void toggle() {
+    state = !state; // 상태를 토글 (true -> false, false -> true)
   }
 }

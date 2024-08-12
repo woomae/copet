@@ -5,19 +5,20 @@ import 'package:pet/const/models/articles.dart';
 import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
-import '../../api/article/getArticles.dart';
-import '../../const/models/comments_model.dart';
-import '../../style/colors.dart';
+import '../../../api/article/getArticles.dart';
+import '../../../const/models/comments_model.dart';
+import '../../../style/colors.dart';
 
-class ProfileInformationContainer extends StatefulWidget {
-  const ProfileInformationContainer({super.key});
+class ProfileInformationother extends StatefulWidget {
+  ProfileInformationother({
+    super.key,});
 
   @override
-  State<ProfileInformationContainer> createState() => _ProfileInformationContainerState();
+  State<ProfileInformationother> createState() => _ProfileInformationotherState();
 }
 
-class _ProfileInformationContainerState extends State<ProfileInformationContainer> {
-  final List<String> profileCategory = ['산책', '게시글', '저장'];
+class _ProfileInformationotherState extends State<ProfileInformationother> {
+  final List<String> profileCategory = ['산책', '게시글'];
   String currentState = '산책';
   Future<List<Article>>? currentFuture;
 
@@ -40,14 +41,10 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
   @override
   Widget build(BuildContext context) {
     final userId = ProviderScope.containerOf(context).read(UserProvider).id.toString();
-
-    void setCurrentState(String state) {
-      setState(() {
-        currentState = state;
-        updateFuture();
-      });
-    }
-
+    final Function setCurrentState = (String state){
+      currentState = state;
+      updateFuture();
+    };
     return Column(
       children: [
         Container(
@@ -58,12 +55,11 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: profileCategory.map((e) => _categoryButton(
-                onPressed: () {
-                  setCurrentState(e);
-                },
-                buttonName: e,
-                isPressed: currentState == e,
-              )).toList()
+                  onPressed: (){
+                    setState(() {
+                      setCurrentState(e);
+                    });
+                  }, buttonName: e, isPressed : currentState == e)).toList()
           ),
         ),
         Flexible(
@@ -94,15 +90,13 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
     );
   }
 }
-
 class _categoryButton extends StatelessWidget {
   const _categoryButton({
     super.key,
     required this.onPressed,
     required this.buttonName,
-    required this.isPressed,
+    required this.isPressed
   });
-
   final VoidCallback onPressed;
   final String buttonName;
   final bool isPressed;
@@ -110,12 +104,11 @@ class _categoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      style: TextButton.styleFrom(
-        foregroundColor: isPressed ? BLACK : GREY3,
-        splashFactory: NoSplash.splashFactory,
-      ),
-      onPressed: onPressed,
-      child: Text(buttonName),
-    );
+        style: TextButton.styleFrom(
+            foregroundColor: isPressed ? BLACK : GREY3,
+            splashFactory: NoSplash.splashFactory
+        ),
+        onPressed: onPressed,
+        child: Text(buttonName));
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pet/pages/search/search_result.dart';
 
-import 'main_home.dart';
-
-class mainitem extends StatelessWidget {
-  const mainitem({super.key});
+class result_community extends StatelessWidget {
+  const result_community({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,23 +11,17 @@ class mainitem extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            //titleSpacing: 0,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
             pinned: true,
             elevation: 0,
-            title: Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'COPET',
-                  style: TextStyle(
-                    fontFamily: 'Poetsen',
-                    color: Colors.black,
-                    fontSize: 25,
-                  ),
-                ),
+            title: Text(
+              '커뮤니티 - 검색 결과',
+              style: TextStyle(
+                fontFamily: 'Segoe',
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
               ),
             ),
             leading: IconButton(
@@ -38,10 +31,11 @@ class mainitem extends StatelessWidget {
               ),
               iconSize: 40,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context); // 뒤로 가기 기능
               },
             ),
-            centerTitle: false,
+            centerTitle: true, // title을 가운데 정렬
+            titleSpacing: 0, // 좌우 여백 없앰
             shape: Border(
               bottom: BorderSide(
                 color: Color(0xFFE6E6E6),

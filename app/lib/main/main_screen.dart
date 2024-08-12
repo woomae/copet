@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:pet/main/main_item.dart';
+import 'package:pet/pages/community/community_main.dart';
+import 'package:pet/pages/search/search_main.dart';
 
 import 'main_place.dart';
 import 'main_screen.dart';
@@ -19,6 +21,19 @@ class Item {
 
 class mainscreen extends StatelessWidget {
   const mainscreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: Scaffold(
+        body: _Body(),
+      ),
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +136,13 @@ class mainscreen extends StatelessWidget {
                         Column(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const mainsearch()),
+                                );
+                              },
                               child: Container(
                                 width:
                                     MediaQuery.of(context).size.width * 0.5 - 30,
@@ -156,7 +177,13 @@ class mainscreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Community()),
+                                );
+                              },
                               child: Container(
                                 width:
                                     MediaQuery.of(context).size.width * 0.5 - 30,
@@ -217,7 +244,11 @@ class mainscreen extends StatelessWidget {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      // 버튼이 클릭되었을 때 수행할 작업을 여기에 추가합니다.
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const Community()),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: CircleBorder(),
@@ -246,7 +277,11 @@ class mainscreen extends StatelessWidget {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      // 버튼이 클릭되었을 때 수행할 작업을 여기에 추가합니다.
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const Community()),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: CircleBorder(),
@@ -275,7 +310,11 @@ class mainscreen extends StatelessWidget {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      // 버튼이 클릭되었을 때 수행할 작업을 여기에 추가합니다.
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const Community()),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: CircleBorder(),
@@ -546,27 +585,7 @@ class mainscreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '코펫',
-                            style: TextStyle(
-                              fontFamily: 'Segeo',
-                              fontSize: 15,
-                              color: Color(0xFFAFAFAF),
-                            ),
-                          ),
-                          Text(
-                            '문의사항 코펫이메일@gmail.com',
-                            style: TextStyle(
-                              fontFamily: 'Segeo',
-                              fontSize: 15,
-                              color: Color(0xFFAFAFAF),
-                            ),
-                          ),
-                        ],
-                      ),
+                      child: footer(),
                     ),
                   ),
                 ],
@@ -579,78 +598,6 @@ class mainscreen extends StatelessWidget {
     );
   }
 }
-
-// class HorizontalList extends StatefulWidget {
-//   @override
-//   _HorizontalListState createState() => _HorizontalListState();
-// }
-//
-// class _HorizontalListState extends State<HorizontalList> {
-//   final List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
-//   int currentIndex = 0;
-//
-//   void moveRight() {
-//     setState(() {
-//       if (currentIndex < items.length - 1) {
-//         currentIndex++;
-//       } else {
-//         currentIndex = 0;
-//       }
-//     });
-//   }
-//
-//   void moveLeft() {
-//     setState(() {
-//       if (currentIndex > 0) {
-//         currentIndex--;
-//       } else {
-//         currentIndex = items.length - 1;
-//       }
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             IconButton(
-//               icon: Icon(Icons.arrow_back_ios),
-//               color: Color(0xFF717171),
-//               onPressed: moveLeft,
-//             ),
-//             Expanded(
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: List.generate(
-//                   items.length,
-//                   (index) => Container(
-//                     width: 60,
-//                     height: 60,
-//                     margin: index % 5 == 4
-//                         ? EdgeInsets.zero
-//                         : EdgeInsets.only(right: 3),
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(5),
-//                       color: currentIndex == index ? Colors.grey : Colors.white,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             IconButton(
-//               icon: Icon(Icons.arrow_forward_ios),
-//               color: Color(0xFF717171),
-//               onPressed: moveRight,
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-// }
 
 class WalkButton extends StatelessWidget {
   final String imagePath;
@@ -873,6 +820,25 @@ class ItemCard extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class footer extends StatelessWidget {
+  const footer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        '코펫\n문의사항 코펫이메일@gmail.com',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'Segeo',
+          fontSize: 15,
+          color: Color(0xFFAFAFAF),
         ),
       ),
     );

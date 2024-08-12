@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
+import 'package:pet/pages/profile/setting/alarm.dart';
 import 'package:pet/style/colors.dart';
 
 class SettingHome extends StatelessWidget {
@@ -8,18 +9,16 @@ class SettingHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: GoBackAppBar(),
-      body: Container(
-        color: WHITE,
-        child: const Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SettingButton(buttonName: '프로필 수정'),
-            SettingButton(buttonName: '키워드 수정'),
-            SettingButton(buttonName: '알림 설정'),
-            SettingButton(buttonName: '계정 탈퇴'),
-          ],
-        ),
+      body: const Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          //SettingButton(buttonName: '프로필 수정'),
+          //SettingButton(buttonName: '키워드 수정'),
+          SettingButton(buttonName: '알림 설정'),
+          SettingButton(buttonName: '계정 탈퇴'),
+        ],
       )
     );
   }
@@ -51,8 +50,8 @@ class SettingButton extends StatelessWidget {
               foregroundColor: Colors.grey,
               ),
               onPressed: (){
-              if(buttonName == '프로필 수정'){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> ProfileModify()));
+              if(buttonName == '알림 설정'){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> alarm()));
               }
               },
               child: Row(

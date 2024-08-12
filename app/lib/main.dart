@@ -118,6 +118,12 @@ class App extends ConsumerWidget {
           )
         )
       ),
+// <<<<<<< HEAD
+//       home: logintype()
+//       //userRef.id == 0 ? mainlogin() :
+//         //      isRegistered == false ? logintype() :
+//           //    mainhome()
+// =======
 
       home: Container(
         color: WHITE,
@@ -143,6 +149,7 @@ class App extends ConsumerWidget {
           },
         ),
       )
+// >>>>>>> feature/map
     );
   }
 }
