@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/api/getArticles.dart';
 import 'package:pet/const/models/articles.dart';
 import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
+import '../../../api/article/getArticles.dart';
+import '../../../const/models/comments_model.dart';
 import '../../../style/colors.dart';
 
 class ProfileInformationother extends StatefulWidget {
@@ -19,11 +20,22 @@ class ProfileInformationother extends StatefulWidget {
 class _ProfileInformationotherState extends State<ProfileInformationother> {
   final List<String> profileCategory = ['산책', '게시글'];
   String currentState = '산책';
-  Future<List<Comments>>? currentFuture;
+  Future<List<Article>>? currentFuture;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
+    // 초기 currentFuture 설정
+    updateFuture();
+  }
+
+  void updateFuture() {
+    final userId = ProviderScope.containerOf(context).read(UserProvider).id.toString();
+    if (currentState == '게시글') {
+      currentFuture = GetArticles.getOwnerArticles(userId: userId);
+    } else {
+      currentFuture = Future.value([]);
+    }
   }
 
   @override
@@ -31,6 +43,7 @@ class _ProfileInformationotherState extends State<ProfileInformationother> {
     final userId = ProviderScope.containerOf(context).read(UserProvider).id.toString();
     final Function setCurrentState = (String state){
       currentState = state;
+      updateFuture();
     };
     return Column(
       children: [
@@ -50,33 +63,29 @@ class _ProfileInformationotherState extends State<ProfileInformationother> {
           ),
         ),
         Flexible(
-          child: FutureBuilder(
-            future:  currentFuture,
-            builder: (context, snapshot){
-              if(snapshot.data != null){
-                if(currentState == '산책'){
-                  currentFuture = null;
-                }
-                if(currentState == '게시글'){
-                  currentFuture = GetArticles.getOwnerArticles(userId: userId);
-                  return PostList(length: snapshot.data!.length, comments: snapshot.data!);
-                }
-
-              }
-              if(snapshot.connectionState == ConnectionState.waiting){
+          child: FutureBuilder<List<Article>>(
+            future: currentFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: Text('loading'));
               }
-              if(snapshot.hasError){
+              if (snapshot.hasError) {
                 final err = snapshot.error;
                 print('profileInformation error : $err');
                 return Center(child: Text('error'));
               }
-              else{
-                return Center(child: Text('No Data'));
+              if (snapshot.hasData) {
+                if (currentState == '게시글') {
+                  return PostList(
+                    length: snapshot.data!.length,
+                    comments: snapshot.data!, // `comments`로 수정
+                  );
+                }
               }
+              return Center(child: Text('No Data'));
             },
           ),
-        )
+        ),
       ],
     );
   }

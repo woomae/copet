@@ -2,21 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/common/component/appbars/modify_appbar.dart';
-import 'package:pet/common/component/buttons/next_button.dart';
-import 'package:pet/common/component/widgets/region_dropdown_widget.dart';
-import 'package:pet/const/regions/region_list.dart';
-import 'package:pet/pages/profile/profile_main.dart';
 import '../../common/component/buttons/dropdown_button.dart';
 import '../../style/colors.dart';
+import 'package:pet/login/login_area.dart';
 
-class ProfileModify extends StatelessWidget {
+class ProfileModify extends ConsumerWidget {
   const ProfileModify({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: ModifyAppBar(context),
       body: _Body(),
@@ -24,11 +21,19 @@ class ProfileModify extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
-
+class _Body extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    return  Stack(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedRegion = ref.watch(regionProvider);
+    final selectedDistrict = ref.watch(districtProvider);
+    final selectedDong = ref.watch(dongProvider);
+
+    List<String> districts = selectedRegion != '지역선택' ? regionMap[selectedRegion]! : ['지역선택'];
+    List<String> dongs = (selectedRegion != '지역선택' && selectedDistrict != '지역선택')
+        ? dongMap[selectedRegion]![selectedDistrict]!
+        : ['지역선택'];
+
+    return Stack(
       children: [
         Container(
           height: 147,
@@ -48,7 +53,6 @@ class _Body extends StatelessWidget {
           height: 147,
           color: Color(0xFF000000).withOpacity(0.1), // 10% 투명도 검정색
         ),
-        // Padding 위젯: 위쪽에 120 픽셀의 패딩을 줍니다.
         const Padding(
           padding: EdgeInsets.only(top: 120),
           child: Profile_modify(childWidget: ModifyContainer()),
@@ -58,25 +62,20 @@ class _Body extends StatelessWidget {
   }
 }
 
-// <<<<<<< HEAD
-// class ModifyContainer extends StatelessWidget {
-//   const ModifyContainer({Key? key});
-// =======
-class ModifyContainer extends StatefulWidget {
-  const ModifyContainer({super.key});
-
+class ModifyContainer extends ConsumerWidget {
+  const ModifyContainer({Key? key});
 
   @override
-  State<ModifyContainer> createState() => _ModifyContainerState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedRegion = ref.watch(regionProvider);
+    final selectedDistrict = ref.watch(districtProvider);
+    final selectedDong = ref.watch(dongProvider);
 
-class _ModifyContainerState extends State<ModifyContainer> {
-  @override
-  void initState() {
-    super.initState();
-  }
-  @override
-  Widget build(BuildContext context) {
+    List<String> districts = selectedRegion != '지역선택' ? regionMap[selectedRegion]! : ['지역선택'];
+    List<String> dongs = (selectedRegion != '지역선택' && selectedDistrict != '지역선택')
+        ? dongMap[selectedRegion]![selectedDistrict]!
+        : ['지역선택'];
+
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 100),
@@ -91,52 +90,45 @@ class _ModifyContainerState extends State<ModifyContainer> {
             _title(text: '반려동물 종'),
             InputField(hintText: '골든리트리버', showHintText: false),
             _title(text: '지역 설정'),
-            DropDownButton(dropDownList: Region_do),
+            DropDownButton(
+              dropDownList: ['지역선택'] + regionMap.keys.toList(),
+              currentItem: selectedRegion,
+              onPressed: (value) {
+                ref.read(regionProvider.notifier).state = value;
+                ref.read(districtProvider.notifier).state = '지역선택';
+                ref.read(dongProvider.notifier).state = '지역선택';
+              },
+            ),
             const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   fit: FlexFit.tight,
-                  child: DropDownButton(dropDownList: Region_do),
+                  child: DropDownButton(
+                    dropDownList: districts,
+                    currentItem: selectedDistrict,
+                    onPressed: (value) {
+                      ref.read(districtProvider.notifier).state = value;
+                      ref.read(dongProvider.notifier).state = '지역선택';
+                    },
+                  ),
                 ),
                 const SizedBox(width: 15),
                 Flexible(
                   fit: FlexFit.tight,
-                  child: DropDownButton(dropDownList: Region_do),
+                  child: DropDownButton(
+                    dropDownList: dongs,
+                    currentItem: selectedDong,
+                    onPressed: (value) {
+                      ref.read(dongProvider.notifier).state = value;
+                    },
+                  ),
                 ),
               ],
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: [
-            //     // Nextbutton( // 수정 요청 보낸 후 제대로 응답이 도착했는지 확인하는 에러처리 필요
-            //     //   onPressed: () => Navigator.pop(context),
-            //     // )
-            //   ],
-            // ),
           ],
         ),
-// =======
-//             const Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 InputField(text: '닉네임', hintText: '* 닉네임은 언제든지 변경이 가능합니다.',),
-//               ],
-//             ),
-//             InputField(text: '자기소개', hintText: '* 60자 이내',),
-//             RegionDropdownWidget(),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.end,
-//               children: [
-//                 // Nextbutton( //수정 요청 보낸 후 제대로 응답이 도착했는지 확인하는 에러처리 필요
-//                 //   onPressed: () => Navigator.pop(context),
-//                 // )
-//               ],
-//             )
-//             ]
-//         )
-// >>>>>>> feature/map
       ),
     );
   }
@@ -159,8 +151,8 @@ class InputField extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: double.infinity, // 전체 너비를 사용하도록 설정
-            height: 45.0, // 원하는 높이로 설정
+            width: double.infinity,
+            height: 45.0,
             child: textformfield_modify(
               onChanged: (value) {
                 // 변경사항 처리
@@ -214,11 +206,15 @@ class textformfield_modify extends StatelessWidget {
           cursorColor: Colors.black,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10),),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
               borderSide: BorderSide(width: 1, color: Color(0xFFB0B0B0)),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10),),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
               borderSide: BorderSide(width: 1, color: Color(0xFFB0B0B0)),
             ),
             border: OutlineInputBorder(

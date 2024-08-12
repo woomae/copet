@@ -386,8 +386,7 @@ class MoreButton_result_community extends StatelessWidget {
         );
       },
       style: TextButton.styleFrom(
-        primary: Color(0xFFD9D9D9),
-        backgroundColor: Colors.white,
+        foregroundColor: Color(0xFFD9D9D9), backgroundColor: Colors.white,
         textStyle: TextStyle(
           fontFamily: 'NotoSansKR',
           fontWeight: FontWeight.w400,
@@ -480,8 +479,7 @@ class MoreButton_result_place extends StatelessWidget {
         );
       },
       style: TextButton.styleFrom(
-        primary: Color(0xFFD9D9D9),
-        backgroundColor: Colors.white,
+        foregroundColor: Color(0xFFD9D9D9), backgroundColor: Colors.white,
         textStyle: TextStyle(
           fontFamily: 'NotoSansKR',
           fontWeight: FontWeight.w400,
@@ -504,8 +502,7 @@ class MoreButton_result_item extends StatelessWidget {
         );
       },
       style: TextButton.styleFrom(
-        primary: Color(0xFFD9D9D9),
-        backgroundColor: Colors.white,
+        foregroundColor: Color(0xFFD9D9D9), backgroundColor: Colors.white,
         textStyle: TextStyle(
           fontFamily: 'NotoSansKR',
           fontWeight: FontWeight.w400,

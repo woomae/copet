@@ -1,19 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/api/article/getArticles.dart';
 import 'package:pet/const/models/articles.dart';
 import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
+import '../../api/article/getArticles.dart';
+import '../../const/models/comments_model.dart';
 import '../../style/colors.dart';
 
 class ProfileInformationContainer extends StatefulWidget {
-  ProfileInformationContainer({
-    super.key,
-    this.othersId
-  });
-  final int? othersId;
+  const ProfileInformationContainer({super.key});
 
   @override
   State<ProfileInformationContainer> createState() => _ProfileInformationContainerState();
@@ -25,79 +22,87 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
   Future<List<Article>>? currentFuture;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
+    // 초기 currentFuture 설정
+    updateFuture();
+  }
+
+  void updateFuture() {
+    final userId = ProviderScope.containerOf(context).read(UserProvider).id.toString();
+    if (currentState == '게시글') {
+      currentFuture = GetArticles.getOwnerArticles(userId: userId);
+    } else {
+      currentFuture = Future.value([]);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final userId = widget.othersId != null ? widget.othersId
-        : ProviderScope.containerOf(context).read(UserProvider).id;
-    if(widget.othersId != null){
-      profileCategory.removeLast();
+    final userId = ProviderScope.containerOf(context).read(UserProvider).id.toString();
+
+    void setCurrentState(String state) {
+      setState(() {
+        currentState = state;
+        updateFuture();
+      });
     }
+
     return Column(
       children: [
         Container(
           decoration: BoxDecoration(
-            color: WHITE,
-            border: Border(bottom: BorderSide(width: 1, color: GREY3))
-            ),
+              color: WHITE,
+              border: Border(bottom: BorderSide(width: 1, color: GREY3))
+          ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: profileCategory.map((e) => _categoryButton(
-                  onPressed: (){
-                    setState(() {
-                      currentState = e;
-                      if(currentState == profileCategory[0]){
-                        currentFuture = null;
-                      }
-                      if(currentState == profileCategory[1]){
-                        currentFuture = GetArticles.getOwnerArticles(userId: userId.toString());
-                      }
-                      if(currentState == profileCategory[2] ){
-                        currentFuture = GetArticles.getLikeArticles(userId: userId!);
-                      }
-                    });
-                  }, buttonName: e, isPressed : currentState == e)).toList()
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: profileCategory.map((e) => _categoryButton(
+                onPressed: () {
+                  setCurrentState(e);
+                },
+                buttonName: e,
+                isPressed: currentState == e,
+              )).toList()
           ),
         ),
         Flexible(
-          child: FutureBuilder(
-            future:  currentFuture,
-            builder: (context, snapshot){
-              if(snapshot.data != null){
-                print('snapshotData : $snapshot');
-                if(currentFuture == null){
-                  return Center(child: Text('currentFuture null'));
-                }
-                return PostList(length: snapshot.data!.length, comments: snapshot.data!);
-              }
-              if(snapshot.connectionState == ConnectionState.waiting){
+          child: FutureBuilder<List<Article>>(
+            future: currentFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: Text('loading'));
               }
-              if(snapshot.hasError){
+              if (snapshot.hasError) {
                 final err = snapshot.error;
                 print('profileInformation error : $err');
                 return Center(child: Text('error'));
               }
-              else{
-                return Center(child: Text('No Data'));
+              if (snapshot.hasData) {
+                if (currentState == '게시글') {
+                  return PostList(
+                    length: snapshot.data!.length,
+                    comments: snapshot.data!, // `comments`로 수정
+                  );
+                }
               }
+              return Center(child: Text('No Data'));
             },
           ),
-        )
+        ),
       ],
     );
   }
 }
+
 class _categoryButton extends StatelessWidget {
   const _categoryButton({
     super.key,
     required this.onPressed,
     required this.buttonName,
-    required this.isPressed
+    required this.isPressed,
   });
+
   final VoidCallback onPressed;
   final String buttonName;
   final bool isPressed;
@@ -105,11 +110,12 @@ class _categoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        style: TextButton.styleFrom(
-          foregroundColor: isPressed ? BLACK : GREY3,
-          splashFactory: NoSplash.splashFactory
-        ),
-        onPressed: onPressed,
-        child: Text(buttonName));
+      style: TextButton.styleFrom(
+        foregroundColor: isPressed ? BLACK : GREY3,
+        splashFactory: NoSplash.splashFactory,
+      ),
+      onPressed: onPressed,
+      child: Text(buttonName),
+    );
   }
 }

@@ -5,18 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="fix: 로그인 분기 시 로딩 페이지 경유히도록 변경">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/widgets/region_dropdown_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/widgets/region_dropdown_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/community_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/community_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/loading_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_information_other.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_information_other.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_other.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_other.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_other_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_other_container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/others_profile.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_information_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_information_container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_result.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>

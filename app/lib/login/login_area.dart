@@ -467,20 +467,6 @@ class loginarea extends ConsumerWidget {
                 ),
               ),
             ),
-
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agreetext(),
-                  const SizedBox(width: 70),
-                  const SizedBox(width: 70),
-                ],
-              ),
-              const SizedBox(height: 10),
-            ],
-          ),
             Spacer(),
             nextbutton_area(isEnabled: isButtonEnabled),
           ],

@@ -57,14 +57,25 @@ class ProfileotherContainer extends ConsumerWidget {
                   splashFactory: NoSplash.splashFactory,
                   //foregroundColor: BLACK,
                 ),
-                onPressed: () {
-                  //팔로워기능
-                },
-                child: const Text(
-                  '팔로워',
-                  style: TextStyle(
-                    fontFamily: 'Segoe',
-                    color: Color(0xFF959595),
+                onPressed: () {},
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '팔로워',
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF959595),
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' 0', // 팔로워 수 추가
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF222222),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -75,11 +86,24 @@ class ProfileotherContainer extends ConsumerWidget {
                   //foregroundColor: Colors.red,
                 ),
                 onPressed: () {},
-                child: const Text(
-                  '팔로잉',
-                  style: TextStyle(
-                    fontFamily: 'Segoe',
-                    color: Color(0xFF959595),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '팔로잉',
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF959595),
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' 0', // 팔로잉 수 추가
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF222222),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               )
@@ -121,7 +145,7 @@ class ProfileotherContainer extends ConsumerWidget {
                 ),
                 child: Center(
                   child: Text(
-                    state.petkeyword.isNotEmpty ? state.petkeyword : '#활발함',
+                    '#활발함',
                     style: TextStyle(
                       fontFamily: 'Segoe',
                       fontSize: 15,
@@ -140,7 +164,7 @@ class ProfileotherContainer extends ConsumerWidget {
                 ),
                 child: Center(
                   child: Text(
-                    state.petkeyword.isNotEmpty ? state.petkeyword : '#활발함',
+                    '#활발함',
                     style: TextStyle(
                       fontFamily: 'Segoe',
                       fontSize: 15,
@@ -162,9 +186,9 @@ class ProfileotherContainer extends ConsumerWidget {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Color(0xFFE6E6E6),
                     elevation: 0,
-                    primary: Color(0xFFE6E6E6),
-                    onPrimary: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(60),
                     ),
@@ -190,9 +214,9 @@ class ProfileotherContainer extends ConsumerWidget {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Color(0xFFE6E6E6),
                     elevation: 0,
-                    primary: Color(0xFFE6E6E6),
-                    onPrimary: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(60),
                     ),
