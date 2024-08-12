@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pet/const/models/articles.dart';
 import 'package:pet/const/models/posting_model.dart';
 
 final PostingProvider = StateNotifierProvider<PostingNotifier, PostingModel>(
@@ -8,7 +9,6 @@ final PostingProvider = StateNotifierProvider<PostingNotifier, PostingModel>(
 class PostingNotifier extends StateNotifier<PostingModel> {
   PostingNotifier() :
         super(const PostingModel(
-          owner_id: 0,
           title: '',
           body: '',
           category: '',
@@ -16,10 +16,9 @@ class PostingNotifier extends StateNotifier<PostingModel> {
       ));
 
   void updatePosting(
-      {int? owner_id, String? title, String? body, String? category, List<XFile>? imageFiles}) {
-    final List<XFile>? images = imageFiles == null ? state.images : [...?state.images,...imageFiles] ;
+      {String? title, String? body, String? category, List<Photo>? imageFiles}) {
+    final List<Photo>? images = imageFiles == null ? state.images : [...?state.images,...imageFiles] ;
     state = PostingModel(
-        owner_id: owner_id ?? state.owner_id,
         title: title ?? state.title,
         body: body ?? state.body,
         category: category ?? state.category,

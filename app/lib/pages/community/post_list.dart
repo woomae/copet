@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pet/pages/community/article_page.dart';
 import 'package:pet/style/colors.dart';
 
 import '../../const/models/articles.dart';
 
 class PostList extends StatelessWidget {
   final int length;
-  final List<Comments> comments;
+  final List<Article> comments;
 
   const PostList({
     super.key,
@@ -21,9 +22,10 @@ class PostList extends StatelessWidget {
         padding: EdgeInsets.only(top: 0),
         itemCount: length,
         itemBuilder: (BuildContext context, int i) {
+          print(comments[i].id);
           return GestureDetector(
             onTap: (){
-              print('Posting Pressed');
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ArticlePage(articleId: comments[i].id)));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -80,9 +82,9 @@ class PostList extends StatelessWidget {
                         Row(
                           children: [
                             //글 이미지..?
-                            // comments[i].imgName != null ?
-                            //   Text(comments[i].imgName![0].toString()) :
-                            comments[i].imgName != null && comments[i].imgName != '' ?
+                            // comments[i].photos != null ?
+                            //   Text(comments[i].photos![0].toString()) :
+                            comments[i].photos != null && comments[i].photos != '' ?
                             Thumbnail() :
                             Thumbnail(),
 

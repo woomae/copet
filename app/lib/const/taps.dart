@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:pet/main/main_screen.dart';
 import 'package:pet/pages/community/community_main.dart';
+import 'package:pet/pages/map/map_page.dart';
 import 'package:pet/pages/profile/profile_main.dart';
 import 'package:pet/pages/search/search_main.dart';
 
@@ -39,9 +40,12 @@ const TABS = [
       screen: mainsearch()
   ),
   TabInfo(
+
     iconPath: 'asset/img/taps/mapicon.png',
     selectedIconPath: 'asset/img/taps/selectmap.png',
-    label: '산책',
+    label: '지도',
+    screen: MapPage()
+
   ),
   TabInfo(
     iconPath: 'asset/img/taps/profileicon.png',

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Comments } from './comments.entity';
+import { CreateCommentDto } from 'src/dto/create-comment.dto';
 
 @Injectable()
 export class CommentRepository extends Repository<Comments> {
@@ -18,17 +19,17 @@ export class CommentRepository extends Repository<Comments> {
       .getManyAndCount();
     return found;
   }
-  async getcommentById(_id: number) {
-    return await this.findOneBy({ _id: _id });
+  async getcommentById(id: number) {
+    return await this.findOneBy({ _id: id });
   }
-  async createComment(bodyData: any): Promise<void> {
+  async createComment(bodyData: CreateCommentDto): Promise<Comments> {
     return await this.save(bodyData);
   }
-  async updateComment(_id: number, comment: string) {
-    await this.update({ _id: _id }, { comment: comment });
-    return await this.findOneBy({ _id: _id });
+  async updateComment(id: number, comment: string) {
+    await this.update({ _id: id }, { comment: comment });
+    return await this.findOneBy({ _id: id });
   }
-  async deleteComment(_id: number) {
-    return await this.delete({ _id: _id });
+  async deleteComment(id: number) {
+    return await this.delete({ _id: id });
   }
 }

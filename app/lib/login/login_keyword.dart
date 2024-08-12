@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet/api/patchUserData.dart';
 import 'package:pet/common/component/keyword/keyword.dart';
 import 'package:pet/login/login_end.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart';
 
 import '../style/colors.dart';
 import 'login_agree.dart';
@@ -16,8 +19,9 @@ class loginkeyword extends StatefulWidget {
 
 class _loginkeywordState extends State<loginkeyword> {
   final Set<int> selectedIndexes = {};
+  late List<String> keywordNames = [];
 
-  void onKeywordTap(int index) {
+  void onKeywordTap(int index, WidgetRef ref) {
     setState(() {
       if (selectedIndexes.contains(index)) {
         selectedIndexes.remove(index);
@@ -26,7 +30,11 @@ class _loginkeywordState extends State<loginkeyword> {
           selectedIndexes.add(index);
         }
       }
-    });
+      keywordNames = selectedIndexes.map((e) => keywords[e].name).toList();
+      ref.read(userDataProvider.notifier).updateUserData(petkeyword: keywordNames);
+      print(ref.read(userDataProvider).petkeyword);
+    }
+    );
   }
 
   @override
@@ -122,50 +130,58 @@ class _loginkeywordState extends State<loginkeyword> {
                             final keyword = keywords[index];
                             final isSelected = selectedIndexes.contains(index);
 
-                            return GestureDetector(
-                              onTap: () => onKeywordTap(index),
-                              child: Column(
-                                children: [
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      ClipOval(
-                                        child: Image.asset(
-                                          keyword.imagePath,
-                                          fit: BoxFit.cover,
-                                          width: 100,
-                                          height: 100,
-                                        ),
-                                      ),
-                                      if (isSelected)
-                                        ClipOval(
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            color: Colors.black.withOpacity(0.2),
-                                            child: Center(
+                            return
+                              Consumer(
+                                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                                  return  GestureDetector(
+                                    onTap: (){
+                                      onKeywordTap(index, ref);
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            ClipOval(
                                               child: Image.asset(
-                                                'asset/img/check_white.png',
-                                                width: 50,
-                                                height: 36.72,
+                                                keyword.imagePath,
+                                                fit: BoxFit.cover,
+                                                width: 100,
+                                                height: 100,
                                               ),
                                             ),
-                                          ),
+                                            if (isSelected)
+                                              ClipOval(
+                                                child: Container(
+                                                  width: 100,
+                                                  height: 100,
+                                                  color: Colors.black.withOpacity(0.2),
+                                                  child: Center(
+                                                    child: Image.asset(
+                                                      'asset/img/check_white.png',
+                                                      width: 50,
+                                                      height: 36.72,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
                                         ),
-                                    ],
-                                  ),
-                                  Text(
-                                    keyword.name,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: 'Segoe',
-                                      color: Colors.black,
+                                        Text(
+                                          keyword.name,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'Segoe',
+                                            color: Colors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
                                     ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            );
+                                  );
+                                },
+
+                              );
                           },
                         ),
                       ),
@@ -263,11 +279,12 @@ class selectedcount extends StatelessWidget {
   }
 }
 
-class nextbutton_keyword extends StatelessWidget {
+class nextbutton_keyword extends ConsumerWidget {
   const nextbutton_keyword({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.read(userDataProvider);
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -275,10 +292,28 @@ class nextbutton_keyword extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 40),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const loginend()),
-            );
+            print(state.nickname);
+            print(state.pet_category);
+            print(state.region?.state);
+            print(state.region?.city);
+            print(state.region?.district);
+            print(state.petkeyword);
+            try{
+              PatchUserData.patchUserData(
+                  nickname: state.nickname,
+                  pet_category: state.pet_category,
+                  region: state.region,
+                  petkeyword: state.petkeyword
+              );
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => loginend()),
+                    (Route<dynamic> route) => false,
+              );
+            }
+            catch(e){
+              print(e);
+            }
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: WHITE,

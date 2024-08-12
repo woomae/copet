@@ -9,9 +9,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Articles } from '../articles/articles.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
-export class Comments extends BaseEntity {
+export class Comments {
   @PrimaryGeneratedColumn()
   _id: number;
 

@@ -7,7 +7,7 @@ export class UpdateUserDto {
   nickname: string;
 
   @IsString()
-  pet_catagory: string;
+  pet_category: string;
 
   @IsObject()
   region: {

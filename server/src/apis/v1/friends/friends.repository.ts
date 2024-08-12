@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Friends } from './friends.entity';
-import { Users } from '../users/users.entity';
 
 @Injectable()
 export class FriendsRepository extends Repository<Friends> {
@@ -23,16 +22,20 @@ export class FriendsRepository extends Repository<Friends> {
       .where('friends.from_user_id = :from_user_id', {
         from_user_id: from_user_id,
       })
+      .leftJoinAndSelect('user.photo', 'photo') // user.photo를 photo로 조인
+      .leftJoinAndSelect('user.petkeywords', 'petkeywords') // user.petkeywords를 petkeywords로 조인
       .getManyAndCount();
     return result;
   }
   async getFollowerList(from_user_id: number): Promise<[Friends[], number]> {
     //from_user_id가 friend_user_id인 from_user_id조회
     const result = await this.createQueryBuilder('friends')
-      .leftJoin('friends.friend_user_id', 'user')
+      .leftJoinAndSelect('friends.from_user_id', 'user') // friends.from_user_id를 user로 조인 (팔로워)
       .where('friends.friend_user_id = :from_user_id', {
         from_user_id: from_user_id,
       })
+      .leftJoinAndSelect('user.photo', 'photo') // user와 photo 테이블 조인
+      .leftJoinAndSelect('user.petkeywords', 'petkeywords') // user와 petkeywords 테이블 조인
       .getManyAndCount();
     return result;
   }

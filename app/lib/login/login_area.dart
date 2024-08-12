@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
+import 'package:pet/const/models/user_data_model.dart';
+import 'package:pet/const/regions/jellanamdo/jeollanamdo.dart';
+import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/login/login_agree.dart';
 import 'package:pet/style/colors.dart';
 
@@ -342,7 +345,8 @@ final districtProvider = StateProvider<String>((ref) => '지역선택');
 final dongProvider = StateProvider<String>((ref) => '지역선택');
 
 class loginarea extends ConsumerWidget {
-  const loginarea({super.key});
+  loginarea({super.key});
+  //district 수정 필요
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -463,6 +467,20 @@ class loginarea extends ConsumerWidget {
                 ),
               ),
             ),
+
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  agreetext(),
+                  const SizedBox(width: 70),
+                  const SizedBox(width: 70),
+                ],
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
             Spacer(),
             nextbutton_area(isEnabled: isButtonEnabled),
           ],

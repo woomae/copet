@@ -9,9 +9,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
-export class Friends extends BaseEntity {
+export class Friends {
   @PrimaryGeneratedColumn()
   _id: number;
 
@@ -19,14 +20,17 @@ export class Friends extends BaseEntity {
   @JoinColumn({ name: 'friend_user_id' })
   friend_user_id: number;
 
-  @Column({ nullable: true })
+  @ManyToOne(() => Users, (user) => user._id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'from_user_id' })
   from_user_id: number;
 
+  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
   created_at: Date;
 
+  @Exclude({ toPlainOnly: true })
   @UpdateDateColumn({
     type: 'timestamptz',
   })

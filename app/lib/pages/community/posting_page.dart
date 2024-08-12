@@ -7,8 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pet/common/component/appbars/post_appbar.dart';
 import 'package:pet/common/component/dialogs/commonDialog.dart';
 import 'package:pet/const/category_list.dart';
+import 'package:pet/const/models/articles.dart';
 import 'package:pet/providers/posting_notifier_provider.dart';
-import '../../api/postPosting.dart';
+import '../../api/article/postPosting.dart';
 import '../../style/colors.dart';
 
 
@@ -25,10 +26,6 @@ class PostingPage extends ConsumerWidget {
 
   void postPostingData(BuildContext context, WidgetRef ref) async{
     final state = ref.watch(PostingProvider);
-    ref.read(PostingProvider.notifier).updatePosting(
-      //userId 고정
-        owner_id: 1
-    );
 
     if(state.title == ''){
       showCommonDialog(content: '제목을 입력해주세요', context: context);
@@ -47,7 +44,6 @@ class PostingPage extends ConsumerWidget {
       print(state.images);
       try{
         await PostPosting.postPosting(
-            owner_id: 1,
             title: state.title,
             body: state.body,
             category: state.category,
@@ -118,7 +114,7 @@ class _Body extends ConsumerWidget {
                         child: state.images != null ?
                         Column(
                             children: state.images!.map(
-                                    (e) => Image.file(File(e.path), width: 300, height: 300, fit: BoxFit.cover,)).toList()
+                                    (e) => Image.file(File(e.imgPath), width: 300, height: 300, fit: BoxFit.cover,)).toList()
                         ) : null,
                       ),
                       BodyInput()
@@ -139,8 +135,8 @@ class TitleInput extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return TextFormField(
+      initialValue: ref.read(PostingProvider).title,
       onChanged: (e){
         ref.read(PostingProvider.notifier).updatePosting(title: e);
       },
@@ -174,10 +170,11 @@ class BodyInput extends ConsumerWidget {
 
 남을 비방하거나 욕설 등의 부적절한 글은 삼가주세요.""";
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return TextFormField(
+      initialValue: ref.read(PostingProvider).body,
       onChanged: (e){
         ref.read(PostingProvider.notifier).updatePosting(body: e);
       },
@@ -251,7 +248,7 @@ class _BottomAppBar extends ConsumerWidget {
               //state에 이미지패스 저장
               if(images != null && images.length < imageLimit) {
                 ref.read(PostingProvider.notifier).updatePosting(
-                    imageFiles: images);
+                    imageFiles: images.map((e)=> Photo(imgPath: e.path)).toList());
               }
             }, icon: const Icon(Icons.camera_alt),color: PRIMARY_COLOR,),
           const Spacer(),

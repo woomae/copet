@@ -6,7 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/common/component/appbars/modify_appbar.dart';
 import 'package:pet/common/component/buttons/next_button.dart';
-import 'package:pet/const/regions.dart';
+import 'package:pet/common/component/widgets/region_dropdown_widget.dart';
+import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/pages/profile/profile_main.dart';
 import '../../common/component/buttons/dropdown_button.dart';
 import '../../style/colors.dart';
@@ -57,9 +58,23 @@ class _Body extends StatelessWidget {
   }
 }
 
-class ModifyContainer extends StatelessWidget {
-  const ModifyContainer({Key? key});
+// <<<<<<< HEAD
+// class ModifyContainer extends StatelessWidget {
+//   const ModifyContainer({Key? key});
+// =======
+class ModifyContainer extends StatefulWidget {
+  const ModifyContainer({super.key});
 
+
+  @override
+  State<ModifyContainer> createState() => _ModifyContainerState();
+}
+
+class _ModifyContainerState extends State<ModifyContainer> {
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -102,6 +117,26 @@ class ModifyContainer extends StatelessWidget {
             // ),
           ],
         ),
+// =======
+//             const Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 InputField(text: '닉네임', hintText: '* 닉네임은 언제든지 변경이 가능합니다.',),
+//               ],
+//             ),
+//             InputField(text: '자기소개', hintText: '* 60자 이내',),
+//             RegionDropdownWidget(),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.end,
+//               children: [
+//                 // Nextbutton( //수정 요청 보낸 후 제대로 응답이 도착했는지 확인하는 에러처리 필요
+//                 //   onPressed: () => Navigator.pop(context),
+//                 // )
+//               ],
+//             )
+//             ]
+//         )
+// >>>>>>> feature/map
       ),
     );
   }

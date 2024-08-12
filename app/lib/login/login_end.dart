@@ -109,7 +109,13 @@ class nextbutton_end extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => mainhome()),
+                (Route<dynamic> route) => false,
+          );
+        },
         style: ElevatedButton.styleFrom(
           foregroundColor: WHITE,
           backgroundColor: PRIMARY_COLOR,

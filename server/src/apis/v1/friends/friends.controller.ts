@@ -43,20 +43,16 @@ export class FriendsController {
   @Get('follow')
   async getFollowList(@Req() req: Request) {
     const userPayload = req.user as Payload;
-    const followList = await this.friendsService.getFollowList(
-      userPayload.user_id,
-    );
-    const result = await this.usersService.getFollowInfo(followList);
+    const result = await this.friendsService.getFollowList(userPayload.user_id);
     return result;
   }
 
   @Get('follower')
   async getFollowerList(@Req() req: Request) {
     const userPayload = req.user as Payload;
-    const followerList = await this.friendsService.getFollowerList(
+    const result = await this.friendsService.getFollowerList(
       userPayload.user_id,
     );
-    const result = await this.usersService.getFollowerInfo(followerList);
     return result;
   }
 }

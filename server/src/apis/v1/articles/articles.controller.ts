@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -24,43 +26,36 @@ export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
   @Get('')
   async getAllArticles(
-    @Query('page') page: string = '1',
-    @Query('size') size: string = '10',
-    @Query('owner') owner?: string,
+    // @Query('page') page: string = '1',
+    @Query('page', new DefaultValuePipe('1'), ParseIntPipe) page?: number,
+    @Query('size', new DefaultValuePipe('10'), ParseIntPipe) size?: number,
+    @Query('owner', ParseIntPipe) owner?: number,
     @Query('q') q?: string,
     @Query('category') category?: string,
   ) {
-    const pageInt = parseInt(page, 10);
-    const sizeInt = parseInt(size, 10);
-    const ownerInt = parseInt(owner, 10);
-    console.log(pageInt, sizeInt, ownerInt, q, category);
     if (q) {
-      const result = await this.articlesService.searchArticles(
-        q,
-        pageInt,
-        sizeInt,
-      );
+      const result = await this.articlesService.searchArticles(q, page, size);
       return result;
     }
-    if (ownerInt) {
+    if (owner) {
       const result = await this.articlesService.getAllArticleByOwner(
-        ownerInt,
-        pageInt,
-        sizeInt,
+        owner,
+        page,
+        size,
       );
       return result;
     }
 
     const result = await this.articlesService.getAllArticles(
-      pageInt,
-      sizeInt,
+      page,
+      size,
       category,
     );
     return result;
   }
   @Get(':id')
   async getArticleById(@Param('id') _id: number) {
-    const result = await this.articlesService.getArticleByIdWithPhotos(_id);
+    const result = await this.articlesService.getArticleById(_id);
     return result;
   }
 

@@ -14,23 +14,26 @@ import { Friends } from '../friends/friends.entity';
 import { Stars } from '../stars/stars.entity';
 import { PetKeywords } from '../petkeywords/petkeywords.entity';
 import { Photos } from '../photos/photos.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
-export class Users extends BaseEntity {
+export class Users {
   @PrimaryGeneratedColumn()
   _id: number;
 
+  @Exclude({ toPlainOnly: true })
   @Column({ unique: true })
   provider_id: string;
 
   @Column({ nullable: true })
   nickname: string;
 
+  @Exclude({ toPlainOnly: true })
   @Column({ unique: true })
   email: string;
 
   @Column({ nullable: true })
-  pet_catagory: string;
+  pet_category: string;
 
   @Column({ type: 'json', nullable: true })
   region: {
@@ -66,11 +69,13 @@ export class Users extends BaseEntity {
   })
   photo: Photos;
 
+  @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
     type: 'timestamptz',
   })
   created_at: Date;
 
+  @Exclude({ toPlainOnly: true })
   @UpdateDateColumn({
     type: 'timestamptz',
   })

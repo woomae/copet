@@ -7,32 +7,18 @@ export class ArticleRepository extends Repository<Articles> {
   constructor(dataSource: DataSource) {
     super(Articles, dataSource.createEntityManager());
   }
-  async getArticleByIdWithPhotos(_id: number) {
-    const queryBuilder = this.createQueryBuilder('article')
-      .leftJoinAndSelect('article.photos', 'photo')
-      .where('article._id = :_id', { _id: _id });
-    const article = await queryBuilder.getOne();
-    const articleData = {
-      ...article,
-      photos: article.photos.map((photo) => photo.img_path),
-    };
-    return articleData;
-  }
+
   async getAllArticlesByCategory(page: number, size: number, category: string) {
     const queryBuilder = this.createQueryBuilder('article')
       .where({ category: category })
+      .leftJoinAndSelect('article.photos', 'photo')
       .take(size)
       .skip((page - 1) * size);
     const [articles, total] = await queryBuilder.getManyAndCount();
-    // 각 article에서 첫 번째 사진만 포함시키도록 데이터 변환합니다.
-    const articlesData = articles.map((article) => ({
-      ...article,
-      photos: article.photos.map((photo) => photo.img_path), // 포토 객체의 img_path만 포함
-    }));
 
     return {
       total,
-      articles: articlesData,
+      articles: articles,
     };
   }
   async getAllArticles(page: number, size: number) {
@@ -41,15 +27,10 @@ export class ArticleRepository extends Repository<Articles> {
       .take(size)
       .skip((page - 1) * size);
     const [articles, total] = await queryBuilder.getManyAndCount();
-    // 각 article에서 첫 번째 사진만 포함시키도록 데이터 변환합니다.
-    const articlesData = articles.map((article) => ({
-      ...article,
-      photos: article.photos.map((photo) => photo.img_path), // 포토 객체의 img_path만 포함
-    }));
 
     return {
       total,
-      articles: articlesData,
+      articles: articles,
     };
   }
   async getAllArticleByOwner(owner_id: number, page: number, size: number) {
@@ -59,19 +40,10 @@ export class ArticleRepository extends Repository<Articles> {
       .take(size)
       .skip((page - 1) * size);
     const [articles, total] = await queryBuilder.getManyAndCount();
-    const articlesData = articles.map((article) => ({
-      ...article,
-      photos: article.photos.map((photo) => photo.img_path), // 포토 객체의 img_path만 포함
-    }));
-
     return {
       total,
-      articles: articlesData,
+      articles: articles,
     };
-    // return await this.createQueryBuilder('articles')
-    //   .leftJoin('articles.owner_id', 'user')
-    //   .where('articles.owner_id = :owner_id', { owner_id: owner_id })
-    //   .getMany();
   }
 
   async ownerChecker(_id: number, owner_id: number): Promise<boolean> {
@@ -108,14 +80,10 @@ export class ArticleRepository extends Repository<Articles> {
       .take(size)
       .skip((page - 1) * size);
     const [articles, total] = await queryBuilder.getManyAndCount();
-    const articlesData = articles.map((article) => ({
-      ...article,
-      photos: article.photos.map((photo) => photo.img_path), // 포토 객체의 img_path만 포함
-    }));
 
     return {
       total,
-      articles: articlesData,
+      articles: articles,
     };
   }
 }

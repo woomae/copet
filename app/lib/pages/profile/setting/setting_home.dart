@@ -35,6 +35,7 @@ class SettingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
       decoration: const BoxDecoration(
+        color: WHITE,
         border: Border(
           bottom: BorderSide(width: 0.5, color: Colors.black)
         )

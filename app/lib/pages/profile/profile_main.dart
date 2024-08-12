@@ -11,14 +11,24 @@ class ProfileMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: _Body(),
+        body: ProfileBody(),
       ),
     );
   }
 }
-
-class _Body extends StatelessWidget {
-  const _Body({super.key});
+// <<<<<<< HEAD
+//
+// class _Body extends StatelessWidget {
+//   const _Body({super.key});
+// =======
+class ProfileBody extends StatelessWidget {
+  const ProfileBody({
+    super.key,
+    this.profileContainer,
+    this.profileInformationContainer
+  });
+  final Widget? profileContainer;
+  final Widget? profileInformationContainer;
 
   @override
   Widget build(BuildContext context) {
@@ -27,23 +37,40 @@ class _Body extends StatelessWidget {
       child: Column(
         children: [
           Flexible(
-            flex: 7,
-            child: Stack(
-              children: [
-                BackgroundScreen(),
-                Padding(
-                  padding: EdgeInsets.only(top: 175),
-                  child: Profile(
-                    childWidget: ProfileContainer(),
+// <<<<<<< HEAD
+//             flex: 7,
+//             child: Stack(
+//               children: [
+//                 BackgroundScreen(),
+//                 Padding(
+//                   padding: EdgeInsets.only(top: 175),
+//                   child: Profile(
+//                     childWidget: ProfileContainer(),
+// =======
+              flex: 2,
+              child: Stack(
+                children: [
+                  BackgroundScreen(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 180),
+                    child: Profile(
+                        childWidget: profileContainer != null
+                            ? profileContainer!
+                            :  ProfileContainer()),
                   ),
-                ),
               ],
             ),
           ),
           Flexible(
-            flex: 4,
-            child: ProfileInformationContainer(),
-          ),
+// <<<<<<< HEAD
+//             flex: 4,
+//             child: ProfileInformationContainer(),
+//           ),
+// =======
+              flex: 1,
+              child: profileInformationContainer != null
+                  ? profileInformationContainer!
+                  : ProfileInformationContainer())
         ],
       ),
     );
@@ -70,9 +97,14 @@ class Profile extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.25),
-                blurRadius: 2,
-                offset: Offset(0, -4),
+// <<<<<<< HEAD
+//                 color: Colors.grey.withOpacity(0.25),
+//                 blurRadius: 2,
+//                 offset: Offset(0, -4),
+// =======
+                color: Colors.grey,
+                blurRadius: 3,
+                offset: Offset(0,-1)
               )
             ],
           ),

@@ -44,7 +44,8 @@ export class FriendsService {
   }
   async getFollowerList(user_id: number): Promise<any> {
     const friendList = await this.friendsRepository.getFollowerList(user_id);
+    const newfriendList = friendList[0].map((friend) => friend.from_user_id);
     const friendListCount = { count: friendList[1] };
-    return [friendListCount, friendList[0]];
+    return [friendListCount, newfriendList];
   }
 }
