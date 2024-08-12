@@ -57,7 +57,7 @@ class ArticleEditPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<String>? prePhotos = ref.read(PostingProvider).images?.map((e)=> e.imgPath).toList();
-    print(prePhotos);
+
     return Scaffold(
       appBar: PostAppBar( ()=> putArticleData(context, ref, articleId, prePhotos) ),
       //뒤로가기 감지 시 상태 초기화
