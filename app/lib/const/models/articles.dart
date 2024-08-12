@@ -73,6 +73,7 @@ class Photo {
     );
   }
 }
+
 class Stars {
   final int iId;
   final int articleId;

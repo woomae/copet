@@ -6,10 +6,12 @@ import 'package:pet/api/article/deleteComment.dart';
 import 'package:pet/api/article/getComments.dart';
 import 'package:pet/api/article/patchComment.dart';
 import 'package:pet/api/article/postComment.dart';
+import 'package:pet/api/article/postLikeRequest.dart';
 import 'package:pet/common/component/appbars/go_back_appbar.dart';
 import 'package:pet/common/component/dialogs/confirmDialog.dart';
 import 'package:pet/common/component/widgets/spinner_widget.dart';
 import 'package:pet/const/models/comments_model.dart';
+import 'package:pet/pages/community/article_edit_page.dart';
 import 'package:pet/pages/community/posting_page.dart';
 import 'package:pet/providers/posting_notifier_provider.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
@@ -30,7 +32,7 @@ class ArticlePage extends StatelessWidget {
       backgroundColor: WHITE,
       resizeToAvoidBottomInset: true,
       appBar: GoBackAppBar(),
-      body: FutureBuilder(
+      body: FutureBuilder<Article>(
         future: GetArticles.getSingleArticle(articleId: articleId.toString()),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting){
@@ -52,25 +54,7 @@ class ArticlePage extends StatelessWidget {
                         children: [
                           _Title(article: data,),
                           //_Title(titleText: data.title, nickname: data.author, postDate: '24.01.01'),
-                          BodyText(
-                            bodyText: data.body,
-                            count: data.commentCount,
-                            scrap: data.scrapCount,
-                            photos: data.photos,
-                          ),
-                          BodyComments(
-                              count: 2, comments: [
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-                            Comment(comment: '댓글', nickname: '닉네임', id: 0, ownerId: 0),
-
-                          ]),
-
+                          BodyText(article: data),
                           FutureBuilder<Comments>(
                               future: GetComments.getComments(id: articleId),
                               builder: (context, snapshot){
@@ -81,7 +65,6 @@ class ArticlePage extends StatelessWidget {
                                 if(snapshot.hasData){
                                   final Comments data = snapshot.data!;
                                   return BodyComments(
-                                      count: data.count,
                                       comments : data.comments
                                   );
                                 }
@@ -289,7 +272,8 @@ class _TitleState extends State<_Title> {
                             category: widget.article.category,
                             imageFiles: widget.article.photos
                           );
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>PostingPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                              ArticleEditPage(articleId: widget.article.id.toString())));
                         },
                       );
                       else return SizedBox();
@@ -303,12 +287,24 @@ class _TitleState extends State<_Title> {
   }
 }
 
-class BodyText extends StatelessWidget {
-  final String bodyText;
-  final int count;
-  final int scrap;
-  final List<Photo>? photos;
-  const BodyText({super.key, required this.bodyText, required this.count, required this.scrap, required this.photos});
+class BodyText extends StatefulWidget {
+  final Article article;
+  const BodyText({
+    super.key,
+    required this.article
+  });
+
+  @override
+  State<BodyText> createState() => _BodyTextState();
+}
+
+class _BodyTextState extends State<BodyText> {
+  bool isLiked = false;
+  @override
+  void initState() {
+    super.initState();
+    isLiked = widget.article.isLike!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -331,15 +327,15 @@ class BodyText extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (photos != null)
+                  if (widget.article.photos != null)
                   Column(
-                    children: photos!.map((photo) {
+                    children: widget.article.photos!.map((photo) {
                       return Image.network(
                         photo.imgPath);
                     }).toList(),
                   ) else SizedBox(),
                   SizedBox(height: 10),
-                  Text(bodyText, style: Theme.of(context).textTheme.bodyMedium,),
+                  Text(widget.article.body, style: Theme.of(context).textTheme.bodyMedium,),
                 ],
               ),
             ),
@@ -354,12 +350,22 @@ class BodyText extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text('댓글 $count', style: Theme.of(context).textTheme.labelMedium,),
+                  Text('댓글 ${widget.article.commentCount}', style: Theme.of(context).textTheme.labelMedium,),
                   SizedBox(width: 20),
-                  Text('저장 $scrap', style: Theme.of(context).textTheme.labelMedium,)
+                  Text('저장 ${widget.article.scrapCount}', style: Theme.of(context).textTheme.labelMedium,)
                 ],
               ),
-              IconButton(onPressed: (){}, icon: Icon(Icons.star_outline), color: GREY2)
+              IconButton(
+                  onPressed: () async {
+                    final res = await postLikeRequest(widget.article.id.toString());
+                    if(res.data['code'] == 200){
+                      setState(() {
+                        isLiked = !isLiked;
+                      });
+                    }
+                  },
+                  icon: isLiked ? Icon(Icons.star_rate) : Icon(Icons.star_outline),
+                  color: isLiked ? Colors.yellow : GREY2)
             ],
           ),
         ),
@@ -369,9 +375,8 @@ class BodyText extends StatelessWidget {
 }
 
 class BodyComments extends StatelessWidget {
-  final int count;
   final List<Comment> comments;
-  const BodyComments({super.key, required this.count,required this.comments});
+  const BodyComments({super.key,required this.comments});
 
   @override
   Widget build(BuildContext context) {
