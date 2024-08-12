@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/asset/img/follow/trash.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_place.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_place.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/follow/follow.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/follow/follow.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_other.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_other.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
