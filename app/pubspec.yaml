@@ -130,6 +130,10 @@ flutter:
     - asset/img/test/test7.png
     - asset/img/follow/
     - asset/img/follow/trash.png
+    - asset/img/map/
+    - asset/img/map/timer.png
+    - asset/img/map/walkcount.png
+    - asset/img/map/distance.png
 
 
   # To add assets to your application, add an assets section, like this:
@@ -159,9 +163,9 @@ flutter:
     - family: Segoe
       fonts:
         - asset: asset/font/Segoe UI.ttf
+          weight: 400
         - asset: asset/font/Segoe UI Bold.ttf
-        - asset: asset/font/Segoe UI Bold Italic.ttf
-        - asset: asset/font/Segoe UI Italic.ttf
+          weight: 700
 
     - family: SnowCrap
       fonts:
@@ -189,6 +193,16 @@ flutter:
       fonts:
         - asset: asset/font/CherryBombOne-Regular.ttf
           weight: 400
+
+    - family: MBC1961
+      fonts:
+        - asset: asset/font/MBC1961.ttf
+          weight: 500
+
+    - family: MBC1961gulim
+      fonts:
+        - asset: asset/font/MBC1961gulim.ttf
+          weight: 500
 
   # fonts:
   #   - family: Schyler
