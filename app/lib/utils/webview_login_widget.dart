@@ -6,10 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:pet/const/models/token_user_model.dart';
-import 'package:pet/providers/user_notifier_provider.dart';
 
-import '../../../api/getUser.dart';
-import '../../../main/main_home.dart';
+import '../main.dart';
 
 class WebviewLoginWidget extends StatefulWidget {
   final String url;
@@ -63,7 +61,11 @@ class _WebviewLoginWidgetState extends State<WebviewLoginWidget> {
                 else{
                   //에러처리
                 }
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => App()), // 이동할 새로운 화면
+                      (Route<dynamic> route) => false, // 모든 이전 스택 제거
+                );
               }
             }
         );

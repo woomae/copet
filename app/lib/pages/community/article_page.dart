@@ -78,7 +78,7 @@ class ArticlePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                _bottomInputBar(articleId: data.id.toString(),)
+                _bottomInputBar(articleId: data.id,)
               ],
             );
           }
@@ -90,7 +90,7 @@ class ArticlePage extends StatelessWidget {
   }
 }
 class _bottomInputBar extends StatelessWidget {
-  final String articleId;
+  final int articleId;
   const _bottomInputBar({super.key, required this.articleId});
 
   @override

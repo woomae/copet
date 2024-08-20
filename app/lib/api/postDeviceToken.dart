@@ -10,6 +10,5 @@ Future postDeviceToken(String token) async{
         "token" : token
       }
   );
-  print(res.data);
   return res;
 }

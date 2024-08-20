@@ -4,27 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="merge: assets, constants 추가 (feat.jebin)">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/deleteArticle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/deleteArticle.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/deleteComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/deleteComment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/getArticles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getArticles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/getComments.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getComments.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/patchComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/patchComment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/api/article/postComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postComment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/postPosting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postPosting.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/putArticle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/putArticle.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/dioBaseOpstions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/dioBaseOptions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/follow/post_follow.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/follow/post_follow.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/getUser.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/getUser.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/patchUserData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/patchUserData.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/api/postDeviceToken.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/postDeviceToken.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/community/article_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/article_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/webview_login_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/webview_login_widget.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,24 +55,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fix/articles&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;emulator&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "feature/notification",
+    "ignore.virus.scanning.warn.message": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/Users/z6231/Desktop/code/Git_cowork/copet",
+    "settings.editor.selected.configurable": "emulator",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\follow" />

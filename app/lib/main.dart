@@ -61,8 +61,13 @@ class App extends ConsumerWidget {
   Future<bool> checkAccessToken(WidgetRef ref) async {
     final storage = FlutterSecureStorage();
     final accessToken = await storage.read(key: 'ACCESS_TOKEN');
+
     print("액세스 토큰 존재 : ${accessToken?.isNotEmpty}");
     if (accessToken != null) {
+      bool isExpired = JwtDecoder.isExpired(accessToken);
+      if (isExpired) {
+        return false; // 토큰 만료
+      }
       final decodedUser = JwtDecoder.decode(accessToken);
       final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
       dio.options.headers = {
