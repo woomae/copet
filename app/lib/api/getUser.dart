@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../const/models/users_model.dart';
-import 'dioBaseOpstions.dart';
+import 'dioBaseOptions.dart';
 
 class GetUser{
   static Future<UsersModel> getUser(String id) async{

@@ -4,60 +4,27 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/asset/font/CherryBombOne-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/downbutton.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/follow/trash.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/profile/img_modify.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/profile/modify.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/profile/settingicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/search/searchicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/taps/selectchat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/taps/selectmain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/taps/selectmap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/taps/selectprofile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/taps/selectsearch.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/test/test1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/test/test2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/test/test3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/test/test4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/test/test5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/test/test6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/test/test7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/common/component/appbars/modify_appbar.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/follow/follow.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_information_other.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_other.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_other_container.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/setting/alarm.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/search/search_community.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/search/search_item.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/search/search_place.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/search/search_result.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/style/colors.dart" afterDir="false" />
+    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="merge: assets, constants 추가 (feat.jebin)">
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/asset/img/taps/mainicon.png" beforeDir="false" afterPath="$PROJECT_DIR$/asset/img/taps/mainicon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/buttons/dropdown_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/widgets/region_dropdown_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/widgets/region_dropdown_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/taps.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/taps.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/deleteArticle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/deleteArticle.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/deleteComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/deleteComment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/getArticles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getArticles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/getComments.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getComments.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/patchComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/patchComment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/postComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postComment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/postPosting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postPosting.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/putArticle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/putArticle.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/dioBaseOpstions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/dioBaseOptions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/follow/post_follow.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/follow/post_follow.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/getUser.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/getUser.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/patchUserData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/patchUserData.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/postDeviceToken.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/postDeviceToken.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_place.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_place.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/others_profile.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_information_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_information_container.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/setting/setting_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/setting/setting_home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,24 +67,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "Merging fix/articles",
-    "ignore.virus.scanning.warn.message": "true",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/z6231/Desktop/code/Git_cowork/copet",
-    "settings.editor.selected.configurable": "emulator",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fix/articles&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;emulator&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\follow" />
@@ -502,7 +469,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720081463270</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="merge: assets, constants 추가 (feat.jebin)">
+      <option name="closed" value="true" />
+      <created>1723474693971</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1723474693971</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -517,7 +492,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="articles 테스트 완료" />
     <MESSAGE value="forkRepo와 기존 작업 repo 동일하게 변경" />
     <MESSAGE value="package 설치" />
     <MESSAGE value="kakao,goolge login 로직 분리" />
@@ -542,6 +516,7 @@
     <MESSAGE value="fix: 원활한 dio options 수정을 위한 dio 객체 통일" />
     <MESSAGE value="fix: 회원가입 api test 완료&#10;- 로그인 시 웹뷰 단에서 dio header에 토큰값 저장" />
     <MESSAGE value="feature: FCM deviceToken 수집" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature: FCM deviceToken 수집" />
+    <MESSAGE value="merge: assets, constants 추가 (feat.jebin)" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge: assets, constants 추가 (feat.jebin)" />
   </component>
 </project>

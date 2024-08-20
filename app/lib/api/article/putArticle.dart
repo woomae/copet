@@ -3,7 +3,8 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import '../dioBaseOpstions.dart';
+
+import '../dioBaseOptions.dart';
 
 class PutArticle{
 

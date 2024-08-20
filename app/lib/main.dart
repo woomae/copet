@@ -16,7 +16,7 @@ import 'package:pet/style/colors.dart';
 import 'package:pet/utils/notification/background_handler.dart';
 import 'package:pet/utils/notification/notification.dart';
 
-import 'api/dioBaseOpstions.dart';
+import 'api/dioBaseOptions.dart';
 import 'api/postDeviceToken.dart';
 import 'const/models/token_user_model.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -82,7 +82,7 @@ class App extends ConsumerWidget {
     final fcmToken = await FirebaseMessaging.instance.getToken();
     try{
       if(fcmToken != null && isInitialization == false){
-        postDiviceToken(fcmToken);
+        postDeviceToken(fcmToken);
         isInitialization = true;
       }
     }catch(e){
@@ -92,7 +92,6 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _getDeviceToken();
 
     //토큰 소지 시 토큰 기반으로 userid 뽑아내서 유저 조회하고 바로 mainhome으로 보내는 로직 필요함.
     return MaterialApp(
@@ -141,7 +140,8 @@ class App extends ConsumerWidget {
                 if(userNickname == '')
                   return loginname();
                 else
-                  return mainhome();
+                  _getDeviceToken();
+                return mainhome();
               }
               else
                 return mainlogin();

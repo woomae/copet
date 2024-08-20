@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../dioBaseOptions.dart';
 
-import '../dioBaseOpstions.dart';
 
 class PostFollow{
   static Future<Response> postFollow(int friendUserId) async {

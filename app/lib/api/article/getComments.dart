@@ -1,8 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import '../../const/models/comments_model.dart';
-import '../dioBaseOpstions.dart';
+import '../dioBaseOptions.dart';
 
 class GetComments {
   static Future<Comments> getComments({required int id}) async {

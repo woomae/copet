@@ -1,8 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pet/const/models/articles.dart';
-
-import '../dioBaseOpstions.dart';
+import '../dioBaseOptions.dart';
 
 class GetArticles {
   static Future<Articles> getArticles() async {
