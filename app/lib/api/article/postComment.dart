@@ -10,9 +10,9 @@ class PostComment{
     final res = await dio.post(
         '$apiKey/comments',
         data: {
+          "article_id" : articleId,
           "comment" : comment
         },
-      queryParameters: {'id': articleId}
     );
     print(res);
   }

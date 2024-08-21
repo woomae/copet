@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../dioBaseOptions.dart';
 
-Future<Response<dynamic>> postLikeRequest(String articleId) async {
+Future<Response<dynamic>> postLikeRequest(int articleId) async {
   await dotenv.load(fileName: ".env");
   String? apiKey = dotenv.env['API_KEY'];
   final res = await dio.post(

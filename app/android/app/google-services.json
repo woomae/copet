@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "659285836468",
-    "project_id": "flutter-copet-db16e",
-    "storage_bucket": "flutter-copet-db16e.appspot.com"
+    "project_number": "190303619065",
+    "project_id": "copet-410614",
+    "storage_bucket": "copet-410614.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:659285836468:android:2ed8b463b4c210b8098de1",
+        "mobilesdk_app_id": "1:190303619065:android:5e1ddebc731ebfc185df28",
         "android_client_info": {
           "package_name": "com.example.pet"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "190303619065-hfa6atjcttkuvlat14gv28tt7dq1m00a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDr1ieY4A8AYkU69lJ6B-80iivCWOs6QZ0"
+          "current_key": "AIzaSyBU7D4pxQWOx_UwCV_vE5F5Dt2zePei5MQ"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190303619065-hfa6atjcttkuvlat14gv28tt7dq1m00a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -22,10 +22,19 @@ import '../../const/models/articles.dart';
 import '../../utils/format_date.dart';
 
 
-class ArticlePage extends StatelessWidget {
+class ArticlePage extends StatefulWidget {
   final int articleId;
   ArticlePage({super.key, required this.articleId});
 
+  @override
+  State<ArticlePage> createState() => _ArticlePageState();
+}
+
+class _ArticlePageState extends State<ArticlePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +42,7 @@ class ArticlePage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       appBar: GoBackAppBar(),
       body: FutureBuilder<Article>(
-        future: GetArticles.getSingleArticle(articleId: articleId.toString()),
+        future: GetArticles.getSingleArticle(articleId: widget.articleId.toString()),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting){
             return Center(child: SizedBox(
@@ -56,7 +65,7 @@ class ArticlePage extends StatelessWidget {
                           //_Title(titleText: data.title, nickname: data.author, postDate: '24.01.01'),
                           BodyText(article: data),
                           FutureBuilder<Comments>(
-                              future: GetComments.getComments(id: articleId),
+                              future: GetComments.getComments(id: widget.articleId),
                               builder: (context, snapshot){
                                 if(snapshot.connectionState == ConnectionState.waiting){
                                   return Center(child: Text('로딩 중'));
@@ -78,7 +87,7 @@ class ArticlePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                _bottomInputBar(articleId: data.id,)
+                _bottomInputBar(articleId: data.id, setState : setState)
               ],
             );
           }
@@ -91,7 +100,8 @@ class ArticlePage extends StatelessWidget {
 }
 class _bottomInputBar extends StatelessWidget {
   final int articleId;
-  const _bottomInputBar({super.key, required this.articleId});
+  final Function setState;
+  const _bottomInputBar({super.key, required this.articleId, required this.setState});
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +139,11 @@ class _bottomInputBar extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(Icons.arrow_outward, color: WHITE,),
                   onPressed: () {
-                    PostComment.postComment(articleId: articleId, comment: _controller.text);
-                    _controller.text = '';
-                    FocusManager.instance.primaryFocus?.unfocus();
+                    setState((){
+                      PostComment.postComment(articleId: articleId, comment: _controller.text);
+                      _controller.text = '';
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    });
                   },
                 ),
               ),
@@ -357,12 +369,11 @@ class _BodyTextState extends State<BodyText> {
               ),
               IconButton(
                   onPressed: () async {
-                    final res = await postLikeRequest(widget.article.id.toString());
-                    if(res.data['code'] == 200){
+                    final res = await postLikeRequest(widget.article.id);
+                    print(res);
                       setState(() {
                         isLiked = !isLiked;
                       });
-                    }
                   },
                   icon: isLiked ? Icon(Icons.star_rate) : Icon(Icons.star_outline),
                   color: isLiked ? Colors.yellow : GREY2)

@@ -79,6 +79,10 @@ class App extends ConsumerWidget {
       return true;
     }
     else {
+      dio.options.headers = {
+        'Cookie' : 'user=user=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcl9pZCI6IjMyOTc0OTc0ODkiLCJlbWFpbCI6ImNoZzAxMTFAaGFubWFpbC5uZXQiLCJ1c2VyX2lkIjo1LCJpYXQiOjE3MjQyMTgyMTksImV4cCI6MTcyNDgyMzAxOX0.ikZZ2gjRBNVMZjLMW-jPAxdlXcB5W-jyWHlNF3sYNGA'
+      };
+      _getDeviceToken();
       return false;
     }
   }
