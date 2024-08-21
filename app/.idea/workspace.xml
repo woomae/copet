@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="feature: 프로필 산책, 게시글, 저장">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firebase.json" beforeDir="false" afterPath="$PROJECT_DIR$/firebase.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/postComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postComment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/firebase_options.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/article_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/article_page.dart" afterDir="false" />
+    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +22,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="SOFT" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -55,24 +49,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/notification&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;emulator&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "Rebasing feature/notification",
+    "ignore.virus.scanning.warn.message": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/Users/z6231/Desktop/code/Git_cowork/copet",
+    "settings.editor.selected.configurable": "emulator",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\follow" />
