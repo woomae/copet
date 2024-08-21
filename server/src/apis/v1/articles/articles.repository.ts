@@ -47,7 +47,7 @@ export class ArticleRepository extends Repository<Articles> {
   }
 
   async ownerChecker(_id: number, owner_id: number): Promise<boolean> {
-    const result = await this.createQueryBuilder('articles')
+    const result = await this.createQueryBuilder('article')
       .leftJoinAndSelect('article.owner_id', 'user')
       .where('article._id = :_id', { _id: _id })
       .andWhere('user._id = :owner_id', { owner_id: owner_id })
