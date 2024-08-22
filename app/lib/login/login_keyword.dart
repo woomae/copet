@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/api/patchUserData.dart';
+import 'package:pet/api/users/patchUserData.dart';
 import 'package:pet/common/component/keyword/keyword.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';

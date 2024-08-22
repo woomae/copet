@@ -4,15 +4,32 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="feature: 프로필 산책, 게시글, 저장">
+    <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="fix: firebase key 숨김">
+      <change afterPath="$PROJECT_DIR$/lib/api/mocks/getPetItems.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/mocks/getPetPlace.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/ranks/deleteRecentSearch.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/ranks/getRecentSearches.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/ranks/getTopRankSearches.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/ranks/postRecentSearch.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/component/widgets/pet_items_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/component/widgets/pet_place_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/component/widgets/silver_post_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/const/models/merchandises.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/const/models/pet_place.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firebase.json" beforeDir="false" afterPath="$PROJECT_DIR$/firebase.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/postComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postComment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/firebase_options.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/article/getArticles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getArticles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/getUser.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/users/getUser.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/patchUserData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/users/patchUserData.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_end.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_end.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_keyword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_keyword.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/article_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/article_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_community.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_community.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_place.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_place.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_result.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/style/colors.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +42,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="feature/app-message" />
+        <entry key="$PROJECT_DIR$/.." value="feature/notification" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -65,7 +82,7 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/notification&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/search&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet&quot;,
@@ -75,11 +92,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\z6231\Desktop\code\Git_cowork\copet\app\lib\api\users" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\follow" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\test" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\lib\pages\profile\otherProfile" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\profile" />
-      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img" />
     </key>
   </component>
   <component name="RunManager">

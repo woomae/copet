@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pet/pages/search/search_result.dart';
 
+import '../../api/mocks/getPetPlace.dart';
+import '../../common/component/widgets/pet_place_list.dart';
+import '../../const/models/pet_place.dart';
+
 class result_place extends StatelessWidget {
   const result_place({super.key});
 
@@ -43,6 +47,23 @@ class result_place extends StatelessWidget {
               ),
             ),
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: FutureBuilder<PetPlaces>(future: getPetPlace(), builder: (BuildContext context, snapshot){
+                if(snapshot.hasError) {
+                  print(snapshot.error);
+                  return SizedBox();
+                }
+                if(snapshot.hasData){
+                  return PetPlaceList(petPlaces: snapshot.data!, length: snapshot.data!.count);
+                }
+                else{
+                  return SizedBox();
+                }
+              }),
+            ),
+          )
         ],
       ),
     );

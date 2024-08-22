@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pet/api/article/getArticles.dart';
+import 'package:pet/api/mocks/getPetItems.dart';
+import 'package:pet/common/component/widgets/pet_items_list.dart';
+import 'package:pet/common/component/widgets/pet_place_list.dart';
+import 'package:pet/const/models/articles.dart';
+import 'package:pet/const/models/merchandises.dart';
+import 'package:pet/const/models/pet_place.dart';
+import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/pages/search/search_community.dart';
 import 'package:pet/pages/search/search_item.dart';
 import 'package:pet/pages/search/search_place.dart';
+import 'package:pet/style/colors.dart';
+
+import '../../api/mocks/getPetPlace.dart';
+import '../../utils/format_date.dart';
 
 class Item {
   final String imagePath;
@@ -16,312 +28,171 @@ class Item {
 }
 
 class result extends StatelessWidget {
-  const result({super.key});
+  final String q;
+  const result({super.key, required this.q});
 
   @override
   Widget build(BuildContext context) {
 
-    List<Item> items = [
-      Item(
-        imagePath: 'asset/img/img_place.png',
-        productName: '상품 1',
-        price: '10,000원',
-      ),
-      Item(
-        imagePath: 'asset/img/img_place.png',
-        productName: '상품 2',
-        price: '15,000원',
-      ),
-      Item(
-        imagePath: 'asset/img/img_place.png',
-        productName: '상품 3',
-        price: '20,000원',
-      ),
-      Item(
-        imagePath: 'asset/img/img_place.png',
-        productName: '상품 4',
-        price: '25,000원',
-      ),
-      Item(
-        imagePath: 'asset/img/img_place.png',
-        productName: '상품 5',
-        price: '30,000원',
-      ),
-      Item(
-        imagePath: 'asset/img/img_place.png',
-        productName: '상품 6',
-        price: '35,000원',
-      ),
-    ];
-
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Text(
-                'COPET',
-                style: TextStyle(
-                  fontFamily: 'Poetsen',
-                  color: Colors.black,
-                  fontSize: 25,
-                  letterSpacing: -1,
-                ),
-              ),
-            ),
-            centerTitle: false,
-          ),
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 50, 15, 35),
-                  child: searchbar_result(),
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 24),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '검색 결과 - 게시판',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontFamily: 'NotoSansKR',
-                              fontWeight: FontWeight.w600,
-                            ),
+    return Expanded(
+      child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  FutureBuilder<Articles>(
+                    future: GetArticles.getArticles(q: q, size: 2),
+                    builder: (BuildContext context, snapshot){
+                      if(snapshot.hasError)
+                        return SizedBox();
+                      if(snapshot.hasData){
+                        final data = snapshot.data;
+                        return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(25, 0, 25, 24),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '검색 결과 - 게시판',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 22,
+                                        fontFamily: 'NotoSansKR',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder:
+                                            (context) => result_community(q: q,)),
+                                      );
+                                    },
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: Color(0xFFD9D9D9), backgroundColor: Colors.white,
+                                      textStyle: TextStyle(
+                                        fontFamily: 'NotoSansKR',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    child: Text('더보기'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Column(children: data!.article.map((e){
+                                return
+                                  PostContainer(
+                                    nickname: e.author,
+                                      postedTime: formatDateToYYYYMMDD(e.createdAt!),
+                                      postTitle: e.title);
+                              }).toList(),)
+                            ],
+                          );
+                      }
+                      else
+                        return SizedBox();
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 55, 20, 50),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5, right: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '검색 결과 - 플레이스',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                  fontFamily: 'NotoSansKR',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              MoreButton_result_place(),
+                            ],
                           ),
-                          MoreButton_result_community(),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 25),
+                        FutureBuilder<PetPlaces>(future: getPetPlace(), builder: (BuildContext context, snapshot){
+                          if(snapshot.hasError) {
+                            print(snapshot.error);
+                            return SizedBox();
+                          }
+                          if(snapshot.hasData){
+                            return PetPlaceList(petPlaces: snapshot.data!, length: 3);
+                          }
+                          else{
+                            return SizedBox();
+                          }
+                        })
+                      ],
                     ),
-                    PostContainer(
-                      nickname: '닉네임',
-                      postedTime: '2024.01.01',
-                      postTitle: '게시글 이름입니다. 게시글이름입니다.',
-                    ),
-                    const SizedBox(height: 3),
-                    PostContainer(
-                      nickname: '닉네임',
-                      postedTime: '2024.01.01',
-                      postTitle: '게시글 이름입니다. 게시글이름입니다.',
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 55, 20, 50),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 5, right: 5),
+                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '검색 결과 - 플레이스',
+                              '검색 결과 - 아이템',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 22,
                                 fontFamily: 'NotoSansKR',
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                            MoreButton_result_place(),
+                            MoreButton_result_item(),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 25),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'asset/img/img_place.png',
-                                width: 100, // 이미지 너비 조정
-                                height: 100, // 이미지 높이 조정
-                              ),
-                              SizedBox(width: 15), // 이미지와 텍스트 사이 간격 조정
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '검색 결과 단어',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontFamily: 'NotoSansKR',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    '위치 혹은 짧은 소개글',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Color(0xFFC9C9C9),
-                                      fontFamily: 'NotoSansKR',
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'asset/img/img_place.png',
-                                width: 100, // 이미지 너비 조정
-                                height: 100, // 이미지 높이 조정
-                              ),
-                              SizedBox(width: 15), // 이미지와 텍스트 사이 간격 조정
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '검색 결과 단어',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontFamily: 'NotoSansKR',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    '위치 혹은 짧은 소개글',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Color(0xFFC9C9C9),
-                                      fontFamily: 'NotoSansKR',
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'asset/img/img_place.png',
-                                width: 100, // 이미지 너비 조정
-                                height: 100, // 이미지 높이 조정
-                              ),
-                              SizedBox(width: 15), // 이미지와 텍스트 사이 간격 조정
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '검색 결과 단어',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontFamily: 'NotoSansKR',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    '위치 혹은 짧은 소개글',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Color(0xFFC9C9C9),
-                                      fontFamily: 'NotoSansKR',
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: FutureBuilder(future: getPetItems(), builder: (context, snapshot){
+                          if(snapshot.hasError){
+                            print(snapshot.error);
+                            return Center(child: Text('error'));
+                          }
+                          if(snapshot.hasData){
+                            return PetItemsList(merchandises: snapshot.data!, length: 6);
+                          }
+                          else
+                            return SizedBox();
+                        })
                       ),
                     ],
                   ),
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '검색 결과 - 아이템',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontFamily: 'NotoSansKR',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          MoreButton_result_item(),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 25,
-                          childAspectRatio: 0.55,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100, bottom: 85),
+                    child: Center(
+                      child: Text(
+                        '코펫\n문의사항 코펫이메일@gmail.com',
+                        style: TextStyle(
+                          fontFamily: 'Segeo',
+                          fontSize: 15,
+                          color: Color(0xFFAFAFAF),
                         ),
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return ItemCard(
-                            item: items[index],
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 100, bottom: 85),
-                  child: Center(
-                    child: Text(
-                      '코펫\n문의사항 코펫이메일@gmail.com',
-                      style: TextStyle(
-                        fontFamily: 'Segeo',
-                        fontSize: 15,
-                        color: Color(0xFFAFAFAF),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+                ],
+              ),
+            )
+          ],
+        ),
     );
+
   }
 }
 
@@ -358,7 +229,9 @@ class searchbar_result extends StatelessWidget {
           bottom: 0,
           right: 0,
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+            },
             icon: Padding(
               padding: const EdgeInsets.only(right: 8),
               child: Image.asset(
@@ -371,29 +244,6 @@ class searchbar_result extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class MoreButton_result_community extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const result_community()),
-        );
-      },
-      style: TextButton.styleFrom(
-        foregroundColor: Color(0xFFD9D9D9), backgroundColor: Colors.white,
-        textStyle: TextStyle(
-          fontFamily: 'NotoSansKR',
-          fontWeight: FontWeight.w400,
-          fontSize: 15,
-        ),
-      ),
-      child: Text('더보기'),
     );
   }
 }
@@ -515,13 +365,14 @@ class MoreButton_result_item extends StatelessWidget {
 }
 
 class ItemCard extends StatelessWidget {
-  final Item item;
+  final Merchandise item;
 
   const ItemCard({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return
+      InkWell(
       onTap: () {
         // 아이템을 탭했을 때의 동작 정의
       },
@@ -535,8 +386,8 @@ class ItemCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
-                item.imagePath,
+              child: Image.network(
+                item.imgName,
                 width: double.infinity,
                 height: 144,
                 fit: BoxFit.cover,
@@ -548,7 +399,8 @@ class ItemCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 7),
                   child: Text(
-                    item.productName,
+                    item.name,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Color(0xFF686868),
                       fontSize: 15,
@@ -558,7 +410,7 @@ class ItemCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  item.price,
+                  "25,000",
                   style: TextStyle(
                     color: Color(0xFF222222),
                     fontSize: 16,
