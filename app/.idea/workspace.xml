@@ -5,22 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="fix: 로그인 분기 시 로딩 페이지 경유히도록 변경">
-      <change afterPath="$PROJECT_DIR$/asset/img/map/distance.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/map/timer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/map/walkcount.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/const/regions/regions.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/asset/font/Segoe UI Bold Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asset/font/Segoe UI Italic.ttf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_type.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/map/map_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/map/map_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/pause_time_povider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/pause_time_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

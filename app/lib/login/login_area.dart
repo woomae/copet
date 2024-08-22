@@ -8,30 +8,29 @@ import 'package:pet/login/login_agree.dart';
 import 'package:pet/style/colors.dart';
 import 'package:pet/const/regions/regions.dart';
 
-
-final regionProvider = StateProvider<String>((ref) => '지역선택');
+final stateProvider = StateProvider<String>((ref) => '지역선택');
+final cityProvider = StateProvider<String>((ref) => '지역선택');
 final districtProvider = StateProvider<String>((ref) => '지역선택');
-final dongProvider = StateProvider<String>((ref) => '지역선택');
 
 class loginarea extends ConsumerWidget {
   loginarea({super.key});
-  //district 수정 필요
+  // district 수정 필요
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedRegion = ref.watch(regionProvider);
+    final selectedState = ref.watch(stateProvider);
+    final selectedCity = ref.watch(cityProvider);
     final selectedDistrict = ref.watch(districtProvider);
-    final selectedDong = ref.watch(dongProvider);
 
-    List<String> districts = selectedRegion != '지역선택' ? regionMap[selectedRegion]! : ['지역선택'];
-    List<String> dongs = (selectedRegion != '지역선택' && selectedDistrict != '지역선택')
-        ? dongMap[selectedRegion]![selectedDistrict]!
+    List<String> cities = selectedState != '지역선택' ? regionMap[selectedState]! : ['지역선택'];
+    List<String> districts = (selectedState != '지역선택' && selectedCity != '지역선택')
+        ? dongMap[selectedState]![selectedCity]!
         : ['지역선택'];
 
     // Determine if the "Next" button should be enabled
-    bool isButtonEnabled = selectedRegion != '지역선택' &&
-        selectedDistrict != '지역선택' &&
-        selectedDong != '지역선택';
+    bool isButtonEnabled = selectedState != '지역선택' &&
+        selectedCity != '지역선택' &&
+        selectedDistrict != '지역선택';
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -91,11 +90,11 @@ class loginarea extends ConsumerWidget {
                   children: [
                     DropDownButton(
                       dropDownList: ['지역선택'] + regionMap.keys.toList(),
-                      currentItem: selectedRegion,
+                      currentItem: selectedState,
                       onPressed: (value) {
-                        ref.read(regionProvider.notifier).state = value;
+                        ref.read(stateProvider.notifier).state = value;
+                        ref.read(cityProvider.notifier).state = '지역선택';
                         ref.read(districtProvider.notifier).state = '지역선택';
-                        ref.read(dongProvider.notifier).state = '지역선택';
                       },
                       width: 350,
                       height: 200,
@@ -107,11 +106,11 @@ class loginarea extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         DropDownButton(
-                          dropDownList: districts,
-                          currentItem: selectedDistrict,
+                          dropDownList: cities,
+                          currentItem: selectedCity,
                           onPressed: (value) {
-                            ref.read(districtProvider.notifier).state = value;
-                            ref.read(dongProvider.notifier).state = '지역선택';
+                            ref.read(cityProvider.notifier).state = value;
+                            ref.read(districtProvider.notifier).state = '지역선택';
                           },
                           width: 180,
                           height: 150,
@@ -120,10 +119,10 @@ class loginarea extends ConsumerWidget {
                         ),
                         const SizedBox(width: 20),
                         DropDownButton(
-                          dropDownList: dongs,
-                          currentItem: selectedDong,
+                          dropDownList: districts,
+                          currentItem: selectedDistrict,
                           onPressed: (value) {
-                            ref.read(dongProvider.notifier).state = value;
+                            ref.read(districtProvider.notifier).state = value;
                           },
                           width: 153,
                           height: 150,
@@ -137,15 +136,13 @@ class loginarea extends ConsumerWidget {
               ),
             ),
             Spacer(),
-            nextbutton_area(isEnabled: isButtonEnabled),
+            NextButtonArea(isEnabled: isButtonEnabled),
           ],
         ),
       ),
     );
   }
 }
-
-
 
 class _Title extends StatelessWidget {
   const _Title({super.key});
@@ -162,9 +159,9 @@ class _Title extends StatelessWidget {
   }
 }
 
-class nextbutton_area extends StatelessWidget {
+class NextButtonArea extends StatelessWidget {
   final bool isEnabled;
-  const nextbutton_area({super.key, required this.isEnabled});
+  const NextButtonArea({super.key, required this.isEnabled});
 
   @override
   Widget build(BuildContext context) {

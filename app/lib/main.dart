@@ -81,37 +81,37 @@ class App extends ConsumerWidget {
           )
         )
       ),
-//<<<<<<< HEAD
-      home: mainhome()
-      //userRef.id == 0 ? mainlogin() :
-        //      isRegistered == false ? logintype() :
-          //    mainhome()
+// //<<<<<<< HEAD
+//       home: mainhome()
+//       //userRef.id == 0 ? mainlogin() :
+//         //      isRegistered == false ? logintype() :
+//           //    mainhome()
 // =======
-//
-//       home: Container(
-//         color: WHITE,
-//         child: FutureBuilder(
-//           future: checkAccessToken(ref),
-//           builder: (BuildContext context, AsyncSnapshot<bool> snapshot){
-//             if (snapshot.connectionState == ConnectionState.waiting) {
-//               return SpinnerWidget();
-//             }
-//             //비동기 작업 (회원가입 여부 판별) 완료 후
-//             else{
-//               if(snapshot.data == true){
-//                 final userNickname = ref.watch(UserProvider).nickname;
-//                 //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
-//                 if(userNickname == '')
-//                   return loginname();
-//                 else
-//                   return mainhome();
-//               }
-//               else
-//                 return mainlogin();
-//             }
-//           },
-//         ),
-//       )
+
+      home: Container(
+        color: WHITE,
+        child: FutureBuilder(
+          future: checkAccessToken(ref),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot){
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SpinnerWidget();
+            }
+            //비동기 작업 (회원가입 여부 판별) 완료 후
+            else{
+              if(snapshot.data == true){
+                final userNickname = ref.watch(UserProvider).nickname;
+                //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
+                if(userNickname == '')
+                  return loginname();
+                else
+                  return mainhome();
+              }
+              else
+                return mainlogin();
+            }
+          },
+        ),
+      )
 // >>>>>>> feature/map
     );
   }
