@@ -32,7 +32,7 @@ class _RegionDropdownWidgetState extends State<RegionDropdownWidget> {
                 child: DropDownButton(dropDownList: currentState.cities)),
             Flexible(
                 fit: FlexFit.tight,
-                child: DropDownButton(dropDownList: null)),
+                child: DropDownButton(dropDownList: [])),
           ],
         ),
       ],

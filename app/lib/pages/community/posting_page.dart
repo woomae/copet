@@ -15,7 +15,6 @@ import '../../style/colors.dart';
 
 // 추후 수정 예정.
 class PostingPage extends ConsumerWidget {
-
   const PostingPage({super.key});
 
   void showCommonDialog({required String content, required BuildContext context}){
@@ -77,7 +76,7 @@ class PostingPage extends ConsumerWidget {
             },
             child: Container(
               color: WHITE,
-              child: _Body(),
+              child: PostingBody(),
             ),
           ),
         ),
@@ -87,7 +86,7 @@ class PostingPage extends ConsumerWidget {
 }
 
 
-class _Body extends ConsumerWidget {
+class PostingBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -111,10 +110,15 @@ class _Body extends ConsumerWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(bottom: 10),
-                        child: state.images != null ?
+                        child:
+                        state.images != null ?
                         Column(
-                            children: state.images!.map(
-                                    (e) => Image.file(File(e.imgPath), width: 300, height: 300, fit: BoxFit.cover,)).toList()
+                            children:
+                            state.images!.map((e) =>
+                                e.imgPath.contains('https') ?
+                                    Image.network(e.imgPath)
+                                    :
+                                Image.file(File(e.imgPath), fit: BoxFit.cover,)).toList()
                         ) : null,
                       ),
                       BodyInput()

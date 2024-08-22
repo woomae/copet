@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/api/patchUserData.dart';
+import 'package:pet/api/users/patchUserData.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:pet/main/main_screen.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';

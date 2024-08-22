@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:pet/api/dioBaseOpstions.dart';
-import 'package:pet/const/models/user_data_model.dart';
-
-import '../const/models/region_model.dart';
+import '../../const/models/region_model.dart';
+import '../dioBaseOptions.dart';
 
 class PatchUserData{
 
