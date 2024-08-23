@@ -26,11 +26,10 @@ class _ProfileInformationotherState extends State<ProfileInformationother> {
   void initState() {
     super.initState();
     // 초기 currentFuture 설정
-    updateFuture();
+    currentFuture = Future.value([]);
   }
 
-  void updateFuture() {
-    final userId = ProviderScope.containerOf(context).read(UserProvider).id.toString();
+  void updateFuture(int userId) {
     if (currentState == '게시글') {
       currentFuture = GetArticles.getOwnerArticles(userId: userId);
     } else {
@@ -40,11 +39,8 @@ class _ProfileInformationotherState extends State<ProfileInformationother> {
 
   @override
   Widget build(BuildContext context) {
-    final userId = ProviderScope.containerOf(context).read(UserProvider).id.toString();
-    final Function setCurrentState = (String state){
-      currentState = state;
-      updateFuture();
-    };
+    final userId = ProviderScope.containerOf(context).read(UserProvider).id;
+
     return Column(
       children: [
         Container(
@@ -57,7 +53,8 @@ class _ProfileInformationotherState extends State<ProfileInformationother> {
               children: profileCategory.map((e) => _categoryButton(
                   onPressed: (){
                     setState(() {
-                      setCurrentState(e);
+                      currentState = e;
+                      updateFuture(userId);
                     });
                   }, buttonName: e, isPressed : currentState == e)).toList()
           ),

@@ -1,17 +1,17 @@
 import {
-  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 import { Articles } from '../articles/articles.entity';
 import { Exclude } from 'class-transformer';
+import { Walkmaps } from '../walkmaps/walkmaps.entity';
 
 @Entity()
 export class Photos {
@@ -31,6 +31,12 @@ export class Photos {
     onDelete: 'CASCADE',
   })
   article: Articles;
+
+  @OneToOne(() => Walkmaps, (walkmap) => walkmap.photo, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'walkmap' })
+  walkmap: Walkmaps;
 
   @Exclude({ toPlainOnly: true })
   @CreateDateColumn({

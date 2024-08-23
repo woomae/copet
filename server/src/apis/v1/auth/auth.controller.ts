@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
-import { UsersService } from '../users/users.service';
 import { Users } from '../users/users.entity';
 import { Payload } from './jwt/jwt.payload';
 import { JwtAuthGuard } from './jwt/jwt.guard';

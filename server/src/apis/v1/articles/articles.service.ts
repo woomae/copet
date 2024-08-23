@@ -13,6 +13,8 @@ import ApiMessages from 'src/libs/res/api.messages';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { Photos } from '../photos/photos.entity';
+import { getArticleQueryDto } from 'src/dto/getArticleQuery.dto';
+import { StarsRepository } from '../stars/stars.repository';
 
 @Injectable()
 export class ArticlesService {
@@ -25,37 +27,34 @@ export class ArticlesService {
     @InjectRepository(Photos)
     private readonly photosRepository: Repository<Photos>,
   ) {}
-  async getArticleById(_id: number): Promise<any> {
+  async getArticleById(_id: number, user_id: number): Promise<any> {
     const result = await this.articleRepository.findOne({
       where: { _id: _id },
       relations: ['photos', 'comments'],
     });
-    return result;
+    //isfavorite 체크 후 객체에 추가
+    const islike = await this.articleRepository.articleLikeChecker(
+      user_id,
+      _id,
+    );
+    return { ...result, islike };
   }
-  async getAllArticles(
-    page: number,
-    size: number,
-    category?: string,
-  ): Promise<any> {
+  async getAllArticles(query): Promise<any> {
     //카테고리 체크
-    if (category) {
+    if (query.category) {
       return await this.articleRepository.getAllArticlesByCategory(
-        page,
-        size,
-        category,
+        query.page,
+        query.size,
+        query.category,
       );
     }
-    return await this.articleRepository.getAllArticles(page, size);
+    return await this.articleRepository.getAllArticles(query.page, query.size);
   }
-  async getAllArticleByOwner(
-    owner_id: number,
-    page: number,
-    size: number,
-  ): Promise<any> {
+  async getAllArticleByOwner(query): Promise<any> {
     const result = await this.articleRepository.getAllArticleByOwner(
-      owner_id,
-      page,
-      size,
+      query.owner_id,
+      query.page,
+      query.size,
     );
     return result;
   }
@@ -163,7 +162,11 @@ export class ArticlesService {
   async decreaseCommentCount(article_id: number): Promise<void> {
     await this.articleRepository.decreaseCommentCount(article_id);
   }
-  async searchArticles(q: string, page: number, size: number): Promise<any> {
-    return await this.articleRepository.searchArticles(q, page, size);
+  async searchArticles(query: getArticleQueryDto): Promise<any> {
+    return await this.articleRepository.searchArticles(
+      query.q,
+      query.page,
+      query.size,
+    );
   }
 }
