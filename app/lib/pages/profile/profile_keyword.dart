@@ -258,37 +258,3 @@ class selectedcount extends StatelessWidget {
   }
 }
 
-class nextbutton_keyword extends StatelessWidget {
-  const nextbutton_keyword({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 40),
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const loginend()),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: WHITE,
-            backgroundColor: PRIMARY_COLOR,
-            textStyle: TextStyle(color: WHITE),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            minimumSize: Size(100, 50),
-          ),
-          child: Text(
-            '다음',
-          ),
-        ),
-      ),
-    );
-  }
-}

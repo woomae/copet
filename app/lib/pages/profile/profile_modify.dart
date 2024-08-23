@@ -8,12 +8,19 @@ import 'package:pet/common/component/appbars/modify_appbar.dart';
 import '../../common/component/buttons/dropdown_button.dart';
 import '../../style/colors.dart';
 import 'package:pet/login/login_area.dart';
+import 'package:pet/const/regions/regions.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart'; // UserDataProvider import 추가
 
-class ProfileModify extends ConsumerWidget {
+class ProfileModify extends ConsumerStatefulWidget {
   const ProfileModify({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _ProfileModifyState createState() => _ProfileModifyState();
+}
+
+class _ProfileModifyState extends ConsumerState<ProfileModify> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: ModifyAppBar(context),
       body: _Body(),
@@ -24,13 +31,13 @@ class ProfileModify extends ConsumerWidget {
 class _Body extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedRegion = ref.watch(regionProvider);
+    final selectedState = ref.watch(stateProvider);
+    final selectedCity = ref.watch(cityProvider);
     final selectedDistrict = ref.watch(districtProvider);
-    final selectedDong = ref.watch(dongProvider);
 
-    List<String> districts = selectedRegion != '지역선택' ? regionMap[selectedRegion]! : ['지역선택'];
-    List<String> dongs = (selectedRegion != '지역선택' && selectedDistrict != '지역선택')
-        ? dongMap[selectedRegion]![selectedDistrict]!
+    List<String> cities = selectedState != '지역선택' ? regionMap[selectedState]! : ['지역선택'];
+    List<String> districts = (selectedState != '지역선택' && selectedCity != '지역선택')
+        ? dongMap[selectedState]![selectedCity]!
         : ['지역선택'];
 
     return Stack(
@@ -67,13 +74,17 @@ class ModifyContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedRegion = ref.watch(regionProvider);
+    final selectedState = ref.watch(stateProvider);
+    final selectedCity = ref.watch(cityProvider);
     final selectedDistrict = ref.watch(districtProvider);
-    final selectedDong = ref.watch(dongProvider);
+    final userData = ref.watch(userDataProvider); // userData를 가져옵니다
+    final petCategory = userData.pet_category;
+    final nickname = userData.nickname; // 닉네임을 가져옵니다
+    final intro = userData.intro; // 자기소개를 가져옵니다
 
-    List<String> districts = selectedRegion != '지역선택' ? regionMap[selectedRegion]! : ['지역선택'];
-    List<String> dongs = (selectedRegion != '지역선택' && selectedDistrict != '지역선택')
-        ? dongMap[selectedRegion]![selectedDistrict]!
+    List<String> cities = selectedState != '지역선택' ? regionMap[selectedState]! : ['지역선택'];
+    List<String> districts = (selectedState != '지역선택' && selectedCity != '지역선택')
+        ? dongMap[selectedState]![selectedCity]!
         : ['지역선택'];
 
     return SingleChildScrollView(
@@ -84,19 +95,40 @@ class ModifyContainer extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _title(text: '닉네임'),
-            InputField(hintText: '* 닉네임은 언제든지 변경이 가능합니다.', showHintText: false),
+            InputField(
+              hintText: '* 닉네임은 언제든지 변경이 가능합니다.',
+              showHintText: false,
+              initialText: nickname ?? '', // 닉네임을 초기값으로 설정합니다
+              onChanged: (value) {
+                ref.read(userDataProvider.notifier).updateUserData(nickname: value);
+              },
+            ),
             _title(text: '자기소개'),
-            InputField(hintText: '* 60자 이내', showHintText: true),
+            InputField(
+              hintText: '* 60자 이내',
+              showHintText: true,
+              initialText: intro ?? '', // 자기소개 초기값 설정
+              onChanged: (value) {
+                ref.read(userDataProvider.notifier).updateUserData(intro: value);
+              },
+            ),
             _title(text: '반려동물 종'),
-            InputField(hintText: '골든리트리버', showHintText: false),
+            InputField(
+              hintText: '골든리트리버',
+              showHintText: false,
+              initialText: petCategory ?? '', // 반려동물 종 초기값 설정
+              onChanged: (value) {
+                ref.read(userDataProvider.notifier).updateUserData(pet_category: value);
+              },
+            ),
             _title(text: '지역 설정'),
             DropDownButton(
               dropDownList: ['지역선택'] + regionMap.keys.toList(),
-              currentItem: selectedRegion,
+              currentItem: selectedState,
               onPressed: (value) {
-                ref.read(regionProvider.notifier).state = value;
+                ref.read(stateProvider.notifier).state = value;
+                ref.read(cityProvider.notifier).state = '지역선택';
                 ref.read(districtProvider.notifier).state = '지역선택';
-                ref.read(dongProvider.notifier).state = '지역선택';
               },
             ),
             const SizedBox(height: 15),
@@ -106,11 +138,11 @@ class ModifyContainer extends ConsumerWidget {
                 Flexible(
                   fit: FlexFit.tight,
                   child: DropDownButton(
-                    dropDownList: districts,
-                    currentItem: selectedDistrict,
+                    dropDownList: cities,
+                    currentItem: selectedCity,
                     onPressed: (value) {
-                      ref.read(districtProvider.notifier).state = value;
-                      ref.read(dongProvider.notifier).state = '지역선택';
+                      ref.read(cityProvider.notifier).state = value;
+                      ref.read(districtProvider.notifier).state = '지역선택';
                     },
                   ),
                 ),
@@ -118,10 +150,10 @@ class ModifyContainer extends ConsumerWidget {
                 Flexible(
                   fit: FlexFit.tight,
                   child: DropDownButton(
-                    dropDownList: dongs,
-                    currentItem: selectedDong,
+                    dropDownList: districts,
+                    currentItem: selectedDistrict,
                     onPressed: (value) {
-                      ref.read(dongProvider.notifier).state = value;
+                      ref.read(districtProvider.notifier).state = value;
                     },
                   ),
                 ),
@@ -137,11 +169,15 @@ class ModifyContainer extends ConsumerWidget {
 class InputField extends StatelessWidget {
   final String hintText;
   final bool showHintText;
+  final String initialText; // 추가된 부분
+  final Function(String) onChanged;
 
   const InputField({
     Key? key,
     required this.hintText,
     required this.showHintText,
+    this.initialText = '', // 초기값 설정
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -154,10 +190,9 @@ class InputField extends StatelessWidget {
             width: double.infinity,
             height: 45.0,
             child: textformfield_modify(
-              onChanged: (value) {
-                // 변경사항 처리
-              },
+              onChanged: onChanged,
               hintText: showHintText ? hintText : null,
+              initialText: initialText, // 초기값 전달
             ),
           ),
           if (showHintText)
@@ -183,20 +218,22 @@ class InputField extends StatelessWidget {
 
 class textformfield_modify extends StatelessWidget {
   final String? text;
-  final Function onChanged;
+  final Function(String) onChanged;
   final String? hintText;
+  final String? initialText; // 추가된 부분
 
   textformfield_modify({
     Key? key,
     required this.onChanged,
     this.text,
     this.hintText,
+    this.initialText, // 추가된 부분
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller =
-    TextEditingController(text: text != null ? text : '');
+    TextEditingController(text: initialText ?? text ?? ''); // 초기값 설정
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
