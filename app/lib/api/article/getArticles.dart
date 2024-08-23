@@ -3,11 +3,23 @@ import 'package:pet/const/models/articles.dart';
 import '../dioBaseOptions.dart';
 
 class GetArticles {
-  static Future<Articles> getArticles() async {
+  static Future<Articles> getArticles({String? q, int? page, int? size, String? category, int? ownerId}) async {
     await dotenv.load(fileName: ".env");
     String? apiKey = dotenv.env['API_KEY'];
 
-    final res = await dio.get('$apiKey/articles');
+    Map<String, dynamic> queryParams = {};
+
+    if (q != null) queryParams['q'] = q;
+    if (page != null) queryParams['page'] = page;
+    if (size != null) queryParams['size'] = size;
+    if (category != null) queryParams['category'] = category;
+    if (ownerId != null) queryParams['ownerId'] = ownerId;
+
+    final res = await dio.get(
+        '$apiKey/articles',
+      queryParameters: queryParams
+    );
+    print(res);
     final Articles articles = Articles.fromJson(json: res.data['result']);
     return articles;
   }

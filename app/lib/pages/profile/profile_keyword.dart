@@ -6,7 +6,6 @@ import 'package:pet/login/login_end.dart';
 import 'package:pet/pages/profile/profile_main.dart';
 
 import '../../style/colors.dart';
-import '../style/colors.dart';
 
 class profile_keyword extends StatefulWidget {
   const profile_keyword({super.key});

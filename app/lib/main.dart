@@ -6,7 +6,7 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:pet/api/getUser.dart';
+import 'package:pet/api/users/getUser.dart';
 import 'package:pet/common/component/widgets/spinner_widget.dart';
 import 'package:pet/login/login_main.dart';
 import 'package:pet/login/login_name.dart';
@@ -70,6 +70,7 @@ class App extends ConsumerWidget {
       }
       final decodedUser = JwtDecoder.decode(accessToken);
       final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
+      print(accessToken);
       dio.options.headers = {
         'Cookie' : 'user=$accessToken'
       };
@@ -79,10 +80,6 @@ class App extends ConsumerWidget {
       return true;
     }
     else {
-      dio.options.headers = {
-        'Cookie' : 'user=user=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcl9pZCI6IjMyOTc0OTc0ODkiLCJlbWFpbCI6ImNoZzAxMTFAaGFubWFpbC5uZXQiLCJ1c2VyX2lkIjo1LCJpYXQiOjE3MjQyMTgyMTksImV4cCI6MTcyNDgyMzAxOX0.ikZZ2gjRBNVMZjLMW-jPAxdlXcB5W-jyWHlNF3sYNGA'
-      };
-      _getDeviceToken();
       return false;
     }
   }
@@ -111,7 +108,9 @@ class App extends ConsumerWidget {
           bodyMedium : TextStyle(fontSize: 12.0, decorationThickness: 0),
           bodyLarge: TextStyle(fontSize: 12.0, fontWeight:FontWeight.w500, decorationThickness: 0),
           titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,decorationThickness: 0),
-          labelMedium: TextStyle(fontSize: 12.0, color: GREY3, decorationThickness: 0)
+          titleMedium: TextStyle(fontSize: 18,fontWeight: FontWeight.w800, decorationThickness: 0),
+          titleSmall:  TextStyle(fontSize: 13, fontWeight: FontWeight.w800),
+          labelMedium: TextStyle(fontSize: 12.0, color: GREY2, decorationThickness: 0)
 
         ),
         iconButtonTheme: IconButtonThemeData(

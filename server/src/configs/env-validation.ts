@@ -73,6 +73,15 @@ class EnvironmentVariables {
 
   @IsString()
   COOKIE_DOMAIN: string;
+
+  @IsString()
+  FIREBASE_PROJECT_ID: string;
+
+  @IsString()
+  FIREBASE_CLIENT_EMAIL: string;
+
+  @IsString()
+  FIREBASE_PRIVATE_KEY: string;
 }
 
 export function validate(config: Record<string, unknown>) {

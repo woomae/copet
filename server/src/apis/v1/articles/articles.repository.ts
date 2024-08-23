@@ -47,9 +47,9 @@ export class ArticleRepository extends Repository<Articles> {
   }
 
   async ownerChecker(_id: number, owner_id: number): Promise<boolean> {
-    const result = await this.createQueryBuilder('articles')
-      .leftJoinAndSelect('articles.owner_id', 'user')
-      .where('articles._id = :_id', { _id: _id })
+    const result = await this.createQueryBuilder('article')
+      .leftJoinAndSelect('article.owner_id', 'user')
+      .where('article._id = :_id', { _id: _id })
       .andWhere('user._id = :owner_id', { owner_id: owner_id })
       .getOne();
     if (result) {
@@ -85,5 +85,20 @@ export class ArticleRepository extends Repository<Articles> {
       total,
       articles: articles,
     };
+  }
+  async articleLikeChecker(
+    user_id: number,
+    article_id: number,
+  ): Promise<boolean> {
+    const result = await this.createQueryBuilder('article')
+      .leftJoinAndSelect('article.stars', 'star')
+      .where('star.clicked_user_id = :user_id', { user_id: user_id })
+      .andWhere('article._id = :article_id', { article_id: article_id })
+      .getOne();
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

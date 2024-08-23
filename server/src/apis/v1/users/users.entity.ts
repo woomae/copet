@@ -8,6 +8,7 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  OneToOne,
 } from 'typeorm';
 import { Articles } from '../articles/articles.entity';
 import { Friends } from '../friends/friends.entity';
@@ -15,6 +16,8 @@ import { Stars } from '../stars/stars.entity';
 import { PetKeywords } from '../petkeywords/petkeywords.entity';
 import { Photos } from '../photos/photos.entity';
 import { Exclude } from 'class-transformer';
+import { Notifications } from '../notifications/notification.entity';
+import { Walkmaps } from '../walkmaps/walkmaps.entity';
 
 @Entity()
 export class Users {
@@ -24,6 +27,10 @@ export class Users {
   @Exclude({ toPlainOnly: true })
   @Column({ unique: true })
   provider_id: string;
+
+  @Exclude({ toPlainOnly: true })
+  @Column({ nullable: true })
+  firebase_token: string;
 
   @Column({ nullable: true })
   nickname: string;
@@ -68,6 +75,16 @@ export class Users {
     cascade: ['remove'],
   })
   photo: Photos;
+
+  @OneToMany(() => Notifications, (notification) => notification.user_id, {
+    cascade: ['remove'],
+  })
+  notification: Notifications[];
+
+  @OneToMany(() => Walkmaps, (walkmap) => walkmap.owner_id, {
+    cascade: ['remove'],
+  })
+  walkmap: Walkmaps[];
 
   @Exclude({ toPlainOnly: true })
   @CreateDateColumn({
