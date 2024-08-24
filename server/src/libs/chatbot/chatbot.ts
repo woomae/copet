@@ -1,0 +1,38 @@
+import OpenAI from 'openai';
+
+export default async function callchatbot(usermessage: string, apikey: string) {
+  const client = new OpenAI({ apiKey: apikey });
+  const myAssistants = await client.beta.assistants.list();
+
+  const thread = await client.beta.threads.create();
+  await client.beta.threads.messages.create(thread.id, {
+    role: 'user',
+    content: usermessage,
+  });
+  //작업생성 확인필요
+  let run = await client.beta.threads.runs.create(thread.id, {
+    assistant_id: myAssistants.data[0].id,
+  });
+  while (['queued', 'in_progress', 'cancelling'].includes(run.status)) {
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+    run = await client.beta.threads.runs.retrieve(run.thread_id, run.id);
+  }
+  const results = [];
+  if (run.status === 'completed') {
+    const messages = await client.beta.threads.messages.list(run.thread_id);
+    for (const message of messages.data) {
+      if (message.role === 'user') {
+        break;
+      }
+      results.push(message);
+    }
+  } else {
+    console.log(run.status);
+  }
+  const text = results
+    .reverse()
+    .map((result) => result.content[0].text.value)
+    .join('\n');
+
+  return text;
+}

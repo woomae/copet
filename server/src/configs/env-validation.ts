@@ -82,6 +82,9 @@ class EnvironmentVariables {
 
   @IsString()
   FIREBASE_PRIVATE_KEY: string;
+
+  @IsString()
+  GPT_API_KEY: string;
 }
 
 export function validate(config: Record<string, unknown>) {
