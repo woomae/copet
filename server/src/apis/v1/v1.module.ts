@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { PhotosModule } from './photos/photos.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { WalkmapsModule } from './walkmaps/walkmaps.module';
+import { ChatbotModule } from './chatbot/chatbot.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { WalkmapsModule } from './walkmaps/walkmaps.module';
     PhotosModule,
     NotificationsModule,
     WalkmapsModule,
+    ChatbotModule,
   ],
 })
 export class V1Module {}
