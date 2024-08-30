@@ -151,6 +151,7 @@ class App extends ConsumerWidget {
                   _getDeviceToken();
                 return mainhome();
               }
+
               else
                 return mainlogin();
             }

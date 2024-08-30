@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/pages/profile/profile_container.dart';
 import 'package:pet/pages/profile/profile_information_container.dart';
 import 'package:pet/pages/profile/setting/setting_home.dart';
+import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 
 class ProfileMain extends StatelessWidget {
@@ -48,12 +50,14 @@ class _Body extends StatelessWidget {
   }
 }
 
-class Profile extends StatelessWidget {
+class Profile extends ConsumerWidget {
   final Widget childWidget;
   const Profile({super.key, required this.childWidget});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userState = ref.watch(UserProvider);
+    print(userState.photo.length);
     return Stack(
       alignment: Alignment.topCenter,
       clipBehavior: Clip.none,
@@ -97,7 +101,8 @@ class Profile extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(50)),
-              child: Image.asset('asset/img/Yaoh.png'),
+              child:userState.photo.length != 0 ? Image.network(userState.photo[0]!) :
+              Container(color: GREY2),
             ),
           ),
         ),

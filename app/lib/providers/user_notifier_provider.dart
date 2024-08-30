@@ -12,42 +12,43 @@ class UserNotifier extends StateNotifier<UsersModel> {
         super( UsersModel(
           id: 0,
           nickname: '',
-          pet_category: '',
+          petCategory: '',
           region: Region(state: '', city: '', district: ''),
-          petimg: [],
-          petkeyword: [], //수정필요
+          photo: [],
+          petKeywords: [], //수정필요
           intro: '',
       ));
+
   void updateUser({
      int? id,
      String? nickname,
-     String? email,
-     String? pet_category,
+     String? petCategory,
      Region? region,
-     List? petimg,
-     List<String>? petkeyword,
+     List<String>? photo,
+     List<PetKeyWords>? petKeywords,
      String? intro,
 
   }) {
     state = UsersModel(id: id ?? state.id,
         nickname: nickname ?? state.nickname,
-        pet_category: pet_category ?? state.pet_category,
+        petCategory: petCategory ?? state.petCategory,
         region: region ?? state.region,
-        petimg: petimg ?? state.petimg,
-        petkeyword: petkeyword ?? state.petkeyword,
+        photo: photo ?? state.photo,
+        petKeywords: petKeywords ?? state.petKeywords,
         intro: intro ?? state.intro,
     );
   }
 
   void storeUserData(UsersModel data)  {
-    if(state.id != data.id){
+    print('Store User');
+    if(state != data){
       state = UsersModel(
           id: data.id,
           nickname: data.nickname,
-          pet_category: data.pet_category,
+          petCategory: data.petCategory,
           region: data.region,
-          petimg: data.petimg,
-          petkeyword: data.petkeyword,
+          photo: data.photo,
+          petKeywords: data.petKeywords,
           intro: data.intro,
       );
     }
