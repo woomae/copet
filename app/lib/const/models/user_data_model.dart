@@ -7,6 +7,15 @@ class PetKeyWords{
   final DateTime updatedAt;
 
   PetKeyWords({required this.id, required this.keyword, required this.createdAt, required this.updatedAt});
+
+  factory PetKeyWords.fromJson(Map<String, dynamic> json) {
+    return PetKeyWords(
+      id: json['id'] ?? 0,
+      keyword: json['keyword'] ?? '',
+      createdAt: DateTime.parse(json['createdAt'] ?? DateTime.now().toIso8601String()),
+      updatedAt: DateTime.parse(json['updatedAt'] ?? DateTime.now().toIso8601String()),
+    );
+  }
 }
 
 class UserDataModel {

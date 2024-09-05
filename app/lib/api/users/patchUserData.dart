@@ -8,27 +8,25 @@ import '../dioBaseOptions.dart';
 class PatchUserData{
 
   static Future<Response> patchUserData({
-    String? nickname,
-    String? pet_category,
-    Region? region,
+    required String nickname,
+    required String pet_category,
+    required Region region,
     String? petimg,
-    List<String>? petkeyword,
+    required List<String> petkeyword,
     String? intro,
   }) async{
 
 //districtName 수정 필요
 
+  print(region.state);
+  print(intro);
     final FormData formData = FormData();
-    if (nickname != null && nickname != '') formData.fields.add(MapEntry('nickname', nickname));
-    if (pet_category != null && pet_category != '') formData.fields.add(MapEntry('pet_category', pet_category));
-    if (region != null) {
-      if (region.state != null) formData.fields.add(MapEntry('region[state]', region.state!));
-      if (region.city != null) formData.fields.add(MapEntry('region[city]', region.city!));
-      if (region.district != null) formData.fields.add(MapEntry('region[district]', region.district!));
-    }
-    if (petkeyword != null ) {
-        formData.fields.add(MapEntry('petkeyword', jsonEncode(petkeyword)));
-    }
+    if (nickname != '') formData.fields.add(MapEntry('nickname', nickname));
+    if (pet_category != '') formData.fields.add(MapEntry('pet_category', pet_category));
+    if (region.state != null) formData.fields.add(MapEntry('region[state]', region.state!));
+    if (region.city != null) formData.fields.add(MapEntry('region[city]', region.city!));
+    if (region.district != null) formData.fields.add(MapEntry('region[district]', region.district!));
+    formData.fields.add(MapEntry('petkeyword', jsonEncode(petkeyword)));
     if (intro != null && intro != '') formData.fields.add(MapEntry('intro', intro));
     if (petimg != null) formData.files.add(MapEntry('petimg', MultipartFile.fromFileSync(petimg)));
 

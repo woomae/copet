@@ -299,17 +299,23 @@ class nextbutton_keyword extends ConsumerWidget {
             print(state.region?.district);
             print(state.petkeyword);
             try{
-              PatchUserData.patchUserData(
-                  nickname: state.nickname,
-                  pet_category: state.pet_category,
-                  region: state.region,
-                  petkeyword: state.petkeyword
-              );
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => loginend()),
-                    (Route<dynamic> route) => false,
-              );
+              if(state.nickname != null &&
+                  state.pet_category != null &&
+                  state.region != null &&
+                  state.petkeyword != null
+              ){
+                PatchUserData.patchUserData(
+                    nickname: state.nickname!,
+                    pet_category: state.pet_category!,
+                    region: state.region!,
+                    petkeyword: state.petkeyword!
+                );
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => loginend()),
+                      (Route<dynamic> route) => false,
+                );
+              }
             }
             catch(e){
               print(e);

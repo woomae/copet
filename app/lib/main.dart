@@ -63,6 +63,7 @@ class App extends ConsumerWidget {
     final accessToken = await storage.read(key: 'ACCESS_TOKEN');
 
     print("액세스 토큰 존재 : ${accessToken?.isNotEmpty}");
+
     if (accessToken != null) {
       bool isExpired = JwtDecoder.isExpired(accessToken);
       if (isExpired) {
@@ -70,12 +71,11 @@ class App extends ConsumerWidget {
       }
       final decodedUser = JwtDecoder.decode(accessToken);
       final TokenUserModel parsedUser = TokenUserModel.fromJson(token: decodedUser);
-      print(accessToken);
       dio.options.headers = {
         'Cookie' : 'user=$accessToken'
       };
-      final res = await GetUser.getUser(parsedUser.userId.toString());
-      ref.read(UserProvider.notifier).storeUserData(res);
+        final res = await GetUser.getUser(parsedUser.userId.toString());
+        ref.read(UserProvider.notifier).storeUserData(res);
       // 여기서 필요에 따라 사용자 등록 여부를 확인하고 true 또는 false 반환
       return true;
     }
@@ -143,9 +143,9 @@ class App extends ConsumerWidget {
             //비동기 작업 (회원가입 여부 판별) 완료 후
             else{
               if(snapshot.data == true){
-                final userNickname = ref.watch(UserProvider).nickname;
+                final user = ref.read(UserProvider);
                 //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
-                if(userNickname == '')
+                if(user.nickname == '')
                   return loginname();
                 else
                   _getDeviceToken();
