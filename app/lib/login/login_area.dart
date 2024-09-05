@@ -8,14 +8,13 @@ import 'package:pet/login/login_agree.dart';
 import 'package:pet/style/colors.dart';
 import 'package:pet/const/regions/regions.dart';
 
-final stateProvider = StateProvider<String>((ref) => '지역선택');
-final cityProvider = StateProvider<String>((ref) => '지역선택');
-final districtProvider = StateProvider<String>((ref) => '지역선택');
 
 class loginarea extends ConsumerWidget {
   loginarea({super.key});
   // district 수정 필요
-
+  final stateProvider = StateProvider<String>((ref) => '지역선택');
+  final cityProvider = StateProvider<String>((ref) => '지역선택');
+  final districtProvider = StateProvider<String>((ref) => '지역선택');
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedState = ref.watch(stateProvider);

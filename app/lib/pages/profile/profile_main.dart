@@ -56,8 +56,7 @@ class Profile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userState = ref.watch(UserProvider);
-    print(userState.photo.length);
+    final userState = ref.read(UserProvider);
     return Stack(
       alignment: Alignment.topCenter,
       clipBehavior: Clip.none,
@@ -101,7 +100,7 @@ class Profile extends ConsumerWidget {
             ),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(50)),
-              child:userState.photo.length != 0 ? Image.network(userState.photo[0]!) :
+              child:userState.photo.length != 0 ? Image.network(userState.photo[0].imgPath) :
               Container(color: GREY2),
             ),
           ),

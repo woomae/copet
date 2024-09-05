@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/const/models/user_data_model.dart';
 import 'package:pet/const/models/users_model.dart';
 
+import '../const/models/articles.dart';
 import '../const/models/region_model.dart';
 
 final UserProvider = StateNotifierProvider<UserNotifier, UsersModel>(
@@ -24,7 +25,7 @@ class UserNotifier extends StateNotifier<UsersModel> {
      String? nickname,
      String? petCategory,
      Region? region,
-     List<String>? photo,
+     List<Photo>? photo,
      List<PetKeyWords>? petKeywords,
      String? intro,
 
@@ -40,7 +41,6 @@ class UserNotifier extends StateNotifier<UsersModel> {
   }
 
   void storeUserData(UsersModel data)  {
-    print('Store User');
     if(state != data){
       state = UsersModel(
           id: data.id,

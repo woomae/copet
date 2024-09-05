@@ -10,9 +10,33 @@ class ProfileContainer extends ConsumerWidget {
 
   const ProfileContainer({super.key});
 
+  Widget KeywordWidget(String text){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        height: 30,
+        decoration: BoxDecoration(
+          color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
+          borderRadius: BorderRadius.circular(5), // border radius 설정
+        ),
+        child: IntrinsicWidth(
+          child: Text(
+            "#$text",
+            style: TextStyle(
+              fontFamily: 'Segoe',
+              fontSize: 15,
+              color: Color(0xFF222222),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(UserProvider);
+    final state = ref.read(UserProvider);
     return Column(
       children: [
         Column(
@@ -135,72 +159,11 @@ class ProfileContainer extends ConsumerWidget {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Container(
-            width: 71,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
-              borderRadius: BorderRadius.circular(5), // border radius 설정
-            ),
-            child: Center(
-              child: Text(
-                '#햄스터',
-                style: TextStyle(
-                  fontFamily: 'Segoe',
-                  fontSize: 15,
-                  color: Color(0xFF222222),
-                ),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 71,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
-                  borderRadius: BorderRadius.circular(5), // border radius 설정
-                ),
-                child: Center(
-                  child: Text(
-                    '#활발함',
-                    style: TextStyle(
-                      fontFamily: 'Segoe',
-                      fontSize: 15,
-                      color: Color(0xFF222222),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                width: 71,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
-                  borderRadius: BorderRadius.circular(5), // border radius 설정
-                ),
-                child: Center(
-                  child: Text(
-                    '#활발함',
-                    style: TextStyle(
-                      fontFamily: 'Segoe',
-                      fontSize: 15,
-                      color: Color(0xFF222222),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        Wrap(
+          children: state.petKeywords.map((e)=>
+            KeywordWidget(e.keyword)
+          ).toList()
+        )
       ],
     );
   }

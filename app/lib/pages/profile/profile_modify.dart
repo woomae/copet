@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet/common/component/appbars/modify_appbar.dart';
 import '../../common/component/buttons/dropdown_button.dart';
+import '../../providers/user_notifier_provider.dart';
 import '../../style/colors.dart';
 import 'package:pet/login/login_area.dart';
 import 'package:pet/const/regions/regions.dart';
@@ -31,15 +32,7 @@ class _ProfileModifyState extends ConsumerState<ProfileModify> {
 class _Body extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedState = ref.watch(stateProvider);
-    final selectedCity = ref.watch(cityProvider);
-    final selectedDistrict = ref.watch(districtProvider);
-
-    List<String> cities = selectedState != '지역선택' ? regionMap[selectedState]! : ['지역선택'];
-    List<String> districts = (selectedState != '지역선택' && selectedCity != '지역선택')
-        ? dongMap[selectedState]![selectedCity]!
-        : ['지역선택'];
-
+    ref.invalidate(userDataProvider); //수정 페이지 이탈 시 userDataProvider 초기화
     return Stack(
       children: [
         Container(
@@ -69,96 +62,109 @@ class _Body extends ConsumerWidget {
   }
 }
 
-class ModifyContainer extends ConsumerWidget {
+class ModifyContainer extends StatelessWidget {
   const ModifyContainer({Key? key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selectedState = ref.watch(stateProvider);
-    final selectedCity = ref.watch(cityProvider);
-    final selectedDistrict = ref.watch(districtProvider);
-    final userData = ref.watch(userDataProvider); // userData를 가져옵니다
-    final petCategory = userData.pet_category;
-    final nickname = userData.nickname; // 닉네임을 가져옵니다
-    final intro = userData.intro; // 자기소개를 가져옵니다
-
-    List<String> cities = selectedState != '지역선택' ? regionMap[selectedState]! : ['지역선택'];
-    List<String> districts = (selectedState != '지역선택' && selectedCity != '지역선택')
-        ? dongMap[selectedState]![selectedCity]!
-        : ['지역선택'];
+  Widget build(BuildContext context) {
 
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 100),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _title(text: '닉네임'),
-            InputField(
-              hintText: '* 닉네임은 언제든지 변경이 가능합니다.',
-              showHintText: false,
-              initialText: nickname ?? '', // 닉네임을 초기값으로 설정합니다
-              onChanged: (value) {
-                ref.read(userDataProvider.notifier).updateUserData(nickname: value);
-              },
-            ),
-            _title(text: '자기소개'),
-            InputField(
-              hintText: '* 60자 이내',
-              showHintText: true,
-              initialText: intro ?? '', // 자기소개 초기값 설정
-              onChanged: (value) {
-                ref.read(userDataProvider.notifier).updateUserData(intro: value);
-              },
-            ),
-            _title(text: '반려동물 종'),
-            InputField(
-              hintText: '골든리트리버',
-              showHintText: false,
-              initialText: petCategory ?? '', // 반려동물 종 초기값 설정
-              onChanged: (value) {
-                ref.read(userDataProvider.notifier).updateUserData(pet_category: value);
-              },
-            ),
-            _title(text: '지역 설정'),
-            DropDownButton(
-              dropDownList: ['지역선택'] + regionMap.keys.toList(),
-              currentItem: selectedState,
-              onPressed: (value) {
-                ref.read(stateProvider.notifier).state = value;
-                ref.read(cityProvider.notifier).state = '지역선택';
-                ref.read(districtProvider.notifier).state = '지역선택';
-              },
-            ),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: DropDownButton(
-                    dropDownList: cities,
-                    currentItem: selectedCity,
-                    onPressed: (value) {
-                      ref.read(cityProvider.notifier).state = value;
-                      ref.read(districtProvider.notifier).state = '지역선택';
-                    },
-                  ),
+            Consumer(builder: (BuildContext context, WidgetRef ref, Widget){
+              final user = ref.read(UserProvider); // userData를 가져옵니다
+              final petCategory = user.petCategory;
+              final nickname = user.nickname; // 닉네임을 가져옵니다
+              final intro = user.intro; // 자기소개를 가져옵니다
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                _title(text: '닉네임'),
+                InputField(
+                  hintText: '* 닉네임은 언제든지 변경이 가능합니다.',
+                  showHintText: false,
+                  initialText: nickname ?? '', // 닉네임을 초기값으로 설정합니다
+                  onChanged: (value) {
+                    ref.read(userDataProvider.notifier).updateUserData(nickname: value);
+                  },
                 ),
-                const SizedBox(width: 15),
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: DropDownButton(
-                    dropDownList: districts,
-                    currentItem: selectedDistrict,
-                    onPressed: (value) {
-                      ref.read(districtProvider.notifier).state = value;
-                    },
-                  ),
+                _title(text: '자기소개'),
+                InputField(
+                  hintText: '* 60자 이내',
+                  showHintText: true,
+                  initialText: intro ?? '', // 자기소개 초기값 설정
+                  onChanged: (value) {
+                    ref.read(userDataProvider.notifier).updateUserData(intro: value);
+                  },
                 ),
-              ],
-            ),
+                _title(text: '반려동물 종'),
+                InputField(
+                  hintText: '골든리트리버',
+                  showHintText: false,
+                  initialText: petCategory ?? '', // 반려동물 종 초기값 설정
+                  onChanged: (value) {
+                    ref.read(userDataProvider.notifier).updateUserData(pet_category: value);
+                  },
+                ),
+                _title(text: '지역 설정'),
+              ],);
+            }),
+            Consumer(builder: (BuildContext context, WidgetRef ref, Widget){
+              final user = ref.read(UserProvider); // userData를 가져옵니다
+              final userData = ref.watch(userDataProvider);
+              final String? selectedState = userData.region?.state ?? user.region.state;
+              final String? selectedCity = userData.region?.city ??user.region.city;
+              final String? selectedDistrict = userData.region?.district ?? user.region.district;
+
+              List<String> cities = selectedState != '지역선택' ? regionMap[selectedState]! : ['지역선택'];
+              List<String> districts = (selectedState != '지역선택' && selectedCity != '지역선택')
+                  ? dongMap[selectedState]![selectedCity]!
+                  : ['지역선택'];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                DropDownButton(
+                  dropDownList: ['지역선택'] + regionMap.keys.toList(),
+                  currentItem: selectedState,
+                  onPressed: (value) {
+                    ref.read(userDataProvider.notifier).updateUserData(state_: value);
+                    ref.read(userDataProvider.notifier).updateUserData(city: '지역선택');
+                    ref.read(userDataProvider.notifier).updateUserData(district: '지역선택');
+                  },
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: DropDownButton(
+                        dropDownList: cities,
+                        currentItem: selectedCity,
+                        onPressed: (value) {
+                          ref.read(userDataProvider.notifier).updateUserData(city: value);
+                          ref.read(userDataProvider.notifier).updateUserData(district: '지역선택');
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: DropDownButton(
+                        dropDownList: districts,
+                        currentItem: selectedDistrict,
+                        onPressed: (value) {
+                          ref.read(userDataProvider.notifier).updateUserData(district: value);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ]);
+            })
           ],
         ),
       ),
@@ -303,16 +309,22 @@ class Profile_modify extends StatefulWidget {
 class _Profile_modifyState extends State<Profile_modify> {
   File? _image;
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImage(WidgetRef ref) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
+        ref.read(userDataProvider.notifier).updateUserData(photo: _image?.path);
       });
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _image = null;
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -339,46 +351,49 @@ class _Profile_modifyState extends State<Profile_modify> {
         ),
         Positioned(
           top: -50,
-          child: GestureDetector(
-            onTap: _pickImage,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.25),
-                        blurRadius: 2,
-                        spreadRadius: -1,
-                        offset: Offset(0, -6),
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(150),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child: _image != null
-                        ? Image.file(_image!, fit: BoxFit.cover)
-                        : Image.asset('asset/img/Yaoh.png'),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: ClipRRect(
-                    child: GestureDetector(
-                      onTap: _pickImage,
-                      child: Image.asset('asset/img/profile/img_modify.png'),
+          child: Consumer(builder: (BuildContext context, WidgetRef ref, Widget){
+            final user = ref.read(UserProvider);
+            return GestureDetector(
+              onTap: ()=>_pickImage(ref),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.25),
+                          blurRadius: 2,
+                          spreadRadius: -1,
+                          offset: Offset(0, -6),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(150),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      child: _image != null
+                          ? Image.file(_image!, fit: BoxFit.cover)
+                          : Image.asset('asset/img/Yaoh.png'),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ClipRRect(
+                      child: GestureDetector(
+                        onTap: ()=> _pickImage(ref),
+                        child: Image.asset('asset/img/profile/img_modify.png'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          })
         ),
       ],
     );

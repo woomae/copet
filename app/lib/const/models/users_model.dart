@@ -8,7 +8,7 @@ class UsersModel {
   final String nickname;
   final String petCategory;
   final Region region;
-  final List<String?> photo;
+  final List<Photo> photo;
   final List<PetKeyWords> petKeywords;
   final String intro;
 
@@ -29,7 +29,9 @@ class UsersModel {
         region = json['region'] != null
             ? Region.fromJson(json: json['region'])
             : Region(state: '', city: '', district: ''),
-        photo = (json['photo'] as List).map((item) => item as String?).toList(),
+        photo = (json['photo'] as List)
+            .map((item) => Photo.fromJson(item as Map<String, dynamic>))
+            .toList(),
         petKeywords = (json['petkeywords'] as List)
             .map((item) => PetKeyWords.fromJson(item))
             .toList(),

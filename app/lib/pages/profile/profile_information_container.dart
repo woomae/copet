@@ -46,7 +46,6 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
   @override
   Widget build(BuildContext context) {
     final userId = ProviderScope.containerOf(context).read(UserProvider).id;
-    print(userId);
 
     return Column(
       children: [
