@@ -81,6 +81,7 @@ flutter:
   assets:
     - .env
     - asset/img/
+    - asset/img/chatbot/
     - asset/img/logo.png
     - asset/img/copet_logo.png
     - asset/img/checkimg.png

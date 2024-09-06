@@ -109,9 +109,10 @@ class App extends ConsumerWidget {
           bodyMedium : TextStyle(fontSize: 12.0, decorationThickness: 0),
           bodyLarge: TextStyle(fontSize: 12.0, fontWeight:FontWeight.w500, decorationThickness: 0),
           titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,decorationThickness: 0),
-          titleMedium: TextStyle(fontSize: 18,fontWeight: FontWeight.w800, decorationThickness: 0),
-          titleSmall:  TextStyle(fontSize: 13, fontWeight: FontWeight.w800),
-          labelMedium: TextStyle(fontSize: 12.0, color: GREY2, decorationThickness: 0)
+          titleMedium: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,fontFamily: 'NotoSansKR', decorationThickness: 0),
+          titleSmall:  TextStyle(fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'NotoSansKR'),
+          labelMedium: TextStyle(fontSize: 12.0, color: GREY3, decorationThickness: 0),
+          labelSmall:  TextStyle(fontSize: 8.0, color: GREY2, decorationThickness: 0)
 
         ),
         iconButtonTheme: IconButtonThemeData(
