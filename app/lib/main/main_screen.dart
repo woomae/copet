@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:pet/main/main_item.dart';
+import 'package:pet/pages/chatbot_screen.dart';
 import 'package:pet/pages/community/community_main.dart';
 import 'package:pet/pages/search/search_main.dart';
+import 'package:pet/style/colors.dart';
 
 import 'main_place.dart';
 import 'main_screen.dart';
@@ -24,9 +26,26 @@ class mainscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: _Body(),
+        backgroundColor: WHITE,
+        body: Stack(
+            children: [
+              _Body(),
+              Positioned(
+                bottom: 20,
+                  right: 20,
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatbotScreen()));
+                    },
+                    child: Image.asset(
+                        width: 100,
+                        height: 100,
+                        'asset/img/chatbot/chatbot_button.png'
+                    ),
+                  ))
+            ]),
       ),
     );
   }
@@ -70,9 +89,7 @@ class _Body extends StatelessWidget {
       ),
     ];
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
+    return CustomScrollView(
         slivers: [
           SliverAppBar(
             //titleSpacing: 0,
@@ -593,8 +610,6 @@ class _Body extends StatelessWidget {
             ),
           ),
         ],
-      ),
-
     );
   }
 }

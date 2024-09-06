@@ -6,6 +6,7 @@ PreferredSizeWidget GoBackAppBar(){
     //titleSpacing: 0,
     backgroundColor: Colors.white,
     elevation: 0,
+    scrolledUnderElevation: 0,
     leading : Back(),
     shape: const Border(
         bottom: BorderSide(color: Colors.grey ,width: 0.5)

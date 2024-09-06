@@ -12,3 +12,11 @@ String formatDateToYYYYMMDD(DateTime date){
 
   return formattedDate;
 }
+
+String formatDateToTime(DateTime date){
+  String hour = date.hour.toString();
+  String min = date.minute < 10 ? '0${date.minute}' : date.minute.toString();
+
+  String time = '$hour:$min';
+  return time;
+}
