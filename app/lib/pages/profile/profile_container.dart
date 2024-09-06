@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet/api/follow/getFollow.dart';
 import 'package:pet/pages/profile/follow/follow.dart';
+import 'package:pet/pages/profile/follow/follower_list.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
+import '../../api/follow/getFollower.dart';
+import '../../const/models/friends_model.dart';
 import '../../style/colors.dart';
 
 class ProfileContainer extends ConsumerWidget {
@@ -37,6 +41,8 @@ class ProfileContainer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.read(UserProvider);
+    final follow = getFollow();
+    final follower = getFollower();
     return Column(
       children: [
         Column(
@@ -102,28 +108,34 @@ class ProfileContainer extends ConsumerWidget {
                   //foregroundColor: BLACK,
                 ),
                 onPressed: () {
-                  //팔로워기능
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => FollowerList()));
                 },
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '팔로워',
-                        style: TextStyle(
-                          fontFamily: 'Segoe',
-                          color: Color(0xFF959595),
+                child: FutureBuilder<Friends>(
+                    future: getFollower(), builder: (context, snapshot){
+                      int followerCount = 0;
+                      if(snapshot.hasData)
+                        followerCount = snapshot.data!.count;
+                  return RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '팔로워',
+                          style: TextStyle(
+                            fontFamily: 'Segoe',
+                            color: Color(0xFF959595),
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: ' 0', // 팔로워 수 추가
-                        style: TextStyle(
-                          fontFamily: 'Segoe',
-                          color: Color(0xFF222222),
+                        TextSpan(
+                          text: ' ${followerCount.toString()}', // 팔로워 수 추가
+                          style: TextStyle(
+                            fontFamily: 'Segoe',
+                            color: Color(0xFF222222),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                      ],
+                    ),
+                  );
+                })
               ),
               const SizedBox(width: 30),
               TextButton(
@@ -135,26 +147,32 @@ class ProfileContainer extends ConsumerWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const followlist()));
                 },
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '팔로잉',
-                        style: TextStyle(
-                          fontFamily: 'Segoe',
-                          color: Color(0xFF959595),
+                child: FutureBuilder<Friends>(
+                    future: getFollow(), builder: (BuildContext context, snapshot){
+                      int followCount = 0;
+                      if(snapshot.hasData)
+                        followCount = snapshot.data!.count;
+                      return RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '팔로잉',
+                              style: TextStyle(
+                                fontFamily: 'Segoe',
+                                color: Color(0xFF959595),
+                              ),
+                            ),
+                            TextSpan(
+                              text: ' ${followCount.toString()}', // 팔로잉 수 추가
+                              style: TextStyle(
+                                fontFamily: 'Segoe',
+                                color: Color(0xFF222222),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      TextSpan(
-                        text: ' 0', // 팔로잉 수 추가
-                        style: TextStyle(
-                          fontFamily: 'Segoe',
-                          color: Color(0xFF222222),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                      );
+                })
               )
             ],
           ),
