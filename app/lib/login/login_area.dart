@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
+import 'package:pet/const/models/region_model.dart';
 import 'package:pet/const/models/user_data_model.dart';
 import 'package:pet/const/regions/jellanamdo/jeollanamdo.dart';
 import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/login/login_agree.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 import 'package:pet/const/regions/regions.dart';
 
@@ -158,12 +160,12 @@ class _Title extends StatelessWidget {
   }
 }
 
-class NextButtonArea extends StatelessWidget {
+class NextButtonArea extends ConsumerWidget {
   final bool isEnabled;
   const NextButtonArea({super.key, required this.isEnabled});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),

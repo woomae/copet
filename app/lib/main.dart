@@ -63,7 +63,7 @@ class App extends ConsumerWidget {
     final accessToken = await storage.read(key: 'ACCESS_TOKEN');
 
     print("액세스 토큰 존재 : ${accessToken?.isNotEmpty}");
-
+    print(accessToken);
     if (accessToken != null) {
       bool isExpired = JwtDecoder.isExpired(accessToken);
       if (isExpired) {
@@ -86,6 +86,7 @@ class App extends ConsumerWidget {
 
   Future<void> _getDeviceToken() async{
     final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(fcmToken);
     try{
       if(fcmToken != null && isInitialization == false){
         postDeviceToken(fcmToken);

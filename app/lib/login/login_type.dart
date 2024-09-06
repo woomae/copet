@@ -84,7 +84,7 @@ class logintype extends ConsumerWidget {
                   if (state.pet_category != null && state.pet_category != '') {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => loginname()),
+                      MaterialPageRoute(builder: (context) => loginarea()),
                     );
                     print(state.pet_category);
                   }
