@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acd08498-65f3-475f-8a38-7e5efe7549f1" name="Changes" comment="fix: 로그인 분기 시 로딩 페이지 경유히도록 변경">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/appbars/modify_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/appbars/modify_appbar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
