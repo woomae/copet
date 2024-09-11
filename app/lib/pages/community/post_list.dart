@@ -23,6 +23,9 @@ class PostList extends StatelessWidget {
         itemCount: length,
         itemBuilder: (BuildContext context, int i) {
           print(comments[i].id);
+          if (i >= comments.length) {
+            return SizedBox.shrink(); // Return an empty widget if index is out of range
+          }
           return GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>ArticlePage(articleId: comments[i].id)));

@@ -157,7 +157,7 @@ class Community extends ConsumerWidget {
                                   }
                                   if (snapshot.hasData) {
                                     return PostList(
-                                        length: snapshot.data!.total,
+                                        length: snapshot.data!.article.length,
                                         comments: snapshot.data!.article);
                                   } else {
                                     return SizedBox();
