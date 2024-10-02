@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:pet/main/main_item.dart';
 import 'package:pet/pages/community/community_main.dart';
+import 'package:pet/pages/map/map_page.dart';
 import 'package:pet/pages/search/search_main.dart';
 
 import 'main_place.dart';
@@ -130,7 +131,13 @@ class _Body extends StatelessWidget {
                           imagePath: 'asset/img/main/walk.png',
                           width: MediaQuery.of(context).size.width * 0.5 - 30,
                           height: 200,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MapPage()),
+                            );
+                          },
                         ),
                         const SizedBox(width: 20),
                         Column(
