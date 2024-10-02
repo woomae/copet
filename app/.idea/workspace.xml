@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bc90fbfe-93d6-4025-8f2b-9fc38a86b52a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/map/map_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/map/map_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/location_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/location_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
