@@ -13,6 +13,9 @@ import 'package:pet/providers/user_notifier_provider.dart';
 
 import '../const/models/region_model.dart';
 
+final stateProvider = StateProvider<String>((ref) => '지역선택');
+final cityProvider = StateProvider<String>((ref) => '지역선택');
+final districtProvider = StateProvider<String>((ref) => '지역선택');
 
 class loginarea extends ConsumerWidget {
   loginarea({super.key});
@@ -24,9 +27,7 @@ class loginarea extends ConsumerWidget {
 
 //=======
   // district 수정 필요
-  final stateProvider = StateProvider<String>((ref) => '지역선택');
-  final cityProvider = StateProvider<String>((ref) => '지역선택');
-  final districtProvider = StateProvider<String>((ref) => '지역선택');
+
 //>>>>>>> develop
   @override
   Widget build(BuildContext context, WidgetRef ref) {

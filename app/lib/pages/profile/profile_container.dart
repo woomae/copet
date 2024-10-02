@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/api/follow/getFollow.dart';
 import 'package:pet/pages/profile/follow/follow.dart';
-import 'package:pet/pages/profile/follow/follower_list.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
-import '../../api/follow/getFollower.dart';
-import '../../const/models/friends_model.dart';
 import '../../style/colors.dart';
 
 class ProfileContainer extends ConsumerWidget {
@@ -14,35 +10,9 @@ class ProfileContainer extends ConsumerWidget {
 
   const ProfileContainer({super.key});
 
-  Widget KeywordWidget(String text){
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        height: 30,
-        decoration: BoxDecoration(
-          color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
-          borderRadius: BorderRadius.circular(5), // border radius 설정
-        ),
-        child: IntrinsicWidth(
-          child: Text(
-            "#$text",
-            style: TextStyle(
-              fontFamily: 'Segoe',
-              fontSize: 15,
-              color: Color(0xFF222222),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.read(UserProvider);
-    final follow = getFollow();
-    final follower = getFollower();
+    final state = ref.watch(UserProvider);
     return Column(
       children: [
         Column(
@@ -108,34 +78,28 @@ class ProfileContainer extends ConsumerWidget {
                   //foregroundColor: BLACK,
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => FollowerList()));
+                  //팔로워기능
                 },
-                child: FutureBuilder<Friends>(
-                    future: getFollower(), builder: (context, snapshot){
-                      int followerCount = 0;
-                      if(snapshot.hasData)
-                        followerCount = snapshot.data!.count;
-                  return RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '팔로워',
-                          style: TextStyle(
-                            fontFamily: 'Segoe',
-                            color: Color(0xFF959595),
-                          ),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '팔로워',
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF959595),
                         ),
-                        TextSpan(
-                          text: ' ${followerCount.toString()}', // 팔로워 수 추가
-                          style: TextStyle(
-                            fontFamily: 'Segoe',
-                            color: Color(0xFF222222),
-                          ),
+                      ),
+                      TextSpan(
+                        text: ' 0', // 팔로워 수 추가
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF222222),
                         ),
-                      ],
-                    ),
-                  );
-                })
+                      ),
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(width: 30),
               TextButton(
@@ -147,41 +111,96 @@ class ProfileContainer extends ConsumerWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const followlist()));
                 },
-                child: FutureBuilder<Friends>(
-                    future: getFollow(), builder: (BuildContext context, snapshot){
-                      int followCount = 0;
-                      if(snapshot.hasData)
-                        followCount = snapshot.data!.count;
-                      return RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '팔로잉',
-                              style: TextStyle(
-                                fontFamily: 'Segoe',
-                                color: Color(0xFF959595),
-                              ),
-                            ),
-                            TextSpan(
-                              text: ' ${followCount.toString()}', // 팔로잉 수 추가
-                              style: TextStyle(
-                                fontFamily: 'Segoe',
-                                color: Color(0xFF222222),
-                              ),
-                            ),
-                          ],
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '팔로잉',
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF959595),
                         ),
-                      );
-                })
+                      ),
+                      TextSpan(
+                        text: ' 0', // 팔로잉 수 추가
+                        style: TextStyle(
+                          fontFamily: 'Segoe',
+                          color: Color(0xFF222222),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               )
             ],
           ),
         ),
-        Wrap(
-          children: state.petKeywords.map((e)=>
-            KeywordWidget(e.keyword)
-          ).toList()
-        )
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Container(
+            width: 71,
+            height: 30,
+            decoration: BoxDecoration(
+              color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
+              borderRadius: BorderRadius.circular(5), // border radius 설정
+            ),
+            child: Center(
+              child: Text(
+                '#햄스터',
+                style: TextStyle(
+                  fontFamily: 'Segoe',
+                  fontSize: 15,
+                  color: Color(0xFF222222),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 71,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
+                  borderRadius: BorderRadius.circular(5), // border radius 설정
+                ),
+                child: Center(
+                  child: Text(
+                    '#활발함',
+                    style: TextStyle(
+                      fontFamily: 'Segoe',
+                      fontSize: 15,
+                      color: Color(0xFF222222),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: 71,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
+                  borderRadius: BorderRadius.circular(5), // border radius 설정
+                ),
+                child: Center(
+                  child: Text(
+                    '#활발함',
+                    style: TextStyle(
+                      fontFamily: 'Segoe',
+                      fontSize: 15,
+                      color: Color(0xFF222222),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

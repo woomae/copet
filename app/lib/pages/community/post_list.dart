@@ -17,17 +17,15 @@ class PostList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ListView.builder(
         padding: EdgeInsets.only(top: 0),
         itemCount: length,
         itemBuilder: (BuildContext context, int i) {
-// <<<<<<< HEAD
-//           print(comments[i].id);
-//           if (i >= comments.length) {
-//             return SizedBox.shrink(); // Return an empty widget if index is out of range
-//           }
-// =======
-// >>>>>>> develop
+          print(comments[i].id);
+          if (i >= comments.length) {
+            return SizedBox.shrink(); // Return an empty widget if index is out of range
+          }
           return GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>ArticlePage(articleId: comments[i].id)));
@@ -35,7 +33,7 @@ class PostList extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   color: WHITE,
-                border: Border(bottom: BorderSide(width: 1,color: GREY3))
+                  border: Border(bottom: BorderSide(width: 1,color: GREY3))
               ),
               padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
               child: Flex(
@@ -78,7 +76,7 @@ class PostList extends StatelessWidget {
                                   Text('${DateTime.now().day - comments[i].createdAt!.day}일 전' ,style: TextStyle(color: FONT_GREY),) :
                                   comments[i].createdAt!.minute != DateTime.now().minute ?
                                   Text('${DateTime.now().minute - comments[i].createdAt!.minute}분 전' ,style: TextStyle(color: FONT_GREY),) :
-                                      Text('방금 전'),
+                                  Text('방금 전'),
                                 ],
                               )
                             ],),
@@ -86,9 +84,12 @@ class PostList extends StatelessWidget {
                         SizedBox(width: 5),
                         Row(
                           children: [
-                            if (comments[i].photos != null && comments[i].photos!.isNotEmpty)
-                            Thumbnail(hasPhoto: true, thumbnail: comments[i].photos![0].imgPath )
-                            else Thumbnail(hasPhoto: false,),
+                            //글 이미지..?
+                            // comments[i].photos != null ?
+                            //   Text(comments[i].photos![0].toString()) :
+                            comments[i].photos != null && comments[i].photos != '' ?
+                            Thumbnail() :
+                            Thumbnail(),
 
                             Container(
                               margin: EdgeInsets.only(right: 5),
@@ -120,9 +121,7 @@ class PostList extends StatelessWidget {
 }
 
 class Thumbnail extends StatelessWidget {
-  final bool hasPhoto;
-  final String? thumbnail;
-  const Thumbnail ({super.key, required this.hasPhoto, this.thumbnail});
+  const Thumbnail ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -134,37 +133,32 @@ class Thumbnail extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)
       ),
     );
-    return 
-      SizedBox(
-        width: 50,
-        height: 50,
-        child: hasPhoto ?
-            Image.network(thumbnail!, fit: BoxFit.cover,)
-            :
-        Container(
-          margin: EdgeInsets.only(right: 5),
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          decoration: BoxDecoration(
-              color: GREY1,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: GREY2)
+
+    return Container(
+      margin: EdgeInsets.only(right: 5),
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+          color: GREY1,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(width: 1, color: GREY2)
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Line,
+          Line,
+          Container(
+            width: 15, height: 3,
+            decoration: BoxDecoration(
+                color: GREY3,
+                borderRadius: BorderRadius.circular(30)
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Line,
-              Line,
-              Container(
-                width: 15, height: 3,
-                decoration: BoxDecoration(
-                    color: GREY3,
-                    borderRadius: BorderRadius.circular(30)
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+        ],
+      ),
+    );
 
   }
 }

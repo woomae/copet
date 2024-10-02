@@ -5,6 +5,7 @@ import 'package:pet/providers/user_data_notifier_provider.dart';
 import '../../../login/login_area.dart';
 import '../../../style/icons.dart';
 
+
 PreferredSizeWidget ModifyAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,

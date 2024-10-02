@@ -5,148 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc90fbfe-93d6-4025-8f2b-9fc38a86b52a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/asset/img/chatbot/chatbot_background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/chatbot/chatbot_button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/chatbot/chatbot_character.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/article/postLikeRequest.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/article/putArticle.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/follow/delete_follow.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/follow/getFollow.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/follow/getFollower.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/mocks/getPetItems.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/mocks/getPetPlace.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/postChatbot.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/postDeviceToken.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/ranks/deleteRecentSearch.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/ranks/getRecentSearches.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/ranks/getTopRankSearches.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/ranks/postRecentSearch.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/users/patchUserData.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/walkmamp/getWalkMaps.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/common/component/widgets/pet_items_list.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/common/component/widgets/pet_place_list.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/common/component/widgets/silver_post_list.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/const/models/friends_model.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/const/models/merchandises.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/const/models/pet_place.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/const/models/walkmap_mode.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/chatbot_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/community/article_edit_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/follow/follower_list.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/scrap_list.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pages/profile/walkmap_list.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/format_date.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/notification/background_handler.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/notification/notification.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/notification/test_notifi.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/chatbot/chatbot.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/chatbot/chatbot.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/chatbot/chatbot.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/notifications/notification.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/notifications/notifications.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/notifications/notifications.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/notifications/notifications.repository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/notifications/notifications.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/walkmaps/walkmaps.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/walkmaps/walkmaps.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/walkmaps/walkmaps.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/walkmaps/walkmaps.repository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/apis/v1/walkmaps/walkmaps.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/common/decorators/user.decorator.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/dto/create-walkmap.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/dto/getArticleQuery.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/dto/getNotificationQuery.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/libs/chatbot/chatbot.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/libs/notifications/payloads/commentPayloads.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/libs/notifications/payloads/friendPayloads.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/src/libs/notifications/payloads/starPayloads.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/deleteArticle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/deleteArticle.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/deleteComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/deleteComment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/getArticles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getArticles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/getComments.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/getComments.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/patchComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/patchComment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/postComment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postComment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/article/postPosting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/article/postPosting.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authGoogle.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/auth/authKakao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/dioBaseOpstions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/dioBaseOptions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/follow/post_follow.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/follow/post_follow.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/getUser.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/users/getUser.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/patchUserData.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/appbars/go_back_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/appbars/go_back_appbar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/utils/format_date.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/utils/webview_login_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/webview_login_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/articles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/articles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/user_data_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/user_data_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/const/models/users_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/const/models/users_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/component/appbars/modify_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/appbars/modify_appbar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_end.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_end.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_keyword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_keyword.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_type.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/article_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/article_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/community/community_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/community_main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/community/post_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/post_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/posting_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/follow/follow.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/follow/follow.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_information_other.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/otherProfile/profile_information_other.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_information_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_information_container.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_community.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_community.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_place.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_place.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/search/search_result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search/search_result.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/style/colors.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/user_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/user_notifier_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/notification/background_handler.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/notification/background_handler.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/articles/articles.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/articles/articles.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/articles/articles.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/articles/articles.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/articles/articles.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/articles/articles.repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/articles/articles.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/articles/articles.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/auth/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/auth/auth.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/comments/comments.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/comments/comments.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/comments/comments.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/comments/comments.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/comments/comments.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/comments/comments.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/comments/comments.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/comments/comments.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/friends/friends.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/friends/friends.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/friends/friends.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/friends/friends.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/friends/friends.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/friends/friends.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/photos/photos.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/photos/photos.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/photos/photos.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/photos/photos.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/ranks/ranks.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/ranks/ranks.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/stars/stars.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/stars/stars.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/stars/stars.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/stars/stars.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/stars/stars.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/stars/stars.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/users/users.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/users/users.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/users/users.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/users/users.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/users/users.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/users/users.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/apis/v1/v1.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/apis/v1/v1.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/configs/env-validation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/configs/env-validation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/dto/create-photo.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/dto/create-photo.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,11 +82,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\android\app" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\map" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\font" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\follow" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\test" />
-      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\lib\pages\profile\otherProfile" />
     </key>
   </component>
   <component name="RunManager">
