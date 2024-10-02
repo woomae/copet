@@ -8,6 +8,9 @@ import { RanksModule } from './ranks/ranks.module';
 import { StarsModule } from './stars/stars.module';
 import { UsersModule } from './users/users.module';
 import { PhotosModule } from './photos/photos.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { WalkmapsModule } from './walkmaps/walkmaps.module';
+import { ChatbotModule } from './chatbot/chatbot.module';
 
 @Module({
   imports: [
@@ -20,6 +23,9 @@ import { PhotosModule } from './photos/photos.module';
     MocksModule,
     RanksModule,
     PhotosModule,
+    NotificationsModule,
+    WalkmapsModule,
+    ChatbotModule,
   ],
 })
 export class V1Module {}

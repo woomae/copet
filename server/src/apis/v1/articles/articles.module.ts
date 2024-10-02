@@ -6,6 +6,7 @@ import { UsersModule } from '../users/users.module';
 import { PhotosModule } from '../photos/photos.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Photos } from '../photos/photos.entity';
+import { StarsModule } from '../stars/stars.module';
 
 @Module({
   controllers: [ArticlesController],

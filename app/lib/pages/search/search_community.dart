@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pet/api/article/getArticles.dart';
+import 'package:pet/common/component/widgets/silver_post_list.dart';
+import 'package:pet/common/component/widgets/spinner_widget.dart';
+import 'package:pet/const/models/articles.dart';
+import 'package:pet/pages/community/post_list.dart';
 import 'package:pet/pages/search/search_result.dart';
 
 class result_community extends StatelessWidget {
-  const result_community({super.key});
+  final String q;
+  const result_community({super.key, required this.q});
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +49,16 @@ class result_community extends StatelessWidget {
               ),
             ),
           ),
+          FutureBuilder<Articles>(future:GetArticles.getArticles(q: q), builder: (BuildContext context, snapshot){
+            if(snapshot.hasError)
+              return SliverToBoxAdapter(child: Center(child: Text('Error'),));
+            if(snapshot.hasData){
+              return SilverPostList(articles: snapshot.data!);
+            }
+            else
+              return SliverToBoxAdapter(
+                child: Center(child: SpinnerWidget()));
+          })
         ],
       ),
     );

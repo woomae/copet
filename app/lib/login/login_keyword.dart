@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet/api/patchUserData.dart';
+import 'package:pet/api/users/patchUserData.dart';
 import 'package:pet/common/component/keyword/keyword.dart';
 import 'package:pet/login/login_end.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
@@ -299,17 +299,23 @@ class nextbutton_keyword extends ConsumerWidget {
             print(state.region?.district);
             print(state.petkeyword);
             try{
-              PatchUserData.patchUserData(
-                  nickname: state.nickname,
-                  pet_category: state.pet_category,
-                  region: state.region,
-                  petkeyword: state.petkeyword
-              );
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => loginend()),
-                    (Route<dynamic> route) => false,
-              );
+              if(state.nickname != null &&
+                  state.pet_category != null &&
+                  state.region != null &&
+                  state.petkeyword != null
+              ){
+                PatchUserData.patchUserData(
+                    nickname: state.nickname!,
+                    pet_category: state.pet_category!,
+                    region: state.region!,
+                    petkeyword: state.petkeyword!
+                );
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => loginend()),
+                      (Route<dynamic> route) => false,
+                );
+              }
             }
             catch(e){
               print(e);

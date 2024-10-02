@@ -156,9 +156,27 @@ class Community extends ConsumerWidget {
                                     ));
                                   }
                                   if (snapshot.hasData) {
+                                    List<Article>? data = snapshot.data?.article;
+                                    int? total = snapshot.data?.total;
+                                    if(selectedCategory != null){
+                                      if(selectedCategory == '일상')
+                                        data = data?.where((e)=> e.category == '일상').toList();
+                                      if(selectedCategory == '도움')
+                                        data = data?.where((e)=> e.category == '도움').toList();
+                                      if(selectedCategory == 'Q&A')
+                                        data = data?.where((e)=> e.category == 'Q&A').toList();
+                                      if(selectedCategory == '정보후기')
+                                        data = data?.where((e)=> e.category == '정보후기').toList();
+                                      total = data?.length;
+                                    }
                                     return PostList(
-                                        length: snapshot.data!.article.length,
-                                        comments: snapshot.data!.article);
+// <<<<<<< HEAD
+//                                         length: snapshot.data!.article.length,
+//                                         comments: snapshot.data!.article);
+// =======
+                                        length: total!,
+                                        comments: data!);
+//>>>>>>> develop
                                   } else {
                                     return SizedBox();
                                   }

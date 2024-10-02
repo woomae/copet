@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/common/component/buttons/dropdown_button.dart';
+import 'package:pet/const/models/region_model.dart';
 import 'package:pet/const/models/user_data_model.dart';
 import 'package:pet/const/regions/jellanamdo/jeollanamdo.dart';
 import 'package:pet/const/regions/region_list.dart';
 import 'package:pet/login/login_agree.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 import 'package:pet/const/regions/regions.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
 import '../const/models/region_model.dart';
 
-final stateProvider = StateProvider<String>((ref) => '지역선택');
-final cityProvider = StateProvider<String>((ref) => '지역선택');
-final districtProvider = StateProvider<String>((ref) => '지역선택');
 
 class loginarea extends ConsumerWidget {
   loginarea({super.key});
+//<<<<<<< HEAD
 
   String tempState = '지역선택';
   String tempCity = '지역선택';
   String tempDistrict = '지역선택';
 
+//=======
+  // district 수정 필요
+  final stateProvider = StateProvider<String>((ref) => '지역선택');
+  final cityProvider = StateProvider<String>((ref) => '지역선택');
+  final districtProvider = StateProvider<String>((ref) => '지역선택');
+//>>>>>>> develop
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedState = ref.watch(stateProvider);
@@ -193,14 +199,14 @@ class _Title extends StatelessWidget {
   }
 }
 
-class NextButtonArea extends StatelessWidget {
+class NextButtonArea extends ConsumerWidget {
   final bool isEnabled;
   final VoidCallback onPressed;
 
   const NextButtonArea({super.key, required this.isEnabled, required this.onPressed});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),

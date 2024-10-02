@@ -17,15 +17,17 @@ class PostList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ListView.builder(
         padding: EdgeInsets.only(top: 0),
         itemCount: length,
         itemBuilder: (BuildContext context, int i) {
-          print(comments[i].id);
-          if (i >= comments.length) {
-            return SizedBox.shrink(); // Return an empty widget if index is out of range
-          }
+// <<<<<<< HEAD
+//           print(comments[i].id);
+//           if (i >= comments.length) {
+//             return SizedBox.shrink(); // Return an empty widget if index is out of range
+//           }
+// =======
+// >>>>>>> develop
           return GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>ArticlePage(articleId: comments[i].id)));
@@ -84,12 +86,9 @@ class PostList extends StatelessWidget {
                         SizedBox(width: 5),
                         Row(
                           children: [
-                            //글 이미지..?
-                            // comments[i].photos != null ?
-                            //   Text(comments[i].photos![0].toString()) :
-                            comments[i].photos != null && comments[i].photos != '' ?
-                            Thumbnail() :
-                            Thumbnail(),
+                            if (comments[i].photos != null && comments[i].photos!.isNotEmpty)
+                            Thumbnail(hasPhoto: true, thumbnail: comments[i].photos![0].imgPath )
+                            else Thumbnail(hasPhoto: false,),
 
                             Container(
                               margin: EdgeInsets.only(right: 5),
@@ -121,7 +120,9 @@ class PostList extends StatelessWidget {
 }
 
 class Thumbnail extends StatelessWidget {
-  const Thumbnail ({super.key});
+  final bool hasPhoto;
+  final String? thumbnail;
+  const Thumbnail ({super.key, required this.hasPhoto, this.thumbnail});
 
   @override
   Widget build(BuildContext context) {
@@ -133,32 +134,37 @@ class Thumbnail extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)
       ),
     );
-
-    return Container(
-      margin: EdgeInsets.only(right: 5),
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(
-          color: GREY1,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(width: 1, color: GREY2)
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Line,
-          Line,
-          Container(
-            width: 15, height: 3,
-            decoration: BoxDecoration(
-                color: GREY3,
-                borderRadius: BorderRadius.circular(30)
-            ),
+    return 
+      SizedBox(
+        width: 50,
+        height: 50,
+        child: hasPhoto ?
+            Image.network(thumbnail!, fit: BoxFit.cover,)
+            :
+        Container(
+          margin: EdgeInsets.only(right: 5),
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          decoration: BoxDecoration(
+              color: GREY1,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: GREY2)
           ),
-        ],
-      ),
-    );
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Line,
+              Line,
+              Container(
+                width: 15, height: 3,
+                decoration: BoxDecoration(
+                    color: GREY3,
+                    borderRadius: BorderRadius.circular(30)
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
 
   }
 }
