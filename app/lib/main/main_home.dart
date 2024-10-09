@@ -47,6 +47,7 @@ class _mainhomeState extends State<mainhome> with TickerProviderStateMixin {
       backgroundColor: Colors.white,
       body: TabBarView(
         controller: controller,
+        physics: NeverScrollableScrollPhysics(),
         children: TABS.map((e) =>
             Center(
               child: e.screen,

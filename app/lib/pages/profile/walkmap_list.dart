@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pet/const/models/walkmap_mode.dart';
+import 'package:pet/const/models/walkmap_model.dart';
 
 import '../../style/colors.dart';
 import '../../utils/format_date.dart';

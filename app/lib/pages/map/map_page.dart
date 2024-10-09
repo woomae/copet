@@ -1,15 +1,28 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:pet/api/walkmamp/postWalkMap.dart';
+import 'package:pet/common/component/dialogs/commonDialog.dart';
+import 'package:pet/common/component/dialogs/confirmDialog.dart';
+import 'package:pet/common/component/dialogs/saveDialog.dart';
 import 'package:pet/common/component/widgets/spinner_widget.dart';
+import 'package:pet/const/models/location_model.dart';
 import 'package:pet/providers/location_provider.dart';
 import 'package:pet/providers/pause_time_provider.dart';
+import 'package:pet/providers/walk_map_notifier_provider.dart';
 import 'package:pet/providers/walk_time_provider.dart';
+import 'package:pet/utils/format_date.dart';
+import 'package:pet/utils/update_zoom_to_show_all_path.dart';
 
 import '../../providers/map_controller_provider.dart';
 import '../../style/colors.dart';
+import '../../utils/calculate_distance.dart';
+
+final isTrackingProvider = StateProvider((ref)=>false);
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
@@ -71,37 +84,173 @@ class NaverMapWidget extends ConsumerWidget {
             if (snapshot.hasError) {
               return SizedBox();
             } else {
-              final state = ref.watch(LocationProvider);
-              return NaverMap(
-                options: NaverMapViewOptions(
-                  initialCameraPosition: NCameraPosition(
-                    target: NLatLng(state.latitude, state.longitude),
-                    zoom: 17,
-                    bearing: 0,
-                    tilt: 0,
-                  ),
-                  mapType: NMapType.basic,
-                  indoorEnable: true,
-                  consumeSymbolTapEvents: false,
-                ),
-                onMapReady: (NaverMapController _mapController) async {
-                  mapController = _mapController;
-                  ref.read(MapControllerProvider.notifier).state =
-                      _mapController;
-                  mapControllerCompleter
-                      .complete(mapController);
-                  print('Naver Map 로딩 완료');
-
-                  NLocationTrackingMode.face;
-                  mapController.getLocationOverlay().setIsVisible(true);
-                },
-              );
+              return MapScreen();
             }
           }),
       BottomDrawer(context)
     ]);
   }
 }
+
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
+  @override
+  State<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen> {
+  final Completer<NaverMapController> mapControllerCompleter = Completer();
+  List<NLatLng> _pathPoints = [];
+  Timer? _mockLocationTimer = null;
+  double _totalDistance = 0.0;
+  bool isWalking = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _addNewLocation(NLatLng latLng) {
+        setState(() {
+          _pathPoints.add(latLng);
+          double distance = calculateDistance(_pathPoints.last, latLng);
+          _totalDistance += distance; // 총 거리 업데이트
+          NPathOverlay(
+              id: '${DateTime.now()}',
+              coords: _pathPoints,
+              color: PRIMARY_COLOR2,
+              outlineColor: PRIMARY_COLOR2
+          );
+        });
+  }
+
+  void _startMockLocationUpdates(LocationModel state, NaverMapController _mapController, WidgetRef ref) {
+    double _currentLat = state.latitude;
+    double _currentLng = state.longitude;
+    print('타이머 시작');
+      _mockLocationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+        setState(() {
+          // 좌표를 약간씩 이동시켜서 경로가 생기도록 함
+          _currentLat += Random().nextDouble() *0.0005;
+          _currentLng += Random().nextDouble() *0.0005;
+          double distance = calculateDistance(_pathPoints.last, NLatLng(_currentLat, _currentLng));
+          _totalDistance += distance; // 총 거리 업데이트
+          ref.read(WalkMapProvider.notifier).updateWalkMap(
+              steps: _totalDistance.toInt()
+          );
+          print(_totalDistance);
+          _pathPoints.add(NLatLng(_currentLat, _currentLng));
+           if(_pathPoints.length > 1){
+             _mapController.addOverlay(
+                 NPathOverlay(
+                   id: '${DateTime.now()}',
+                   coords: _pathPoints,
+                   color: PRIMARY_COLOR2,
+                   outlineColor: PRIMARY_COLOR2,
+
+                 )
+             );
+           }
+        });
+      });
+
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (BuildContext context, WidgetRef ref, Widget){
+      final state = ref.read(LocationProvider);
+      final isTrackingMode = ref.watch(isTrackingProvider);
+      final mapController = ref.read(MapControllerProvider);
+      return RepaintBoundary(
+        child: NaverMap(
+          options: NaverMapViewOptions(
+            initialCameraPosition: NCameraPosition(
+              target: NLatLng(state.latitude, state.longitude),
+              zoom: 17,
+              bearing: 0,
+              tilt: 0,
+            ),
+            mapType: NMapType.basic,
+            indoorEnable: true,
+            consumeSymbolTapEvents: false,
+          ),
+          onMapReady: (NaverMapController _mapController) async {
+            ref.read(MapControllerProvider.notifier).state =
+                _mapController;
+            mapControllerCompleter
+                .complete(_mapController);
+            print('Naver Map 로딩 완료');
+            NLocationTrackingMode.face;
+            _mapController.getLocationOverlay().setIsVisible(true);
+          },
+          onCameraChange:  (NCameraUpdateReason reason, bool animated) async {
+            bool isAnimated = false;
+
+            if(isTrackingMode == true){
+              if(isWalking == false){
+                //_pathPoints.add(NLatLng(state.latitude, state.longitude));
+                //isWalking = true;
+              }if(isWalking == true){
+                //_addNewLocation(NLatLng(state.latitude, state.longitude));
+              }
+            }
+            //---------------------목업 타이머 실행
+            if(isTrackingMode == true && mapController != null && isWalking == false ){
+              //mock 타이머 설정하는 부분
+              _pathPoints.add(NLatLng(state.latitude, state.longitude));
+              _startMockLocationUpdates(state, mapController,ref);
+              isWalking = true;
+            }
+            //산책 종료 시
+            if(isTrackingMode == false && mapController != null && isWalking == true){
+              if(isWalking == true){
+                isWalking = false;
+                _totalDistance = 0.0;
+                isAnimated = true;
+                await updateCameraToShowAllPath(_pathPoints, mapController);
+                isAnimated = false;
+
+
+                Function initializeOverlays = (){
+                  _pathPoints.clear();
+                  mapController.clearOverlays();
+                  isWalking = false;
+                };
+
+                if(isAnimated == false){
+                  final File snapShot = await mapController.takeSnapshot(showControls: true);
+                  saveDialog(context, snapShot, initializeOverlays).then((e){
+                    initializeOverlays();
+                    final String walkStartedAt = formatDateToYYYYMMDD(DateTime.now());
+                    final walkMapState = ref.read(WalkMapProvider);
+                    try{
+                      postWalkMaps(
+                          walkStartedAt: walkStartedAt,
+                          steps: walkMapState.steps,
+                          durationSeconds: walkMapState.durationSeconds,
+                          mapImg: snapShot.path
+                      );
+                    }catch(e){
+
+                    }
+                  });
+                }
+
+                print('산책 종료');
+              }
+              //좌표, 오버레이 초기화
+        
+              //mock 타이머 초기화
+              _mockLocationTimer?.cancel();
+            }
+          },
+        ),
+      );
+    });
+  }
+}
+
 
 class BottomDrawer extends ConsumerStatefulWidget {
   const BottomDrawer(this.mapContext, {super.key});
@@ -171,6 +320,7 @@ class _BottomDrawerState extends ConsumerState<BottomDrawer> {
                     height: 20,
                   ),
                   Container(
+                    margin: EdgeInsets.only(bottom: 15),
                     width: 70,
                     height: 4.5,
                     decoration: const BoxDecoration(
@@ -200,11 +350,11 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
   @override
   Widget build(BuildContext context) {
     final _mapController = ref.watch(MapControllerProvider);
-
+    final walkMapState = ref.watch(WalkMapProvider);
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -215,7 +365,7 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
                   _currentPositionButton(mapController: _mapController, context: context),
                   _pauseButton(context: context),
                   Spacer(),
-                  _stopButton()
+                  _stopButton(mapController: _mapController, ref: ref)
                 ],
               ),
               Row(
@@ -235,7 +385,7 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
                   ),
                   _informationBox(
                       imagePath: 'asset/img/map/distance.png',
-                      data: '0.00', // 총 거리 초기값
+                      data: walkMapState.steps.toString(), // 총 거리 초기값
                       dataName: '총 거리',
                       unit: ' km',
                       context: context
@@ -408,7 +558,7 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
     );
   }
 
-  Widget _stopButton() {
+  Widget _stopButton({required NaverMapController? mapController, required WidgetRef ref}) {
     String walkingText = _isWalking ? 'FINISH' : 'START';
     Color walkingBackgroundColor = _isWalking ? WHITE : PRIMARY_COLOR;
     Color walkingIconColor = _isWalking ? PRIMARY_COLOR : WHITE;
@@ -416,9 +566,17 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
 
     return TextButton(
       onPressed: () {
+        //stop 클릭 시
         if (_isWalking) {
+          ref.read(isTrackingProvider.notifier).state = false;
           _stopTimer();
+          ref.read(WalkMapProvider.notifier).updateWalkMap(
+            durationSeconds: _elapsedTime.inSeconds
+          );
+
         } else {
+          //start 클릭 시
+          ref.read(isTrackingProvider.notifier).state = true;
           _startTimer();
         }
       },
@@ -498,7 +656,7 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
     });
   }
 
-  String _formatDuration(Duration duration) {
+   _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
