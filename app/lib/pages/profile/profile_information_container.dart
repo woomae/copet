@@ -9,7 +9,7 @@ import 'package:pet/pages/profile/walkmap_list.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 
 import '../../api/article/getArticles.dart';
-import '../../const/models/walkmap_mode.dart';
+import '../../const/models/walkmap_model.dart';
 import '../../style/colors.dart';
 
 class ProfileInformationContainer extends StatefulWidget {
