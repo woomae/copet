@@ -24,8 +24,5 @@ Future<Response<dynamic>> postWalkMaps({
     data: formData,
     options: Options(contentType: 'multipart/form-data'), // multipart/form-data 설정
   );
-
-  print(res);
-
   return res;
 }
