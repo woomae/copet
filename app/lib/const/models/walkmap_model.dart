@@ -15,11 +15,11 @@ class WalkMap {
     this.photo,
   });
 
-  WalkMap.fromJson ({required Map<String, dynamic> json}) :
-      id = json['_id'],
-      walkStartedAt = json['walk_started_at'],
-      steps = json['steps'],
-      durationSeconds = json['duration_seconds'],
-      createdAt = json['created_at'],
-      photo = json['photo'];
+  WalkMap.fromJson({required Map<String, dynamic> json})
+      : id = json['_id'],
+        walkStartedAt = json['walk_started_at'],
+        steps = json['steps'],
+        durationSeconds = json['duration_seconds'],
+        createdAt = DateTime.parse(json['created_at']), 
+        photo = json['photo'];
 }

@@ -224,15 +224,19 @@ class _MapScreenState extends State<MapScreen> {
                     initializeOverlays();
                     final String walkStartedAt = formatDateToYYYYMMDD(DateTime.now());
                     final walkMapState = ref.read(WalkMapProvider);
+                    print(walkStartedAt);
+                    print(walkMapState.steps);
+                    print(walkMapState.durationSeconds);
+                    print(snapShot);
                     try{
                       postWalkMaps(
                           walkStartedAt: walkStartedAt,
                           steps: walkMapState.steps,
                           durationSeconds: walkMapState.durationSeconds,
-                          mapImg: snapShot.path
+                          mapImg: snapShot
                       );
                     }catch(e){
-
+                      print(e);
                     }
                   });
                 }
@@ -569,11 +573,11 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
         //stop 클릭 시
         if (_isWalking) {
           ref.read(isTrackingProvider.notifier).state = false;
-          _stopTimer();
+          print("산책 시간 : " + _elapsedTime.inSeconds.toString());
           ref.read(WalkMapProvider.notifier).updateWalkMap(
             durationSeconds: _elapsedTime.inSeconds
           );
-
+          _stopTimer();
         } else {
           //start 클릭 시
           ref.read(isTrackingProvider.notifier).state = true;
