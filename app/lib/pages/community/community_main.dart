@@ -32,7 +32,7 @@ class Community extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final articlesProvider = StateProvider<Future<Articles>>(
-        (ref) => GetArticles.getArticles());
+            (ref) => GetArticles.getArticles());
     final articles = ref.watch(articlesProvider);
     final selectedCategory = ref.watch(selectedCategoryProvider);
 
@@ -156,22 +156,9 @@ class Community extends ConsumerWidget {
                                     ));
                                   }
                                   if (snapshot.hasData) {
-                                    List<Article>? data = snapshot.data?.article;
-                                    int? total = snapshot.data?.total;
-                                    if(selectedCategory != null){
-                                      if(selectedCategory == '일상')
-                                        data = data?.where((e)=> e.category == '일상').toList();
-                                      if(selectedCategory == '도움')
-                                        data = data?.where((e)=> e.category == '도움').toList();
-                                      if(selectedCategory == 'Q&A')
-                                        data = data?.where((e)=> e.category == 'Q&A').toList();
-                                      if(selectedCategory == '정보후기')
-                                        data = data?.where((e)=> e.category == '정보후기').toList();
-                                      total = data?.length;
-                                    }
                                     return PostList(
-                                        length: total!,
-                                        comments: data!);
+                                        length: snapshot.data!.article.length,
+                                        comments: snapshot.data!.article);
                                   } else {
                                     return SizedBox();
                                   }

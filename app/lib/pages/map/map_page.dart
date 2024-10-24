@@ -404,6 +404,7 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
     );
   }
 
+
   Widget _currentPositionButton({required mapController, required context}) {
     return TextButton(
         onPressed: () async {
@@ -667,4 +668,3 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
     return "$twoDigitMinutes:$twoDigitSeconds";
   }
 }
-

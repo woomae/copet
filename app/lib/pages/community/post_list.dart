@@ -28,7 +28,7 @@ class PostList extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   color: WHITE,
-                border: Border(bottom: BorderSide(width: 1,color: GREY3))
+                  border: Border(bottom: BorderSide(width: 1,color: GREY3))
               ),
               padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
               child: Flex(
@@ -71,7 +71,7 @@ class PostList extends StatelessWidget {
                                   Text('${DateTime.now().day - comments[i].createdAt!.day}일 전' ,style: TextStyle(color: FONT_GREY),) :
                                   comments[i].createdAt!.minute != DateTime.now().minute ?
                                   Text('${DateTime.now().minute - comments[i].createdAt!.minute}분 전' ,style: TextStyle(color: FONT_GREY),) :
-                                      Text('방금 전'),
+                                  Text('방금 전'),
                                 ],
                               )
                             ],),
@@ -80,7 +80,7 @@ class PostList extends StatelessWidget {
                         Row(
                           children: [
                             if (comments[i].photos != null && comments[i].photos!.isNotEmpty)
-                            Thumbnail(hasPhoto: true, thumbnail: comments[i].photos![0].imgPath )
+                              Thumbnail(hasPhoto: true, thumbnail: comments[i].photos![0].imgPath )
                             else Thumbnail(hasPhoto: false,),
 
                             Container(
@@ -127,12 +127,12 @@ class Thumbnail extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)
       ),
     );
-    return 
+    return
       SizedBox(
         width: 50,
         height: 50,
         child: hasPhoto ?
-            Image.network(thumbnail!, fit: BoxFit.cover,)
+        Image.network(thumbnail!, fit: BoxFit.cover,)
             :
         Container(
           margin: EdgeInsets.only(right: 5),

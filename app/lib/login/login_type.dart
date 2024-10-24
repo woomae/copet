@@ -80,16 +80,16 @@ class logintype extends ConsumerWidget {
                 bool isInputNotEmpty = state.pet_category?.isNotEmpty ?? false;
 
                 return Nextbutton(
-                onPressed: () {
-                  if (state.pet_category != null && state.pet_category != '') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => loginarea()),
-                    );
-                    print(state.pet_category);
-                  }
-                },
-                enabled: isInputNotEmpty,
+                  onPressed: () {
+                    if (state.pet_category != null && state.pet_category != '') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => loginname()),
+                      );
+                      print(state.pet_category);
+                    }
+                  },
+                  enabled: isInputNotEmpty,
                 );
               },
             ),

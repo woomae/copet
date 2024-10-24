@@ -9,14 +9,26 @@ import 'package:pet/login/login_agree.dart';
 import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
 import 'package:pet/const/regions/regions.dart';
+import 'package:pet/providers/user_notifier_provider.dart';
 
+import '../const/models/region_model.dart';
+
+final stateProvider = StateProvider<String>((ref) => '지역선택');
+final cityProvider = StateProvider<String>((ref) => '지역선택');
+final districtProvider = StateProvider<String>((ref) => '지역선택');
 
 class loginarea extends ConsumerWidget {
   loginarea({super.key});
+//<<<<<<< HEAD
+
+  String tempState = '지역선택';
+  String tempCity = '지역선택';
+  String tempDistrict = '지역선택';
+
+//=======
   // district 수정 필요
-  final stateProvider = StateProvider<String>((ref) => '지역선택');
-  final cityProvider = StateProvider<String>((ref) => '지역선택');
-  final districtProvider = StateProvider<String>((ref) => '지역선택');
+
+//>>>>>>> develop
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedState = ref.watch(stateProvider);
@@ -96,6 +108,11 @@ class loginarea extends ConsumerWidget {
                         ref.read(stateProvider.notifier).state = value;
                         ref.read(cityProvider.notifier).state = '지역선택';
                         ref.read(districtProvider.notifier).state = '지역선택';
+
+                        // 선택된 상태를 임시 변수에 저장
+                        tempState = value;
+                        tempCity = '지역선택';
+                        tempDistrict = '지역선택';
                       },
                       width: 350,
                       height: 200,
@@ -112,6 +129,10 @@ class loginarea extends ConsumerWidget {
                           onPressed: (value) {
                             ref.read(cityProvider.notifier).state = value;
                             ref.read(districtProvider.notifier).state = '지역선택';
+
+                            // 선택된 도시를 임시 변수에 저장
+                            tempCity = value;
+                            tempDistrict = '지역선택';
                           },
                           width: 180,
                           height: 150,
@@ -124,6 +145,9 @@ class loginarea extends ConsumerWidget {
                           currentItem: selectedDistrict,
                           onPressed: (value) {
                             ref.read(districtProvider.notifier).state = value;
+
+                            // 선택된 구역을 임시 변수에 저장
+                            tempDistrict = value;
                           },
                           width: 153,
                           height: 150,
@@ -137,13 +161,29 @@ class loginarea extends ConsumerWidget {
               ),
             ),
             Spacer(),
-            NextButtonArea(isEnabled: isButtonEnabled),
+            NextButtonArea(isEnabled: isButtonEnabled, onPressed: () {
+              if (isButtonEnabled) {
+                // '다음' 버튼을 눌렀을 때 UserProvider를 업데이트
+                ref.read(UserProvider.notifier).updateUser(
+                  region: Region(state: tempState, city: tempCity, district: tempDistrict),
+                );
+
+                // 로그 출력으로 데이터 확인
+                print("User data updated with State: $tempState, City: $tempCity, District: $tempDistrict");
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const loginagree()),
+                );
+              }
+            }),
           ],
         ),
       ),
     );
   }
 }
+
 
 class _Title extends StatelessWidget {
   const _Title({super.key});
@@ -162,7 +202,9 @@ class _Title extends StatelessWidget {
 
 class NextButtonArea extends ConsumerWidget {
   final bool isEnabled;
-  const NextButtonArea({super.key, required this.isEnabled});
+  final VoidCallback onPressed;
+
+  const NextButtonArea({super.key, required this.isEnabled, required this.onPressed});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -170,14 +212,7 @@ class NextButtonArea extends ConsumerWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
-        onPressed: isEnabled
-            ? () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const loginagree()),
-          );
-        }
-            : null, // Disable button if not enabled
+        onPressed: isEnabled ? onPressed : null, // Disable button if not enabled
         style: ElevatedButton.styleFrom(
           foregroundColor: WHITE,
           backgroundColor: isEnabled ? PRIMARY_COLOR : Color(0xFFB0B0B0), // Change color based on enabled state
@@ -187,10 +222,9 @@ class NextButtonArea extends ConsumerWidget {
           ),
           minimumSize: Size(100, 50),
         ),
-        child: Text(
-          '다음',
-        ),
+        child: Text('다음'),
       ),
     );
   }
 }
+
