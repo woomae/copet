@@ -140,6 +140,9 @@ flutter:
     - asset/img/map/timer.png
     - asset/img/map/walkcount.png
     - asset/img/map/distance.png
+    - asset/img/login/googleicon.png
+    - asset/img/login/kakaoicon.png
+    - asset/img/login/speechbubble.png
 
 
   # To add assets to your application, add an assets section, like this:
