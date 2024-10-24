@@ -1,5 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:pet/const/models/walkmap_mode.dart';
+import 'package:pet/const/models/walkmap_model.dart';
 
 import '../dioBaseOptions.dart';
 
