@@ -4,20 +4,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc90fbfe-93d6-4025-8f2b-9fc38a86b52a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins2.xml" afterDir="false" />
+    <list default="true" id="4f7ec905-35b7-4026-9f80-fc17a062c9b1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/login/googleicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/login/kakaoicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/login/speechbubble.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/component/appbars/modify_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/component/appbars/modify_appbar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_area.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_area.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_name.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login/login_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_type.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/community_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/community_main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login/login_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login/login_main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/community/post_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/post_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_modify.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/notification/background_handler.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/notification/background_handler.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
@@ -62,31 +59,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fix/register&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/z6231/Desktop/code/Git_cowork/copet&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;emulator&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "fix/register",
+    "ignore.virus.scanning.warn.message": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/Users/RYUJEBIN/Documents/Github/copet/app",
+    "settings.editor.selected.configurable": "emulator",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\login" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\android\app" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\map" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\font" />
       <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\follow" />
-      <recent name="C:\Users\RYUJEBIN\Documents\Github\copet\app\asset\img\test" />
     </key>
   </component>
   <component name="RunManager">
@@ -98,7 +95,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="bc90fbfe-93d6-4025-8f2b-9fc38a86b52a" name="Changes" comment="" />
+      <changelist id="4f7ec905-35b7-4026-9f80-fc17a062c9b1" name="Changes" comment="" />
       <created>1704356687830</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
