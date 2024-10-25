@@ -52,8 +52,8 @@ void main() async{
       });
 
   runApp( //껐다 켜기만 해도 runApp 실행됨.
-      ProviderScope(
-          child: App()),
+    ProviderScope(
+        child: App()),
   );
 }
 class App extends ConsumerWidget {
@@ -75,8 +75,8 @@ class App extends ConsumerWidget {
       dio.options.headers = {
         'Cookie' : 'user=$accessToken'
       };
-        final res = await GetUser.getUser(parsedUser.userId.toString());
-        ref.read(UserProvider.notifier).storeUserData(res);
+      final res = await GetUser.getUser(parsedUser.userId.toString());
+      ref.read(UserProvider.notifier).storeUserData(res);
       // 여기서 필요에 따라 사용자 등록 여부를 확인하고 true 또는 false 반환
       return true;
     }
@@ -103,65 +103,64 @@ class App extends ConsumerWidget {
 
     //토큰 소지 시 토큰 기반으로 userid 뽑아내서 유저 조회하고 바로 mainhome으로 보내는 로직 필요함.
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: const TextTheme(
-          bodySmall : TextStyle(fontSize: 8.0, decorationThickness: 0),
-          bodyMedium : TextStyle(fontSize: 12.0, decorationThickness: 0),
-          bodyLarge: TextStyle(fontSize: 12.0, fontWeight:FontWeight.w500, decorationThickness: 0),
-          titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,decorationThickness: 0),
-          titleMedium: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,fontFamily: 'NotoSansKR', decorationThickness: 0),
-          titleSmall:  TextStyle(fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'NotoSansKR'),
-          labelMedium: TextStyle(fontSize: 12.0, color: GREY3, decorationThickness: 0),
-          labelSmall:  TextStyle(fontSize: 8.0, color: GREY2, decorationThickness: 0)
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            textTheme: const TextTheme(
+                bodySmall : TextStyle(fontSize: 8.0, decorationThickness: 0),
+                bodyMedium : TextStyle(fontSize: 12.0, decorationThickness: 0),
+                bodyLarge: TextStyle(fontSize: 12.0, fontWeight:FontWeight.w500, decorationThickness: 0),
+                titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,decorationThickness: 0),
+                titleMedium: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,fontFamily: 'NotoSansKR', decorationThickness: 0),
+                titleSmall:  TextStyle(fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'NotoSansKR'),
+                labelMedium: TextStyle(fontSize: 12.0, color: GREY3, decorationThickness: 0),
+                labelSmall:  TextStyle(fontSize: 8.0, color: GREY2, decorationThickness: 0)
 
+            ),
+            iconButtonTheme: IconButtonThemeData(
+                style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.resolveWith((states) => Colors.transparent)
+                )
+            ),
+            textButtonTheme: TextButtonThemeData(
+                style: ButtonStyle(
+                    textStyle: MaterialStateProperty.resolveWith((states) => TextStyle(color: BLACK)),
+                    overlayColor: MaterialStateProperty.resolveWith((states) => Colors.transparent)
+                )
+            )
         ),
-        iconButtonTheme: IconButtonThemeData(
-          style: ButtonStyle(
-            overlayColor: MaterialStateProperty.resolveWith((states) => Colors.transparent)
-          )
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: ButtonStyle(
-            textStyle: MaterialStateProperty.resolveWith((states) => TextStyle(color: BLACK)),
-            overlayColor: MaterialStateProperty.resolveWith((states) => Colors.transparent)
-          )
-        )
-      ),
 // //<<<<<<< HEAD
-      home: logintype()
-      //userRef.id == 0 ? mainlogin() :
+//       home: logintype()
+        //userRef.id == 0 ? mainlogin() :
         //      isRegistered == false ? logintype() :
-          //    mainhome()
+        //    mainhome()
 // =======
 
-      // home: Container(
-      //   color: WHITE,
-      //   child: FutureBuilder(
-      //     future: checkAccessToken(ref),
-      //     builder: (BuildContext context, AsyncSnapshot<bool> snapshot){
-      //       if (snapshot.connectionState == ConnectionState.waiting) {
-      //         return SpinnerWidget();
-      //       }
-      //       //비동기 작업 (회원가입 여부 판별) 완료 후
-      //       else{
-      //         if(snapshot.data == true){
-      //           final user = ref.read(UserProvider);
-      //           //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
-      //           if(user.nickname == '')
-      //             return logintype();
-      //           else
-      //             _getDeviceToken();
-      //           return mainhome();
-      //         }
-      //         else
-      //           return mainlogin();
-      //       }
-      //     },
-      //   ),
-      // )
+        home: Container(
+          color: WHITE,
+          child: FutureBuilder(
+            future: checkAccessToken(ref),
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot){
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SpinnerWidget();
+              }
+              //비동기 작업 (회원가입 여부 판별) 완료 후
+              else{
+                if(snapshot.data == true){
+                  final user = ref.read(UserProvider);
+                  //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
+                  if(user.nickname == '')
+                    return logintype();
+                  else
+                    _getDeviceToken();
+                  return mainhome();
+                }
+                else
+                  return mainlogin();
+              }
+            },
+          ),
+        )
 // >>>>>>> feature/map
     );
   }
 }
-
