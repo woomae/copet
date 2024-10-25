@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:pet/main/main_home.dart';
+import '../common/component/buttons/dropdown_button.dart';
+import '../const/regions/regions.dart';
 
-import 'main_screen.dart';
-
-const List<String> list1 = <String>['지역선택', 'Twwwwo', 'Three', 'Four'];
-const List<String> list2 = <String>['지역선택', '1', '2', '3'];
-const List<String> list3 = <String>['지역선택', '4', '5', '6'];
-
-class mainplace extends StatelessWidget {
+class mainplace extends StatefulWidget {
   const mainplace({super.key});
 
   @override
+  _mainplaceState createState() => _mainplaceState();
+}
+
+class _mainplaceState extends State<mainplace> {
+  String? selectedProvince; // 선택된 시도
+  String? selectedDistrict; // 선택된 구
+
+  @override
   Widget build(BuildContext context) {
+    // 시도 리스트 생성
+    List<String> provinces = regionMap.keys.toList();
+
+    // 선택된 시도에 따라 구 리스트 생성
+    List<String> districts = selectedProvince != null ? regionMap[selectedProvince!]! : [];
+
+    // 검색 결과 예시 데이터
+    List<Map<String, String>> results = List.generate(10, (index) => {
+      'title': '검색 결과 단어 $index',
+      'description': '위치 혹은 짧은 소개글 $index',
+    });
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            //titleSpacing: 0,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
             pinned: true,
@@ -55,64 +70,49 @@ class mainplace extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child : Padding(
-              padding: const EdgeInsets.only(top: 24),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Center(
-                      child: Container(
-                        height: 45,
-                        width: 380,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
-                          border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 28),
-                        child: DropdownButtonExample1(),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20),
-                          child: Container(
-                            height: 45,
-                            width: 185,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
-                              border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 28),
-                            child: DropdownButtonExample2(),
+                          child: DropDownButton(
+                            dropDownList: provinces,
+                            currentItem: selectedProvince ?? '지역선택', // 기본값 설정
+                            onPressed: (value) {
+                              setState(() {
+                                selectedProvince = value; // 선택된 시도 저장
+                                selectedDistrict = null; // 구 초기화
+                              });
+                            },
+                            width: MediaQuery.of(context).size.width * 0.45, // 드롭다운 너비 설정
                           ),
                         ),
                       ),
+                      const SizedBox(width: 15),
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.only(right: 20),
-                          child: Container(
-                            height: 45,
-                            width: 185,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10), // 테두리 둥글게 만들기
-                              border: Border.all(color: Color(0xFF6D6D6D), width: 1), // 테두리 스타일 설정
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 28),
-                            child: DropdownButtonExample3(),
+                          child: DropDownButton(
+                            dropDownList: districts.isNotEmpty ? districts : ['지역선택'], // 선택된 시도의 구 리스트
+                            currentItem: selectedDistrict ?? '지역선택', // 구 기본값 설정
+                            onPressed: (value) {
+                              setState(() {
+                                selectedDistrict = value; // 선택된 구 저장
+                              });
+                            },
+                            width: MediaQuery.of(context).size.width * 0.4, // 드롭다운 너비 설정
                           ),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 30),
-
                   SingleChildScrollView(
                     child: Container(
                       width: double.infinity,
@@ -123,186 +123,61 @@ class mainplace extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // 검색 결과 리스트
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(), // 스크롤 방지
+                    itemCount: results.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          // 항목 클릭 시 행동
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'asset/img/img_place.png',
+                                width: 100, // 이미지 너비 조정
+                                height: 100, // 이미지 높이 조정
+                              ),
+                              SizedBox(width: 15), // 이미지와 텍스트 사이 간격 조정
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    results[index]['title']!, // 제목 표시
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                      fontFamily: 'NotoSansKR',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    results[index]['description']!, // 설명 표시
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFFC9C9C9),
+                                      fontFamily: 'NotoSansKR',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
-
-          )
+          ),
         ],
-      ),
-    );
-  }
-}
-
-
-
-class DropdownButtonExample1 extends StatefulWidget {
-  const DropdownButtonExample1({super.key});
-
-  @override
-  State<DropdownButtonExample1> createState() => _DropdownButtonExample1State();
-}
-
-class _DropdownButtonExample1State extends State<DropdownButtonExample1> {
-  String dropdownValue = list1.first;
-
-  //double menuWidth = 200.0; // 초기 값 설정, 원하는 값으로 조절
-
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
-      ),
-      elevation: 0,
-      onSelected: (String value) {
-        setState(() {
-          dropdownValue = value;
-        });
-      },
-
-
-      itemBuilder: (BuildContext context) {
-        return list1.map((String value) {
-          // 각 항목의 너비를 측정
-          //double itemWidth = getTextWidth(value, Theme.of(context).textTheme.bodyText2!);
-
-          // 가장 긴 항목의 너비로 메뉴의 너비 설정
-          //menuWidth = math.max(menuWidth, itemWidth);
-          return PopupMenuItem<String>(
-            value: value,
-            child: Container(
-              //width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
-              ),
-              child: Text(value),
-            ),
-          );
-        }).toList();
-      },
-      child: Container(
-        //width: menuWidth, // 버튼과 메뉴의 너비를 동일하게 설정
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, // 아이콘을 오른쪽 끝으로 이동
-          children: [
-            Text(
-              dropdownValue,
-              style: const TextStyle(color: Colors.black),
-            ),
-            Icon(Icons.arrow_drop_down, size: 40, color: Colors.grey),
-          ],
-        ),
-      ),
-    );
-  }
-
-}
-
-class DropdownButtonExample2 extends StatefulWidget {
-  const DropdownButtonExample2({super.key});
-
-  @override
-  State<DropdownButtonExample2> createState() => _DropdownButtonExample2State();
-}
-
-class _DropdownButtonExample2State extends State<DropdownButtonExample2> {
-  String dropdownValue = list2.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
-      ),
-      onSelected: (String value) {
-        setState(() {
-          dropdownValue = value;
-        });
-      },
-      itemBuilder: (BuildContext context) {
-        return list2.map((String value) {
-          return PopupMenuItem<String>(
-            value: value,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
-              ),
-              child: Text(value),
-            ),
-          );
-        }).toList();
-      },
-      child: Container(
-        //padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                dropdownValue,
-                style: const TextStyle(color: Colors.black),
-              ),
-            ),
-            const Icon(Icons.arrow_drop_down, size: 40, color: Colors.grey),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DropdownButtonExample3 extends StatefulWidget {
-  const DropdownButtonExample3({super.key});
-
-  @override
-  State<DropdownButtonExample3> createState() => _DropdownButtonExample3State();
-}
-
-class _DropdownButtonExample3State extends State<DropdownButtonExample3> {
-  String dropdownValue = list3.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // 열릴 때의 모서리 둥글게 조절
-      ),
-      onSelected: (String value) {
-        setState(() {
-          dropdownValue = value;
-        });
-      },
-      itemBuilder: (BuildContext context) {
-        return list3.map((String value) {
-          return PopupMenuItem<String>(
-            value: value,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), // 각 아이템의 모서리 둥글게 조절
-              ),
-              child: Text(value),
-            ),
-          );
-        }).toList();
-      },
-      child: Container(
-        //padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                dropdownValue,
-                style: const TextStyle(color: Colors.black),
-              ),
-            ),
-            const Icon(Icons.arrow_drop_down, size: 40, color: Colors.grey),
-          ],
-        ),
       ),
     );
   }

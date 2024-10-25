@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f7ec905-35b7-4026-9f80-fc17a062c9b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/login/googleicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/login/kakaoicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/login/speechbubble.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/community/post_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/community/post_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main/main_place.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main/main_place.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/profile/profile_keyword.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/user_data_notifier_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/user_data_notifier_provider.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet/pages/profile/follow/follow.dart';
 import 'package:pet/pages/profile/profile_modify.dart';
+import 'package:pet/providers/user_data_notifier_provider.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import '../../style/colors.dart';
 
 class ProfileContainer extends ConsumerWidget {
-  //나중엔 로그인 시 get요청 날려서 provider에 저장하고 가져와서 쓰는걸로
-
   const ProfileContainer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(UserProvider);
+    final userState = ref.watch(UserProvider);
+    final userDataState = ref.watch(userDataProvider);
+
+    // 선택된 pet 키워드들을 가져옵니다.
+    final petKeywords = userDataState.petkeyword ?? [];
+
     return Column(
       children: [
         Column(
@@ -24,7 +28,7 @@ class ProfileContainer extends ConsumerWidget {
                 children: [
                   Center(
                     child: Text(
-                      state.nickname.isNotEmpty ? state.nickname : '닉네임',
+                      userDataState.nickname ?? '닉네임',
                       style: TextStyle(
                         fontSize: 20,
                         fontFamily: 'CherryBomb',
@@ -34,19 +38,20 @@ class ProfileContainer extends ConsumerWidget {
                     ),
                   ),
                   Positioned(
-                    right: MediaQuery.of(context).size.width / 2 -
-                        76,
+                    right: MediaQuery.of(context).size.width / 2 - 76,
                     child: IconButton(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const ProfileModify()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ProfileModify()),
+                        );
                       },
                       icon: Image.asset(
                         'asset/img/profile/modify.png',
-                        width: 15, // 이미지 너비 조절
-                        height: 15, // 이미지 높이 조절
+                        width: 15,
+                        height: 15,
                       ),
                     ),
                   ),
@@ -56,7 +61,7 @@ class ProfileContainer extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: Text(
-                state.intro.isNotEmpty ? state.intro : '자기소개 한마디',
+                userDataState.intro ?? '자기소개 한마디',
                 style: TextStyle(
                   fontFamily: 'CherryBomb',
                   fontWeight: FontWeight.w400,
@@ -75,10 +80,9 @@ class ProfileContainer extends ConsumerWidget {
               TextButton(
                 style: TextButton.styleFrom(
                   splashFactory: NoSplash.splashFactory,
-                  //foregroundColor: BLACK,
                 ),
                 onPressed: () {
-                  //팔로워기능
+                  // 팔로워 기능
                 },
                 child: RichText(
                   text: TextSpan(
@@ -91,7 +95,7 @@ class ProfileContainer extends ConsumerWidget {
                         ),
                       ),
                       TextSpan(
-                        text: ' 0', // 팔로워 수 추가
+                        text: ' 0',
                         style: TextStyle(
                           fontFamily: 'Segoe',
                           color: Color(0xFF222222),
@@ -105,11 +109,12 @@ class ProfileContainer extends ConsumerWidget {
               TextButton(
                 style: TextButton.styleFrom(
                   splashFactory: NoSplash.splashFactory,
-                  //foregroundColor: Colors.red,
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const followlist()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const followlist()),
+                  );
                 },
                 child: RichText(
                   text: TextSpan(
@@ -122,7 +127,7 @@ class ProfileContainer extends ConsumerWidget {
                         ),
                       ),
                       TextSpan(
-                        text: ' 0', // 팔로잉 수 추가
+                        text: ' 0',
                         style: TextStyle(
                           fontFamily: 'Segoe',
                           color: Color(0xFF222222),
@@ -131,7 +136,7 @@ class ProfileContainer extends ConsumerWidget {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -141,12 +146,12 @@ class ProfileContainer extends ConsumerWidget {
             width: 71,
             height: 30,
             decoration: BoxDecoration(
-              color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
-              borderRadius: BorderRadius.circular(5), // border radius 설정
+              color: Color(0xFFF7F7F7).withOpacity(0.9),
+              borderRadius: BorderRadius.circular(5),
             ),
             child: Center(
               child: Text(
-                '#햄스터',
+                '#${userDataState.pet_category ?? '반려동물 종류'}',
                 style: TextStyle(
                   fontFamily: 'Segoe',
                   fontSize: 15,
@@ -160,45 +165,29 @@ class ProfileContainer extends ConsumerWidget {
           padding: const EdgeInsets.only(top: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 71,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
-                  borderRadius: BorderRadius.circular(5), // border radius 설정
-                ),
-                child: Center(
-                  child: Text(
-                    '#활발함',
-                    style: TextStyle(
-                      fontFamily: 'Segoe',
-                      fontSize: 15,
-                      color: Color(0xFF222222),
+            children: petKeywords.map((keyword) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF7F7F7).withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '#$keyword',
+                      style: TextStyle(
+                        fontFamily: 'Segoe',
+                        fontSize: 15,
+                        color: Color(0xFF222222),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                width: 71,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF7F7F7).withOpacity(0.9), // 배경색을 회색으로 설정
-                  borderRadius: BorderRadius.circular(5), // border radius 설정
-                ),
-                child: Center(
-                  child: Text(
-                    '#활발함',
-                    style: TextStyle(
-                      fontFamily: 'Segoe',
-                      fontSize: 15,
-                      color: Color(0xFF222222),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+              );
+            }).toList(),
           ),
         ),
       ],
