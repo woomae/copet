@@ -216,30 +216,47 @@ class InputField extends StatelessWidget {
   }
 }
 
-class textformfield_modify extends StatelessWidget {
-  final String? text;
+class textformfield_modify extends StatefulWidget {
   final Function(String) onChanged;
   final String? hintText;
   final String? initialText; // 추가된 부분
 
-  textformfield_modify({
+  const textformfield_modify({
     Key? key,
     required this.onChanged,
-    this.text,
     this.hintText,
     this.initialText, // 추가된 부분
   }) : super(key: key);
 
   @override
+  _textformfield_modifyState createState() => _textformfield_modifyState();
+}
+
+class _textformfield_modifyState extends State<textformfield_modify> {
+  late TextEditingController controller; // 상태로 관리할 TextEditingController
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController(text: widget.initialText); // 초기값 설정
+  }
+
+  @override
+  void dispose() {
+    controller.dispose(); // 메모리 해제를 위해 dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController controller =
-    TextEditingController(text: initialText ?? text ?? ''); // 초기값 설정
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
           controller: controller,
-          onChanged: (e) => onChanged(e),
+          onChanged: (e) {
+            widget.onChanged(e);
+          },
           cursorColor: Colors.black,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -265,7 +282,6 @@ class textformfield_modify extends StatelessWidget {
     );
   }
 }
-
 class _title extends StatelessWidget {
   final String text;
 

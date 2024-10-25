@@ -10,6 +10,7 @@ import 'package:pet/api/users/getUser.dart';
 import 'package:pet/common/component/widgets/spinner_widget.dart';
 import 'package:pet/login/login_main.dart';
 import 'package:pet/login/login_name.dart';
+import 'package:pet/login/login_type.dart';
 import 'package:pet/main/main_home.dart';
 import 'package:pet/providers/user_notifier_provider.dart';
 import 'package:pet/style/colors.dart';
@@ -128,37 +129,37 @@ class App extends ConsumerWidget {
         )
       ),
 // //<<<<<<< HEAD
-//       home: mainhome()
-//       //userRef.id == 0 ? mainlogin() :
-//         //      isRegistered == false ? logintype() :
-//           //    mainhome()
+      home: logintype()
+      //userRef.id == 0 ? mainlogin() :
+        //      isRegistered == false ? logintype() :
+          //    mainhome()
 // =======
 
-      home: Container(
-        color: WHITE,
-        child: FutureBuilder(
-          future: checkAccessToken(ref),
-          builder: (BuildContext context, AsyncSnapshot<bool> snapshot){
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return SpinnerWidget();
-            }
-            //비동기 작업 (회원가입 여부 판별) 완료 후
-            else{
-              if(snapshot.data == true){
-                final user = ref.read(UserProvider);
-                //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
-                if(user.nickname == '')
-                  return loginname();
-                else
-                  _getDeviceToken();
-                return mainhome();
-              }
-              else
-                return mainlogin();
-            }
-          },
-        ),
-      )
+      // home: Container(
+      //   color: WHITE,
+      //   child: FutureBuilder(
+      //     future: checkAccessToken(ref),
+      //     builder: (BuildContext context, AsyncSnapshot<bool> snapshot){
+      //       if (snapshot.connectionState == ConnectionState.waiting) {
+      //         return SpinnerWidget();
+      //       }
+      //       //비동기 작업 (회원가입 여부 판별) 완료 후
+      //       else{
+      //         if(snapshot.data == true){
+      //           final user = ref.read(UserProvider);
+      //           //sns 로그인을 통해 액세스 토큰은 존재하지만 자체 회원가입이 되어있지 않을 때.
+      //           if(user.nickname == '')
+      //             return logintype();
+      //           else
+      //             _getDeviceToken();
+      //           return mainhome();
+      //         }
+      //         else
+      //           return mainlogin();
+      //       }
+      //     },
+      //   ),
+      // )
 // >>>>>>> feature/map
     );
   }

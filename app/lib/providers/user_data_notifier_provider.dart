@@ -13,7 +13,7 @@ class UserDataNotifier extends StateNotifier<UserDataModel> {
           pet_category: null,
           region: null,
           photo: null,
-          petkeyword: null, //수정필요
+          petkeyword: [],
           intro: null,
       ));
   void updateUserData({
