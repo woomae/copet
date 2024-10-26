@@ -110,6 +110,12 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
   }
+  @override
+  void dispose() {
+    _mockLocationTimer = null;
+    _mockLocationTimer?.cancel();
+    super.dispose();
+  }
 
   void _addNewLocation(NLatLng latLng) {
         setState(() {
@@ -130,29 +136,31 @@ class _MapScreenState extends State<MapScreen> {
     double _currentLng = state.longitude;
     print('타이머 시작');
       _mockLocationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-        setState(() {
-          // 좌표를 약간씩 이동시켜서 경로가 생기도록 함
-          _currentLat += Random().nextDouble() *0.0005;
-          _currentLng += Random().nextDouble() *0.0005;
-          double distance = calculateDistance(_pathPoints.last, NLatLng(_currentLat, _currentLng));
-          _totalDistance += distance; // 총 거리 업데이트
-          ref.read(WalkMapProvider.notifier).updateWalkMap(
-              steps: _totalDistance.toInt()
-          );
-          print(_totalDistance);
-          _pathPoints.add(NLatLng(_currentLat, _currentLng));
-           if(_pathPoints.length > 1){
-             _mapController.addOverlay(
-                 NPathOverlay(
-                   id: '${DateTime.now()}',
-                   coords: _pathPoints,
-                   color: PRIMARY_COLOR2,
-                   outlineColor: PRIMARY_COLOR2,
+        if(mounted){
+          setState(() {
+            // 좌표를 약간씩 이동시켜서 경로가 생기도록 함
+            _currentLat += Random().nextDouble() *0.0005;
+            _currentLng += Random().nextDouble() *0.0005;
+            double distance = calculateDistance(_pathPoints.last, NLatLng(_currentLat, _currentLng));
+            _totalDistance += distance; // 총 거리 업데이트
+            ref.read(WalkMapProvider.notifier).updateWalkMap(
+                steps: _totalDistance.toInt()
+            );
+            print(_totalDistance);
+            _pathPoints.add(NLatLng(_currentLat, _currentLng));
+            if(_pathPoints.length > 1){
+              _mapController.addOverlay(
+                  NPathOverlay(
+                    id: '${DateTime.now()}',
+                    coords: _pathPoints,
+                    color: PRIMARY_COLOR2,
+                    outlineColor: PRIMARY_COLOR2,
 
-                 )
-             );
-           }
-        });
+                  )
+              );
+            }
+          });
+        }
       });
 
   }
@@ -183,6 +191,7 @@ class _MapScreenState extends State<MapScreen> {
             print('Naver Map 로딩 완료');
             NLocationTrackingMode.face;
             _mapController.getLocationOverlay().setIsVisible(true);
+            _mapController.clearOverlays();
           },
           onCameraChange:  (NCameraUpdateReason reason, bool animated) async {
             bool isAnimated = false;
@@ -350,6 +359,12 @@ class _BottomSheetWidgetState extends ConsumerState<_bottomSheetWidget> {
   Duration _elapsedTime = Duration.zero;
   bool _isWalking = false;
   bool _isPaused = false; // 추가된 상태 변수
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
