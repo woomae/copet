@@ -108,9 +108,9 @@ class _ProfileInformationContainerState extends State<ProfileInformationContaine
                 return Center(child: Text('error'));
               }
               if (snapshot.hasData) {
-                  WalkmapList(walkMap: snapshot.data!,);
+                  return WalkmapList(walkMap: snapshot.data!,);
               }
-              return SizedBox();
+              return Center(child: Text(snapshot.hasData.toString()),);
             },
           ),
         )
